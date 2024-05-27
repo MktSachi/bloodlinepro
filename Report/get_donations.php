@@ -1,5 +1,5 @@
 <?php
-// Database connection parameters (same as save_donation.php)
+// Database connection parameters   (same as save_donation.php)
 $servername = "localhost";
 $username = "your_username";
 $password = "your_password";

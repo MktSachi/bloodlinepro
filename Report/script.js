@@ -1,4 +1,4 @@
-// Function to fetch and display data in the table
+ // Function to fetch and display data in the table
 function fetchDataAndDisplay() {
     fetch('save_donation.php')
         .then(response => response.json())

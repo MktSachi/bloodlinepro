@@ -25,7 +25,7 @@
           <!-- Add more links as needed -->
         </ul>
       </div>
-      <!--Grid column for Links section 2-->
+      <!--Grid column  for Links section 2-->
     </div>
     <!--Grid row-->
   </div>

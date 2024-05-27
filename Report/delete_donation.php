@@ -1,6 +1,6 @@
 <?php
 $servername = "localhost";
-$username = "root"; // Replace with your database username
+$username = "root"; // Replace with  your database username
 $password = ""; // Replace with your database password
 $dbname = "blood_donations";
 

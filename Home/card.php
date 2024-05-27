@@ -7,7 +7,7 @@
           <div class="card-body">
             <h5 class="card-title">About Blood</h5>
             <p class="card-text">
-              The ABO blood group system was discovered by Karl Landsteiner in 1900. 46 years later (1946) the Blood Transfusion Service was formed. In 1996, the National Blood Service was formed to collect and provide blood supplies for all the hospitals in Sri Lanka.
+              The ABO blood group  system was discovered by Karl Landsteiner in 1900. 46 years later (1946) the Blood Transfusion Service was formed. In 1996, the National Blood Service was formed to collect and provide blood supplies for all the hospitals in Sri Lanka.
             </p>
           </div>
         </div>
