@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    padding: 10px;
+    margin-bottom: 15px;
+}
+
+legend {
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="date"],
+input[type="number"],
+select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: rgb(133, 46, 46);
+    color: white;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 10px;
+    max-width: 150px; /* Add this line to set maximum width */
+    align-self: center; /* Center the button horizontally */
+}
+
+button:hover {
+    background-color: rgb(131, 26, 26);
+}
+
+/* Add these styles to your existing CSS file or in a <style> block */
+button#saveData,
+button#showTable {
+    /* Red color */
+    margin-left: auto; /* Move buttons to the right */
+}
+
+#reportTable {
+    margin-top: 30px; /* Add some margin to the top of the report table */
+}

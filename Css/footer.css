@@ -1,0 +1,18 @@
+footer {
+    color: white; /* Set text color to white */
+  }
+  
+  footer a {
+    color: white; /* Set link color to white */
+   /* Remove underline from links */
+  }
+  
+  @media (max-width: 991.98px) {
+    footer .col-lg-6 {
+      margin-bottom: 30px; /* Adjust margin for grid columns on smaller screens */
+    }
+  }
+  
+  footer p{
+    color:white;
+  }
