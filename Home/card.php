@@ -1,6 +1,6 @@
-<div class="container mt-4">
+<div class="container">
   <div class="card-group">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-3">
       <div class="col shadow-lg p-3 mb-5 bg-body-tertiary rounded">
         <div class="card">
           <img src="Image/1212.png" class="card-img-top" alt="Image1">
