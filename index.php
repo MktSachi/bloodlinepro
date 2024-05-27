@@ -16,7 +16,8 @@
   <link rel="stylesheet" href="Css/footer.css">
   <link rel="stylesheet" href="Css/fe.css">
   <script type="text/javascript" src="Js/slide.js"></script>
-<title>Blood Bank Management System - bloodlinepro</title>
+<title>Blood Bank Management System - hey
+  bloodlinepro</title>
 
 </head>
 <body class="p-1 m-0 border-0 bd-example">
