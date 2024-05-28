@@ -20,7 +20,7 @@
         <h5 class="text-uppercase mb-0">Links</h5>
         <ul class="list-unstyled">
           <li>
-            <a href="#!" class="text-white">Link 1</a>
+            <a href="hospital_map/index.php" class="text-white">hospital</a>
           </li>
           <!-- Add more links as needed -->
         </ul>
@@ -28,7 +28,7 @@
       <!--Grid column  for Links section 2-->
     </div>
     <!--Grid row-->
-  </div>
+  </div>  
   <!-- Grid container -->
 
   <!-- Second container for Blood ProLine and Contact sections -->
