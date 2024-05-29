@@ -1,0 +1,25 @@
+body {
+  font-family: Arial, sans-serif;
+  }
+  img {
+    width: 150px; height: 150px;
+  }
+  .navimg{
+    width: 12%;
+    height: 12%;
+  }
+  
+.navbar{
+  background-color: aqua;
+}
+  
+  
+.featurette-image {
+    width: 500px;
+    height: 500px;
+    object-fit: cover; /* This ensures the image covers the dimensions without distortion */
+  }
+   
+  
+  
+  
