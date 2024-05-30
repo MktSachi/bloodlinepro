@@ -16,7 +16,8 @@
   bottom: 0;
   width: 100%;
   height: 2px;
-  background-color: #fff; /* Change to desired color */
+  color: rgb(131, 26, 26);
+  background-color: rgb(131, 26, 26); /* Change to desired color */
   transform: scaleX(0);
   transition: transform 0.3s ease;
 }
@@ -33,7 +34,7 @@
   margin-top: 0.125rem;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+  box-shadow: 0 0.5rem 1rem rgb(131, 26, 26);
   display: none;
   background-color: #031529; /* Set background color of dropdown menu */
   z-index: 1000; /* Ensure the dropdown is above other elements */
@@ -45,9 +46,13 @@
 
 .dropdown-item {
   position: relative;
-  padding-bottom: 8px;
   padding: 10px 20px; /* Add some padding for better appearance */
   color: white; /* Set text color */
+  background-color: #031529; /* Set initial background color */
+}
+
+.dropdown-item:hover{
+    color: white; /* Set text color */
   background-color: #031529; /* Set initial background color */
 }
 
@@ -59,14 +64,20 @@
   bottom: 0;
   width: 100%;
   height: 2px;
-  background-color: #fff; /* Change to desired color */
+  background-color:rgb(131, 26, 26); /* Change to desired color */
   transform: scaleX(0);
   transition: transform 0.3s ease;
+ 
 }
-
 
 .dropdown-item:hover::after {
   transform: scaleX(1);
+}
+
+/* Change background color of dropdown item on hover */
+.dropdown-item:hover {
+  background-color: #031529; /* Change to desired hover background color */
+  
 }
 
 .navbar-brand.navimg {
@@ -77,6 +88,7 @@
 @media (max-width: 991.98px) {
   .navbar-nav .nav-item a {
     width: auto; /* Reset width on smaller screens */
+    color: white;
   }
 
   .navbar-nav .nav-item.dropdown .dropdown-menu {
@@ -86,6 +98,7 @@
 
 .navbar-toggler:hover {
   background-color: rgb(131, 26, 26); /* Set background color of toggler on hover */
+  
 }
 
 .btn {
