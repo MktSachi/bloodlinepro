@@ -1,9 +1,10 @@
 <?php
-// Database configuration
+$error_msg = "";
+
 $servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "blood_donations";
+$username = "root"; // Replace with your MySQL username
+$password = ""; // Replace with your MySQL password
+$dbname = "bloodlinepro";
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
@@ -13,9 +14,6 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$error_msg = "";
-
-// Handle form submission
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     function validatePassword($password) {
         return preg_match('/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^\da-zA-Z]).{8,}$/', $password);
@@ -37,6 +35,35 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_msg .= "Username '$username' already exists. Please choose a different username. ";
     }
 
+    // Handle file upload
+    if (isset($_FILES['profile_picture']) && $_FILES['profile_picture']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = "uploads/";
+        $allowed_types = array("jpg", "jpeg", "png", "gif");
+        $file_name = $_FILES['profile_picture']['name'];
+        $file_tmp = $_FILES['profile_picture']['tmp_name'];
+        $file_size = $_FILES['profile_picture']['size'];
+        $file_error = $_FILES['profile_picture']['error'];
+        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+
+        if (in_array($file_ext, $allowed_types)) {
+            if ($file_size <= 5000000) { // 5MB limit
+                $new_file_name = uniqid('', true) . "." . $file_ext;
+                $file_destination = $upload_dir . $new_file_name;
+                if (move_uploaded_file($file_tmp, $file_destination)) {
+                    $profile_picture_path = $file_destination;
+                } else {
+                    $error_msg .= "Failed to upload the profile picture. ";
+                }
+            } else {
+                $error_msg .= "File size exceeds the 5MB limit. ";
+            }
+        } else {
+            $error_msg .= "Invalid file type. Only JPG, JPEG, PNG, and GIF are allowed. ";
+        }
+    } else {
+        $error_msg .= "Error uploading file. ";
+    }
+
     if (empty($error_msg)) {
         $first_name = $_POST['firstName'];
         $last_name = $_POST['lastName'];
@@ -51,10 +78,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $hiv = isset($_POST['hiv']) ? 1 : 0;
         $other_health_conditions = $_POST['otherHealthConditions'];
 
-        $insert_sql = "INSERT INTO donors (first_name, last_name, donorNIC, username, email, password, address, address2, gender, bloodType, headache, hiv, other_health_conditions)
-                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $insert_sql = "INSERT INTO donors (first_name, last_name, donorNIC, username, email, password, address, address2, gender, bloodType, headache, hiv, other_health_conditions, profile_picture)
+                        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         $stmt = $conn->prepare($insert_sql);
-        $stmt->bind_param("sssssssssssss", $first_name, $last_name, $donorNIC, $username, $email, $password_hashed, $address, $address2, $gender, $bloodType, $headache, $hiv, $other_health_conditions);
+        $stmt->bind_param("ssssssssssssss", $first_name, $last_name, $donorNIC, $username, $email, $password_hashed, $address, $address2, $gender, $bloodType, $headache, $hiv, $other_health_conditions, $profile_picture_path);
 
         if ($stmt->execute()) {
             header("Location: success.php");
@@ -62,8 +89,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } else {
             echo "Error: " . $stmt->error;
         }
-
-        $stmt->close();
     }
 }
 
@@ -80,16 +105,16 @@ $conn->close();
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/header.css">
-  <link rel="stylesheet" href="assets/css/footer.css">
+  <link rel="stylesheet" href="../assets/css/header.css">
+  <link rel="stylesheet" href="/assets/css/footer.css">
   <script type="text/javascript" src="Js/slide.js"></script>
   <title>Blood Bank Management System</title>
 </head>
 <body class="p-1 m-0 border-0 bd-example">
-<?php include '/report/header.php'; ?>
+<?php include '../home/header.php'; ?><br><br>
 <main role="main" class="container">
   <div class="row">
-    <div class="col-md-1"></div>
+    <div class="col-md-6 mb-3"></div>
     <div class="col-md-10 blog-main">
       <h4 class="mb-3">Donor Registration</h4>
       
