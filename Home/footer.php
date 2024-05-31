@@ -8,7 +8,7 @@
         <h5 class="text-uppercase">Links</h5>
         <ul class="list-unstyled mb-0">
           <li>
-            <a href="#!" class="text-white">Link 1</a>
+            <a href="#!" class="text-white">contact us</a>
           </li>
           <!-- Add more links as needed -->
         </ul>
