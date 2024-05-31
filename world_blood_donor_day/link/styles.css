@@ -1,0 +1,39 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #e1dcdc;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #321818 0%, #bd1010 100%);
+}
+
+.jumbotron {
+    padding: 6rem 2rem;
+    color: red;
+}
+
+.jumbotron h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+.jumbotron .lead {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+section h2 {
+    color: #403434;
+    margin-bottom: 1rem;
+}
+
+ul {
+    color: #343a40;
+    list-style-type: disc;
+    margin-left: 1.5rem;
+}
+
+#map {
+    border: 2px solid #ddd;
+    border-radius: 5px;
+}
