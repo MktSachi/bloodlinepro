@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top" style="background-color: #031529;">
   <div class="container-fluid">
     <a href="#" class="navbar-brand navimg">
-      <img src="Image/1212.png" alt="Logo" class="img-fluid">
+      <img src="../Image/1212.png" alt="Logo" class="img-fluid">
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>

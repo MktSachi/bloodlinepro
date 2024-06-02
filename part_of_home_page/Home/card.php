@@ -3,7 +3,7 @@
     <div class="row row-cols-1 row-cols-md-3">
       <div class="col shadow-lg p-3 mb-5 bg-body-tertiary rounded">
         <div class="card">
-          <img src="Image/1212.png" class="card-img-top" alt="Image1">
+          <img src="../Image/1212.png" class="card-img-top" alt="Image1">
           <div class="card-body">
             <h5 class="card-title">About Blood</h5>
             <p class="card-text">
@@ -14,7 +14,7 @@
       </div>
       <div class="col shadow-lg p-3 mb-5 bg-body-tertiary rounded">
         <div class="card">
-          <img src="Image/1212.png" class="card-img-top" alt="Image2">
+          <img src="../Image/1212.png" class="card-img-top" alt="Image2">
           <div class="card-body">
             <h5 class="card-title">Components of Blood</h5>
             <p class="card-text">
@@ -25,7 +25,7 @@
       </div>
       <div class="col shadow-lg p-3 mb-5 bg-body-tertiary rounded">
         <div class="card">
-          <img src="Image/1212.png" class="card-img-top" alt="Image3">
+          <img src="../Image/1212.png" class="card-img-top" alt="Image3">
           <div class="card-body">
             <h5 class="card-title">How does the Body Replace Blood</h5>
             <p class="card-text">

@@ -16,21 +16,21 @@ Who can donate blood? </h2>
 
     <aside class="col-md-4 blog-sidebar">
       <div class="p-3 mb-3 ">
-      <img  src="Image/Sl_Blood_D.png" alt="Generic placeholder image" width="140" height="140">
+      <img  src="../Image/Sl_Blood_D.png" alt="Generic placeholder image" width="140" height="140">
             <h2>100</h2>
             <p>100% of Sri Lankan blood donors are voluntory non rermunerated donors.</p>
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
           </div><!-- /.col-lg-4 -->
 
           <div class="p-3 mb-3 ">
-      <img  src="Image/time.png" alt="Generic placeholder image" width="140" height="140">
+      <img  src="../Image/time.png" alt="Generic placeholder image" width="140" height="140">
             <h2>100</h2>
             <p>100% of Sri Lankan blood donors are voluntory non rermunerated donors.</p>
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
           </div>
 
           <div class="p-3 mb-3 ">
-      <img  src="Image/day.png" alt="Generic placeholder image" width="140" height="140">
+      <img  src="../Image/day.png" alt="Generic placeholder image" width="140" height="140">
             <h2>100</h2>
             <p>100% of Sri Lankan blood donors are voluntory non rermunerated donors.</p>
             <p><a class="btn btn-secondary" href="#" role="button">View details &raquo;</a></p>
