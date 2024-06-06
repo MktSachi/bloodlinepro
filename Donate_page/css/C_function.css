@@ -8,24 +8,16 @@
     line-height: 1.5;
   }
   
-  .cover_2{
-     width:100%;
-  }
-  
+  /*left side content*/
   .Function{
     float: left;
     width: 20%;
-
     background-color: rgb(131,26,26);
     padding: 30px;
     color:white;
   }
-  
-  .Function ul {
-    list-style-type:none;
-    padding: 0; 
-  }
-  
+ 
+  /*right side content*/
   article {
     float: left;
     padding: 20px;
@@ -34,15 +26,56 @@
     text-align: justify; 
   }
   
-  section::after {
-    content: "";
-    display: table;
-    clear: both;
-  }
+/*block properties*/
+.column {
+  float: left;
+  width: 40%;
+  margin-bottom: 16px;
+  padding: 2% 5%;  
+}
+
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.container {
+  padding: 0 16px;
+}
+
+.container::after, .row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.button {
+  border: none;
+  outline: 0;
+  display: inline-block;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width: 100%;
+}
+
+/*whole content*/
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
   
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
   @media (max-width: 650px) {
-    section,.Function, article {
+    .column,section,.Function, article {
       width: 100%;
       height: auto;
+      display: block;
     }
   }

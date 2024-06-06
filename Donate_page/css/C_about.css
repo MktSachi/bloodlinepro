@@ -3,20 +3,14 @@
     box-sizing: border-box;
   }
   
+  /*Topic*/
   .topic{background-color:rgb(131,26,26);
          padding:10px;
          text-align:center;
          color:white;
-  }
+}
   
-  .cover{
-         width:50%;
-         height:100%;
-         display: block;
-         margin-left: auto;
-         margin-right: auto;        
-  }
-  
+  /*History:content*/
   .content{
           float:left;
           width: 75%;
@@ -26,18 +20,19 @@
           flex-wrap: wrap;
           text-align: justify;
   }
+
+  /*Division area: row properties*/
   .row{
           width:80%;
           display: flex;
           margin: auto;
           padding: 5px 10px;
-         justify-content: space-between;
-         
-         
+         justify-content: space-between;      
   }
+
+  /*Division area: column properties*/
   .column {
-          /*float: left;*/
-          
+          float: left;
           margin-bottom: 16px;
           padding: 5px 8px;
           display: flex;
@@ -46,10 +41,10 @@
           display: block;
           margin-left: auto;
           margin-right: auto;
-          width: 50%;
-          
+          width: 50%;         
   }
   
+  /*Divions area: images divion*/
   .image {
           width:100%;
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); 
@@ -59,14 +54,16 @@
           border-radius: 15px;
   }
   
+  /*Division area: blood group images*/
   .B_i{
       width:50%;
          height:100%;
          display: block;
          margin-left: auto;
-         margin-right: auto;
-  
+         margin-right: auto; 
   }
+
+  /*Division are : blood group : text properties*/
   .contain {
           padding: 10px 16px;
           text-align:left;
@@ -78,6 +75,7 @@
           display: table;
   }
   
+  /*Right content properties*/
   .right {
           background-color: #e5e5e5;
           float: left;

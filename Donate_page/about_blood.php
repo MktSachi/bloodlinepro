@@ -6,23 +6,15 @@
     <link rel="stylesheet" href="css/C_about.css">
 </head>
 
-
-
 <body style="font-family:Arial; line-height: 1.5;">
-    <div class="topic">
-        <h1>About Blood</h1>
-    </div>
+
+    <!--Topic -->
+    <div class="topic"><h1>About Blood</h1></div>
     
-    <div>
-       
+    <!-- video -->
+    <div><embed src="Video/The Components of Blood and Their Importance.mp4" type="video/mp4" height="500px" width="100%" autoplay="true"></div>
 
-    <embed src="Video/The Components of Blood and Their Importance.mp4" type="video/mp4" height="500px" width="100%" autoplay="true">
-
- 
-
-    </div>
-
-  
+    <!-- history-->
     <div class="content">
         <h2>The Evolution of Blood Transfusion: A Journey Through Time</h2>
         <p>Blood is a vital fluid that circulates throughout the body, delivering essential 
@@ -43,7 +35,7 @@
         between donors and recipients. His work earned him the Nobel Prize and revolutionized
         the field of blood transfusion.</p>
   
-    
+         <!-- division areas of blood groups-->
         <div class="row">
             <div class="column">
                 <div class="image">
@@ -81,46 +73,45 @@
                 </div>
             </div>
         
-         </div>
+        </div>
     
-    <h2>The Development of Blood Services</h2>
-    <p>In 1946, the Blood Transfusion Service was established 
-        to manage and facilitate blood donations. This was followed 
-        by the formation of the National Blood Service in 1950, 
-        specifically tasked with collecting and providing blood supplies 
-        to hospitals across Sri Lanka. These organizations have played a 
-        crucial role in ensuring a steady and safe supply of blood for medical use.</p>
+        <h2>The Development of Blood Services</h2>
+        <p>In 1946, the Blood Transfusion Service was established 
+            to manage and facilitate blood donations. This was followed 
+            by the formation of the National Blood Service in 1950, 
+            specifically tasked with collecting and providing blood supplies 
+            to hospitals across Sri Lanka. These organizations have played a 
+            crucial role in ensuring a steady and safe supply of blood for medical use.</p>
     
-    <h2>Blood Components and Shelf Life</h2>
-    <p>Blood is a complex substance composed of several key components: red cells, 
-        white cells, platelets, and plasma. Each component has a specific function
-        and shelf life. For instance, red cells, essential for transporting oxygen,
-        can be stored for 35 to 42 days. Platelets, which are crucial for blood clotting,
-        have a much shorter shelf life of only five days. This limited storage time 
-        underscores the constant need for fresh blood donations.</p>
-    
-    
-  </div>
+        <h2>Blood Components and Shelf Life</h2>
+        <p>Blood is a complex substance composed of several key components: red cells, 
+            white cells, platelets, and plasma. Each component has a specific function
+            and shelf life. For instance, red cells, essential for transporting oxygen,
+            can be stored for 35 to 42 days. Platelets, which are crucial for blood clotting,
+            have a much shorter shelf life of only five days. This limited storage time 
+            underscores the constant need for fresh blood donations.</p>
+    </div>
 
-  <div class="right">
-    <h2>Blood Donation: Who Can Donate?</h2>
-    <p>Almost anyone between the ages of 18 and 55 can become a new blood donor, 
-        with regular donors able to continue until the age of 60. Blood donation 
-        is a simple yet profoundly impactful act that can save lives. Given that 
-        the average adult has about 5 trillion red blood cells per liter of blood, 
-        and approximately 25 trillion red cells in total, the human body is well-equipped 
-        to regenerate the donated blood.</p>
-  </div>
+    <!-- right content ash color-->
+    <div class="right">
+        <h2>Blood Donation: Who Can Donate?</h2>
+        <p>Almost anyone between the ages of 18 and 55 can become a new blood donor, 
+            with regular donors able to continue until the age of 60. Blood donation 
+            is a simple yet profoundly impactful act that can save lives. Given that 
+            the average adult has about 5 trillion red blood cells per liter of blood, 
+            and approximately 25 trillion red cells in total, the human body is well-equipped 
+            to regenerate the donated blood.</p>
+    </div>
     
-  <div class="right">
-    <h2>The Lifespan of Red Blood Cells</h2>
-    <p>Interestingly, the human body continuously renews its blood supply. 
-        Approximately 25 million red blood cells, or 0.1% of the total, die 
-        day. This amounts to roughly 300 red blood cells per second. The body’s 
-        remarkable ability to replenish these cells ensures that regular blood 
-        donation does not adversely affect the donor’s health.</p>
-  </div>
-</div>
+    <div class="right">
+        <h2>The Lifespan of Red Blood Cells</h2>
+        <p>Interestingly, the human body continuously renews its blood supply. 
+            Approximately 25 million red blood cells, or 0.1% of the total, die 
+            day. This amounts to roughly 300 red blood cells per second. The body’s 
+            remarkable ability to replenish these cells ensures that regular blood 
+            donation does not adversely affect the donor’s health.</p>
+    </div>
+   
 
 </body>
 </html>
