@@ -1,0 +1,36 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f8f9fa;
+}
+
+.bg-gradient {
+    background: linear-gradient(135deg, #5a090a 0%, #060606 100%);
+}
+
+.jumbotron {
+    padding: 6rem 2rem;
+}
+
+.jumbotron h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+}
+
+.jumbotron .lead {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+section h2 {
+    color: #343a40;
+    margin-bottom: 1rem;
+}
+
+.card {
+    margin-bottom: 1.5rem;
+}
+
+.card img {
+    height: 200px;
+    object-fit: cover;
+}

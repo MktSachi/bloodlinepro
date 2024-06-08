@@ -1,0 +1,48 @@
+
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial;
+    line-height: 1.5;
+  }
+  
+  .cover_2{
+     width:100%;
+  }
+  
+  .Function{
+    float: left;
+    width: 20%;
+
+    background-color: rgb(131,26,26);
+    padding: 30px;
+    color:white;
+  }
+  
+  .Function ul {
+    list-style-type:none;
+    padding: 0; 
+  }
+  
+  article {
+    float: left;
+    padding: 20px;
+    width: 80%;
+    background-color: #f1f1f1;
+    text-align: justify; 
+  }
+  
+  section::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  @media (max-width: 650px) {
+    section,.Function, article {
+      width: 100%;
+      height: auto;
+    }
+  }
