@@ -51,7 +51,7 @@
 
         <!--image-->
         <div style="padding-top: 20%;">
-          <img src="image/1000_F_229689857_5RdcATAD78UwGeNtobjHd28muJkveBba.jpg" width="150%" height="50%">
+          <img src="image/WhatsApp Image 2024-06-09 at 9.23.05 AM.jpeg" width="150%" height="50%">
         </div>
       </div>
     </div>
