@@ -1,0 +1,45 @@
+
+body {
+    font-family: Arial;
+  }
+  
+/*Division properties*/
+div.container {
+    padding: 20px;
+  }
+
+/*Input field properties*/
+input[type=text], input[type=password], select 
+{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+/*Label properties*/
+label{
+    color:rgb(131,26,26) ;
+}
+
+/*astric mark*/
+.required::after {
+    content: "*";
+    color:rgb(131,26,26);
+}
+
+/*Create button properties*/
+  input[type=submit] {
+    width: 1o%;
+    background-color:rgb(131,26,26);
+    color: white;
+    padding: 10px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+  }
+  
+

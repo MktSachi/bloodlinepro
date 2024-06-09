@@ -1,165 +1,90 @@
 <!DOCTYPE html>
 <html>
 <head>
+<title>Health-Care Professional</title>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-<style>
-body {
-  font-family: Arial;
-}
- /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-.row.content {height: 550px}
-    
-/* Set gray background color and 100% height */
-.sidenav {
-  background-color: rgb(131,26,26);
-  height: 100%;
-  position: fixed;
-  left: 0;
-  top: 0;
-  overflow-x: hidden;
-  transition: 0.5s;
-  z-index: 1;
-  padding-top: 60px;
-}
-
-/* On small screens, set height to 'auto' for the grid */
-@media screen and (max-width: 767px) {
-  .row.content {height: auto;} 
-}
-
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 15px;
-  color: white;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 30px;
-  margin-left: 50px;
-}
-
-#main {
-  transition: margin-left .5s;
-  padding: 16px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
-}
-</style>
 </head>
-<body>
 
-<div id="mySidenav" class="sidenav">
-  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-  <a href="#">Monitor Blood Availability</a>
-  <a href="#">CRUD Operations</a>
-  <a href="#">Request Blood</a>
-  <a href="#">View Inventory</a>
-</div>
 
-<div id="main">
- 
-  <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
-</div>
-<div class="container-fluid" id="content-container">
-  <div class="row content">
-    <div class="col-sm-9">
-      <div class="well">
-        <h4>Dashboard</h4>
-        <p>Some text..</p>
+<body class="w3-light-grey">
+
+  <?php include './HP_sidebar.php'; ?>
+
+  <!-- !PAGE CONTENT! -->
+  <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b> Dashboard</b></h5>
+  </header>
+
+  <div class="w3-row-padding w3-margin-bottom">
+
+    <!--Donor Account Notification-->
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <!-- number-->
+           <h3>44</h3>
+        </div>
+        <div class="w3-clear"></div>
+        <a href="CRUD.php"><h4>Donor Account</h4></a>
       </div>
-      <div class="row">
-        <div class="col-sm-3">
-          <div class="well">
-            <h4>Users</h4>
-            <p>1 Million</p> 
-          </div>
+    </div>
+
+    <!--Blood Request Notification-->
+    <div class="w3-quarter">
+      <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>99</h3>
         </div>
-        <div class="col-sm-3">
-          <div class="well">
-            <h4>Pages</h4>
-            <p>100 Million</p> 
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="well">
-            <h4>Sessions</h4>
-            <p>10 Million</p> 
-          </div>
-        </div>
-        <div class="col-sm-3">
-          <div class="well">
-            <h4>Bounce</h4>
-            <!-- Add content for Bounce here -->
-            <p>30%</p> 
-          </div>
-        </div>
+        <div class="w3-clear"></div>
+        <a href=""><h4>Blood Request</h4></a>
       </div>
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="well">
-            <p>Text</p> 
-            <p>Text</p> 
-            <p>Text</p> 
-          </div>
+
+    <!--Inventory Notification--> 
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-bullseye w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>23</h3>
         </div>
-        <div class="col-sm-4">
-          <div class="well">
-            <p>Text</p> 
-            <p>Text</p> 
-            <p>Text</p> 
-          </div>
-        </div>
-        <div class="col-sm-4">
-          <div class="well">
-            <p>Text</p> 
-            <p>Text</p> 
-            <p>Text</p> 
-          </div>
-        </div>
+        <div class="w3-clear"></div>
+        <h4>Inventory</h4>
       </div>
-      <div class="row">
-        <div class="col-sm-8">
-          <div class="well">
-            <p>Text</p> 
-          </div>
+    </div>
+
+    <!--Alerts--> 
+    <div class="w3-quarter">
+      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+        <div class="w3-left"><i class="fa fa-bell w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3>50</h3>
         </div>
-        <div class="col-sm-4">
-          <div class="well">
-            <p>Text</p> 
-          </div>
-        </div>
+        <div class="w3-clear"></div>
+        <h4>Alerts</h4>
       </div>
     </div>
   </div>
-</div>
-<script>
-function openNav() {
-  document.getElementById("mySidenav").style.width = "250px";
-  document.getElementById("content-container").style.marginLeft = "250px";
-}
 
-function closeNav() {
-  document.getElementById("mySidenav").style.width = "0";
-  document.getElementById("content-container").style.marginLeft= "0";
-}
-</script>
-   
+  <!--Map-->
+  <div class="w3-panel">
+    <div class="w3-row-padding" style="margin:0 -16px">
+      <div class="w3-third">
+        <h5>Blood Availability</h5>
+        <img src="" style="width:100%" alt="blood availability">
+      </div>
+
+      <!--<div class="w3-twothird">
+        <h5>Feeds</h5>
+        <table class="w3-table w3-striped w3-white">        
+        </table>
+      </div>-->
+    </div>
+  </div>
 </body>
-</html> 
+</html>
