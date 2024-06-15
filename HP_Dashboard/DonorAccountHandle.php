@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="css/C_crud.css">
 </head>
 <body>
-    <?php include './HP_sidebar.php'; ?>
+    <?php include './HpSidebar.php'; ?>
 
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">

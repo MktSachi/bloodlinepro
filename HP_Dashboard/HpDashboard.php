@@ -11,7 +11,7 @@
 <body class="w3-light-grey">
 
   <!--sidebar-->
-  <?php include './HP_sidebar.php'; ?>
+  <?php include './HpSidebar.php'; ?>
 
   <!-- !PAGE CONTENT! -->
   <div class="w3-main" style="margin-left:250px;margin-top:43px;">
@@ -29,10 +29,10 @@
           <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
           <div class="w3-right">
             <!-- number-->
-            <h3>44</h3>
+          
           </div>
           <div class="w3-clear"></div>
-          <a href="CRUD.php"style="text-decoration:none;"><h4>Donor Account</h4></a>
+          <a href="DonorAccountHandle.php"style="text-decoration:none;"><h4>Donor Account</h4></a>
         </div>
       </div>
 
@@ -42,10 +42,10 @@
           <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
           <div class="w3-right">
             <!-- number-->
-            <h3>39</h3>
+            
           </div>
           <div class="w3-clear"></div>
-          <a href="CRUD.php"style="text-decoration:none;"><h4>Blood Request</h4></a>
+          <a href="Request.php"style="text-decoration:none;"><h4>Blood Request</h4></a>
         </div>
       </div>
 
@@ -55,7 +55,7 @@
           <div class="w3-left"><i class="fa fa-bullseye w3-xxxlarge"></i></div>
           <div class="w3-right">
             <!-- number-->
-            <h3>23</h3>
+           
           </div>
           <div class="w3-clear"></div>
           <a href="CRUD.php"style="text-decoration:none;"><h4>Inventory</h4></a>
@@ -68,7 +68,7 @@
           <div class="w3-left"><i class="fa fa-bell w3-xxxlarge"></i></div>
           <div class="w3-right">
             <!-- number-->
-            <h3>23</h3>
+          
           </div>
           <div class="w3-clear"></div>
           <a href="CRUD.php"style="text-decoration:none;"><h4>Alerts</h4></a>

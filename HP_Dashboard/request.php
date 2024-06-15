@@ -50,7 +50,7 @@ input[type=submit] {
 </head>
 <body class="w3-light-grey">
 
-    <?php include './HP_sidebar.php'; ?>
+    <?php include './HpSidebar.php'; ?>
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:300px;margin-top:43px;">
         <div class="container">
