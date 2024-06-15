@@ -11,7 +11,7 @@
 <body class="w3-light-grey">
 
   <!--sidebar-->
-  <?php include './HpSidebar.php'; ?>
+  <?php include './HP_sidebar.php'; ?>
 
   <!-- !PAGE CONTENT! -->
   <div class="w3-main" style="margin-left:250px;margin-top:43px;">

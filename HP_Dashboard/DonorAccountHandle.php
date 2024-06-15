@@ -2,16 +2,17 @@
 <html>
 <head>
     <title>Donor Account</title>
-    <link rel="stylesheet" href="css/C_crud.css">
+    <link rel="stylesheet" href="css/DonorHandle.css">
 </head>
 <body>
-    <?php include './HpSidebar.php'; ?>
+    <?php include './HP_sidebar.php'; ?>
 
     <!-- !PAGE CONTENT! -->
-    <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-        <div>
-            <h1>Donor Account</h1>
+    <div class="w3-main" style="margin-left:250px;margin-top:43px;">
+        
+            
             <div class="container">
+            <h3><strong>Donor Account</strong></h3>
                 <form action="/action_page.php" method="POST">
                     <label for="fname">First Name<span class="required"></span></label>
                         <input type="text" id="fname" name="firstname" placeholder="Your first name.." required>
@@ -50,7 +51,7 @@
             
                 </form>
             </div>
-        </div>
+    
     </div>
 </body>
 </html>
