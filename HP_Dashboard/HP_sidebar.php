@@ -18,7 +18,7 @@
         color: #0000b3 !important; /* Set font color to blue on hover */
     }
     .logout-button {
-        background-color: #990000; /* Set background color to a red shade */
+        
         color: white; /* Set text color to white */
         box-sizing: border-box; /* Include padding and border in the element's total width and height */
     }
@@ -29,7 +29,7 @@
         margin-right: 15px; /* Ensure the icon margin stays the same */
     }
    
-    
+   
 </style>
 </head>
 
@@ -65,7 +65,7 @@
         <a href="#" class="w3-bar-item w3-button w3-padding">
             <i class="fa fa-diamond fa-fw"></i> Warnings
         </a>
-        <a href="#" class="w3-bar-item w3-button w3-padding">
+        <a href="Profile.php" class="w3-bar-item w3-button w3-padding">
             <i class="fa fa-cog fa-fw"></i> Profile
         </a>
         <a class="w3-bar-item w3-button w3-padding logout-button" style="cursor: pointer;">
