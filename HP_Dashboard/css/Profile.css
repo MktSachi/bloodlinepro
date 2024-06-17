@@ -43,6 +43,14 @@ p {
     margin: auto 0;
     display: flex;
 }
+
+.profile-pic {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+ 
 input[type="text"], input[type="email"], input[type="password"], textarea {
     width: 100%;
     padding: 12px 20px;
@@ -65,7 +73,7 @@ input[type="text"], input[type="email"], input[type="password"], textarea {
     color: rgb(131, 26, 26);
 }
 button {
-    width: 10%;
+   
     background-color: rgb(131, 26, 26);
     color: white;
     padding: 10px 20px;

@@ -4,7 +4,6 @@
 <title>Health-Care Professional</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/C_hp_home.css">
 </head>
 
 
@@ -25,7 +24,7 @@
 
       <!--Donor Account Notification-->
       <div class="w3-quarter">
-        <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
           <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
           <div class="w3-right">
             <!-- number-->
@@ -38,7 +37,7 @@
 
       <!--Donor Account Notification-->
       <div class="w3-quarter">
-        <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-container  w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
           <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
           <div class="w3-right">
             <!-- number-->
@@ -51,7 +50,7 @@
 
       <!--Donor Account Notification-->
       <div class="w3-quarter">
-        <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
           <div class="w3-left"><i class="fa fa-bullseye w3-xxxlarge"></i></div>
           <div class="w3-right">
             <!-- number-->
@@ -64,7 +63,7 @@
 
       <!--Donor Account Notification-->
       <div class="w3-quarter">
-        <div class="w3-container w3-orange w3-text-white w3-padding-16">
+        <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
           <div class="w3-left"><i class="fa fa-bell w3-xxxlarge"></i></div>
           <div class="w3-right">
             <!-- number-->
@@ -85,11 +84,7 @@
         <img src="" style="width:100%" alt="blood availability">
       </div>
 
-      <div class="w3-twothird">
-        <h5>Feeds</h5>
-        <table class="w3-table w3-striped w3-white">        
-        </table>
-      </div>
+      
     </div>
   </div>
 </body>

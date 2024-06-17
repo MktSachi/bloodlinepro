@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>Donor Account</title>
-    <link rel="stylesheet" href="css/DonorHandle.css">
+    <link rel="stylesheet" href="css/DonorHandle.css">    
 </head>
 <body>
     <?php include './HP_sidebar.php'; ?>
@@ -10,48 +10,65 @@
     <!-- !PAGE CONTENT! -->
     <div class="w3-main" style="margin-left:250px;margin-top:43px;">
         
-            
-            <div class="container">
+        <div class="container">
             <h3><strong>Donor Account</strong></h3>
-                <form action="/action_page.php" method="POST">
-                    <label for="fname">First Name<span class="required"></span></label>
-                        <input type="text" id="fname" name="firstname" placeholder="Your first name.." required>
+             <!-- Operation icons - create -->
+            <?php include './CreateDonor.php'; ?>
 
-                    <label for="lname">Last Name<span class="required"></span></label>
-                        <input type="text" id="lname" name="lastname" placeholder="Your last name.." required>
-
-                    <label for="address">Address<span class="required"></span></label>
-                        <input type="text" id="address" name="address" placeholder="Your address.." required>
-
-                    <label for="nic">NIC Number<span class="required"></span></label>
-                        <input type="text" id="nic" name="nic" placeholder="Your NIC number.." required>
+            <!-- Operation icons - delete -->
+            <?php include './DeleteDonor.php'; ?>
             
-                    <label for="contact">Contact Number<span class="required"></span></label>
-                        <input type="text" id="contact" name="contact" placeholder="Your contact number.." required>
-            
-                    <label for="email">E-mail<span class="required"></span></label>
-                        <input type="text" id="email" name="email" placeholder="Your e-mail.." required>
-            
-                    <label for="blood">Blood Group<span class="required"></span></label>
-                        <select id="blood" name="blood">
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                        </select>
+            <!-- Operation icons - update -->
+            <?php include './UpdateDonor.php'; ?>
 
-                    <label for="password">Password<span class="required"></span></label>
-                        <input type="password" id="password" name="password" placeholder="Your password.." required>
-
-                    <input type="submit" value="Create Account">
-            
-                </form>
-            </div>
+            <!-- Operation icons - view -->
+            <?php include './ViewDonor.php'; ?>
+        </div>
     
     </div>
+
+
+
+    <script>
+
+        // Function to handle showing/hiding operation details
+        function toggleOperationDetails(operation) {
+            var details = document.getElementById(operation + "-details");
+            if (details.style.display === "none") {
+                details.style.display = "block";
+            } else {
+                details.style.display = "none";
+            }
+        }
+
+        // Function to handle form submission
+        function handleSubmit(operation) {
+            event.preventDefault();
+
+            // Get form data
+            var formData = new FormData(document.getElementById(operation + "-form"));
+
+            // Fetch API endpoint (replace with your actual endpoint)
+            var url = 'action_page.php';
+
+            // Fetch options
+            var options = {
+                method: 'POST',
+                body: formData
+            };
+
+            // Perform fetch request
+            fetch(url, options)
+                .then(response => response.text())
+                .then(data => {
+                    // Handle response (e.g., display success message)
+                    document.getElementById(operation + "-result").innerHTML = data;
+                })
+                .catch(error => {
+                    // Handle errors
+                    console.error('Error:', error);
+                });
+        }
+    </script>
 </body>
 </html>
