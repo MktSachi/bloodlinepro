@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Healthcare Professional Profile</title>
-    <link rel="stylesheet" href="css/CProfile.css">
+    <link rel="stylesheet" href="css/Profile.css">
 </head>
 <body>
 <?php include './HP_sidebar.php'; ?>
@@ -13,6 +13,12 @@
 <div class="w3-main" style="margin-left:250px;margin-top:43px;">
     
     <div class="container">
+        
+        <div class="profile-picture">
+            <img id="profilePic" src="path_to_default_profile_picture.jpg" alt="Profile Picture" class="profile-pic">
+            <input type="file" id="profilePicInput" accept="image/*" style="display: none;" onchange="loadProfilePic(event)"></br>
+            <button class="change-pic-button" onclick="document.getElementById('profilePicInput').click();">Change</button>
+        </div>
         <h1>Dr. Ahinsa</h1>
         <p>Cardiologist</p>
         <div class="about">
@@ -29,10 +35,10 @@
             <p><span id="registration" class="editable" onclick="makeEditable(this)">123456</span> <input type="text" id="registrationInput"></p>
             
             <label><strong>First name:</strong></label>
-            <p><span id="fname" class="editable" onclick="makeEditable(this)">Dr. Ahinsa </span> <input type="text" id="fnameInput"></p>
+            <p><span id="fname" class="editable" onclick="makeEditable(this)">Dr. Ahinsa</span> <input type="text" id="fnameInput"></p>
            
             <label><strong>Last name:</strong></label>
-            <p><span id="lname" class="editable" onclick="makeEditable(this)">Arunodi </span> <input type="text" id="lnameInput"></p>
+            <p><span id="lname" class="editable" onclick="makeEditable(this)">Arunodi</span> <input type="text" id="lnameInput"></p>
 
             <label><strong>Address:</strong></label>
             <p><span id="address" class="editable" onclick="makeEditable(this)">123 Heartbeat Lane, Cardiology City, Healthland</span> <textarea id="addressInput"></textarea></p>
@@ -73,6 +79,14 @@
                     inputElement.style.display = 'none';
                 }
             });
+        }
+
+        function loadProfilePic(event) {
+            const output = document.getElementById('profilePic');
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function() {
+                URL.revokeObjectURL(output.src) // Free memory
+            }
         }
     </script>
 </body>

@@ -15,6 +15,7 @@ body {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
 }
+
 /* Input field properties */
 input[type=text], input[type=password], select {
   width: 100%;
@@ -39,11 +40,26 @@ label {
 
 /* Create button properties */
 input[type=submit] {
-  width: 10%; /* Corrected from 1o% to 10% */
+   /* Corrected from 1o% to 10% */
   background-color: rgb(131, 26, 26);
   color: white;
   padding: 10px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
+}
+
+ /* CSS for expandable areas */
+ .operation {
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.operation-details {
+  display: none;
+  margin-top: 10px;
+}
+.operation-details.active {
+  display: block;
 }
