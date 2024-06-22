@@ -79,7 +79,7 @@ $db->close();
                         </div>
                         <div class="form-group highlight">
                             <label for="donor-address">Address:</label>
-                            <p id="donor-address"><?= htmlspecialchars($donorDetails['address']) ?></p>
+                            <p id="donor-address"><?= htmlspecialchars($donorDetails['address'] . ' ' . $donorDetails['address2']) ?></p>
                         </div>
                         <div class="form-group highlight">
                             <label for="donor-gender">Gender:</label>
@@ -127,6 +127,11 @@ $db->close();
                 <div class="mb-3">
                     <label for="address">Address</label>
                     <input type="text" class="form-control" id="address" name="address" value="<?= htmlspecialchars($donorDetails['address']) ?>" required>
+                    <div class="invalid-feedback">Please enter your address.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="address2">Address Lane</label>
+                    <input type="text" class="form-control" id="address2" name="address2" value="<?= htmlspecialchars($donorDetails['address2']) ?>" required>
                     <div class="invalid-feedback">Please enter your address.</div>
                 </div>
                 <div class="mb-3">

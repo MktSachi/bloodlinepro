@@ -13,12 +13,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];
     $phoneNumber = $_POST['phoneNumber'];
     $address = $_POST['address'];
+    $address2 = $_POST['address2'];
     $gender = $_POST['gender'];
     $bloodType = $_POST['bloodType'];
 
-    $sql = "UPDATE donors SET first_name = ?, last_name = ?, username = ?, email = ?, phoneNumber = ?, address = ?, gender = ?, bloodType = ? WHERE donorNIC = ?";
+    $sql = "UPDATE donors SET first_name = ?, last_name = ?, username = ?, email = ?, phoneNumber = ?, address = ?, address2 = ?, gender = ?, bloodType = ? WHERE donorNIC = ?";
     $stmt = $db->prepare($sql);
-    $stmt->bind_param("sssssssss", $firstName, $lastName, $username, $email, $phoneNumber, $address, $gender, $bloodType, $donorNIC);
+    $stmt->bind_param("ssssssssss", $firstName, $lastName, $username, $email, $phoneNumber, $address, $address2, $gender, $bloodType, $donorNIC);
 
     if ($stmt->execute()) {
         $successMessage = "Donor details updated successfully!";
