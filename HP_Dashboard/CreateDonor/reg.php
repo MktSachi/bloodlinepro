@@ -1,36 +1,25 @@
 <?php
 session_start();
 
-
-$error_msg = "";
-$success_msg = "";
-
-// Include classes
-
-require 'Database.php';
-require 'Donor.php';
-require 'Validator.php';
+require '../../donor_registration/Database.php';
+require '../../donor_registration/Donor.php';
+require '../../donor_registration/Validator.php';
 require 'Email.php';
 
 $db = new Database();
 $conn = $db->getConnection();
 $donor = new Donor($db);
 $validator = new Validator();
-$emailSender = new EmailSender();
+
+$error_msg = "";
+$success_msg = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $password = $_POST['password'];
-    $confirmPassword = $_POST['confirmPassword'];
     $username = $_POST['username'];
     $donorNIC = $_POST['donorNIC'];
 
-    if ($password !== $confirmPassword) {
-        $error_msg .= "Passwords do not match. ";
-    }
-
-    if (!$validator->validatePassword($password)) {
-        $error_msg .= "Password must contain at least one uppercase letter, one lowercase letter, one symbol, and one number. ";
-    }
+    // Generate a default password
+    $password = bin2hex(random_bytes(4)); // 8 characters long
 
     if ($donor->isUsernameExists($username)) {
         $error_msg .= "Username '$username' already exists. Please choose a different username. ";
@@ -94,14 +83,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
 
         if ($donor->register($data, $file_destination)) {
-            try {
-                $emailSender->sendConfirmationEmail($data['email'], $data['firstName'], $data['username']);
-                $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
-                header("Location: success.php");
-                exit();
-            } catch (Exception $e) {
-                $error_msg .= $e->getMessage();
-            }
+            $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
+            // Redirect to success page
+            header("Location:../../donor_registration/success.php");
+
+            // Send the confirmation email
+            $emailSender = new EmailSender();
+            $emailSender->sendConfirmationEmail($data['email'], $data['firstName'], $data['username'], $password);
+
+            exit();
         } else {
             $error_msg .= "Error: Registration failed.";
         }
@@ -110,4 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $db->close();
 
+if (!empty($error_msg)) {
+    echo '<div class="alert alert-danger" role="alert">' . $error_msg . '</div>';
+}
 ?>

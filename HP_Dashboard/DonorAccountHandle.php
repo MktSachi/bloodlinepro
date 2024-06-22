@@ -1,74 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+    <!-- Bootstrap 5 CSS  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <title>Donor Account</title>
     <link rel="stylesheet" href="css/DonorHandle.css">    
 </head>
 <body>
     <?php include './HP_sidebar.php'; ?>
 
-    <!-- !PAGE CONTENT! -->
+    <!-- PAGE CONTENT -->
     <div class="w3-main" style="margin-left:250px;margin-top:43px;">
         
         <div class="container">
             <h3><strong>Donor Account</strong></h3>
-             <!-- Operation icons - create -->
-            <?php include './CreateDonor.php'; ?>
-
-            <!-- Operation icons - delete -->
-            <?php include './DeleteDonor.php'; ?>
             
-            <!-- Operation icons - update -->
-            <?php include './UpdateDonor.php'; ?>
+            <!-- Operation links with icons -->
+            <div class="operation-links">
+                <a href="CreateDonor/CreateDonor.php" target="contentFrame" class="btn btn-primary">
+                    <i class="fa fa-plus" style="margin-right: 5px;"></i>Create Donor
+                </a>
+                
+                <a href="View/ViewDonor.php" target="contentFrame" class="btn btn-info">
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>Donor Information
+                </a>
+            </div>
 
-            <!-- Operation icons - view -->
-            <?php include './ViewDonor.php'; ?>
+            <!-- Iframe to load content -->
+            <iframe name="contentFrame" style="width: 100%; height: 600px; border: none;"></iframe>
         </div>
     
     </div>
-
-
-
-    <script>
-
-        // Function to handle showing/hiding operation details
-        function toggleOperationDetails(operation) {
-            var details = document.getElementById(operation + "-details");
-            if (details.style.display === "none") {
-                details.style.display = "block";
-            } else {
-                details.style.display = "none";
-            }
-        }
-
-        // Function to handle form submission
-        function handleSubmit(operation) {
-            event.preventDefault();
-
-            // Get form data
-            var formData = new FormData(document.getElementById(operation + "-form"));
-
-            // Fetch API endpoint (replace with your actual endpoint)
-            var url = 'action_page.php';
-
-            // Fetch options
-            var options = {
-                method: 'POST',
-                body: formData
-            };
-
-            // Perform fetch request
-            fetch(url, options)
-                .then(response => response.text())
-                .then(data => {
-                    // Handle response (e.g., display success message)
-                    document.getElementById(operation + "-result").innerHTML = data;
-                })
-                .catch(error => {
-                    // Handle errors
-                    console.error('Error:', error);
-                });
-        }
-    </script>
 </body>
 </html>
