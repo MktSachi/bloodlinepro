@@ -1,184 +1,178 @@
-
-<!--Website: wwww.codingdung.com-->
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CodingDung | Profile Template</title>
-    <link rel="stylesheet" href="style.css">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="style.css">
 </head>
 
-<body>
-    <div class="container light-style flex-grow-1 container-p-y">
-        <h4 class="font-weight-bold py-3 mb-4">
-            Donor Profile
-        </h4>
-        <div class="card overflow-hidden">
-            <div class="row no-gutters row-bordered row-border-light">
-                <div class="col-md-3 pt-0">
-                    <div class="list-group list-group-flush account-settings-links">
-                        <a class="list-group-item list-group-item-action active" data-toggle="list"
-                            href="#account-general">General</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-change-password">Change password</a>
-                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                            href="#account-info">Info</a>
-                       
-                    </div>
-                </div>
-                <div class="col-md-9">
-                    <div class="tab-content">
-                        <div class="tab-pane fade active show" id="account-general">
-                            <div class="card-body media align-items-center">
-                                <img src="profile.png" alt class="d-block ui-w-80">
-                                <div class="media-body ml-4">
-                                    <label class=" upload">
-                                        Upload new photo
-                                        <input type="file" class="account-settings-fileinput">
-                                    </label> &nbsp;
-                                    <button type="button" class="btn btn-default md-btn-flat" >Reset</button>
-                                    <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
-                                </div>
-                            </div>
-                            <hr class="border-light m-0">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label class="form-label">Name</label>
-                                    <input type="text" class="form-control mb-1" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">NIC</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Date of Birth</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                               
-                                <div class="form-group">
-                                    <label class="form-label">Blood Type</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Gender</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Health status</label>
-                                    <textarea class="form-control"
-                                        rows="10"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="tab-pane fade" id="account-change-password">
-                            <div class="card-body pb-2">
-                                <div class="form-group">
-                                    <label class="form-label">Current password</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">New password</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Repeat new password</label>
-                                    <input type="password" class="form-control">
-                                </div>
-                                <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                                    <button type="button" class="btn btn-default">Cancel</button>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="tab-pane fade" id="account-info">
-                            <div class="card-body pb-2">
-                               
-                                
-                                <div class="form-group">
-                                    <label class="form-label">District</label>
-                                    <select class="custom-select">
-                                        <option>Select</option>
-                                        <option>Badulla</option>
-                                        <option>Monaragala</option>
-                                        
-                                    </select><br>
-                                    
-                                </div>
-                            </div>
-                            
-                            <div class="card-body pb-2">
-                                
-                                <div class="form-group">
-                                    <label class="form-label">Phone</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">E-mail</label>
-                                    <input type="text" class="form-control mb-1" value="">
-                                    <div class="alert alert-warning mt-3">
-                                        Your email is not confirmed. Please check your inbox.<br>
-                                        <a href="javascript:void(0)">Resend confirmation</a>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="form-label">Profession</label>
-                                    <input type="text" class="form-control" value="">
-                                </div>
+<body class="w3-light-grey" style="font-family: arial;">
 
-                                <div class="text-right mt-3">
-                                    <button type="button" class="btn btn-primary">Save changes</button>&nbsp;
-                                    <button type="button" class="btn btn-default">Cancel</button>
-                                </div>
-                            </div>
-                            
-                          <h5 class="form-label" >Awards</h5><br>
-                                <div class="crd-container"  class="form-group">
-                                    
-                                    <div class="crd" >
-                                        <img src="example-image1.jpg" alt="Example Image 1">
-                                        <div class="crd-content">
-                                            <h2>Silver Badge</h2>
-                                            <p>Congatulations! You have donated blood more than 10 times.</p>
-                                        </div>
-                                    </div>
-                                    <div class="crd">
-                                        <img src="example-image2.jpg" alt="Example Image 2">
-                                        <div class="crd-content">
-                                            <h2>Golden Badge</h2>
-                                            <p>Congatulations! You have donated blood more than 25 times.</p>
-                                        </div>
-                                    </div>
-                                    <div class="crd">
-                                        <img src="example-image3.jpg" alt="Example Image 3">
-                                        <div class="crd-content">
-                                            <h2>Platinum Badge</h2>
-                                            <p>Congatulations! You have donated blood more than 50 times.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            
-                            
-                        </div>
-                        
-                </div>
-               
-            </div>
-            
-        </div>
-        
+  <!-- Top container -->
+<div class="w3-bar w3-top w3-large" style="z-index:4;background-color:#000033;color:white;height: 43px;">
+    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
+        <i class="fa fa-bars"></i>  Menu
+    </button>
+</div>
+<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;width:250px;background-color:#000033;color:white;" id="mySidebar">
+    <br>
+    <div class="w3-container w3-center">
+        <img src="images/avatar.png" class="w3-circle w3-margin-bottom" style="width:100px;">
     </div>
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript">
+    <div style="text-align: center;font-size: 18px;font-family: arial;">
+        <strong>person name</strong>
+    </div>
+    <hr>
+    <!-- Main navigation content container -->
+    <div class="w3-bar-block" style="flex-grow: 1; text-align: center; padding-left: 10px;">
+        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu">
+            <i class="fa fa-remove fa-fw"></i> Close Menu
+        </a> 
+        <a href="#" class="w3-bar-item w3-button w3-padding" onclick="showSection('general')">
+            <i class="fa fa-user fa-fw"></i> General
+        </a>
+        <a href="#" class="w3-bar-item w3-button w3-padding" onclick="showSection('info')">
+            <i class="fa fa-info-circle fa-fw"></i> Info
+        </a>
+        <a href="#" class="w3-bar-item w3-button w3-padding change-password" onclick="showSection('change-password')">
+            <i class="fa fa-key fa-fw"></i> Change Password
+        </a>
+        <a href="#" class="w3-bar-item w3-button w3-padding" onclick="showSection('awards')">
+            <i class="fa fa-trophy fa-fw"></i> Awards
+        </a>
+        <a class="w3-bar-item w3-button w3-padding logout-button" style="cursor: pointer;">
+            <i class="fa fa-sign-out"></i> Logout
+        </a>
+    </div>
+</nav>
 
-    </script>
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<div class="w3-main" style="margin-left:250px;margin-top:43px;">
+    <div class="w3-container profile-section" id="general">
+        <h2>General Information</h2>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="nic">NIC</label>
+            <input type="text" id="nic" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="dob">Date of Birth</label>
+            <input type="date" id="dob" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="bloodType">Blood Type</label>
+            <input type="text" id="bloodType" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="gender">Gender</label>
+            <input type="text" id="gender" value="" readonly>
+        </div>
+        <div class="form-group">
+            <label for="healthStatus">Health Status</label>
+            <input type="text" id="healthStatus" value="" class="small-readonly" readonly>
+        </div>
+    </div>
+
+    <div class="w3-container profile-section" id="info" style="display:none;">
+        <h2>Info</h2>
+        <div class="form-group">
+            <label for="district">District</label>
+            <select id="district">
+                <option value="select">Select</option>
+                <option value="badulla">Badulla</option>
+                <option value="monaragala">Monaragala</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone No</label>
+            <input type="text" id="phone" value="">
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" value="">
+        </div>
+        <div class="form-group">
+            <label for="profession">Profession</label>
+            <input type="text" id="profession" value="">
+        </div>
+        <button class="w3-button w3-blue">Save Changes</button>
+    </div>
+
+    <div class="w3-container profile-section" id="change-password" style="display:none;">
+        <h2>Change Password</h2>
+        <div class="form-group">
+            <label for="current-password">Current Password</label>
+            <input type="password" id="current-password">
+        </div>
+        <div class="form-group">
+            <label for="new-password">New Password</label>
+            <input type="password" id="new-password">
+        </div>
+        <div class="form-group">
+            <label for="repeat-new-password">Repeat New Password</label>
+            <input type="password" id="repeat-new-password">
+        </div>
+        <button class="w3-button w3-blue">Change Password</button>
+    </div>
+
+    <div class="w3-container profile-section" id="awards" style="display:none;">
+        <h2>Awards</h2>
+        <div class="css-card">Award 1</div>
+        <div class="css-card">Award 2</div>
+        <div class="css-card">Award 3</div>
+    </div>
+</div>
+
+<!--JavaScript functions-->
+<script>
+    // Get the Sidebar
+    var mySidebar = document.getElementById("mySidebar");
+
+    // Get the DIV with overlay effect
+    var overlayBg = document.getElementById("myOverlay");
+
+    // Toggle between showing and hiding the sidebar, and add overlay effect
+    function w3_open() {
+        if (mySidebar.style.display === 'block') {
+            mySidebar.style.display = 'none';
+            overlayBg.style.display = "none";
+        } else {
+            mySidebar.style.display = 'block';
+            overlayBg.style.display = "block";
+        }
+    }
+
+    // Close the sidebar with the close button
+    function w3_close() {
+        mySidebar.style.display = "none";
+        overlayBg.style.display = "none";
+    }
+
+    // Logout function to display a message
+    function logout() {
+        alert("Logging out from your account");
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.querySelector(".logout-button").addEventListener("click", logout);
+    });
+
+    // Function to show the relevant section
+    function showSection(sectionId) {
+        var sections = document.querySelectorAll('.profile-section');
+        sections.forEach(function(section) {
+            section.style.display = 'none';
+        });
+        document.getElementById(sectionId).style.display = 'block';
+    }
+</script>
+
 </body>
-
 </html>
