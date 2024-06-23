@@ -6,21 +6,23 @@
     <title>Blood Inventory Alert</title>
     <style>
         body {
-            font-family: Arial;            
+            font-family: Arial;
+            background-color: #f4f4f4;
         }
-
         
         .alert-container {
-            margin-left: 0;
-            margin-top: 20px;
+            margin: 20px auto;
             text-align: left;
             display: inline-block;
-            width: 100%;
+            max-width: 1200px;
+            width: calc(100% - 40px);
             padding: 20px;
             background: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
+            transition: transform 0.2s ease;
         }
+        
         .alert-container:hover {
             transform: scale(1.02);
         }
@@ -62,32 +64,30 @@
 <?php include './HP_sidebar.php'; ?>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:250px;margin-top:43px;">
+<div class="w3-main" style="margin-left:270px;margin-top:43px;">
+    <div class="alert-container">
+        <h1>Attention: Blood Inventory is Low!</h1>
 
-    <div class="w3-main" style="margin-left:250px;margin-top:43px;">
-        <div class="alert-container">
-            <h1>Attention: Blood Inventory is Low!</h1>
+        <div class="blood-group">
+            <h2>Blood Group: A+</h2>
+            <p>Available Quantity: 15 units</p>
+        </div>
 
-            <div class="blood-group">
-                <h2>Blood Group: A+</h2>
-                <p>Available Quantity: 15 units</p>
-            </div>
+        <div class="blood-group">
+            <h2>Blood Group: B-</h2>
+            <p>Available Quantity: 8 units</p>
+        </div>
 
-            <div class="blood-group">
-                <h2>Blood Group: B-</h2>
-                <p>Available Quantity: 8 units</p>
-            </div>
+        <div class="blood-group">
+            <h2>Blood Group: O+</h2>
+            <p>Available Quantity: 10 units</p>
+        </div>
 
-            <div class="blood-group">
-                <h2>Blood Group: O+</h2>
-                <p>Available Quantity: 10 units</p>
-            </div>
-
-            <div class="blood-group">
-                <h2>Blood Group: AB-</h2>
-                <p>Available Quantity: 3 units</p>
-            </div>
+        <div class="blood-group">
+            <h2>Blood Group: AB-</h2>
+            <p>Available Quantity: 3 units</p>
         </div>
     </div>
+</div>
 </body>
 </html>
