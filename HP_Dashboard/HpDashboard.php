@@ -4,9 +4,17 @@
 <title>Health-Care Professional</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  .w3-quarter a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .w3-container {
+    border-radius: 10px; /* Adjust the value as needed */
+  }
+</style>
 </head>
-
-
 <body class="w3-light-grey">
 
   <!--sidebar-->
@@ -24,68 +32,92 @@
 
       <!--Donor Account Notification-->
       <div class="w3-quarter">
-        <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
-          <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
-          <div class="w3-right">
-            <!-- number-->
-          
+        <a href="DonorAccountHandle.php">
+          <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
+            <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <!-- number-->
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Donor Account</h4>
           </div>
-          <div class="w3-clear"></div>
-          <a href="DonorAccountHandle.php"style="text-decoration:none;"><h4>Donor Account</h4></a>
-        </div>
+        </a>
       </div>
 
-      <!--Donor Account Notification-->
+      <!--Blood Request Notification-->
       <div class="w3-quarter">
-        <div class="w3-container  w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
-          <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
-          <div class="w3-right">
-            <!-- number-->
-            
+        <a href="Request.php">
+          <div class="w3-container  w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
+            <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <!-- number-->
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Blood Request</h4>
           </div>
-          <div class="w3-clear"></div>
-          <a href="Request.php"style="text-decoration:none;"><h4>Blood Request</h4></a>
-        </div>
+        </a>
       </div>
 
-      <!--Donor Account Notification-->
+      <!--Inventory Notification-->
       <div class="w3-quarter">
-        <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
-          <div class="w3-left"><i class="fa fa-bullseye w3-xxxlarge"></i></div>
-          <div class="w3-right">
-            <!-- number-->
-           
+        <a href="CRUD.php">
+          <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
+            <div class="w3-left"><i class="fa fa-database w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <!-- number-->
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Inventory</h4>
           </div>
-          <div class="w3-clear"></div>
-          <a href="CRUD.php"style="text-decoration:none;"><h4>Inventory</h4></a>
-        </div>
+        </a>
       </div>
 
-      <!--Donor Account Notification-->
+      <!--Alerts Notification-->
       <div class="w3-quarter">
-        <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
-          <div class="w3-left"><i class="fa fa-bell w3-xxxlarge"></i></div>
-          <div class="w3-right">
-            <!-- number-->
-          
+        <a href="CRUD.php">
+          <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
+            <div class="w3-left"><i class="fa fa-bell w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <!-- number-->
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Alerts</h4>
           </div>
-          <div class="w3-clear"></div>
-          <a href="CRUD.php"style="text-decoration:none;"><h4>Alerts</h4></a>
-        </div>
+        </a>
       </div>     
 
     </div>
-  
-  <!--Map-->
-  <div class="w3-panel">
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-third">
-        <h5>Blood Availability</h5>
-        <img src="" style="width:100%" alt="blood availability">
+
+    <div class="w3-row-padding w3-margin-bottom">
+
+      <!--Blood Availability Notification-->
+      <div class="w3-quarter">
+        <a href="###">
+          <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
+            <div class="w3-left"><i class="fa fa-cog w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <!-- number-->
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Blood Availability</h4>
+          </div>
+        </a>
       </div>
 
-      
+      <!--Donation camps-->
+      <div class="w3-quarter">
+        <a href="CRUD.php">
+          <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
+            <div class="w3-left"><i class="fa fa-map-marker w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <!-- number-->
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Donation Camp</h4>
+          </div>
+        </a>
+      </div>   
     </div>
-  </div>
+  </div> 
 </body>
 </html>
