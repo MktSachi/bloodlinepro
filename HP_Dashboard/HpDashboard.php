@@ -76,12 +76,12 @@
       <div class="w3-quarter">
         <a href="CRUD.php">
           <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
-            <div class="w3-left"><i class="fa fa-bell w3-xxxlarge"></i></div>
+            <div class="w3-left"><i class="fa fa-cog w3-xxxlarge"></i></div>
             <div class="w3-right">
               <!-- number-->
             </div>
             <div class="w3-clear"></div>
-            <h4>Alerts</h4>
+            <h4>Blood Availability</h4>
           </div>
         </a>
       </div>     
@@ -94,20 +94,6 @@
       <div class="w3-quarter">
         <a href="###">
           <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
-            <div class="w3-left"><i class="fa fa-cog w3-xxxlarge"></i></div>
-            <div class="w3-right">
-              <!-- number-->
-            </div>
-            <div class="w3-clear"></div>
-            <h4>Blood Availability</h4>
-          </div>
-        </a>
-      </div>
-
-      <!--Donation camps-->
-      <div class="w3-quarter">
-        <a href="CRUD.php">
-          <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
             <div class="w3-left"><i class="fa fa-map-marker w3-xxxlarge"></i></div>
             <div class="w3-right">
               <!-- number-->
@@ -116,7 +102,37 @@
             <h4>Donation Camp</h4>
           </div>
         </a>
-      </div>   
+      </div>
+
+      <!--Donation camps-->
+      <div class="w3-quarter">
+        <a href="">
+          <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
+            <div class="w3-left"><i class="fa fa-bell w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <!-- number-->
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Notify Donor</h4>
+          </div>
+        </a>
+      </div>
+
+      <div class="w3-quarter">
+        <a href="">
+          <div class="w3-container w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
+            <div class="w3-left"><i class="fa fa-diamond w3-xxxlarge"></i></div>
+            <div class="w3-right">
+              <!-- number-->
+            </div>
+            <div class="w3-clear"></div>
+            <h4>Warning</h4>
+          </div>
+        </a>
+      </div>
+      
+      
+
     </div>
   </div> 
 </body>
