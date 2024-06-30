@@ -15,8 +15,7 @@ div.container {
   margin-top: 20px;
   text-align: left;
   display: inline-block;
-  max-width: 1200px;
-  width: 100%;
+  width: 95%;
   padding: 20px;
   background: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -61,9 +60,9 @@ input[type=submit] {
 </head>
 <body class="w3-light-grey">
 
-    <?php include './HP_sidebar.php'; ?>
+   
     <!-- !PAGE CONTENT! -->
-    <div class="w3-main" style="margin-left:270px;margin-top:43px;">
+    <div class="w3-main">
         <div class="container">
             <form action="your_form_submission_endpoint.php" method="POST">
 

@@ -46,7 +46,7 @@
 
       <!--Blood Request Notification-->
       <div class="w3-quarter">
-        <a href="Request.php">
+        <a href="requestHandle.php">
           <div class="w3-container  w3-text-white w3-padding-16" style="background-color: rgb(131, 26, 26);">
             <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
             <div class="w3-right">
