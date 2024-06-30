@@ -62,9 +62,7 @@
         <a href="HpDashboard.php" class="w3-bar-item w3-button w3-padding">
             <i class="fa fa-users fa-fw"></i> Dashboard
         </a>
-        <a href="Warning.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fa fa-diamond fa-fw"></i> Warnings
-        </a>
+       
         <a href="Profile.php" class="w3-bar-item w3-button w3-padding">
             <i class="fa fa-cog fa-fw"></i> Profile
         </a>

@@ -66,6 +66,18 @@ input[type=submit] {
     <div class="w3-main" style="margin-left:270px;margin-top:43px;">
         <div class="container">
             <form action="your_form_submission_endpoint.php" method="POST">
+
+                <label for="quantity">Hospital<span class="required"></span></label>
+                <select id="hospital" name="hospital name">
+                    <option value="">Teaching hospital Badulla</option>
+                    <option value="">Monaragala Hospital</option>
+                    <option value="">Welimada Hospital</option>
+                    <option value="">Diyathalawa Hospital</option>
+                    <option value="">Mahiyanganaya Hospital</option>
+                    <option value="">Bibila Hospital</option>
+                    <option value="">Wellawaya Hospital</option>
+                </select>
+
                 <label for="email">E-mail<span class="required"></span></label>
                 <input type="text" id="email" name="email" placeholder="Your e-mail.." required>
 
