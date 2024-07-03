@@ -99,7 +99,7 @@
   <div class="login-container">
     <div class="login-frame">
       <div class="movie-image">
-        <img src="../Image/1212log.png" alt="Movie Image">
+        <img src="doctor.jpg" alt="Movie Image">
       </div>
       <div class="login-form">
         <h1>Hello! Welcome to Bloodlinepro</h1>
