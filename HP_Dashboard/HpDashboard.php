@@ -64,20 +64,19 @@
 
   /* Styling for Dashboard title */
   p.dashboard-title {
-    margin-top: 10;
-    color: black; /* White text color */
+    margin-top: 10px;
+    color: black; /* Black text color */
     padding: 10px 20px; /* Padding around the title */
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
-    /* Make the title bold */
     font-family: Arial, sans-serif;
     font-size: 23px;
   }
+
   .w3-main {
     margin-left: 200px;
     margin-top: 43px;
   }
-  
 
   /* Custom margins for buttons */
   .gap-1 {
@@ -92,6 +91,7 @@
   .gap-4 {
     margin-bottom: 40px;
   }
+
   @media (max-width: 768px) {
     .w3-container {
       flex-direction: column;
@@ -105,8 +105,8 @@
 </head>
 <body class="w3-light-grey">
 
-  <!--sidebar-->
-  <?php include './HP_sidebar.php'; ?>
+  <!-- Sidebar -->
+  <?php include 'HP_sidebar.php'; ?>
 
   <!-- !PAGE CONTENT! -->
   <div class="w3-main">
@@ -168,21 +168,20 @@
         </a>
       </div>
 
-      <div class="w3-row-padding w3-margin-bottom">
-
-<!-- Blood Availability Notification -->
-<div class="w3-quarter gap-1">
-  <a href="">
-    <div class="w3-container">
-      <div class="button-text">
-        <h4>Blood Availability</h4>
-        <p>5</p>
+      <!-- Blood Availability Notification -->
+      <div class="w3-quarter gap-1">
+        <a href="">
+          <div class="w3-container">
+            <div class="button-text">
+              <h4>Blood Availability</h4>
+              <p>5</p>
+            </div>
+            <div class="icon"><i class="fa fa-cog fa-green" style="font-size: 25px;"></i></div>
+          </div>
+        </a>
       </div>
-      <div class="icon"><i class="fa fa-cog fa-green" style="font-size: 25px;"></i></div>
-    </div>
-  </a>
-</div>
-      <!-- Donation camps -->
+
+      <!-- Donation Camps -->
       <div class="w3-quarter gap-2">
         <a href="View/DonationCamp.php">
           <div class="w3-container">
@@ -195,6 +194,7 @@
         </a>
       </div>   
 
+      <!-- Notify -->
       <div class="w3-quarter gap-2">
         <a href="">
           <div class="w3-container">
@@ -202,7 +202,7 @@
               <h4>Notify</h4>
               <p>10</p>
             </div>
-            <div class="icon"><i class="fa fa-map-marker fa-orange" style="font-size: 25px;"></i></div>
+            <div class="icon"><i class="fa fa-envelope fa-gray" style="font-size: 25px;"></i></div>
           </div>
         </a>
       </div>   
@@ -210,7 +210,6 @@
   </div>
 
   <!-- Footer -->
- 
 
 </body>
 </html>
