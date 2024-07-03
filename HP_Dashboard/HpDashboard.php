@@ -168,10 +168,23 @@
         </a>
       </div>
 
+      <div class="w3-row-padding w3-margin-bottom">
 
+<!-- Blood Availability Notification -->
+<div class="w3-quarter gap-1">
+  <a href="">
+    <div class="w3-container">
+      <div class="button-text">
+        <h4>Blood Availability</h4>
+        <p>5</p>
+      </div>
+      <div class="icon"><i class="fa fa-cog fa-green" style="font-size: 25px;"></i></div>
+    </div>
+  </a>
+</div>
       <!-- Donation camps -->
       <div class="w3-quarter gap-2">
-        <a href="">
+        <a href="View/DonationCamp.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Donation Camp</h4>
