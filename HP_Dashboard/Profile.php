@@ -10,25 +10,13 @@
 <?php include './HP_sidebar.php'; ?>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:250px;margin-top:43px;">
+<div class="w3-main" style="margin-left:160px;margin-top:43px;">
     
     <div class="container">
         
-        <div class="profile-picture">
-            <img id="profilePic" src="path_to_default_profile_picture.jpg" alt="Profile Picture" class="profile-pic">
-            <input type="file" id="profilePicInput" accept="image/*" style="display: none;" onchange="loadProfilePic(event)"></br>
-            <button class="change-pic-button" onclick="document.getElementById('profilePicInput').click();">Change</button>
-        </div>
-        <h1>Dr. Ahinsa</h1>
-        <p>Cardiologist</p>
-        <div class="about">
-            <h2>About Me</h2>
-            <p>
-                Hello! I'm Dr. Ahinsa, a board-certified cardiologist with over 10 years 
-                of experience in diagnosing and treating cardiovascular conditions. I am dedicated 
-                to providing comprehensive care and helping patients achieve optimal heart health.
-            </p>
-        </div>
+       <h1>Dr. Ahinsa</h1>
+        <p>Medical Help Officer</p>
+        
         <div class="contact">
        
             <label><strong>Registration Number:</strong></label>

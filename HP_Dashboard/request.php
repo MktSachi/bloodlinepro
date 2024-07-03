@@ -1,95 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    
-
-    <style>
-    body {
-    font-family: Arial;
-}
-
-/* Division properties */
-div.container {
-    padding: 20px;
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   
-  margin-top: 20px;
-  text-align: left;
-  display: inline-block;
-  max-width: 1200px;
-  width: 100%;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
+  <!-- Bootstrap 5 CSS  -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
+  <link rel="stylesheet" href="../assets/css/header.css">
+  <link rel="stylesheet" href="../assets/css/footer.css">
+  <title>Blood Bank Management System</title>
 
-/* Input field properties */
-input[type=text], input[type=password], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-/* Label properties */
-label {
-    color: rgb(131, 26, 26);
-}
-
-/* Asterisk mark */
-.required::after {
-    content: "*";
-    color: rgb(131, 26, 26);
-}
-
-/* Submit button properties */
-input[type=submit] {
-    width: 10%;
-    background-color: rgb(131, 26, 26);
-    color: white;
-    padding: 10px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-}
-</style>
-
+  <style>
+    .btn-block {
+      background-color:#1E7CE7; /* Light blue color */
+      color: #fff; /* White text color */
+      border-color:#1E7CE7; /* Matching border color */
+    }
+  </style>
 </head>
-<body class="w3-light-grey">
 
-    <?php include './HP_sidebar.php'; ?>
-    <!-- !PAGE CONTENT! -->
-    <div class="w3-main" style="margin-left:270px;margin-top:43px;">
-        <div class="container">
-            <form action="your_form_submission_endpoint.php" method="POST">
-                <label for="email">E-mail<span class="required"></span></label>
-                <input type="text" id="email" name="email" placeholder="Your e-mail.." required>
+<body class="p-0 m-0 border-0 bd-example">
 
-                <label for="blood">Blood Group<span class="required"></span></label>
-                <select id="blood" name="blood">
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="AB-">AB-</option>
-                </select>
-
-                <label for="quantity">Blood quantity (pints)<span class="required"></span></label>
-                <input type="text" id="quantity" name="quantity" placeholder="Required blood quantity.." required>
-
-                <label for="description">Description<span class="required"></span></label>
-                <input type="text" id="description" name="description" placeholder="Your requirements.." required>
-
-                <input type="submit" value="Send">
-            </form>
+<main role="main" class="container">
+  <div class="row">
+    <div class="col-md-6 mb-3"></div>
+    <div class="col-md-10 blog-main">
+      <h4 class="mb-3">Blood Request Form</h4>
+      
+      <?php if (!empty($error_msg)) { ?>
+        <div class="alert alert-danger" role="alert">
+          <?php echo $error_msg; ?>
         </div>
+      <?php } ?>
+      
+      <form action="your_form_submission_endpoint.php" method="POST">
+        <div class="mb-3">
+          <label for="hospital">Hospital</label>
+          <select id="hospital" name="hospital" class="form-control" required>
+            <option value="">-Select Hospital- </option>
+            <option value="Teaching hospital Badulla">Teaching hospital Badulla</option>
+            <option value="Monaragala Hospital">Monaragala Hospital</option>
+            <option value="Welimada Hospital">Welimada Hospital</option>
+            <option value="Diyathalawa Hospital">Diyathalawa Hospital</option>
+            <option value="Mahiyanganaya Hospital">Mahiyanganaya Hospital</option>
+            <option value="Bibila Hospital">Bibila Hospital</option>
+            <option value="Wellawaya Hospital">Wellawaya Hospital</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="email">E-mail</label>
+          <input type="email" class="form-control" id="email" name="email" placeholder="Enter hospital e-mail" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="blood">Blood Group</label>
+          <select id="blood" name="blood" class="form-control" required>
+            <option value="">-Select Blood Group-</option>
+            <option value="A+">A+</option>
+            <option value="A-">A-</option>
+            <option value="B+">B+</option>
+            <option value="B-">B-</option>
+            <option value="O+">O+</option>
+            <option value="O-">O-</option>
+            <option value="AB+">AB+</option>
+            <option value="AB-">AB-</option>
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="quantity">Blood quantity (pints)</label>
+          <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Required blood quantity" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="description">Description</label>
+          <input type="text" class="form-control" id="description" name="description" placeholder="Your requirements" required>
+        </div>
+
+        <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Send Request</button>
+
+      </form>
     </div>
+  </div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
 </body>
 </html>
