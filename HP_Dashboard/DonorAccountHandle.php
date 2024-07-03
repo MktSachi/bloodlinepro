@@ -15,7 +15,7 @@
     <?php include './HP_sidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
-    <div class="w3-main" style="margin-left:250px;margin-top:43px;">
+    <div class="w3-main" style="margin-left:200px;margin-top:43px;">
         
         <div class="container">
             <h3><strong>Donor Account</strong></h3>
