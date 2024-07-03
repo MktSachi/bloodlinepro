@@ -52,12 +52,7 @@ $db->close();
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .profile-picture {
-            max-width: 200px; /* Adjust size as needed */
-            max-height: 200px; /* Adjust size as needed */
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
+       
         .highlight {
             background-color: #f0f0f0; /* Light grey background */
             padding: 10px;
@@ -77,7 +72,7 @@ $db->close();
         </form>
 
         <?php if ($donorNotFound): ?>
-            <div class="alert alert-danger mt-3">Donor not found.</div>
+            <div class="alert alert-danger mt-3">Donor not register in our system.</div>
         <?php endif; ?>
 
         <?php if ($submissionSuccess): ?>
