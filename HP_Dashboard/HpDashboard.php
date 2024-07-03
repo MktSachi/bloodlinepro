@@ -168,32 +168,6 @@
         </a>
       </div>
 
-    </div>
-<<<<<<< HEAD
-    
-  <!--Map-->
-  <div class="w3-panel">
-    <div class="w3-row-padding" style="margin:0 -16px">
-      <div class="w3-third">
-        <h5>Blood Availability</h5>
-        <img src="" style="width:100%" alt="blood availability">
-=======
-
-    <div class="w3-row-padding w3-margin-bottom">
-
-      <!-- Blood Availability Notification -->
-      <div class="w3-quarter gap-1">
-        <a href="">
-          <div class="w3-container">
-            <div class="button-text">
-              <h4>Blood Availability</h4>
-              <p>5</p>
-            </div>
-            <div class="icon"><i class="fa fa-cog fa-green" style="font-size: 25px;"></i></div>
-          </div>
-        </a>
->>>>>>> f63d0470562fe43fe9cf327a9680c5ae9de081ef
-      </div>
 
       <!-- Donation camps -->
       <div class="w3-quarter gap-2">
