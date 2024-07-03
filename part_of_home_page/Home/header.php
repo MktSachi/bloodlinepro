@@ -16,9 +16,9 @@
             Donate
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">About Blood</a></li>
-            <li><a class="dropdown-item" href="#">Function Of Blood</a></li>
-            <li><a class="dropdown-item" href="#">Blood Groups</a></li>
+            <li><a class="dropdown-item" href="../Donate_page/about_blood.php">About Blood</a></li>
+            <li><a class="dropdown-item" href="../Donate_page/Function_blood.php">Function Of Blood</a></li>
+            <li><a class="dropdown-item" href="../Donate_page/Blood_Group.php">Blood Groups</a></li>
             <li><a class="dropdown-item" href="#">Who Can Donate Blood</a></li>
           </ul>
         </li>
@@ -52,9 +52,9 @@
         <li class="nav-item">
           <a class="nav-link active" href="../login_window/login.php">Sign-In</a>
         </li>
-        <li class="nav-item">
+        <!--<li class="nav-item">
           <a class="nav-link active" href="../donor_registration/register_form.php">Register</a>
-        </li>
+        </li>-->
       </ul>
     </div>
   </div>

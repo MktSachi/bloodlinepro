@@ -3,9 +3,8 @@ session_start();
 require '../donor_registration/Database.php';
 require '../donor_registration/Donor.php';
 
-$db = new Database();
-$conn = $db->getConnection();
-$donor = new Donor($conn);
+$db = new Database(); // Create an instance of Database
+$donor = new Donor($db); // Pass $db to the Donor class constructor
 
 $error_msg = "";
 
@@ -13,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if ($donor->isUsernameExists($username)) {
+    if ($donor->UsernameExists($username)) { // Ensure method name is correct (UsernameExists instead of isUsernameExists)
         $user_data = $donor->getUserByUsername($username);
 
         if (password_verify($password, $user_data['password'])) {

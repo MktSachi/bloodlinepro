@@ -18,7 +18,7 @@
 <body class="p-0 m-0 border-0 bd-example">
 <?php include '../part_of_home_page/home/header.php'; ?><br><br>
 <main role="main" class="container">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-md-6 mb-3"></div>
     <div class="col-md-10 blog-main">
       <h4 class="mb-3">Donor Registration</h4>

@@ -2,27 +2,51 @@
   <div class="container p-4">
     <div class="row">
       <!-- Links section -->
-      <div class="col-lg-6 col-md-12 mb-4 text-white">
-        <h5 class="text-uppercase">Links</h5>
-        <ul class="list-unstyled mb-0">
-          <li>
-            <a href="#!" class="text-white">Contact Us</a>
-          </li>
-          <!-- Add more links as needed -->
-        </ul>
-      </div>
-      <!-- Links section 2 -->
-      <div class="col-lg-6 col-md-12 mb-4">
-        <h5 class="text-uppercase mb-0">Links</h5>
-        <ul class="list-unstyled">
-          <li>
-            <a href="#!" class="text-white">Link 1</a>
-          </li>
-          <!-- Add more links as needed -->
-        </ul>
-      </div>
-    </div>
+      <div class="row">
+  <!-- Email section -->
+  <div class="col-lg-4 col-md-12 mb-4 text-white">
+    <ul class="list-unstyled mb-0">
+      <p class="text-uppercase">Email</p>
+      <li>
+        <a href="mailto:bloodlinepro.lk@gmail.com" class="text-white">bloodlinepro.lk@gmail.com</a>
+      </li>
+    </ul>
   </div>
+
+  <!-- Postal Address section -->
+  <div class="col-lg-4 col-md-12 mb-4 text-white">
+    <ul class="list-unstyled mb-0">
+      <p class="text-uppercase">Postal Address</p>
+      <li>
+        <span class="text-white">Blood Line Pro<br>No: 555/5D, Narahenpita<br>Colombo 05<br>Sri Lnka</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Phone Number section -->
+  <div class="col-lg-4 col-md-12 mb-4 text-white">
+    <ul class="list-unstyled mb-0">
+      <p class="text-uppercase">Phone Number</p>
+      <li>
+        <a href="tel:+94123456789" class="text-white">+94 713245868</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<!--  
+<div class="row">
+  <div class="col-12 mb-4">
+    <h5 class="text-uppercase mb-0">Links</h5>
+    <ul class="list-unstyled">
+      <li>
+        <a href="#!" class="text-white">Link 1</a>
+      </li>
+-->
+    </ul>
+  </div>
+</div>
+
 
   <div class="container p-4">
     <div class="row">
@@ -61,7 +85,7 @@
   </div>
 
   <div class="text-center p-3 text-white" style="background-color: rgba(3, 21, 41, 0.9);">
-    © 2020 Copyright:
-    <a href="./reg.php" class="text-white">NBTS</a>
+    © 2024 bloodlinepro
+ 
   </div>
 </footer>
