@@ -187,7 +187,7 @@
 
       <!-- Donation camps -->
       <div class="w3-quarter gap-2">
-        <a href="View/DonationCamp.php">
+        <a href="">
           <div class="w3-container">
             <div class="button-text">
               <h4>Donation Camp</h4>
