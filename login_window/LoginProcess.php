@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../donor_registration/Database.php';
-require '../donor_registration/Donor.php';
+require '../DonorRegistration/Database.php';
+require '../DonorRegistration/Donor.php';
 
 $db = new Database(); // Create an instance of Database
 $donor = new Donor($db); // Pass $db to the Donor class constructor

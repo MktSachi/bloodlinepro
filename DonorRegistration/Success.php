@@ -1,38 +1,3 @@
-<?php
-require '../../DonorRegistration/Database.php';
-require '../../DonorRegistration/Donor.php';
-$db = new Database();
-$conn = $db->getConnection();
-$donor = new Donor($db);
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $donorNIC = $_POST['donorNIC'];
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $username = $_POST['username'];
-    $email = $_POST['email'];
-    $phoneNumber = $_POST['phoneNumber'];
-    $address = $_POST['address'];
-    $address2 = $_POST['address2'];
-    $gender = $_POST['gender'];
-    $bloodType = $_POST['bloodType'];
-
-    $sql = "UPDATE donors SET first_name = ?, last_name = ?, username = ?, email = ?, phoneNumber = ?, address = ?, address2 = ?, gender = ?, bloodType = ? WHERE donorNIC = ?";
-    $stmt = $db->prepare($sql);
-    $stmt->bind_param("ssssssssss", $firstName, $lastName, $username, $email, $phoneNumber, $address, $address2, $gender, $bloodType, $donorNIC);
-
-    if ($stmt->execute()) {
-        $successMessage = "Donor details updated successfully!";
-    } else {
-        $errorMessage = "Failed to update donor details.";
-    }
-
-    $stmt->close();
-}
-
-$db->close();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,7 +50,7 @@ $db->close();
     }
     
   </style>
-  <title>Update Success</title>
+  <title>Registration Success</title>
 </head>
 <body>
 <div class="success-container">
@@ -93,14 +58,9 @@ $db->close();
     <div class="icon">
       <i class="fas fa-check-circle"></i>
     </div>
-    <?php if (isset($successMessage)): ?>
-      <div class="message">Success!</div>
-      <div class="sub-message"><?= htmlspecialchars($successMessage) ?></div>
-    <?php elseif (isset($errorMessage)): ?>
-      <div class="message">Error!</div>
-      <div class="sub-message"><?= htmlspecialchars($errorMessage) ?></div>
-    <?php endif; ?>
-    
+    <div class="message">Success!</div>
+    <div class="sub-message">You have registered successfully! You can now log into your dashboard.</div>
+    <a href="/login_window/login.php" class="btn btn-primary btn-block" >Loging</a>
   </div>
 </div>
 
