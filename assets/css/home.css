@@ -1,0 +1,33 @@
+body {
+
+  font-family: Arial, sans-serif;
+  background-color:red;
+  height: 100vh;
+  }
+  img {
+    width: 150px; height: 150px;
+  }
+  .navimg{
+    width: 12%;
+    height: 12%;
+  }
+  
+.navbar{
+  background-color: aqua;
+}
+  
+  
+.featurette-image {
+    width: 500px;
+    height: 500px;
+    object-fit: cover; /* This ensures the image covers the dimensions without distortion */
+  }
+   
+  
+  
+  .card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow */
+    border: none; /* Remove the border */
+    margin-bottom: 1rem; /* Set margin between cards */
+  }
+  

@@ -1,0 +1,47 @@
+body{
+    font-family: Arial, sans-serif;
+}
+.box{
+    width: 23.4%;
+    margin-left: 1%;
+    margin-top: 2%;
+    display: inline-block;
+    background-color: darkred;
+}
+.box:hover{
+    background-color: red;
+}
+img{
+    width: 20%;
+    margin-top: 0%;
+    padding-top: 10px;
+    margin-bottom: -5%;
+}
+p{
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    padding-bottom: 20px;
+    margin-bottom: 0px;
+}
+a{
+    text-decoration: none;
+}
+img,p{
+    margin-left: 4%;
+}
+@media only screen and (max-width: 900px) {
+    .box{
+        width: 31.5%;
+    }
+}
+@media only screen and (max-width: 700px) {
+    .box{
+        width: 48%;
+    }
+}
+@media only screen and (max-width: 450px) {
+    .box{
+        width: 97%;
+    }
+}

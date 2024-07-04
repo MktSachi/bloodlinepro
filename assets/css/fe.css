@@ -1,0 +1,43 @@
+
+  
+  /* Jumbotron styles */
+  .jumbotron_fe {
+    background-image: url('blood.jpg'); /* Path to your background image */
+    background-size: cover; /* Cover the entire area */
+    background-position: center; /* Center the image */
+    padding: 80px 0; /* Vertical padding */
+    text-align: center; /* Center align text */
+    color: white; /* Text color */
+  }
+  
+  .container_fe {
+    max-width: 800px; /* Maximum width of content */
+    margin: 0 auto; /* Center align container */
+    padding: 0 15px; /* Horizontal padding */
+  }
+  
+  .display-fe {
+    font-size: 3rem; /* Large font size */
+    margin-bottom: 20px; /* Bottom margin */
+  }
+  
+  .P_fe {
+    font-size: 1.25rem; /* Medium font size */
+    margin-bottom: 20px; /* Bottom margin */
+  }
+  
+  .btn_fe {
+    display: inline-block; /* Make button inline */
+    font-size: 1.25rem; /* Button font size */
+    color: #fff; /* Text color */
+    background-color:  rgb(131, 26, 26); /* Button background color */
+    border: none; /* No border */
+    padding: 10px 20px; /* Padding */
+    border-radius: 5px; /* Rounded corners */
+    text-decoration: none; /* Remove underline */
+  }
+  
+  .btn_fe:hover {
+    background-color:  rgb(65, 12, 12); /* Darker background color on hover */
+  }
+  

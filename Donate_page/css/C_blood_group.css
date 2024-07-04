@@ -1,0 +1,40 @@
+
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial;
+    text-align: justify;
+    line-height: 1.5; 
+  }
+  
+  .row {  
+    display: -ms-flexbox; 
+    display: flex;
+    -ms-flex-wrap: wrap; 
+    flex-wrap: wrap; 
+  }
+  
+  /*Left side content properties*/
+  .side {
+    -ms-flex: 40%; 
+    flex: 30%;
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  /*right side content properties*/
+  .main {   
+    -ms-flex: 60%; 
+    flex: 70%;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  /*responsive quaries*/
+  @media screen and (max-width: 700px) {
+    .row {   
+      flex-direction: column;
+    }
+  }
