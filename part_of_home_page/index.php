@@ -19,7 +19,7 @@
   <link rel="stylesheet" href="../Assets/css/textcard.css">
   <link rel="stylesheet" href="../part_of_home_page/Slideshow/SlideShow.css">
   <script type="text/javascript" src="Js/slide.js"></script>
-  <title>Blood Bank Management System</title>
+  <title>Blood Bank Management Sysssstem</title>
   <link rel="icon" href="../Image/logo3 (1).png" type="image/icon type">
   <style>body{
     background-color: white;
