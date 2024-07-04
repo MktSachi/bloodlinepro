@@ -105,13 +105,12 @@
 </head>
 <body class="w3-light-grey">
 
-<<<<<<< HEAD:HpDashboard/HpDashboard.php
-  <!--sidebar-->
-  <?php include './HpSidebar.php'; ?>
-=======
+
+
+
   <!-- Sidebar -->
-  <?php include 'HP_sidebar.php'; ?>
->>>>>>> 7fe0a4a772a8e29c157cd39dac18562a3d885de9:HP_Dashboard/HpDashboard.php
+  <?php include 'HpSidebar.php'; ?>
+
 
   <!-- !PAGE CONTENT! -->
   <div class="w3-main">
