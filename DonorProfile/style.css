@@ -1,14 +1,51 @@
-.w3-sidebar .w3-bar-item, .w3-sidebar .w3-bar-item a {
-    padding: 15px; /* Adjust padding */
-    font-size: 18px; /* Increase font size */
+body {
+    font-family: Arial, sans-serif;
 }
-.w3-sidebar .w3-bar-item i {
-    margin-right: 10px; /* Increase gap between icon and text */
+.w3-main {
+    margin-left: 230px;
+    margin-top: 43px;
 }
-.w3-sidebar .w3-bar-item:hover {
-    background-color: transparent !important; /* Remove background color on hover */
-    color: #0000b3 !important; /* Set font color to blue on hover */
+.container {
+    padding: 20px;
 }
+.profile-picture img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+.change-pic-button {
+    display: block;
+    margin: 10px 0;
+}
+.editable {
+    cursor: pointer;
+    color: blue;
+}
+.profile-container {
+    display: flex;
+    flex-direction: column;
+}
+.form-columns-container {
+    display: flex;
+    justify-content: space-between;
+}
+.form-column {
+    flex: 1;
+    margin-right: 20px;
+}
+.form-group {
+    margin-bottom: 15px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+.form-group input {
+    width: 100%;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
 .logout-button {
     color: white; /* Set text color to white */
     box-sizing: border-box; /* Include padding and border in the element's total width and height */
@@ -19,23 +56,7 @@
 .logout-button i {
     margin-right: 10px; /* Ensure the icon margin stays the same */
 }
-.profile-section {
-    padding: 20px;
-    background-color: #f1f1f1;
-    margin-bottom: 20px;
-}
-.profile-section h2 {
-    margin-top: 0;
-}
-.profile-section input,
-.profile-section select {
-    width: 100%;
-    padding: 10px;
-    margin: 10px 0;
-}
-.profile-section .form-group {
-    margin-bottom: 15px;
-}
+
 .css-card {
     display: inline-block;
     width: 30%;

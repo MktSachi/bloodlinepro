@@ -1,12 +1,10 @@
 <?php
 session_start();
 
-
 $error_msg = "";
 $success_msg = "";
 
 // Include classes
-
 require 'Database.php';
 require 'Donor.php';
 require 'Validator.php';
@@ -32,11 +30,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_msg .= "Password must contain at least one uppercase letter, one lowercase letter, one symbol, and one number. ";
     }
 
-    if ($donor->isUsernameExists($username)) {
+    if ($donor->UsernameExists($username)) {
         $error_msg .= "Username '$username' already exists. Please choose a different username. ";
     }
 
-    if ($donor->isDonorNICExists($donorNIC)) {
+    if ($donor->DonorNICExists($donorNIC)) {
         $error_msg .= "Donor NIC '$donorNIC' already exists. Please use a different NIC. ";
     }
 
@@ -44,7 +42,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $file_destination = '';
     if (!empty($_FILES['profile_picture']['name'])) {
         $upload_dir = '../Upload/';
-        $allowed_types = array("jpg", "jpeg", "png", "gif");
+        $allowed_types = ["jpg", "jpeg", "png", "gif"];
         $file_name = $_FILES['profile_picture']['name'];
         $file_tmp = $_FILES['profile_picture']['tmp_name'];
         $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
@@ -93,17 +91,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             'otherHealthConditions' => $_POST['otherHealthConditions']
         ]);
 
-        if ($donor->register($data, $file_destination)) {
-            try {
+        try {
+            if ($donor->register($data, $file_destination)) {
                 $emailSender->sendConfirmationEmail($data['email'], $data['firstName'], $data['username']);
                 $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
-                header("Location: success.php");
+                header("Location: Success.php");
                 exit();
-            } catch (Exception $e) {
-                $error_msg .= $e->getMessage();
+            } else {
+                $error_msg .= "Error: Registration failed.";
             }
-        } else {
-            $error_msg .= "Error: Registration failed.";
+        } catch (Exception $e) {
+            $error_msg .= $e->getMessage();
         }
     }
 }

@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-require '../../donor_registration/Database.php';
-require '../../donor_registration/Donor.php';
-require '../../donor_registration/Validator.php';
-require 'Email.php';
+require '../../DonorRegistration/Database.php';
+require '../../DonorRegistration/Donor.php';
+require '../../DonorRegistration/Validator.php';
+require 'Email.php'; // Assuming Email.php is in the same folder as other classes
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -21,18 +21,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Generate a default password
     $password = bin2hex(random_bytes(4)); // 8 characters long
 
-    if ($donor->isUsernameExists($username)) {
+    if ($donor->UsernameExists($username)) {
         $error_msg .= "Username '$username' already exists. Please choose a different username. ";
     }
 
-    if ($donor->isDonorNICExists($donorNIC)) {
+    if ($donor->DonorNICExists($donorNIC)) {
         $error_msg .= "Donor NIC '$donorNIC' already exists. Please use a different NIC. ";
     }
 
     // Handle file upload if a file was selected
     $file_destination = '';
     if (!empty($_FILES['profile_picture']['name'])) {
-        $upload_dir = '../Upload/';
+        $upload_dir = '../../DonorRegistration/Upload/'; // Ensure the path is correct
         $allowed_types = array("jpg", "jpeg", "png", "gif");
         $file_name = $_FILES['profile_picture']['name'];
         $file_tmp = $_FILES['profile_picture']['tmp_name'];
@@ -83,14 +83,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ]);
 
         if ($donor->register($data, $file_destination)) {
-            $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
-            // Redirect to success page
-            header("Location:../../donor_registration/success.php");
-
             // Send the confirmation email
             $emailSender = new EmailSender();
             $emailSender->sendConfirmationEmail($data['email'], $data['firstName'], $data['username'], $password);
 
+            $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
+            // Redirect to success page
+            header("Location: ../../DonorRegistration/Success.php");
             exit();
         } else {
             $error_msg .= "Error: Registration failed.";
