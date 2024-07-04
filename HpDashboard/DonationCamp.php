@@ -1,11 +1,6 @@
 <?php
-<<<<<<< HEAD:HP_Dashboard/DonationCamp.php
-require '../donor_registration/Database.php';
-require '../donor_registration/Donor.php';
-=======
-require '../../DonorRegistration/Database.php';
-require '../../DonorRegistration/Donor.php';
->>>>>>> 7fe0a4a772a8e29c157cd39dac18562a3d885de9:HP_Dashboard/View/DonationCamp.php
+require '../DonorRegistration/Database.php';
+require '../DonorRegistration/Donor.php';
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -102,7 +97,7 @@ $db->close();
     </style>  
 </head>
 <body>
-    <?php include './HP_sidebar.php'; ?>
+    <?php include './HpSidebar.php'; ?>
     <div class="w3-main" style="margin-left:200px;margin-top:43px;">
 
     <div class="container">
@@ -193,7 +188,8 @@ $db->close();
         <?php endif; ?>
     </div>
     
-   
+    <!-- Footer -->
+    <?php include 'Footer.php'; ?>
 
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
