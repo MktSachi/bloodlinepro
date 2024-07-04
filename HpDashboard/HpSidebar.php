@@ -7,10 +7,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <link rel ="stylesheet" href="css/sidebar.css">
 
-<<<<<<< HEAD:HpDashboard/HpSidebar.php
-
-=======
->>>>>>> 7fe0a4a772a8e29c157cd39dac18562a3d885de9:HP_Dashboard/HP_sidebar.php
 
 </head>
 
