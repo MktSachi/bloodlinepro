@@ -61,7 +61,7 @@
     </style>
 </head>
 <body>
-<?php include './HP_sidebar.php'; ?>
+<?php include './HpSidebar.php'; ?>
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:270px;margin-top:43px;">

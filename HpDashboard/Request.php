@@ -36,7 +36,7 @@
         </div>
       <?php } ?>
       
-      <form action="your_form_submission_endpoint.php" method="POST">
+      <form action="ProcessForm.php" method="POST">
         <div class="mb-3">
           <label for="hospital">Hospital</label>
           <select id="hospital" name="hospital" class="form-control" required>
@@ -73,7 +73,7 @@
 
         <div class="mb-3">
           <label for="quantity">Blood quantity (pints)</label>
-          <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Required blood quantity" required>
+          <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Required blood quantity" required>
         </div>
 
         <div class="mb-3">

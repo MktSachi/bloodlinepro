@@ -106,7 +106,7 @@
 <body class="w3-light-grey">
 
   <!--sidebar-->
-  <?php include './HP_sidebar.php'; ?>
+  <?php include './HpSidebar.php'; ?>
 
   <!-- !PAGE CONTENT! -->
   <div class="w3-main">
@@ -131,7 +131,7 @@
 
       <!-- Blood Request Notification -->
       <div class="w3-quarter gap-2">
-        <a href="requestHandle.php">
+        <a href="RequestHandle.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Blood Request</h4>
@@ -184,7 +184,7 @@
 </div>
       <!-- Donation camps -->
       <div class="w3-quarter gap-2">
-        <a href="View/DonationCamp.php">
+        <a href="DonationCamp.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Donation Camp</h4>
