@@ -9,25 +9,25 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <title>Donor Account</title>
-    <link rel="stylesheet" href="css/DonorHandle.css">    
+    <link rel="stylesheet" href="Css/DonorHandle.css">    
 </head>
 <body>
-    <?php include './HP_sidebar.php'; ?>
+    <?php include './HpSidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
     <div class="w3-main" style="margin-left:200px;margin-top:43px;">
         
         <div class="container">
-            <h3><strong>Donor Account</strong></h3>
+            <h3><strong>Blood Request</strong></h3>
             
             <!-- Operation links with icons -->
             <div class="operation-links">
-                <a href="CreateDonor/CreateDonor.php" target="contentFrame" class="btn btn-primary">
-                    <i class="fa fa-plus" style="margin-right: 5px;"></i>Create Donor
+                <a href="Request.php" target="contentFrame" class="btn btn-primary">
+                    <i class="fa fa-plus" style="margin-right: 5px;"></i>Request Blood
                 </a>
                 
-                <a href="View/ViewDonor.php" target="contentFrame" class="btn btn-info">
-                    <i class="fa fa-eye" style="margin-right: 5px;"></i>Donor Information
+                <a href="" target="contentFrame" class="btn btn-info">
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>View Blood Request
                 </a>
             </div>
 

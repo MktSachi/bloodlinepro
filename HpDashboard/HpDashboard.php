@@ -105,8 +105,13 @@
 </head>
 <body class="w3-light-grey">
 
+<<<<<<< HEAD:HpDashboard/HpDashboard.php
+  <!--sidebar-->
+  <?php include './HpSidebar.php'; ?>
+=======
   <!-- Sidebar -->
   <?php include 'HP_sidebar.php'; ?>
+>>>>>>> 7fe0a4a772a8e29c157cd39dac18562a3d885de9:HP_Dashboard/HpDashboard.php
 
   <!-- !PAGE CONTENT! -->
   <div class="w3-main">
@@ -131,7 +136,7 @@
 
       <!-- Blood Request Notification -->
       <div class="w3-quarter gap-2">
-        <a href="requestHandle.php">
+        <a href="RequestHandle.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Blood Request</h4>
