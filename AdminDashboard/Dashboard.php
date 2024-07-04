@@ -4,12 +4,12 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Admin Dashboard</title>
-        <link rel="stylesheet" href="css/dashboard.css">
+        <link rel="stylesheet" href="css/Dashboard.css">
     </head>
     <body>
 
         <div class="box">
-            <a href="createHp.php">
+            <a href="CreateHp.php">
                 <div>
                     <img src="Images/create.png" alt="Acc icon"/>
                     <p>Create HP accounts</p>
@@ -41,7 +41,7 @@
             </a>
         </div>
         <div class="box">
-            <a href="hospital.php">
+            <a href="Hospital.php">
                 <div>
                     <img src="Images/hospitals.png" alt="Hospital icon"/>
                     <p>Hospitals</p>
