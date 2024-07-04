@@ -10,7 +10,7 @@
 <?php include './HpSidebar.php'; ?>
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:160px;margin-top:43px;">
+<div class="w3-main" style="margin-left:220px;margin-top:43px;">
     
     <div class="container">
         

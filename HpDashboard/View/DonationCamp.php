@@ -1,6 +1,6 @@
 <?php
-require '../../donor_registration/Database.php';
-require '../../donor_registration/Donor.php';
+require '../../DonorRegistration/Database.php';
+require '../../DonorRegistration/Donor.php';
 
 $db = new Database();
 $conn = $db->getConnection();

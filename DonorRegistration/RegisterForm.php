@@ -1,4 +1,4 @@
-<?php include 'reg.php'?>
+<?php include 'RegistartionProcess.php'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,15 +10,15 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../assets/css/header.css">
-  <link rel="stylesheet" href="/assets/css/footer.css">
+  <link rel="stylesheet" href="../Assets/css/header.css">
+  <link rel="stylesheet" href="/Assets/css/footer.css">
   <script type="text/javascript" src="Js/slide.js"></script>
   <title>Blood Bank Management System</title>
 </head>
 <body class="p-0 m-0 border-0 bd-example">
-<?php include '../part_of_home_page/home/header.php'; ?><br><br>
+<?php include '../part_of_home_page/home/Header.php'; ?><br><br>
 <main role="main" class="container">
-  <div class="row">
+  <div class="row justify-content-center">
     <div class="col-md-6 mb-3"></div>
     <div class="col-md-10 blog-main">
       <h4 class="mb-3">Donor Registration</h4>

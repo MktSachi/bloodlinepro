@@ -1,22 +1,22 @@
 <?php
-require '../../donor_registration/Database.php';
-require '../../donor_registration/Donor.php';
+require '../../DonorRegistration/Database.php';
+require '../../DonorRegistration/Donor.php';
 
 $donorDeleted = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $donorNIC = $_POST['donorNIC'];
-    
+
     $db = new Database();
     $conn = $db->getConnection();
     $donor = new Donor($db);
-    
+
     $result = $donor->deleteDonorByNIC($donorNIC);
-    
+
     if ($result) {
         $donorDeleted = true;
     }
-    
+
     $db->close();
 }
 ?>

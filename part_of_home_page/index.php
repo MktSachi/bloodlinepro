@@ -12,24 +12,52 @@
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
   
   <!-- Your Custom CSS files -->
-  <link rel="stylesheet" href="../assets/css/home.css">
-  <link rel="stylesheet" href="../assets/css/header.css">
-  <link rel="stylesheet" href="../assets/css/footer.css">
-  <link rel="stylesheet" href="../assets/css/fe.css">
-  <link rel="stylesheet" href="../part_of_home_page/Slideshow/slideshow.css">
+  <link rel="stylesheet" href="../Assets/css/home.css">
+  <link rel="stylesheet" href="../Assets/css/header.css">
+  <link rel="stylesheet" href="../Assets/css/footer.css">
+  <link rel="stylesheet" href="../Assets/css/fe.css">
+  <link rel="stylesheet" href="../Assets/css/textcard.css">
+  <link rel="stylesheet" href="../part_of_home_page/Slideshow/SlideShow.css">
   <script type="text/javascript" src="Js/slide.js"></script>
   <title>Blood Bank Management System</title>
-  <link rel="icon" href="../Image/1212.png" type="image/icon type">
+  <link rel="icon" href="../Image/logo3 (1).png" type="image/icon type">
+  <style>body{
+    background-color: white;
+
+  
+  }
+  h1, h2{
+    font-weight: bold; /* Makes all headings bold */
+  }
+.content-wrapper {
+  margin: 60px; /* Adjust the margin as per your design needs */
+}
+
+
+
+  </style>
+  
 </head>
 <body class="p-0 m-0 border-0 bd-example">
   
-  <?php include './home/header.php'; ?>
-  <?php include './Slideshow/slide.php'; ?>
- <!-- <?php include './home/feature.php'; ?> -->
-  <?php include './home/discription.php'; ?>
-  <?php include './home/card.php'; ?>
-  <?php include './home/pic.php'; ?>
-  <?php include './home/footer.php'; ?>
+  <?php include './home/Header.php'; ?>
+  <?php include './Slideshow/SlideShow.php'; ?>
+ <!-- <?php include './home/Feature.php'; ?> -->
+ 
+  <?php include './home/Discription.php'; ?>
+  <div class="content-wrapper">
+  <?php include './home/Text.php'; ?>
+</div>
+<div class="content-wrapper">
+  <?php include './home/Card.php'; ?>
+</div>
+<div class="content-wrapper">
+  <?php include './home/TextBar.php'; ?>
+</div>
+  <div class="content-wrapper">
+  <?php include './home/Pic.php'; ?>
+</div>
+  <?php include './home/Footer.php'; ?>
  
   <!-- Bootstrap Bundle JS (includes Popper) -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
