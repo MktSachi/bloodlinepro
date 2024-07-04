@@ -95,7 +95,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($donor->register($data, $file_destination)) {
                 $emailSender->sendConfirmationEmail($data['email'], $data['firstName'], $data['username']);
                 $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
-                header("Location: success.php");
+                header("Location: Success.php");
                 exit();
             } else {
                 $error_msg .= "Error: Registration failed.";

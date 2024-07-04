@@ -67,7 +67,7 @@ class Donor {
     }
 
     public function getDonorDetailsByNIC($donorNIC) {
-    $sql = "SELECT first_name, last_name, bloodType, email, phoneNumber, username, address, address2, gender FROM donors WHERE donorNIC = ?";
+    $sql = "SELECT first_name, last_name, bloodType, email, phoneNumber, username, address, address2, gender, donation_count FROM donors WHERE donorNIC = ?";
     $stmt = $this->db->prepare($sql);
 
     if (!$stmt) {

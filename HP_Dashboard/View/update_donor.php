@@ -1,6 +1,6 @@
 <?php
-require '../../donor_registration/Database.php';
-require '../../donor_registration/Donor.php';
+require '../../DonorRegistration/Database.php';
+require '../../DonorRegistration/Donor.php';
 $db = new Database();
 $conn = $db->getConnection();
 $donor = new Donor($db);
@@ -44,8 +44,8 @@ $db->close();
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../assets/css/header.css">
-  <link rel="stylesheet" href="/assets/css/footer.css">
+  <link rel="stylesheet" href="../Assets/css/header.css">
+  <link rel="stylesheet" href="/Assets/css/footer.css">
   <style>
     .success-container {
       display: flex;

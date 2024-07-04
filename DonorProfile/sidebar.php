@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../donor_registration/Database.php'); // Include your Database class file here
+require_once('../DonorRegistration/Database.php'); // Include your Database class file here
 
 // Check if the donor is logged in
 if (!isset($_SESSION['username'])) {
