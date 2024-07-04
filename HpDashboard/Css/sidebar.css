@@ -1,0 +1,45 @@
+.w3-sidebar .w3-bar-item, .w3-sidebar .w3-bar-item a {
+    padding: 20px; /* Increase padding for all content */
+    font-size: 18px; /* Increase font size */
+    color: black; /* Set text color to black */
+    text-decoration: none; /* Remove default underline */
+}
+.w3-sidebar .w3-bar-item i {
+    margin-right: 15px; /* Increase gap between icon and text */
+}
+.w3-sidebar .w3-bar-item:hover {
+    background-color: #004080 !important; /* Sky blue background on hover */
+    color: white !important; /* White text color on hover */
+}
+.logout-button {
+    color: white; /* Set text color to white */
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    text-align: center; /* Center align text */
+}
+.logout-button:hover {
+    background-color: #990000 !important; /* Maintain background color on hover */
+}
+.logout-button i {
+    margin-right: 15px; /* Ensure the icon margin stays the same */
+}
+.w3-sidebar {
+    background-color: white !important; /* Set sidebar background to white */
+    width: 200px; /* Adjust sidebar width */
+    height: 100%; /* Ensure sidebar takes full height */
+    overflow-y: auto; /* Add scrollbar if content exceeds height */
+}
+.profile-pic {
+    width: 100px; /* Set profile picture width */
+    height: 100px; /* Set profile picture height */
+}
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #00264d;
+    color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1); /* Shadow below footer */
+}
+

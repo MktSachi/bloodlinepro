@@ -1,0 +1,24 @@
+body{
+    font-family: Arial, sans-serif;
+}
+.w3-sidebar .w3-bar-item, .w3-sidebar .w3-bar-item a {
+    padding: 20px;
+    font-size: 18px;
+}
+.w3-sidebar .w3-bar-item i {
+    margin-right: 15px;
+}
+.w3-sidebar .w3-bar-item:hover {
+    background-color: transparent !important;
+    color: #0000b3 !important;
+}
+.logout-button {
+    color: white;
+    box-sizing: border-box;
+}
+.logout-button:hover {
+    background-color: #990000 !important;
+}
+.logout-button i {
+    margin-right: 15px;
+}

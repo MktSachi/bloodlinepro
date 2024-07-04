@@ -1,0 +1,65 @@
+body {
+  font-family: Arial;
+}
+
+/* Division properties */
+.container {
+  margin-left: 20px;
+  margin-top: 20px;
+  text-align: left;
+  display: inline-block;
+  max-width: 1200px;
+  width: 100%;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+/* Input field properties */
+input[type=text], input[type=password], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+/* Label properties */
+label {
+  color: rgb(131, 26, 26);
+}
+
+/* Asterisk mark */
+.required::after {
+  content: "*";
+  color: rgb(131, 26, 26);
+}
+
+/* Create button properties */
+input[type=submit] {
+   /* Corrected from 1o% to 10% */
+  background-color: rgb(131, 26, 26);
+  color: white;
+  padding: 10px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+}
+
+ /* CSS for expandable areas */
+ .operation {
+  display: inline-block;
+  margin: 10px;
+  cursor: pointer;
+}
+
+.operation-details {
+  display: none;
+  margin-top: 10px;
+}
+.operation-details.active {
+  display: block;
+}

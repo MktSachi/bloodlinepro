@@ -1,0 +1,114 @@
+.navbar-nav .nav-item {
+  margin-right: 20px; /* Adjust spacing between items */
+}
+
+/* Base styles for the navbar */
+.navbar-nav .nav-link {
+  position: relative;
+  padding-bottom: 8px;
+}
+
+/* Add a small bar under the title on hover */
+.navbar-nav .nav-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  color: rgb(131, 26, 26);
+  background-color: rgb(131, 26, 26); /* Change to desired color */
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover::after {
+  transform: scaleX(1);
+}
+
+/* Dropdown list items */
+.navbar-nav .dropdown-menu {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 0.125rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+  box-shadow: 0 0.5rem 1rem rgb(131, 26, 26);
+  display: none;
+  background-color: #031529; /* Set background color of dropdown menu */
+  z-index: 1000; /* Ensure the dropdown is above other elements */
+}
+
+.navbar-nav .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-item {
+  position: relative;
+  padding: 10px 20px; /* Add some padding for better appearance */
+  color: white; /* Set text color */
+  background-color: #031529; /* Set initial background color */
+}
+
+.dropdown-item:hover{
+    color: white; /* Set text color */
+  background-color: #031529; /* Set initial background color */
+}
+
+/* Add a small bar under the dropdown item on hover */
+.dropdown-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  background-color:rgb(131, 26, 26); /* Change to desired color */
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+ 
+}
+
+.dropdown-item:hover::after {
+  transform: scaleX(1);
+}
+
+/* Change background color of dropdown item on hover */
+.dropdown-item:hover {
+  background-color: #031529; /* Change to desired hover background color */
+  
+}
+
+.navbar-brand.navimg {
+  width: 100px; /* Adjust the logo width */
+  height: auto; /* Maintain aspect ratio */
+}
+
+@media (max-width: 991.98px) {
+  .navbar-nav .nav-item a {
+    width: auto; /* Reset width on smaller screens */
+    color: white;
+  }
+
+  .navbar-nav .nav-item.dropdown .dropdown-menu {
+    width: auto; /* Reset dropdown menu width on smaller screens */
+  }
+}
+
+.navbar-toggler:hover {
+  background-color: rgb(131, 26, 26); /* Set background color of toggler on hover */
+  
+}
+
+.btn {
+  background-color: #031529;
+  border-color: white;
+  color: white;
+}
+
+.btn-outline-success:hover {
+  color: #fff; /* Change text color to white on hover */
+  background-color: rgb(131, 26, 26); /* Change background color to dark red on hover */
+  border-color: rgb(255, 255, 255); /* Change border color to white on hover */
+}
