@@ -1,5 +1,15 @@
 <?php
-require '../donor_registration/Database.php';
+require '../DonorRegistration/Database.php';
+
+function generateRandomPassword($length = 8) {
+    $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+    $charactersLength = strlen($characters);
+    $randomPassword = '';
+    for ($i = 0; $i < $length; $i++) {
+        $randomPassword .= $characters[rand(0, $charactersLength - 1)];
+    }
+    return $randomPassword;
+}
 ?>
 
 <!DOCTYPE html>
@@ -20,9 +30,8 @@ require '../donor_registration/Database.php';
         $db = new Database();
         $conn = $db->getConnection();
 
-        // Validate and sanitize user inputs
         $username = filter_var($_POST['username'], FILTER_SANITIZE_STRING);
-        $password = password_hash("abcd1234", PASSWORD_DEFAULT); // Encrypt the password
+        
         $roleID = 'hp';
         $active = 1;
 
@@ -37,24 +46,22 @@ require '../donor_registration/Database.php';
         if (!$registration_number || !$email) {
             echo '<div class="error-message">Invalid input provided.</div>';
         } else {
-            // Start transaction
             $conn->begin_transaction();
 
             try {
-                // Insert into user table
+                $password = generateRandomPassword();
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
                 $stmtUser = $conn->prepare("INSERT INTO users (username, password, roleID, createdate, modifieddate, active) VALUES (?, ?, ?, NOW(), NOW(), ?)");
-                $stmtUser->bind_param("sssi", $username, $password, $roleID, $active);
+                $stmtUser->bind_param("sssi", $username, $hashed_password, $roleID, $active);
                 $stmtUser->execute();
 
-                // Get the last inserted userid
                 $userid = $conn->insert_id;
 
-                // Insert into hp table
                 $stmtHp = $conn->prepare("INSERT INTO hp (hpRegNo, userid, first_name, last_name, email, phoneNumber, hpNIC, hospital) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmtHp->bind_param("iissssss", $registration_number, $userid, $first_name, $last_name, $email, $phone_number, $nic_number, $hospital);
                 $stmtHp->execute();
 
-                // Commit transaction
                 $conn->commit();
 
                 echo '<div class="success-message">
@@ -69,17 +76,14 @@ require '../donor_registration/Database.php';
                 echo "Contact Number: " . htmlspecialchars($phone_number) . "<br>";
                 echo '</div>';
 
-                // Close statements
                 $stmtUser->close();
                 $stmtHp->close();
             } catch (Exception $e) {
-                // Rollback transaction if there's an error
                 $conn->rollback();
                 echo '<div class="error-message">Account creation failed: ' . $e->getMessage() . '</div>';
             }
         }
 
-        // Close connection
         $db->close();
     else:
         ?>
