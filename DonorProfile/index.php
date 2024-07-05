@@ -1,62 +1,59 @@
-<?php
-session_start();
-require_once('../DonorRegistration/Database.php'); // Include your Database class file here
-
-// Check if the donor is logged in
-if (!isset($_SESSION['username'])) {
-    // Redirect to login page or handle authentication failure
-    header('Location: login.php');
-    exit;
-}
-
-// Initialize Database connection
-$db = new Database();
-$conn = $db->getConnection();
-
-// Prepare SQL query to fetch donor information including profile picture
-$username = $_SESSION['username'];
-$sql = "SELECT * FROM donors WHERE username = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('s', $username);
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Check if donor record exists
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $firstName = $row['first_name'];
-    $lastName = $row['last_name'];
-    $donorNIC = $row['donorNIC'];
-    $phoneNumber = $row['phoneNumber'];
-    $address = $row['address'];
-    $address2 = $row['address2'];
-    $gender = $row['gender'];
-    $bloodType = $row['bloodType'];
-    $profilePicture = $row['profile_picture']; // Profile picture URL from database
-    // Add more fields as needed
-
-    // Close prepared statement and database connection
-    $stmt->close();
-    $db->close();
-} else {
-    // Handle case where donor record is not found
-    // This might be due to an error or no matching record found
-    $error_msg = "Error fetching donor information.";
-    // Close prepared statement and database connection
-    $stmt->close();
-    $db->close();
-    // Optionally redirect or display an error message
-}
-?>
+<?php include 'DonorProfile.php' ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donor Profile</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/Profile.css">
     <style>
-        
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .w3-main {
+            margin-left: 230px;
+            margin-top: 43px;
+        }
+        .container {
+            padding: 20px;
+        }
+        .profile-picture img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+        }
+        .change-pic-button {
+            display: block;
+            margin: 10px 0;
+        }
+        .editable {
+            cursor: pointer;
+            color: blue;
+        }
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-columns-container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .form-column {
+            flex: 1;
+            margin-right: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>

@@ -1,63 +1,12 @@
-<?php
-session_start();
-require_once('../DonorRegistration/Database.php'); // Include your Database class file here
-
-// Check if the donor is logged in
-if (!isset($_SESSION['username'])) {
-    // Redirect to login page or handle authentication failure
-    header('Location: login.php');
-    exit;
-}
-
-// Initialize Database connection
-$db = new Database();
-$conn = $db->getConnection();
-
-// Prepare SQL query to fetch donor information including profile picture
-$username = $_SESSION['username'];
-$sql = "SELECT * FROM donors WHERE username = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param('s', $username);
-$stmt->execute();
-$result = $stmt->get_result();
-
-// Check if donor record exists
-if ($result->num_rows > 0) {
-    $row = $result->fetch_assoc();
-    $firstName = $row['first_name'];
-    $lastName = $row['last_name'];
-    $donorNIC = $row['donorNIC'];
-    $phoneNumber = $row['phoneNumber'];
-    $address = $row['address'];
-    $address2 = $row['address2'];
-    $gender = $row['gender'];
-    $bloodType = $row['bloodType'];
-    $profilePicture = $row['profile_picture']; // Profile picture URL from database
-    // Add more fields as needed
-
-    // Close prepared statement and database connection
-    $stmt->close();
-    $db->close();
-} else {
-    // Handle case where donor record is not found
-    // This might be due to an error or no matching record found
-    $error_msg = "Error fetching donor information.";
-    // Close prepared statement and database connection
-    $stmt->close();
-    $db->close();
-    // Optionally redirect or display an error message
-}
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<!-- css-->
- <link rel="stylesheet" href="../HP_Dashboard/css/sidebar.css">
-
- <style>
+<link rel ="stylesheet" href="../HpDashboard/css/sidebar.css">
+<style>
      .profile-picture-container {
     display: flex;
     justify-content: center; /* Center horizontally */
@@ -74,7 +23,12 @@ if ($result->num_rows > 0) {
     height: auto; /* Maintains aspect ratio */
     display: block; /* Fixes any potential spacing issues */
 }
+
+hr{
+    background-color: black;
+}
 </style>
+
 </head>
 
 <body class="w3-light-grey" style="font-family: arial;">
@@ -108,18 +62,15 @@ if ($result->num_rows > 0) {
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu">
             <i class="fa fa-remove fa-fw"></i> Close Menu
         </a> 
-        <a href="Index.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fa fa-home fa-fw"></i> General
+        <a href="#" class="w3-bar-item w3-button w3-padding">
+            <i class="fa fa-home fa-fw"></i> Home
         </a>
-        <a href="EditeProfile.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fa fa-users fa-fw"></i> Edit Profile
-        </a>
-        <a href="#" class="w3-bar-item w3-button w3-padding change-password" onclick="showSection('change-password')">
-            <i class="fa fa-key fa-fw"></i> Security
-        </a>
-        </a>
-        <a href="Awards.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fa fa-cog fa-fw"></i> Awards
+        <a href="Award.php" class="w3-bar-item w3-button w3-padding">
+    <i class="fa fa-trophy fa-fw"></i> Awards
+</a>
+        
+        <a href="Profile.php" class="w3-bar-item w3-button w3-padding">
+            <i class="fa fa-cog fa-fw"></i> Profile
         </a>
         <a class="w3-bar-item w3-button w3-padding logout-button" style="cursor: pointer;" onclick="logout()">
             <i class="fa fa-sign-out"></i> Logout
