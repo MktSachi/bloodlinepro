@@ -30,10 +30,10 @@
                 <div class="col-md-4 ">
                     <div class="card text-center">
                         <div class="card-body bgcolor">
-                            <?php if ($donationCount >= 1): ?>
+                            <?php if ($donationCount >= 5): ?>
                                 <img src="Image/Silver.png" alt="Silver Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Silver Badge</h5>
-                                <p class="card-text styled-text">You have donated 1 or more times and earned this silver badge!</p>
+                                <p class="card-text styled-text">You have donated 5 or more times and earned this silver badge!</p>
                                 <div class="share-buttons">
                                     <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode('https://example.com'); ?>" target="_blank" class="btn btn-primary btn-sm me-2"><i class="fab fa-facebook"></i> Share on Facebook</a>
                                     <a href="https://web.whatsapp.com/send?text=<?php echo urlencode('Check out my Silver Badge achievement on BloodLinePro! https://example.com'); ?>" target="_blank" class="btn btn-success btn-sm"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
@@ -41,7 +41,7 @@
                             <?php else: ?>
                                 <img src="Image/lock.png" alt="Locked Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Locked</h5>
-                                <p class="card-text styled-text">You need to donate 1 more time(s) to earn the silver badge.</p>
+                                <p class="card-text styled-text">You need to donate 5 more time(s) to earn the silver badge.</p>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -50,10 +50,10 @@
                 <div class="col-md-4">
                     <div class="card text-center">
                         <div class="card-body bgcolor">
-                            <?php if ($donationCount >= 5): ?>
+                            <?php if ($donationCount >= 10): ?>
                                 <img src="/Image/Gold.png" alt="Platinum Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Platinum Badge</h5>
-                                <p class="card-text styled-text">You have donated 5 or more times and earned this platinum badge!</p>
+                                <p class="card-text styled-text">You have donated 10 or more times and earned this platinum badge!</p>
                         
                                 <div class="share-buttons">
                                     <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode('https://example.com'); ?>" target="_blank" class="btn btn-primary btn-sm me-2"><i class="fab fa-facebook"></i> Share on Facebook</a>
@@ -62,7 +62,7 @@
                             <?php else: ?>
                                 <img src="Image/lock.png" alt="Locked Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Locked</h5>
-                                <p class="card-text styled-text">You need to donate <?php echo (5 - $donationCount); ?> more time(s) to earn the platinum badge.</p>
+                                <p class="card-text styled-text">You need to donate <?php echo (10 - $donationCount); ?> more time(s) to earn the platinum badge.</p>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -72,10 +72,10 @@
                 <div class="col-md-4">
                     <div class="card text-center">
                         <div class="card-body bgcolor">
-                            <?php if ($donationCount >= 10): ?>
+                            <?php if ($donationCount >= 15): ?>
                                 <img src="Image/Platinum.png" alt="Gold Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Gold Badge</h5>
-                                <p class="card-text styled-text">You have donated 10 or more times and earned this gold badge!</p>
+                                <p class="card-text styled-text">You have donated 15 or more times and earned this gold badge!</p>
                                 
                                 <div class="share-buttons">
                                     <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode('https://example.com'); ?>" target="_blank" class="btn btn-primary btn-sm me-2"><i class="fab fa-facebook"></i> Share on Facebook</a>
@@ -84,7 +84,7 @@
                             <?php else: ?>
                                 <img src="Image/lock.png" alt="Locked Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Locked</h5>
-                                <p class="card-text styled-text">You need to donate <?php echo (10 - $donationCount); ?> more time(s) to earn the gold badge.</p>
+                                <p class="card-text styled-text">You need to donate <?php echo (15 - $donationCount); ?> more time(s) to earn the gold badge.</p>
                             <?php endif; ?>
                         </div>
                     </div>
