@@ -27,10 +27,10 @@
   
   }
   h1, h2{
-    font-weight: bold; /* Makes all headings bold */
+    font-weight: bold; 
   }
 .content-wrapper {
-  margin: 60px; /* Adjust the margin as per your design needs */
+  margin: 60px; 
 }
 
 
