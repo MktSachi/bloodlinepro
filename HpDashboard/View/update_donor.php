@@ -18,18 +18,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gender = $_POST['gender'];
     $bloodType = $_POST['bloodType'];
 
-    // Check if the username already exists in the users table
+    
     $CheckUserName = $donor->CheckUserName($username);
     if ($CheckUserName) {
         $errorMessage = "Username already exists. Please choose a different username.";
     } else {
-        // Proceed with updating donor details
+        
         $sql_donors = "UPDATE donors SET first_name = ?, last_name = ?, username = ?, email = ?, phoneNumber = ?, address = ?, address2 = ?, gender = ?, bloodType = ? WHERE donorNIC = ?";
         $stmt_donors = $conn->prepare($sql_donors);
         $stmt_donors->bind_param("ssssssssss", $firstName, $lastName, $username, $email, $phoneNumber, $address, $address2, $gender, $bloodType, $donorNIC);
 
         if ($stmt_donors->execute()) {
-            // Update users table
+            
             $userid = $donor->getUserIDByDonorNIC($donorNIC); // Fetch userid using method in Donor class
             if ($userid !== false) {
                 $sql_users = "UPDATE users SET username = ? WHERE userid = ?";
