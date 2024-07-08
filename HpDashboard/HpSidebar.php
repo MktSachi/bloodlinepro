@@ -13,7 +13,8 @@
 <body class="w3-light-grey" style="font-family: arial;">
 
 <!-- Top container -->
-<div class="w3-bar w3-top w3-large" style="z-index:4;background-color:#00264d;color:white;height: 43px;">
+<div class="w3-bar w3-top w3-large" style="z-index:4; background: linear-gradient(to right, #8e1b1b 0%, #230606 100%);
+}color:white;height: 43px;">
     <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
         <i class="fa fa-bars"></i>  Menu
     </button>

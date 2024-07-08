@@ -21,7 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Generate a default password
     $password = bin2hex(random_bytes(4)); // 8 characters long
 
-    if ($donor->UsernameExists($username)) {
+    if ($donor->CheckUserName($username)) {
         $error_msg .= "Username '$username' already exists. Please choose a different username. ";
     }
 

@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
 
-    if ($donor->UsernameExists($username)) { // Ensure method name is correct (UsernameExists instead of isUsernameExists)
+    if ($donor->CheckUserName($username)) { // Ensure method name is correct (CheckUserName instead of isCheckUserName)
         $user_data = $donor->getUserByUsername($username);
 
         if (password_verify($password, $user_data['password'])) {

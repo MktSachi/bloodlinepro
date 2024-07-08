@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error_msg .= "Password must contain at least one uppercase letter, one lowercase letter, one symbol, and one number. ";
     }
 
-    if ($donor->UsernameExists($username)) {
+    if ($donor->CheckUserName($username)) {
         $error_msg .= "Username '$username' already exists. Please choose a different username. ";
     }
 

@@ -10,7 +10,7 @@ class Donor {
         $this->db = $db;
     }
 
-    public function UsernameExists($username) {
+    public function CheckUserName($username) {
         $sql = "SELECT * FROM users WHERE username = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("s", $username);
@@ -65,7 +65,18 @@ class Donor {
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
-
+    public function getUserIDByDonorNIC($donorNIC) {
+        $sql = "SELECT userid FROM " . $this->donorsTable . " WHERE donorNIC = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("s", $donorNIC);
+        $stmt->execute();
+        $stmt->bind_result($userid);
+        $stmt->fetch();
+        $stmt->close();
+    
+        return $userid;
+    }
+    
     public function getDonorDetailsByNIC($donorNIC) {
     $sql = "SELECT first_name, last_name, bloodType, email, phoneNumber, username, address, address2, gender, donation_count FROM donors WHERE donorNIC = ?";
     $stmt = $this->db->prepare($sql);
@@ -127,6 +138,63 @@ class Donor {
             $this->db->rollback();
             return false;
         }
+ 
     }
-}
+
+    public function updateDonorProfile($donorNIC, $username, $email, $phoneNumber, $address, $address2, $profile_picture) {
+        $this->db->startTransaction();
+    
+        try {
+            // Handle profile picture upload if a new picture is provided
+            $profile_picture_path = null;
+            if ($profile_picture['error'] == UPLOAD_ERR_OK) {
+                $target_dir = "../Upload/";
+                $target_file = $target_dir . basename($profile_picture["name"]);
+                if (move_uploaded_file($profile_picture["tmp_name"], $target_file)) {
+                    $profile_picture_path = $target_file;
+    
+                    // Update profile_picture in donors table
+                    $sql_update_picture = "UPDATE donors SET profile_picture = ? WHERE donorNIC = ?";
+                    $stmt_update_picture = $this->db->prepare($sql_update_picture);
+                    $stmt_update_picture->bind_param("ss", $profile_picture_path, $donorNIC);
+                    if (!$stmt_update_picture->execute()) {
+                        throw new Exception("Failed to update profile picture: " . $stmt_update_picture->error);
+                    }
+                } else {
+                    throw new Exception("Failed to upload profile picture.");
+                }
+            }
+    
+            // Check if new username exists (if changed)
+            if ($this->CheckUserName($username)) {
+                throw new Exception("Username '$username' already exists. Please choose a different username.");
+            }
+    
+            // Update users table
+            $sql_update_user = "UPDATE users SET username = ?, email = ? WHERE userid = (SELECT userid FROM donors WHERE donorNIC = ?)";
+            $stmt_update_user = $this->db->prepare($sql_update_user);
+            $stmt_update_user->bind_param("sss", $username, $email, $donorNIC);
+            if (!$stmt_update_user->execute()) {
+                throw new Exception("Failed to update users table: " . $stmt_update_user->error);
+            }
+    
+            // Update other donor details in donors table
+            $sql_update_donors = "UPDATE donors SET phoneNumber = ?, address = ?, address2 = ? WHERE donorNIC = ?";
+            $stmt_update_donors = $this->db->prepare($sql_update_donors);
+            $stmt_update_donors->bind_param("ssss", $phoneNumber, $address, $address2, $donorNIC);
+            if (!$stmt_update_donors->execute()) {
+                throw new Exception("Failed to update donors table: " . $stmt_update_donors->error);
+            }
+    
+            $this->db->commit();
+            return true;
+        } catch (Exception $e) {
+            $this->db->rollback();
+            throw $e;
+        }
+    }
+    
+    
+    }
+
 ?>

@@ -1,4 +1,4 @@
-<?php include 'ResetPassWordBack.php'?>
+<?php include '../login_window/ResetPassWordBack.php'?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,54 +8,16 @@
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
-    <style>
-        .reset-password-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
-        }
-        .reset-password-card {
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            padding: 2rem;
-            width: 100%;
-            max-width: 400px;
-        }
-        .reset-password-card .icon {
-            font-size: 2rem;
-            color: #007bff; /* Bootstrap primary color */
-            margin-bottom: 1rem;
-        }
-        .reset-password-card .title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #343a40;
-            margin-bottom: 1rem;
-        }
-        .reset-password-card .sub-title {
-            font-size: 1rem;
-            color: #6c757d;
-            margin-bottom: 2rem;
-        }
-        .reset-password-card .form-group {
-            margin-bottom: 1.5rem;
-        }
-        .reset-password-card .btn-primary {
-            background-color: #007bff; /* Bootstrap primary color */
-            border-color: #007bff;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">    
+
 </head>
 <body>
     <div class="reset-password-container">
         <div class="reset-password-card">
             <div class="text-center">
                 <i class="fas fa-key icon"></i>
-                <h2 class="title">Reset Password</h2>
-                <p class="sub-title">Enter your new password below.</p>
+                <h2 class="title">Enter Your New Password</h2>
+                <p class="sub-title"></p>
             </div>
             <form action="ResetPassword.php" method="post">
                 <div class="form-group">

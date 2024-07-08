@@ -8,20 +8,20 @@
 <link rel ="stylesheet" href="../HpDashboard/css/sidebar.css">
 <style>
      .profile-picture-container {
-    display: flex;
-    justify-content: center; /* Center horizontally */
-    align-items: center; /* Center vertically */
-    width: 100px; /* Adjust width and height as needed */
+     display: flex;
+     justify-content: center; 
+    align-items: center; 
+    width: 100px; 
     height: 100px;
     overflow: hidden;
-    border-radius: 50%; /* Makes the container circular */
-    margin: 0 auto; /* Centers the container horizontally */
+    border-radius: 50%; 
+    margin: 0 auto; 
 }
 
 .profile-picture-container img {
-    width: 100%; /* Ensures the image fills the circular container */
-    height: auto; /* Maintains aspect ratio */
-    display: block; /* Fixes any potential spacing issues */
+    width: 100%; 
+    height: auto; 
+    display: block; 
 }
 
 hr{
@@ -33,7 +33,7 @@ hr{
 
 <body class="w3-light-grey" style="font-family: arial;">
 
-<!-- Top container -->
+
 <div class="w3-bar w3-top w3-large" style="z-index:4;background-color:#00264d;color:white;height: 43px;">
     <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
         <i class="fa fa-bars"></i>  Menu
@@ -57,7 +57,7 @@ hr{
         <h4><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></h4>
     </div>
     <hr>
-    <!-- Main navigation content container -->
+    
     <div class="w3-bar-block" style="text-align: center; padding-left: 30px;">
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu">
             <i class="fa fa-remove fa-fw"></i> Close Menu
@@ -69,8 +69,11 @@ hr{
     <i class="fa fa-trophy fa-fw"></i> Awards
 </a>
         
-        <a href="Profile.php" class="w3-bar-item w3-button w3-padding">
+        <a href="SettingProfile.php" class="w3-bar-item w3-button w3-padding">
             <i class="fa fa-cog fa-fw"></i> Profile
+        </a>
+        <a href="Contact.php" class="w3-bar-item w3-button w3-padding">
+            <i class="fa fa-cog fa-fw"></i> Contact
         </a>
         <a class="w3-bar-item w3-button w3-padding logout-button" style="cursor: pointer;" onclick="logout()">
             <i class="fa fa-sign-out"></i> Logout
@@ -78,7 +81,7 @@ hr{
     </div>
 </nav>
 
-<!-- Overlay effect when opening sidebar on small screens -->
+
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
 <div class="w3-main" style="margin-left:200px;margin-top:43px;">
@@ -91,10 +94,10 @@ hr{
 
 <!--JavaScript functions-->
 <script>
-    // Get the Sidebar
+
     var mySidebar = document.getElementById("mySidebar");
 
-    // Toggle between showing and hiding the sidebar, and add overlay effect
+
     function w3_open() {
         if (mySidebar.style.display === 'block') {
             mySidebar.style.display = 'none';
@@ -105,13 +108,13 @@ hr{
         }
     }
 
-    // Close the sidebar with the close button
+    
     function w3_close() {
         mySidebar.style.display = "none";
         document.getElementById("myOverlay").style.display = "none";
     }
 
-    // Logout function to display a message
+    
     function logout() {
         alert("Logging out from your account");
     }

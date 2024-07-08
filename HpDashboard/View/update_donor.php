@@ -1,6 +1,7 @@
 <?php
 require '../../DonorRegistration/Database.php';
 require '../../DonorRegistration/Donor.php';
+
 $db = new Database();
 $conn = $db->getConnection();
 $donor = new Donor($db);
@@ -17,22 +18,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $gender = $_POST['gender'];
     $bloodType = $_POST['bloodType'];
 
-    $sql = "UPDATE donors SET first_name = ?, last_name = ?, username = ?, email = ?, phoneNumber = ?, address = ?, address2 = ?, gender = ?, bloodType = ? WHERE donorNIC = ?";
-    $stmt = $db->prepare($sql);
-    $stmt->bind_param("ssssssssss", $firstName, $lastName, $username, $email, $phoneNumber, $address, $address2, $gender, $bloodType, $donorNIC);
-
-    if ($stmt->execute()) {
-        $successMessage = "Donor details updated successfully!";
+    
+    $CheckUserName = $donor->CheckUserName($username);
+    if ($CheckUserName) {
+        $errorMessage = "Username already exists. Please choose a different username.";
     } else {
-        $errorMessage = "Failed to update donor details.";
-    }
+        
+        $sql_donors = "UPDATE donors SET first_name = ?, last_name = ?, username = ?, email = ?, phoneNumber = ?, address = ?, address2 = ?, gender = ?, bloodType = ? WHERE donorNIC = ?";
+        $stmt_donors = $conn->prepare($sql_donors);
+        $stmt_donors->bind_param("ssssssssss", $firstName, $lastName, $username, $email, $phoneNumber, $address, $address2, $gender, $bloodType, $donorNIC);
 
-    $stmt->close();
+        if ($stmt_donors->execute()) {
+            
+            $userid = $donor->getUserIDByDonorNIC($donorNIC); // Fetch userid using method in Donor class
+            if ($userid !== false) {
+                $sql_users = "UPDATE users SET username = ? WHERE userid = ?";
+                $stmt_users = $conn->prepare($sql_users);
+                $stmt_users->bind_param("si", $username, $userid);
+
+                if ($stmt_users->execute()) {
+                    $successMessage = "Donor details updated successfully!";
+                } else {
+                    $errorMessage = "Failed to update user details.";
+                }
+            } else {
+                $errorMessage = "Failed to fetch user ID from donors table.";
+            }
+        } else {
+            $errorMessage = "Failed to update donor details.";
+        }
+
+        $stmt_donors->close();
+        if (isset($stmt_users)) {
+            $stmt_users->close();
+        }
+    }
 }
 
 $db->close();
 ?>
 
+   
 <!DOCTYPE html>
 <html lang="en">
 <head>
