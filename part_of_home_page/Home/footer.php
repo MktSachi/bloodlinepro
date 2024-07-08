@@ -1,9 +1,8 @@
 <footer class="text-center text-lg-start" style="background-color: #031529;">
   <div class="container p-4">
     <div class="row">
-      <!-- Links section -->
+      
       <div class="row">
-  <!-- Email section -->
   <div class="col-lg-4 col-md-12 mb-4 text-white">
     <ul class="list-unstyled mb-0">
       <p class="text-uppercase">Email</p>
@@ -13,7 +12,7 @@
     </ul>
   </div>
 
-  <!-- Postal Address section -->
+
   <div class="col-lg-4 col-md-12 mb-4 text-white">
     <ul class="list-unstyled mb-0">
       <p class="text-uppercase">Postal Address</p>
@@ -23,7 +22,7 @@
     </ul>
   </div>
 
-  <!-- Phone Number section -->
+  
   <div class="col-lg-4 col-md-12 mb-4 text-white">
     <ul class="list-unstyled mb-0">
       <p class="text-uppercase">Phone Number</p>
@@ -34,23 +33,11 @@
   </div>
 </div>
 
-<!--  
-<div class="row">
-  <div class="col-12 mb-4">
-    <h5 class="text-uppercase mb-0">Links</h5>
-    <ul class="list-unstyled">
-      <li>
-        <a href="#!" class="text-white">Link 1</a>
-      </li>
--->
-    </ul>
-  </div>
-</div>
 
 
   <div class="container p-4">
     <div class="row">
-      <!-- Blood ProLine section -->
+    
       <div class="col-lg-6 col-md-12 mb-4">
         <h6 class="text-uppercase text-white">Blood ProLine</h6>
         <p class="text-white">
@@ -59,11 +46,11 @@
           WHO recommendations.
         </p>
       </div>
-      <!-- Contact section -->
+      
       <div class="col-lg-6 col-md-12 mb-4">
         <h6 class="text-uppercase text-white">Contact</h6>
         <section class="mb-4">
-          <!-- Social media links -->
+          
           <a class="btn text-white btn-floating m-1" style="background-color: #3b5998;" href="#!" role="button">
             <i class="fab fa-facebook-f"></i>
           </a>
