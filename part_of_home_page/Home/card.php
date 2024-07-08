@@ -2,7 +2,7 @@
   <div class="card-group">
     <div class="row row-cols-1 row-cols-md-3">
       <div class="col mb-4">
-        <div class="card shadow"> <!-- Changed 'shadow-sm' to 'shadow' for a slightly larger shadow -->
+        <div class="card shadow"> 
           <img src="../Image/Blood-Donation-2.jpg" class="card-img-top" alt="Image1">
           <div class="card-body">
             <h5 class="card-title">About Blood</h5>
@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="col mb-4">
-        <div class="card shadow"> <!-- Changed 'shadow-sm' to 'shadow' for a slightly larger shadow -->
+        <div class="card shadow"> 
           <img src="../Image/BloodTopics_share.jpg" class="card-img-top" alt="Image2">
           <div class="card-body">
             <h5 class="card-title">Components of Blood</h5>
@@ -24,7 +24,7 @@
         </div>
       </div>
       <div class="col mb-4">
-        <div class="card shadow"> <!-- Changed 'shadow-sm' to 'shadow' for a slightly larger shadow -->
+        <div class="card shadow"> 
           <img src="../Image/w1600-removebg-preview.png" class="card-img-top" alt="Image3">
           <div class="card-body">
             <h5 class="card-title">How does the Body Replace Blood</h5>

@@ -6,15 +6,15 @@
         </div>
         <div class="testimonial-section">
             <div class="testimonial">
-               <!-- <img src="../Image/reg.png" alt="Doordash Logo"> -->
+               
                 <p>We significantly reduced our donor registartion time, a critical improvement for our operations.</p>
             </div>
             <div class="testimonial">
-              <!--  <img src="Image/testimonial2.jpg" alt="Testimonial 2">-->
+              
                 <p>BloodBankPro facilitated quick identification of qualified donors, ensuring swift and efficient matching for blood needs.</p>
             </div>
             <div class="testimonial">
-             <!--   <img src="Image/testimonial3.jpg" alt="Testimonial 3"> -->
+             
                 <p>Thanks to BloodBankPro, we successfully streamlined blood request process, ensuring quicker and more efficient blood supply management.</p>
             </div>
             <div class="dots">
