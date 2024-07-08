@@ -8,8 +8,8 @@
 <link rel ="stylesheet" href="../HpDashboard/css/sidebar.css">
 <style>
      .profile-picture-container {
-    display: flex;
-    justify-content: center; 
+     display: flex;
+     justify-content: center; 
     align-items: center; 
     width: 100px; 
     height: 100px;
