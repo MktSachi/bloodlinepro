@@ -11,6 +11,18 @@ $donorNotFound = false;
 $submissionSuccess = false;
 $error = '';
 
+$hospitals = []; // Initialize hospitals array
+
+
+$query = "SELECT hospitalID, hospitalName FROM hospitals";
+$result = $conn->query($query);
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $hospitals[] = $row;
+    }
+}
+$result->free();
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['donorNIC'])) {
         $donorNIC = $_POST['donorNIC'];
@@ -18,35 +30,61 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!$donorDetails) {
             $donorNotFound = true;
         } else {
-            // Handle form submission
-            if (isset($_POST['donatedBloodCount'])) {
+            if (isset($_POST['donatedBloodCount'], $_POST['hospitalID'])) {
                 $donatedBloodCount = $_POST['donatedBloodCount'];
+                $hospitalID = $_POST['hospitalID'];
+                $bloodType = $donorDetails['bloodType'];
 
-                // Calculate the blood expiry date (40 days after current date)
-                $donationDate = date('Y-m-d'); // Current date
+                
+                $donationDate = date('Y-m-d');
                 $bloodExpiryDate = date('Y-m-d', strtotime($donationDate . ' + 40 days'));
 
-                // Insert data into donations table
-                $query = "INSERT INTO donations (donorNIC, donatedBloodCount, donationDate, bloodExpiryDate) VALUES (?, ?, ?, ?)";
-                $stmt = $conn->prepare($query);
-                $stmt->bind_param('siss', $donorNIC, $donatedBloodCount, $donationDate, $bloodExpiryDate);
+                $insertDonationQuery = "INSERT INTO donations (donorNIC, hospitalID, donatedBloodCount, donationDate, bloodExpiryDate) VALUES (?, ?, ?, ?, ?)";
+                $insertDonationStmt = $conn->prepare($insertDonationQuery);
+                $insertDonationStmt->bind_param('siiss', $donorNIC, $hospitalID, $donatedBloodCount, $donationDate, $bloodExpiryDate);
 
-                if ($stmt->execute()) {
-                    // Update the donation count in donors table
-                    $updateQuery = "UPDATE donors SET donation_count = donation_count + 1 WHERE donorNIC = ?";
-                    $updateStmt = $conn->prepare($updateQuery);
-                    $updateStmt->bind_param('s', $donorNIC);
-                    $updateStmt->execute();
-                    $updateStmt->close();
+                if ($insertDonationStmt->execute()) {
+                    $insertDonationStmt->close();
+
+                    // Update donation count in donors table
+                    $updateDonorQuery = "UPDATE donors SET donation_count = donation_count + 1 WHERE donorNIC = ?";
+                    $updateDonorStmt = $conn->prepare($updateDonorQuery);
+                    $updateDonorStmt->bind_param('s', $donorNIC);
+                    $updateDonorStmt->execute();
+                    $updateDonorStmt->close();
+
+                    // Update hospital blood inventory
+                    // Check if the blood type entry exists
+                    $selectInventoryQuery = "SELECT * FROM hospital_blood_inventory WHERE hospitalID = ? AND bloodType = ?";
+                    $selectInventoryStmt = $conn->prepare($selectInventoryQuery);
+                    $selectInventoryStmt->bind_param('is', $hospitalID, $bloodType);
+                    $selectInventoryStmt->execute();
+                    $result = $selectInventoryStmt->get_result();
+
+                    if ($result->num_rows > 0) {
+                        // Update existing entry
+                        $updateInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity + ? WHERE hospitalID = ? AND bloodType = ?";
+                        $updateInventoryStmt = $conn->prepare($updateInventoryQuery);
+                        $updateInventoryStmt->bind_param('iis', $donatedBloodCount, $hospitalID, $bloodType);
+                    } else {
+                        // Insert new entry
+                        $updateInventoryQuery = "INSERT INTO hospital_blood_inventory (hospitalID, bloodType, quantity) VALUES (?, ?, ?)";
+                        $updateInventoryStmt = $conn->prepare($updateInventoryQuery);
+                        $updateInventoryStmt->bind_param('isi', $hospitalID, $bloodType, $donatedBloodCount);
+                    }
                     
+                    $updateInventoryStmt->execute();
+                    $updateInventoryStmt->close();
+
                     $submissionSuccess = true;
-                    
+
                     // Retrieve updated donor details
                     $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
                 } else {
                     $error = 'Error submitting the donation details.';
                 }
-                $stmt->close();
+            } else {
+                $error = 'Please enter donated blood count and select a hospital.';
             }
         }
     } else {
@@ -157,29 +195,26 @@ $db->close();
                                 <p id="donor-address"><?= htmlspecialchars($donorDetails['address'] . ' ' . $donorDetails['address2']) ?></p>
                             </div>
                             <div class="form-group highlight">
-                                <label for="donor-gender">Gender:</label>
-                                <p id="donor-gender"><?= htmlspecialchars($donorDetails['gender']) ?></p>
+                                <label for="donor-donation-count">Donation Count:</label>
+                                <p id="donor-donation-count"><?= htmlspecialchars($donorDetails['donation_count']) ?></p>
                             </div>
                         </div>
                     </div>
-                    <div class="row mt-3">
-                        <div class="col-md-12">
-                            <?php if (!empty($donorDetails['profile_picture'])): ?>
-                                <img src="<?= htmlspecialchars($donorDetails['profile_picture']) ?>" alt="Profile Picture" class="profile-picture">
-                            <?php else: ?>
-                                <p>No profile picture available</p>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    <div class="form-group highlight">
-                        <label for="donor-donation-count">Total Donations:</label>
-                        <p id="donor-donation-count"><?= htmlspecialchars($donorDetails['donation_count']) ?></p>
-                    </div>
-                    <form method="post" class="mt-3">
+
+                    <form id="donation-form" method="post">
                         <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorNIC) ?>">
                         <div class="form-group">
-                            <label for="donatedBloodCount">Donated Blood Count:</label>
+                            <label for="donatedBloodCount">Blood Count:</label>
                             <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="hospitalID">Hospital:</label>
+                            <select class="form-control" id="hospitalID" name="hospitalID" required>
+                                <option value="">Select a hospital</option>
+                                <?php foreach ($hospitals as $hospital): ?>
+                                    <option value="<?= htmlspecialchars($hospital['hospitalID']) ?>"><?= htmlspecialchars($hospital['hospitalName']) ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-success">Submit Donation</button>
                     </form>
@@ -187,11 +222,11 @@ $db->close();
             </div>
         <?php endif; ?>
     </div>
-    
-    <!-- Footer -->
-    <?php include 'Footer.php'; ?>
 
-    <!-- Bootstrap JS -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    </div>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
