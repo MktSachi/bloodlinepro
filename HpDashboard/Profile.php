@@ -1,81 +1,94 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Healthcare Professional Profile</title>
-    <link rel="stylesheet" href="Css/Profile.css">
+    <title>Healthcare Professional Account Creation</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .form-container {      
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-label {
+            font-weight: bold;
+            margin-right: 10px;
+            white-space: nowrap;
+        }
+        .form-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .form-control {
+            flex: 1;
+        }
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
-<?php include './HpSidebar.php'; ?>
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:220px;margin-top:43px;">
-    
-    <div class="container">
-        
-       <h1>Dr. Ahinsa</h1>
-        <p>Medical Help Officer</p>
-        
-        <div class="contact">
-       
-            <label><strong>Registration Number:</strong></label>
-            <p><span id="registration" class="editable" onclick="makeEditable(this)">123456</span> <input type="text" id="registrationInput"></p>
-            
-            <label><strong>First name:</strong></label>
-            <p><span id="fname" class="editable" onclick="makeEditable(this)">Dr. Ahinsa</span> <input type="text" id="fnameInput"></p>
-           
-            <label><strong>Last name:</strong></label>
-            <p><span id="lname" class="editable" onclick="makeEditable(this)">Arunodi</span> <input type="text" id="lnameInput"></p>
+    <!-- Sidebar -->
+    <?php include 'HpSidebar.php'; ?>
 
-            <label><strong>Address:</strong></label>
-            <p><span id="address" class="editable" onclick="makeEditable(this)">123 Heartbeat Lane, Cardiology City, Healthland</span> <textarea id="addressInput"></textarea></p>
-            
-            <label><strong>Phone Number:</strong></label>
-            <p><span id="phone" class="editable" onclick="makeEditable(this)">(123) 456-7890</span> <input type="text" id="phoneInput"></p>
-            
-            <label><strong>Email:</strong></label>
-            <p><span id="email" class="editable" onclick="makeEditable(this)">dr.ahinsa.modi@example.com</span> <input type="email" id="emailInput"></p>
-            
-            <label><strong>Password:</strong></label>
-            <p><span id="password" class="editable" onclick="makeEditable(this)">password123</span> <input type="password" id="passwordInput"></p>
+    <div class="w3-main" style="margin-left:230px;margin-top:px;">
+        <div class="form-container">
+            <form action="" method="post">
+                <div class="form-group">
+                    <label for="registration_number" class="form-label">Registration Number</label>
+                    <input type="text" class="form-control" id="registration_number" name="registration_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" class="form-control" id="first_name" name="first_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" class="form-control" id="last_name" name="last_name" required>
+                </div>
+                <div class="form-group">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="nic_number" class="form-label">NIC Number</label>
+                    <input type="text" class="form-control" id="nic_number" name="nic_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="hospital" class="form-label">Hospital</label>
+                    <input type="text" class="form-control" id="hospital" name="hospital" required>
+                </div>
+                <div class="form-group">
+                    <label for="position" class="form-label">Position</label>
+                    <input type="text" class="form-control" id="position" name="position" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number" class="form-label">Contact Number</label>
+                    <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                </div>
+            </form>
         </div>
-        <button onclick="saveInfo()">Save</button>
     </div>
-
-    <script>
-        function makeEditable(element) {
-            const inputId = element.id + 'Input';
-            const inputElement = document.getElementById(inputId);
-
-            inputElement.value = element.innerText;
-            element.style.display = 'none';
-            inputElement.style.display = 'block';
-            inputElement.focus();
-        }
-
-        function saveInfo() {
-            const fields = ['registration', 'fname', 'lname','address', 'phone', 'email', 'password'];
-            
-            fields.forEach(field => {
-                const spanElement = document.getElementById(field);
-                const inputElement = document.getElementById(field + 'Input');
-
-                if (inputElement.style.display === 'block') {
-                    spanElement.innerText = inputElement.value;
-                    spanElement.style.display = 'block';
-                    inputElement.style.display = 'none';
-                }
-            });
-        }
-
-        function loadProfilePic(event) {
-            const output = document.getElementById('profilePic');
-            output.src = URL.createObjectURL(event.target.files[0]);
-            output.onload = function() {
-                URL.revokeObjectURL(output.src) // Free memory
-            }
-        }
-    </script>
 </body>
+
 </html>
