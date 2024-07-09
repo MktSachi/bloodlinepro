@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="Css/DonorHandle.css">    
     <style>
  .bgcolor {
-    background: linear-gradient(to right, #8e1b1b 0%, #230606 100%);
+    background: rgb(2,0,36);
+    background: linear-gradient(287deg, rgba(2,0,36,0.5494572829131652) 5%, rgba(121,9,38,1) 100%, rgba(0,212,255,1) 100%);
     color: white; /* Ensure text stands out against the background */
 }
 

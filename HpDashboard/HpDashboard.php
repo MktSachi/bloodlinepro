@@ -148,7 +148,7 @@
 
       <!-- Inventory Notification -->
       <div class="w3-quarter gap-3">
-        <a href="">
+        <a href="Inventory.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Inventory</h4>
@@ -200,7 +200,7 @@
 
       <!-- Notify -->
       <div class="w3-quarter gap-2">
-        <a href="">
+        <a href="Report.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Notify</h4>
