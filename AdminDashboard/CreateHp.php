@@ -1,5 +1,6 @@
 <?php
 require '../DonorRegistration/Database.php';
+require 'CreateHpEmail.php';
 
 function generateRandomPassword($length = 8) {
     $characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
@@ -39,14 +40,10 @@ function generateRandomPassword($length = 8) {
         $first_name = filter_var($_POST['first_name'], FILTER_SANITIZE_STRING);
         $last_name = filter_var($_POST['last_name'], FILTER_SANITIZE_STRING);
         $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-        $phone_number = filter_var($_POST['phone_number'], FILTER_SANITIZE_STRING);
+        $position = filter_var($_POST['position'], FILTER_SANITIZE_STRING);
+        $phone_number = filter_var($_POST['phone_number'], FILTER_VALIDATE_INT);
         $nic_number = filter_var($_POST['nic_number'], FILTER_SANITIZE_STRING);
-        $hospital = filter_var($_POST['hospital'], FILTER_SANITIZE_STRING);
-
-        if (!$registration_number || !$email) {
-            echo '<div class="error-message">Invalid input provided.</div>';
-        } else {
-            $conn->begin_transaction();
+        $hospital_id = filter_var($_POST['hospital'], FILTER_VALIDATE_INT);
 
             try {
                 $password = generateRandomPassword();
@@ -58,8 +55,8 @@ function generateRandomPassword($length = 8) {
 
                 $userid = $conn->insert_id;
 
-                $stmtHp = $conn->prepare("INSERT INTO hp (hpRegNo, userid, first_name, last_name, email, phoneNumber, hpNIC, hospital) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-                $stmtHp->bind_param("iissssss", $registration_number, $userid, $first_name, $last_name, $email, $phone_number, $nic_number, $hospital);
+                $stmtHp = $conn->prepare("INSERT INTO healthcare_professionals (hpRegNo, userid, firstname, lastname, email, position, phonenumber, hpnic, hospitalid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmtHp->bind_param("iissssssi", $registration_number, $userid, $first_name, $last_name, $email, $position, $phone_number, $nic_number, $hospital_id);
                 $stmtHp->execute();
 
                 $conn->commit();
@@ -70,10 +67,15 @@ function generateRandomPassword($length = 8) {
                 echo "Last Name: " . htmlspecialchars($last_name) . "<br>";
                 echo "User Name: " . htmlspecialchars($username) . "<br>";
                 echo "Email: " . htmlspecialchars($email) . "<br>";
+                echo "Position: " . htmlspecialchars($position) . "<br>";
                 echo "Registration Number: " . htmlspecialchars($registration_number) . "<br>";
                 echo "NIC Number: " . htmlspecialchars($nic_number) . "<br>";
-                echo "Hospital: " . htmlspecialchars($hospital) . "<br>";
-                echo "Contact Number: " . htmlspecialchars($phone_number) . "<br>";
+                echo "Hospital: " . htmlspecialchars($hospital_id) . "<br>";
+                echo "Contact Number: " . htmlspecialchars($phone_number) . "<br><br>";
+
+                $emailSender = new EmailSender();
+                $emailSender->sendConfirmationEmail($email,$first_name, $username, $password);
+
                 echo '</div>';
 
                 $stmtUser->close();
@@ -82,7 +84,7 @@ function generateRandomPassword($length = 8) {
                 $conn->rollback();
                 echo '<div class="error-message">Account creation failed: ' . $e->getMessage() . '</div>';
             }
-        }
+        
 
         $db->close();
     else:
@@ -105,6 +107,15 @@ function generateRandomPassword($length = 8) {
                 <input type="text" class="form-control" id="username" name="username" required>
             </div>
             <div class="form-group">
+                <label for="position" class="form-label">Position</label>
+                <select class="form-control" id="position" name="position" required>
+                    <option value="">Select Position</option>
+                    <option value="ho">House Officer</option>
+                    <option value="mho">Medical House Officer</option>
+                    <option value="sho">Senior House Officer</option>
+                </select>
+            </div>
+            <div class="form-group">
                 <label for="email" class="form-label">Email</label>
                 <input type="email" class="form-control" id="email" name="email" required>
             </div>
@@ -116,10 +127,10 @@ function generateRandomPassword($length = 8) {
                 <label for="hospital" class="form-label">Hospital</label>
                 <select class="form-control" id="hospital" name="hospital" required>
                     <option value="">Select Hospital</option>
-                    <option value="Badulla">National Blood Bank - Badulla</option>
-                    <option value="Diyathalawa">National Blood Bank - Diyathalawa</option>
-                    <option value="Mahiyanganaya">Blood Bank - Mahiyanganaya</option>
-                    <option value="Monaragala">Blood Bank - Monaragala</option>
+                    <option value="1">National Blood Bank - Badulla</option>
+                    <option value="2">National Blood Bank - Diyathalawa</option>
+                    <option value="3">Blood Bank - Mahiyanganaya</option>
+                    <option value="4">Blood Bank - Monaragala</option>
                 </select>
             </div>
             <div class="form-group">
