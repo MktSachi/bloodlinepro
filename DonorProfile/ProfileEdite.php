@@ -35,7 +35,7 @@
             margin-top: 50px;
             margin: 0 auto; /* This centers the container horizontally */
             text-align: center; /* This centers the content inside the container */
-}
+        }
 
         .form-container {
             background-color: rgba(255, 255, 255, 0.1);
