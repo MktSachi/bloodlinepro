@@ -58,13 +58,23 @@ class Donor {
     }
 
     public function getUserByUsername($username) {
-        $sql = "SELECT * FROM users WHERE username = ?";
+        $sql = "
+            SELECT 
+                u.*, 
+                h.hospitalID 
+            FROM 
+                users u
+            LEFT JOIN 
+                healthcare_professionals h ON u.userid = h.userid 
+            WHERE 
+                u.username = ?";
         $stmt = $this->db->prepare($sql);
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+    
     public function getUserIDByDonorNIC($donorNIC) {
         $sql = "SELECT userid FROM " . $this->donorsTable . " WHERE donorNIC = ?";
         $stmt = $this->db->prepare($sql);
