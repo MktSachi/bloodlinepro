@@ -187,7 +187,7 @@
 
       <!-- Donation Camps -->
       <div class="w3-quarter gap-2">
-        <a href="DonationCamp/DonationCamp.php">
+        <a href="DonationCamp.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Donation Camp</h4>
@@ -209,7 +209,19 @@
             <div class="icon"><i class="fa fa-envelope fa-gray" style="font-size: 25px;"></i></div>
           </div>
         </a>
-      </div>   
+      </div>  
+       <!-- Usage-->
+       <div class="w3-quarter gap-2">
+        <a href="BloodUsage.php">
+          <div class="w3-container">
+            <div class="button-text">
+              <h4>Blood Usage</h4>
+              <p>10</p>
+            </div>
+            <div class="icon"><i class="fa fa-envelope fa-gray" style="font-size: 25px;"></i></div>
+          </div>
+        </a>
+      </div>    
     </div>
   </div>
 
