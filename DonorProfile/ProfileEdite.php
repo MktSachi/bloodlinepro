@@ -27,16 +27,13 @@
             margin-top: 10px;
         }
         body {
-            background: linear-gradient(to bottom, #8e1b1b 0%, #230606 100%);          
-            color: white;
+            background: linear-gradient(to bottom, #8e1b1b 0%, #230606 100%);          color: white;
             font-family: Arial, sans-serif;
         }
         .container {
             margin-top: 50px;
-            margin: 0 auto; /* This centers the container horizontally */
-            text-align: center; /* This centers the content inside the container */
+            align:center; 
         }
-
         .form-container {
             background-color: rgba(255, 255, 255, 0.1);
             padding: 20px;

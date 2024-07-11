@@ -148,7 +148,7 @@
 
       <!-- Inventory Notification -->
       <div class="w3-quarter gap-3">
-        <a href="Inventory.php">
+        <a href="HospitalInevntoryHandle.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Inventory</h4>
@@ -187,7 +187,7 @@
 
       <!-- Donation Camps -->
       <div class="w3-quarter gap-2">
-        <a href="DonationCamp.php">
+        <a href="DonationCamp/DonationCamp.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Donation Camp</h4>
@@ -200,7 +200,7 @@
 
       <!-- Notify -->
       <div class="w3-quarter gap-2">
-        <a href="Notify.php">
+        <a href="SendBlood.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Notify</h4>
