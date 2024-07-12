@@ -59,23 +59,21 @@ hr{
     <hr>
     
     <div class="w3-bar-block" style="text-align: center; padding-left: 30px;">
-        <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu">
-            <i class="fa fa-remove fa-fw"></i> Close Menu
-        </a> 
-        <a href="#" class="w3-bar-item w3-button w3-padding">
-            <i class="fa fa-home fa-fw"></i> Home
+       
+        <a href="Home.php" class="w3-bar-item w3-button w3-padding">
+            <i class="fas fa-home"></i> Home
         </a>
         <a href="Award.php" class="w3-bar-item w3-button w3-padding">
-    <i class="fa fa-trophy fa-fw"></i> Awards
+    <i class="fas fa-trophy"></i> Awards
 </a>
         
         <a href="SettingProfile.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fa fa-cog fa-fw"></i> Profile
+            <i class="fas fa-cog"></i> Profile
         </a>
         <a href="Contact.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fa fa-cog fa-fw"></i> Contact
+            <i class="fa fa-envelope"></i> Contact
         </a>
-        <a class="w3-bar-item w3-button w3-padding logout-button" style="cursor: pointer;" onclick="logout()">
+        <a href="../login_window/Logout.php" class="w3-bar-item w3-button w3-padding">
             <i class="fa fa-sign-out"></i> Logout
         </a>
     </div>
