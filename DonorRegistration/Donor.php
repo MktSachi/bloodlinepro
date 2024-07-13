@@ -27,7 +27,14 @@ class Donor {
         $result = $stmt->get_result();
         return $result->num_rows > 0;
     }
-
+    public function getDonorDetailsByFullName($firstName, $lastName) {
+        $query = "SELECT * FROM donors WHERE first_name = ? AND last_name = ?";
+        $stmt = $this->db->prepare($query);
+        $stmt->bind_param('ss', $firstName, $lastName);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
     public function register($data, $profile_picture_path) {
         $this->db->startTransaction();
 
