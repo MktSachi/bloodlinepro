@@ -5,11 +5,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Hospital Details</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="css/Hospital.css">
+        
+       
     </head>
     <body>
-
-        <div class="container">
+    <?php include 'sidebar.php'; ?>
+        <div class="container" style="margin-left:200px;margin-top:43px;">
             <div class="page-title">Blood Banks in Uva Province</div>
 
             <div class="row">
