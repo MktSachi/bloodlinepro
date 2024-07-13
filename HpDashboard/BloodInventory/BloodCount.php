@@ -1,52 +1,23 @@
 <?php
 session_start();
 require '../../DonorRegistration/Database.php';
+require 'Inventory.php';
 
 $db = new Database();
 $conn = $db->getConnection();
 
-$bloodInventory = [];
-$totalUnits = 0;
-
+$inventory = new Inventory($conn);
 
 $username = $_SESSION['username'] ?? '';
 if (!empty($username)) {
-    $queryHpHospital = "SELECT h.hospitalID FROM healthcare_professionals hp 
-                        JOIN users u ON hp.userid = u.userid
-                        JOIN hospitals h ON hp.hospitalID = h.hospitalID
-                        WHERE u.username = ?";
-    $stmtHpHospital = $conn->prepare($queryHpHospital);
-    $stmtHpHospital->bind_param('s', $username);
-    $stmtHpHospital->execute();
-    $resultHpHospital = $stmtHpHospital->get_result();
-
-    if ($resultHpHospital->num_rows > 0) {
-        $hpHospital = $resultHpHospital->fetch_assoc();
-        $hospitalID = $hpHospital['hospitalID'];
-
-      
-        $queryHospitalBlood = "SELECT bloodType, quantity FROM hospital_blood_inventory 
-                              WHERE hospitalID = ?";
-        $stmtHospitalBlood = $conn->prepare($queryHospitalBlood);
-        $stmtHospitalBlood->bind_param('i', $hospitalID);
-        $stmtHospitalBlood->execute();
-        $resultHospitalBlood = $stmtHospitalBlood->get_result();
-
-        while ($row = $resultHospitalBlood->fetch_assoc()) {
-            $bloodType = $row['bloodType'];
-            $quantity = $row['quantity'];
-            $bloodInventory[$bloodType] = $quantity;
-            $totalUnits += $quantity; 
-        }
-
-        $stmtHospitalBlood->close();
-    }
-
-    $stmtHpHospital->close();
+    $result = $inventory->getBloodInventory($username);
+    $bloodInventory = $result['inventory'];
+    $totalUnits = $result['totalUnits'];
 }
 
 $db->close();
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
