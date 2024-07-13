@@ -174,7 +174,7 @@
 
       <!-- Blood Availability Notification -->
       <div class="w3-quarter gap-1">
-        <a href="">
+        <a href="WholeBloodInv.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Blood Availability</h4>
@@ -183,7 +183,7 @@
             <div class="icon"><i class="fa fa-cog fa-green" style="font-size: 25px;"></i></div>
           </div>
         </a>
-      </div>
+</div>
 
       <!-- Donation Camps -->
       <div class="w3-quarter gap-2">
@@ -221,7 +221,10 @@
             <div class="icon"><i class="fa fa-envelope fa-gray" style="font-size: 25px;"></i></div>
           </div>
         </a>
-      </div>    
+      </div> 
+      
+      <!-- WholInv-->
+      
     </div>
   </div>
 
