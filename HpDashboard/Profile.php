@@ -142,66 +142,81 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['updateHP'])) {
     <title>Edit Profile - BloodLinePro</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">   
+       <link rel="stylesheet" href="./css/style.css">   
     <link rel="stylesheet" href="../DonorProfile/style.css"> 
-
+<style>
+ .blue-dot {
+      color: #007bff;
+      font-size: 24px;
+    }
+    </style>
 </head>
 <body>
     <!-- Sidebar -->
     <?php include 'HpSidebar.php'; ?>
 
     <!-- Main Content -->
-    <div class="main-content">
-        <div class="container">
-            <div class="profile-header">
-                <h2>Edit Profile</h2>
+     <div class="main-content">
+    <div class="container mt-5">
+  <div class="row">
+    <div class="col-md-3">
+      <div class="text-center">
+      <div class="w3-center">
+        <img src="images/avatar.png" class="w3-circle w3-margin-bottom profile-pic">
+    </div>     <h3><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></h3> 
+        <p><?php echo htmlspecialchars($position); ?></p>
+      </div>
+      <div class="mt-3">
+        <h5><span class="blue-dot">•</span>HP NIC: <strong><?php echo htmlspecialchars($hpnic); ?></strong></h5>
+        <h5><span class="blue-dot">•</span>Hospital: <strong><?php echo htmlspecialchars($hospitalName); ?></strong></h5>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><span class="blue-dot">•</span>Contact information</h5>
+              <p class="card-text">Phone Number : <?php echo htmlspecialchars($phoneNumber); ?></p>
+
+              <p class="card-text">Email : <?php echo htmlspecialchars($email); ?></p>
+              <p class="card-text">Username : <?php echo htmlspecialchars($_SESSION['username']); ?></p>
+
             </div>
-
-            <form action="" method="POST">
-                <div class="profile-section">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="firstName">Full Name</label>
-                                <div class="profile-text"><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="position">Position</label>
-                                <div class="profile-text"><?php echo htmlspecialchars($position); ?></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="hpnic">HP NIC</label>
-                                <div class="profile-text"><?php echo htmlspecialchars($hpnic); ?></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="hospitalid">Hospital</label>
-                                <div class="profile-text"><?php echo htmlspecialchars($hospitalName); ?></div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="phoneNumber">Phone Number</label>
-                                <div class="profile-text"><?php echo htmlspecialchars($phoneNumber); ?></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <div class="profile-text"><?php echo htmlspecialchars($email); ?></div>
-                            </div>
-                            <div class="form-group">
-                                <label for="username">Username</label>
-                                <div class="profile-text"><?php echo htmlspecialchars($_SESSION['username']); ?></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="text-center">
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Goals</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Motivations</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Concerns</h5>
+              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
                     <button type="submit" name="updateHP" class="btn btn-save"><i class="fas fa-save me-2"></i>Save Changes</button>
                     <a href="ForgotPassword.php" class="btn btn-save"><i class="fas fa-key me-2"></i>Change Password</a>
                 </div>
-            </form>
-        </div>
+  </div>
+</div>
     </div>
 
     <!-- Bootstrap 5 JS and Popper.js (for Bootstrap functionality) -->
