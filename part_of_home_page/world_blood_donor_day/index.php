@@ -33,32 +33,32 @@
     <section class="container my-5">
         <div class="row">
             <div class="col-md-4">
-                <div class="card">
+                <div class="card"style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); ">
                     <img src="images/5.jpg" class="card-img-top" alt="Blood donation event">
                     <div class="card-body">
                         <h5 class="card-title">Join a Blood Drive</h5>
                         <p class="card-text">Participate in local blood drives and contribute to saving lives in your community.</p>
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <a href="https://www.paho.org/en/world-blood-donor-day" class="btn btn-primary"style="background-color:darkred;">Learn More</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
+                <div class="card"style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); ">
                     <img src="images/12.jpg" class="card-img-top" alt="Blood donor">
                     <div class="card-body">
                         <h5 class="card-title">Become a Donor</h5>
                         <p class="card-text">Register to become a blood donor today and make a significant impact on someone's life.</p>
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <a href="https://www.paho.org/en/world-blood-donor-day" class="btn btn-primary"style="background-color:darkred;">Learn More</a>
                     </div>
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="card">
+                <div class="card"style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); ">
                     <img src="images/24.jpg" class="card-img-top" alt="Blood donation process">
                     <div class="card-body">
                         <h5 class="card-title">Understand the Process</h5>
                         <p class="card-text">Learn about the blood donation process and what you can expect when you donate blood.</p>
-                        <a href="#" class="btn btn-primary">Learn More</a>
+                        <a href="https://www.paho.org/en/world-blood-donor-day" class="btn btn-primary"style="background-color:darkred;">Learn More</a>
                     </div>
                 </div>
             </div>

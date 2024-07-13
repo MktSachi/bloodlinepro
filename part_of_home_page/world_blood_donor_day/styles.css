@@ -28,9 +28,15 @@ section h2 {
 
 .card {
     margin-bottom: 1.5rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .card img {
     height: 200px;
     object-fit: cover;
+}
+
+.btn-primary {
+    background-color: darkred;
+    border-color: darkred;
 }
