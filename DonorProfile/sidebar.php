@@ -166,8 +166,8 @@
         <a href="Home.php" class="nav-item">
             <i class="fa fa-home"></i> Home
         </a>
-        <a href="HpDashboard.php" class="nav-item">
-            <i class="fa fa-users"></i> Dashboard
+        <a href="Award.php" class="nav-item">
+            <i class="fa fa-trophy"></i>Awards
         </a>
         <a href="SettingProfile.php" class="nav-item">
             <i class="fa fa-cog"></i> Profile
