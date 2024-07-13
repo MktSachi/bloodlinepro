@@ -4,9 +4,9 @@ use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
 // Adjust these paths to match your directory structure
-require __DIR__ . '/../../PHPMailer/src/Exception.php';
-require __DIR__ . '/../../PHPMailer/src/PHPMailer.php';
-require __DIR__ . '/../../PHPMailer/src/SMTP.php';
+require __DIR__ . '../PHPMailer/src/Exception.php';
+require __DIR__ . '../PHPMailer/src/PHPMailer.php';
+require __DIR__ . '../PHPMailer/src/SMTP.php';
 
 // Database connection details
 $servername = "localhost";
