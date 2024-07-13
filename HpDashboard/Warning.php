@@ -1,3 +1,46 @@
+<?php
+session_start();
+require '../DonorRegistration/Database.php'; 
+
+
+if (!isset($_SESSION['hospitalID'])) {
+    
+    die("Hospital ID not set.");
+}
+
+
+$hospitalID = $_SESSION['hospitalID'];
+
+
+$db = new Database();
+$conn = $db->getConnection();
+
+
+$lowStockBloodTypes = [];
+
+
+$queryLowStock = "SELECT bloodType, quantity FROM hospital_blood_inventory 
+                  WHERE hospitalID = ? AND quantity < 11";
+$stmt = $conn->prepare($queryLowStock);
+$stmt->bind_param("i", $hospitalID);
+$stmt->execute();
+$result = $stmt->get_result();
+
+if (!$result) {
+    die("Error fetching data: " . $conn->error);
+}
+
+// Store low stock blood types in an array
+while ($row = $result->fetch_assoc()) {
+    $lowStockBloodTypes[] = [
+        'bloodType' => htmlspecialchars($row['bloodType']),
+        'quantity' => htmlspecialchars($row['quantity'])
+    ];
+}
+
+$stmt->close();
+$conn->close();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,33 +104,22 @@
     </style>
 </head>
 <body>
-<?php include './HpSidebar.php'; ?>
+    <?php include './HpSidebar.php'; ?>
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:270px;margin-top:43px;">
-    <div class="alert-container">
-        <h1>Attention: Blood Inventory is Low!</h1>
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:270px;margin-top:43px;">
+        <div class="alert-container">
+            <h1>Attention: Blood Inventory is Low!</h1>
 
-        <div class="blood-group">
-            <h2>Blood Group: A+</h2>
-            <p>Available Quantity: 15 units</p>
-        </div>
-
-        <div class="blood-group">
-            <h2>Blood Group: B-</h2>
-            <p>Available Quantity: 8 units</p>
-        </div>
-
-        <div class="blood-group">
-            <h2>Blood Group: O+</h2>
-            <p>Available Quantity: 10 units</p>
-        </div>
-
-        <div class="blood-group">
-            <h2>Blood Group: AB-</h2>
-            <p>Available Quantity: 3 units</p>
+            <!-- Display low stock blood groups dynamically -->
+            <?php foreach ($lowStockBloodTypes as $bloodGroup): ?>
+                <div class="blood-group">
+                    <h2>Blood Type: <?= $bloodGroup['bloodType'] ?></h2>
+                    <p>Available Quantity: <?= $bloodGroup['quantity'] ?></p>
+                </div>
+            <?php endforeach; ?>
+            
         </div>
     </div>
-</div>
 </body>
 </html>

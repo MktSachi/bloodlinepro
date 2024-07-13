@@ -154,7 +154,7 @@
                 <img src="../HPDashboard/images/avatar.png" class="w3-circle w3-margin-bottom" style="width: 100px; height: 100px;">
             </div>
         <?php endif; ?>
-        <h4><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></h4>
+        <h4></h4>
         </div>
     </div>
     
@@ -166,7 +166,7 @@
         <a href="Home.php" class="nav-item">
             <i class="fa fa-home"></i> Home
         </a>
-        <a href="HpDashboard.php" class="nav-item">
+        <a href="AdminDashboard.php" class="nav-item">
             <i class="fa fa-users"></i> Dashboard
         </a>
         <a href="SettingProfile.php" class="nav-item">

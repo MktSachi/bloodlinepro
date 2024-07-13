@@ -22,24 +22,36 @@ $submissionSuccess = false;
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['donorNIC'])) {
-        $donorNIC = $_POST['donorNIC'];
-        $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
-        if (!$donorDetails) {
+    if ($_POST['searchType'] === 'NIC') {
+        if (isset($_POST['donorNIC'])) {
+            $donorNIC = $_POST['donorNIC'];
+            $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
+            if (!$donorDetails) {
+                $donorNotFound = true;
+            }
+        }
+    } elseif ($_POST['searchType'] === 'fullName') {
+        if (isset($_POST['donorFullName'])) {
+            $donorFullName = $_POST['donorFullName'];
+            // Split full name into first name and last name
+            $names = explode(' ', $donorFullName, 2);
+            if (count($names) == 2) {
+                list($firstName, $lastName) = $names;
+                $donorDetails = $donor->getDonorDetailsByFullName($firstName, $lastName);
+                if (!$donorDetails) {
+                    $donorNotFound = true;
+                }
+            } else {
+                $donorNotFound = true;
+            }
+        } else {
             $donorNotFound = true;
         }
     }
 
-    if (isset($_POST['donorNIC'], $_POST['donatedBloodCount'])) {
-        $donorNIC = $_POST['donorNIC'];
-        $donatedBloodCount = $_POST['donatedBloodCount'];
-
-        $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
-
-        if (!$donorDetails) {
-            $donorNotFound = true;
-        } else {
-            $bloodType = $donorDetails['bloodType'];
+    if ($donorDetails) {
+        if (isset($_POST['donatedBloodCount']) && !empty($_POST['donatedBloodCount'])) {
+            $donatedBloodCount = $_POST['donatedBloodCount'];
 
             $donationDate = date('Y-m-d');
             $bloodExpiryDate = date('Y-m-d', strtotime($donationDate . ' + 40 days'));
@@ -47,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Insert donation details into donations table
             $insertDonationQuery = "INSERT INTO donations (donorNIC, hospitalID, donatedBloodCount, donationDate, bloodExpiryDate) VALUES (?, ?, ?, ?, ?)";
             $insertDonationStmt = $conn->prepare($insertDonationQuery);
-            $insertDonationStmt->bind_param('siiss', $donorNIC, $hospitalID, $donatedBloodCount, $donationDate, $bloodExpiryDate);
+            $insertDonationStmt->bind_param('siiss', $donorDetails['donorNIC'], $hospitalID, $donatedBloodCount, $donationDate, $bloodExpiryDate);
 
             if ($insertDonationStmt->execute()) {
                 $insertDonationStmt->close();
@@ -55,14 +67,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 // Update donation count in donors table
                 $updateDonorQuery = "UPDATE donors SET donation_count = donation_count + 1 WHERE donorNIC = ?";
                 $updateDonorStmt = $conn->prepare($updateDonorQuery);
-                $updateDonorStmt->bind_param('s', $donorNIC);
+                $updateDonorStmt->bind_param('s', $donorDetails['donorNIC']);
                 $updateDonorStmt->execute();
                 $updateDonorStmt->close();
 
                 // Update hospital blood inventory
                 $selectInventoryQuery = "SELECT * FROM hospital_blood_inventory WHERE hospitalID = ? AND bloodType = ?";
                 $selectInventoryStmt = $conn->prepare($selectInventoryQuery);
-                $selectInventoryStmt->bind_param('is', $hospitalID, $bloodType);
+                $selectInventoryStmt->bind_param('is', $hospitalID, $donorDetails['bloodType']);
                 $selectInventoryStmt->execute();
                 $result = $selectInventoryStmt->get_result();
 
@@ -70,12 +82,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     // Update existing entry
                     $updateInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity + ? WHERE hospitalID = ? AND bloodType = ?";
                     $updateInventoryStmt = $conn->prepare($updateInventoryQuery);
-                    $updateInventoryStmt->bind_param('iis', $donatedBloodCount, $hospitalID, $bloodType);
+                    $updateInventoryStmt->bind_param('iis', $donatedBloodCount, $hospitalID, $donorDetails['bloodType']);
                 } else {
                     // Insert new entry
                     $updateInventoryQuery = "INSERT INTO hospital_blood_inventory (hospitalID, bloodType, quantity) VALUES (?, ?, ?)";
                     $updateInventoryStmt = $conn->prepare($updateInventoryQuery);
-                    $updateInventoryStmt->bind_param('isi', $hospitalID, $bloodType, $donatedBloodCount);
+                    $updateInventoryStmt->bind_param('isi', $hospitalID, $donorDetails['bloodType'], $donatedBloodCount);
                 }
 
                 $updateInventoryStmt->execute();
@@ -83,14 +95,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 $submissionSuccess = true;
 
-                // Retrieve updated donor details
-                $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
+                // Retrieve updated donor details after donation
+                $donorDetails = $donor->getDonorDetailsByNIC($donorDetails['donorNIC']);
             } else {
                 $error = 'Error submitting the donation details: ' . $conn->error;
             }
+        } else {
+            $error = 'Please enter the Donated Blood Count.';
         }
     } else {
-        $error = 'Please enter both NIC Number and Donated Blood Count.';
+        $error = 'Donor not found.';
     }
 }
 
@@ -140,8 +154,19 @@ $db->close();
             <h1>Donation Camp Details</h1>
             <form id="donor-form" method="post">
                 <div class="form-group">
+                    <label for="searchType">Search by:</label>
+                    <select class="form-control" id="searchType" name="searchType">
+                        <option value="NIC">NIC Number</option>
+                        <option value="fullName">Full Name</option>
+                    </select>
+                </div>
+                <div class="form-group" id="searchNIC">
                     <label for="donorNIC">NIC Number:</label>
-                    <input type="text" class="form-control" id="donorNIC" name="donorNIC" required>
+                    <input type="text" class="form-control" id="donorNIC" name="donorNIC">
+                </div>
+                <div class="form-group" id="searchFullName" style="display: none;">
+                    <label for="donorFullName">Full Name:</label>
+                    <input type="text" class="form-control" id="donorFullName" name="donorFullName">
                 </div>
                 <button type="submit" class="btn btn-primary">Show</button>
             </form>
@@ -178,6 +203,10 @@ $db->close();
                                     <label for="donor-email">Email:</label>
                                     <p id="donor-email"><?= htmlspecialchars($donorDetails['email']) ?></p>
                                 </div>
+                                <div class="form-group highlight">
+                                    <label for="NIC">Donor NIC</label>
+                                    <p id="donor-email"><?= htmlspecialchars($donorDetails['donorNIC']) ?></p>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group highlight">
@@ -212,10 +241,20 @@ $db->close();
             <?php endif; ?>
         </div>
     </div>
-
-    <!-- jQuery, Popper.js, Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('searchType').addEventListener('change', function() {
+            var selectedOption = this.value;
+            if (selectedOption === 'NIC') {
+                document.getElementById('searchNIC').style.display = 'block';
+                document.getElementById('searchFullName').style.display = 'none';
+            } else if (selectedOption === 'fullName') {
+                document.getElementById('searchNIC').style.display = 'none';
+                document.getElementById('searchFullName').style.display = 'block';
+            }
+        });
+    </script>
 </body>
 </html>

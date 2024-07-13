@@ -13,9 +13,28 @@
   <link rel="stylesheet" href="../Assets/css/header.css">
   <link rel="stylesheet" href="../Assets/css/footer.css">
   <title>Blood Bank Management System</title>
+  <style>
+    .loader {
+            position: fixed;
+            z-index: 9999;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            display: none;
+        }
+
+        .loader img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+  </style>
 </head>
 <body class="p-0 m-0 border-0 bd-example">
-
+<div class="loader" id="loader">
+        <img src="../../AdminDashboard/Animation - 1720851760552.gif" alt="Loading...">
+    </div>
 <main role="main" class="container">
   <div class="row">
     <div class="col-md-6 mb-3"></div>
@@ -28,7 +47,7 @@
         </div>
       <?php } ?>
       
-      <form class="needs-validation" novalidate method="POST" action="" enctype="multipart/form-data">
+      <form class="needs-validation" novalidate method="POST" action="" enctype="multipart/form-data" name="Donor_Creation">
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
@@ -145,7 +164,16 @@
     </div>
   </div>
 </main>
+<script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.querySelector('form[name="Donor_Creation"]');
+            var loader = document.getElementById('loader');
 
+            form.addEventListener('submit', function() {
+                loader.style.display = 'block';
+            });
+        });
+    </script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
 

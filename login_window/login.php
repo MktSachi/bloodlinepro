@@ -131,41 +131,7 @@
         <p class="text-center mt-3">Don't have an account? <a href="">Create Account</a></p>
       </div>
 
-    <div class="container d-flex justify-content-center align-items-center min-vh-100">
-        <div class="row shadow-lg p-0 mb-5 bg-white rounded w-100">
-            <div class="col-md-6 d-none d-md-block p-0">
-                <div class="img-box h-100"></div>
-            </div>
-            <div class="col-md-6 p-5 form-wrap">
-                <div class="text-right mb-3">
-                    <span>Don't you have an account?</span>
-                    <a href="register.php" class="btn btn-outline-primary btn-sm">Sign Up</a>
-                </div>
-                <div class="text-center mb-4">
-                    <h1>Welcome to BloodLinePro</h1>
-                    <h6>Login to your Account</h6>
-                </div>
-                <?php if (!empty($error_msg)) { ?>
-                    <div class="alert alert-danger"><?php echo $error_msg; ?></div>
-                <?php } ?>
-                <form action="login.php" method="post">
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
-                    </div>
-                    <div class="form-group text-right">
-                        <a href="forgot_password.php" class="btn btn-outline-primary btn-sm">Forgot password?</a>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Login</button>
-                </form>
-            </div>
-        </div>
-
-    </div>
+    
   </div>
 </div>
 

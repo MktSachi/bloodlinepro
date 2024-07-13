@@ -22,39 +22,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $donorNIC = $_POST['donorNIC'];
 
-    if ($password !== $confirmPassword) {
-        $error_msg .= "Passwords do not match. ";
+    // Validate password
+    $error_msg .= $validator->validatePasswordStrength($password);
+    $error_msg .= $validator->validatePasswordMatch($password, $confirmPassword);
+
+    // Validate username
+    $error_msg .= $validator->validateUsername($username, $donor);
+
+    // Validate NIC
+    if (!$validator->validateNIC($donorNIC)) {
+        $error_msg .= "Invalid NIC number format. Please check your NIC Number ";
     }
 
-    if (!$validator->validatePassword($password)) {
-        $error_msg .= "Password must contain at least one uppercase letter, one lowercase letter, one symbol, and one number. ";
-    }
-
-    if ($donor->CheckUserName($username)) {
-        $error_msg .= "Username '$username' already exists. Please choose a different username. ";
-    }
-
-    if ($donor->DonorNICExists($donorNIC)) {
-        $error_msg .= "Donor NIC '$donorNIC' already exists. Please use a different NIC. ";
-    }
+    // Validate unique NIC
+    $error_msg .= $validator->validateUniqueNIC($donorNIC, $donor);
 
     // Handle file upload if a file was selected
     $file_destination = '';
     if (!empty($_FILES['profile_picture']['name'])) {
-        $upload_dir = '../Upload/';
-        $allowed_types = ["jpg", "jpeg", "png", "gif"];
         $file_name = $_FILES['profile_picture']['name'];
         $file_tmp = $_FILES['profile_picture']['tmp_name'];
-        $file_ext = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
-        $file_destination = $upload_dir . $file_name;
-
-        if (!in_array($file_ext, $allowed_types)) {
-            $error_msg .= "Only JPG, JPEG, PNG, and GIF files are allowed. ";
-        }
-
-        if (!move_uploaded_file($file_tmp, $file_destination)) {
-            $error_msg .= "Error occurred while uploading the file. ";
-        }
+        $error_msg .= $validator->validateFileUpload($file_name, $file_tmp);
+        $file_destination = '../Upload/' . $file_name;
     }
 
     // Check if any health conditions are selected that prevent blood donation
@@ -71,28 +60,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'cancer' => isset($_POST['cancer']) ? 1 : 0
     ];
 
-    if ($validator->validateHealthConditions($data)) {
-        $error_msg .= "Sorry, you cannot donate blood due to health conditions. ";
-    }
+    $error_msg .= $validator->validateHealthConditionsSelection($data);
 
     if (empty($error_msg)) {
+        // Prepare data for registration
         $data = array_merge($data, [
-            'firstName' => $_POST['firstName'],
-            'lastName' => $_POST['lastName'],
+            'firstName' => $validator->sanitizeInput($_POST['firstName']),
+            'lastName' => $validator->sanitizeInput($_POST['lastName']),
             'donorNIC' => $donorNIC,
-            'username' => $username,
-            'email' => $_POST['email'],
+            'username' => $validator->sanitizeInput($username),
+            'email' => $validator->sanitizeInput($_POST['email']),
             'password_hashed' => password_hash($password, PASSWORD_DEFAULT),
-            'phoneNumber' => $_POST['phoneNumber'],
-            'address' => $_POST['address'],
-            'address2' => $_POST['address2'],
-            'gender' => $_POST['gender'],
-            'bloodType' => $_POST['bloodType'],
-            'otherHealthConditions' => $_POST['otherHealthConditions']
+            'phoneNumber' => $validator->sanitizeInput($_POST['phoneNumber']),
+            'address' => $validator->sanitizeInput($_POST['address']),
+            'address2' => $validator->sanitizeInput($_POST['address2']),
+            'gender' => $validator->sanitizeInput($_POST['gender']),
+            'bloodType' => $validator->sanitizeInput($_POST['bloodType']),
+            'otherHealthConditions' => $validator->sanitizeInput($_POST['otherHealthConditions'])
         ]);
 
+        // Register donor
         try {
             if ($donor->register($data, $file_destination)) {
+                // Send confirmation email
                 $emailSender->sendConfirmationEmail($data['email'], $data['firstName'], $data['username']);
                 $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
                 header("Location: Success.php");
@@ -107,5 +97,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 $db->close();
-
 ?>

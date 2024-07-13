@@ -60,7 +60,7 @@
     </div>
     <div class="message">Success!</div>
     <div class="sub-message">You have registered successfully! You can now log into your dashboard.</div>
-    <a href="/login_window/login.php" class="btn btn-primary btn-block" >Loging</a>
+    <a href="../login_window/login.php" class="btn btn-primary btn-block" >Loging</a>
   </div>
 </div>
 
