@@ -1,13 +1,118 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel ="stylesheet" href="../HpDashboard/css/sidebar.css">
-<style>
-     .profile-picture-container {
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding-bottom: 60px;
+        }
+        .sidebar {
+            width: 210px;
+            height: 100vh;
+            background-color: #f8f9fa;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            transition: transform 0.3s ease;
+            z-index: 1000;
+        }
+        .sidebar-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+  width: 50px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #6c5ce7;
+  margin-bottom: 10px;
+}
+        .search-bar {
+            margin-bottom: 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+        .search-bar input:hover,
+        .search-bar input:focus {
+            border-color: #6c5ce7;
+            outline: none;
+        }
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: #495057;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .nav-item:hover {
+            background-color: #e9ecef;
+            color:rgb(131, 26, 26);
+        }
+        .nav-item.active {
+            background-color: #6c5ce7;
+            color: white;
+        }
+        .nav-item i {
+            margin-right: 10px;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1001;
+        }
+        .footer {
+            text-align: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #5a090a 0%, #060606 100%);
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            color:white;
+        }
+        .sidebar-footer {
+            margin-top: auto;
+            padding-bottom: 70px;
+        }
+        .w3-main {
+            transition: margin-left 0.3s ease;
+        }
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            .menu-icon {
+                display: block;
+            }
+            .w3-main {
+                margin-left: 0 !important;
+            }
+        }
+
+        .profile-picture-container {
      display: flex;
      justify-content: center; 
     align-items: center; 
@@ -23,27 +128,22 @@
     height: auto; 
     display: block; 
 }
-
-hr{
-    background-color: black;
-}
-</style>
-
+        .profile-name {
+            margin-top: 10px;
+            opacity: 0;
+            transition: 0.3s;
+            text-align: center;
+        }
+    </style>
 </head>
 
-<body class="w3-light-grey" style="font-family: arial;">
+<body class="w3-light-grey">
 
+<div class="menu-icon" onclick="w3_toggle()">☰</div>
 
-<div class="w3-bar w3-top w3-large" style="z-index:4;background-color:#00264d;color:white;height: 43px;">
-    <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();">
-        <i class="fa fa-bars"></i>  Menu
-    </button>
-</div>
-
-<nav class="w3-sidebar w3-collapse w3-animate-left" style="z-index:3;background-color:#FFFFFF;color:black;" id="mySidebar">
-    <br>
-    <div class="w3-container w3-center">
-        <?php if (!empty($profilePicture)) : ?>
+<nav class="sidebar" id="mySidebar">
+    <div class="sidebar-header">
+    <?php if (!empty($profilePicture)) : ?>
             <div class="profile-picture-container">
     <img src="<?php echo htmlspecialchars($profilePicture); ?>" class="w3-circle w3-margin-bottom" alt="Profile Picture">
 </div>
@@ -51,38 +151,39 @@ hr{
 
         <?php else : ?>
             <div class="profile-picture-container">
-                <img src="images/default_avatar.png" class="w3-circle w3-margin-bottom" style="width: 100px; height: 100px;">
+                <img src="../HPDashboard/images/avatar.png" class="w3-circle w3-margin-bottom" style="width: 100px; height: 100px;">
             </div>
         <?php endif; ?>
         <h4><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></h4>
+        </div>
     </div>
-    <hr>
     
-    <div class="w3-bar-block" style="text-align: center; padding-left: 30px;">
-       
-        <a href="Home.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fas fa-home"></i> Home
+    <div class="search-bar">
+        <input type="text" placeholder="Search...">
+    </div>
+    
+    <div class="w3-bar-block">
+        <a href="Home.php" class="nav-item">
+            <i class="fa fa-home"></i> Home
         </a>
-        <a href="Award.php" class="w3-bar-item w3-button w3-padding">
-    <i class="fas fa-trophy"></i> Awards
-</a>
-        
-        <a href="SettingProfile.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fas fa-cog"></i> Profile
+        <a href="HpDashboard.php" class="nav-item">
+            <i class="fa fa-users"></i> Dashboard
         </a>
-        <a href="Contact.php" class="w3-bar-item w3-button w3-padding">
-            <i class="fa fa-envelope"></i> Contact
+        <a href="SettingProfile.php" class="nav-item">
+            <i class="fa fa-cog"></i> Profile
         </a>
-        <a href="../login_window/Logout.php" class="w3-bar-item w3-button w3-padding">
+    </div>
+
+    <div class="sidebar-footer">
+        <a href="../login_window/Logout.php" class="nav-item" onclick="logout()">
             <i class="fa fa-sign-out"></i> Logout
         </a>
     </div>
 </nav>
 
-
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
-<div class="w3-main" style="margin-left:200px;margin-top:43px;">
+<div class="w3-main" id="main">
     <!-- Content here -->
 </div>
 
@@ -90,32 +191,58 @@ hr{
     @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
 </div>
 
-<!--JavaScript functions-->
 <script>
-
     var mySidebar = document.getElementById("mySidebar");
+    var overlayBg = document.getElementById("myOverlay");
+    var main = document.getElementById("main");
 
-
-    function w3_open() {
-        if (mySidebar.style.display === 'block') {
-            mySidebar.style.display = 'none';
-            document.getElementById("myOverlay").style.display = "none";
-        } else {
-            mySidebar.style.display = 'block';
-            document.getElementById("myOverlay").style.display = "block";
+    function w3_toggle() {
+        if (window.innerWidth <= 768) {
+            if (mySidebar.style.transform === 'translateX(0px)') {
+                w3_close();
+            } else {
+                w3_open();
+            }
         }
     }
 
-    
-    function w3_close() {
-        mySidebar.style.display = "none";
-        document.getElementById("myOverlay").style.display = "none";
+    function w3_open() {
+        mySidebar.style.transform = "translateX(0)";
+        overlayBg.style.display = "block";
+        if (window.innerWidth <= 768) {
+            main.style.marginLeft = "0";
+        }
     }
 
-    
+    function w3_close() {
+        mySidebar.style.transform = "translateX(-100%)";
+        overlayBg.style.display = "none";
+        if (window.innerWidth <= 768) {
+            main.style.marginLeft = "0";
+        }
+    }
+
     function logout() {
         alert("Logging out from your account");
     }
+
+    // Function to handle window resize
+    function handleResize() {
+        if (window.innerWidth > 768) {
+            mySidebar.style.transform = "translateX(0)";
+            main.style.marginLeft = "210px";
+            overlayBg.style.display = "none";
+        } else {
+            mySidebar.style.transform = "translateX(-100%)";
+            main.style.marginLeft = "0";
+        }
+    }
+
+    // Add event listener for window resize
+    window.addEventListener('resize', handleResize);
+
+    // Initial call to set correct state
+    handleResize();
 </script>
 
 </body>
