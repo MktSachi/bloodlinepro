@@ -40,7 +40,7 @@
                                     <a href="https://web.whatsapp.com/send?text=<?php echo urlencode('Check out my Silver Badge achievement on BloodLinePro! https://example.com'); ?>" target="_blank" class="btn btn-success btn-sm"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
                                 </div>
                             <?php else: ?>
-                                <img src="Image/lock.png" alt="Locked Badge" class="img-fluid mb-3 badge-image">
+                                <img src="Image/Animation - 1720863479825.gif" alt="Locked Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Locked</h5>
                                 <p class="card-text styled-text">You need to donate 5 more time(s) to earn the silver badge.</p>
                             <?php endif; ?>
@@ -61,7 +61,7 @@
                                     <a href="https://web.whatsapp.com/send?text=<?php echo urlencode('Check out my Platinum Badge achievement on BloodLinePro! https://example.com'); ?>" target="_blank" class="btn btn-success btn-sm"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
                                 </div>
                             <?php else: ?>
-                                <img src="Image/lock.png" alt="Locked Badge" class="img-fluid mb-3 badge-image">
+                                <img src="Image/Animation - 1720863479825.gif" alt="Locked Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Locked</h5>
                                 <p class="card-text styled-text">You need to donate <?php echo (10 - $donationCount); ?> more time(s) to earn the platinum badge.</p>
                             <?php endif; ?>
@@ -83,7 +83,7 @@
                                     <a href="https://web.whatsapp.com/send?text=<?php echo urlencode('Check out my Gold Badge achievement on BloodLinePro! https://example.com'); ?>" target="_blank" class="btn btn-success btn-sm"><i class="fab fa-whatsapp"></i> Share on WhatsApp</a>
                                 </div>
                             <?php else: ?>
-                                <img src="Image/lock.png" alt="Locked Badge" class="img-fluid mb-3 badge-image">
+                                <img src="Image/Animation - 1720863479825.gif" alt="Locked Badge" class="img-fluid mb-3 badge-image">
                                 <h5 class="card-title styled-title">Locked</h5>
                                 <p class="card-text styled-text">You need to donate <?php echo (15 - $donationCount); ?> more time(s) to earn the gold badge.</p>
                             <?php endif; ?>
