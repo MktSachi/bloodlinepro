@@ -1,15 +1,20 @@
-<div id="carouselContainer" class="carousel-container container-fluid p-0">
+    <!-- Audio Element -->
+    <audio id="backgroundAudio" autoplay loop>
+        <source src="../Image/blood.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    <div id="carouselContainer" class="carousel-container container-fluid p-0">
     <div id="projectCarousel" class="carousel slide" data-ride="carousel">
         <div class="carousel-inner">
             <!-- Video slide -->
             <div class="carousel-item active">
                 <video id="carouselVideo" class="d-block w-100" autoplay loop muted>
-                    <source src="../Image/videoplayback.mp4" type="video/mp4">
+                    <source src="../Image/video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
                 <div class="carousel-caption-left animated-caption">
                     <div class="text-container">
-                        <h1>YOUR BLOOD THEIR HOPES</h1>
+                        <h1>YOUR BLOOD </h1><h1>THEIR HOPES</h1>
                         <p>explore with us</p>
                         <a href="#your-link" class="btn btn-primary">Learn More</a>
                     </div>
@@ -26,3 +31,4 @@
         </a>
     </div>
   </div>
+ 
