@@ -75,40 +75,30 @@
         <div class="container">
             <h3 class="text-center mb-4">Edit Profile</h3>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <div class="card-body text-center">
-                            <img src="images/avatar.png" class="profile-pic mb-3">
-                            <h4><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></h4>
-                            <p class="text-muted"><?php echo htmlspecialchars($position); ?></p>
-                            <p><i class="fas fa-id-card blue-dot"></i> <?php echo htmlspecialchars($hpnic); ?></p>
-                            <p><i class="fas fa-hospital blue-dot"></i> <?php echo htmlspecialchars($hospitalName); ?></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-8">
+                
+                <div class="col-md-12">
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title"><i class="fas fa-user-edit blue-dot"></i>Personal Information</h5>
                             <form method="POST" action="">
                                 <div class="mb-3">
                                     <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" readonly>
+                                    <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($email); ?>" required>
+                                    <?php if (isset($errors['email'])) echo '<span class="text-danger">'.$errors['email'].'</span>'; ?>
                                 </div>
                                 <div class="mb-3">
                                     <label for="phoneNumber" class="form-label">Phone Number</label>
-                                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo htmlspecialchars($phoneNumber); ?>" readonly>
+                                    <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" value="<?php echo htmlspecialchars($phoneNumber); ?>" required>
+                                    <?php if (isset($errors['phoneNumber'])) echo '<span class="text-danger">'.$errors['phoneNumber'].'</span>'; ?>
                                 </div>
-                                <div class="mb-3">
-                                    <label for="position" class="form-label">Position</label>
-                                    <input type="text" class="form-control" id="position" name="position" value="<?php echo htmlspecialchars($position); ?>" readonly>
-                                </div>
+                               
                                 <div class="mb-3">
                                     <label for="username" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($_SESSION['username']); ?>"readonly>
+                                    <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($_SESSION['username']); ?>" required>
+                                    <?php if (isset($errors['username'])) echo '<span class="text-danger">'.$errors['username'].'</span>'; ?>
                                 </div>
                                 <div class="text-center mt-4">
-                               <a href="ProfileInfo.php"  class="btn btn-save me-2"><i class="fas fa-save me-2"></i>Changes</button></a>
+                                    <button type="submit" name="updateHP" class="btn btn-save me-2"><i class="fas fa-save me-2"></i>Save Changes</button>
                                     <a href="ForgotPassword.php" class="btn btn-save"><i class="fas fa-key me-2"></i>Change Password</a>
                                 </div>
                             </form>

@@ -58,110 +58,112 @@ $db->close();
   <title>BloodLinePro Dashboard</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link id="theme-link" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
   <style>
     body {
-      background: linear-gradient(287deg, rgba(48,0,0,0.8575805322128851) 100%, rgba(101,79,79,1) 100%, rgba(0,212,255,1) 100%);
-      color: #fff;
+      background-color: #f0f2f5;
+      font-family: 'Poppins', sans-serif;
     }
-
     .dashboard-container {
-      margin: 20px;
+      padding: 30px;
     }
-
+    h3 {
+      font-weight: 700;
+      font-size: 28px; 
+      color: #2c3e50;
+      margin-bottom: 30px;
+    }
     .card {
-      margin-bottom: 20px;
+      border-radius: 15px;
       border: none;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+      margin-bottom: 30px;
+      transition: all 0.3s ease;
     }
-
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
+    }
     .card-body {
-      padding: 20px;
+      padding: 25px;
     }
-
-    .card-title {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-    }
-
-    .small-chart {
-      max-width: 100%;
-      margin: 0 auto;
-    }
-
-    .list-group-item {
-      border: none;
-      border-radius: 0;
-    }
-
-    .list-group-item-danger {
-      background-color: rgba(255, 0, 0, 0.1);
-    }
-
-    .btn-secondary {
-      background-color: #6c757d;
-      border-color: #6c757d;
-    }
-
-    .btn-secondary:hover {
-      background-color: #5a6268;
-      border-color: #5a6268;
-    }
-
-    .fixed-action-button {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-    }
-
-    @media (max-width: 768px) {
-      .fixed-action-button {
-        position: static;
-        margin-top: 20px;
-      }
-    }
-
+    
   </style>
 </head>
 <body>
+  <?php include 'HpSidebar.php'; ?>
+  <div class="w3-main" style="margin-left:200px;">
+    <div class="dashboard-container">
+      <h3 class="text-center mb-4">Blood Inventory Dashboard</h3>
+      
+      
 
-  <div class="dashboard-container">
-    <!-- Total Blood Units as H3 Heading -->
-    <div class="row">
-      <div class="col-md-12 text-center">
-        <h3 style="color: #fff;">Total Blood Units: <?= $totalunits ?></h3>
-      </div>
-    </div>
-
-    <!-- Existing Dashboard Cards (Optional) -->
-    <div class="row mt-5">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Hospital Blood Count</h5>
-            <canvas id="hospitalBloodCountChart" class="small-chart"></canvas>
+      <div class="row">
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-hospital-alt me-2" style="color: #3498db;"></i>Hospital Blood Count</h5>
+              <canvas id="hospitalBloodCountChart" class="small-chart"></canvas>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-tint me-2" style="color: #e74c3c;"></i>Blood Type Distribution</h5>
+              <canvas id="bloodTypeChart"></canvas>
+            </div>
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-body">
-            <h5 class="card-title">Blood Type Distribution</h5>
-            <canvas id="bloodTypeChart"></canvas>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-heartbeat me-2" style="color: #2ecc71;"></i>Blood Availability Status</h5>
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Blood Type</th>
+                      <th>Available Units</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($bloodTypeData as $type => $count): ?>
+                      <tr>
+                        <td><?= $type ?></td>
+                        <td><?= $count ?></td>
+                        <td>
+                          <?php if ($count > 100): ?>
+                            <span class="badge bg-success">Sufficient</span>
+                          <?php elseif ($count > 50): ?>
+                            <span class="badge bg-warning">Moderate</span>
+                          <?php else: ?>
+                            <span class="badge bg-danger">Low</span>
+                          <?php endif; ?>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </div>  
   </div>
   
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-        // Blood type distribution data
         const bloodTypeData = <?= json_encode($bloodTypeData) ?>;
         const hospitalBloodData = <?= json_encode($hospitals) ?>;
 
-        // Blood type chart
         const ctx = document.getElementById('bloodTypeChart').getContext('2d');
         const bloodTypeChart = new Chart(ctx, {
           type: 'bar',
@@ -170,68 +172,96 @@ $db->close();
             datasets: [{
               label: 'Units',
               data: Object.values(bloodTypeData),
-              backgroundColor: 'rgba(131, 26, 26)',
-              borderColor: 'rgba(131, 26, 26)',
+              backgroundColor: 'rgba(231, 76, 60, 0.8)',
+              borderColor: 'rgba(231, 76, 60, 1)',
               borderWidth: 1
             }]
           },
           options: {
+            responsive: true,
             scales: {
               y: {
                 beginAtZero: true
               }
+            },
+            plugins: {
+              legend: {
+                display: false
+              },
+              title: {
+                display: true,
+                text: 'Blood Type Distribution',
+                font: {
+                  family: "'Poppins', sans-serif",
+                  size: 16,
+                  weight: 'bold'
+                }
+              }
+            },
+            animation: {
+              animateScale: true,
+              animateRotate: true
             }
           }
         });
 
-        // Hospital blood count chart
         const ctxPie = document.getElementById('hospitalBloodCountChart').getContext('2d');
         const hospitalBloodCountChart = new Chart(ctxPie, {
-          type: 'pie',
+          type: 'doughnut',
           data: {
             labels: Object.keys(hospitalBloodData),
             datasets: [{
               label: 'Blood Units',
               data: Object.values(hospitalBloodData),
               backgroundColor: [
-                '#F88FB2',
-                '#D5255E',
-                '#A31246',
-                '#740030'
+                '#3498db',
+                '#2ecc71',
+                '#e74c3c',
+                '#f39c12',
+                '#9b59b6'
               ],
-              borderColor: [
-                'white',
-                'white',  
-                'white',
-                'white',
-              ],
-              borderWidth: 1
+              borderColor: 'white',
+              borderWidth: 2
             }]
           },
           options: {
             responsive: true,
             plugins: {
               legend: {
-                position: 'top',
+                position: 'right',
+                labels: {
+                  font: {
+                    family: "'Poppins', sans-serif",
+                    size: 12
+                  }
+                }
               },
               title: {
                 display: true,
-                text: 'Blood Count by Hospital'
+                text: 'Blood Count by Hospital',
+                font: {
+                  family: "'Poppins', sans-serif",
+                  size: 16,
+                  weight: 'bold'
+                }
               }
+            },
+            cutout: '60%',
+            radius: '90%',
+            animation: {
+              animateScale: true,
+              animateRotate: true
             },
             onClick: function (event, elements) {
               if (elements.length > 0) {
                 const index = elements[0].index;
-                const hospitalName = hospitalBloodCountChart.data.labels[index];
+                const hospitalName = this.data.labels[index];
                 window.location.href = `hospitalBloodDistribution.php?hospital=${encodeURIComponent(hospitalName)}`;
               }
             }
           }
         });
     });
-
-    const lightModeURL = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
-
   </script>
 </body>
 </html>

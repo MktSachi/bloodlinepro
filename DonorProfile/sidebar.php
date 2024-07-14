@@ -5,136 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding-bottom: 60px;
-        }
-        .sidebar {
-            width: 210px;
-            height: 100vh;
-            background-color: #f8f9fa;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            left: 0;
-            top: 0;
-            transition: transform 0.3s ease;
-            z-index: 1000;
-        }
-        .sidebar-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .logo {
-  width: 50px;
-  height: 50px;
-  border-radius: 10px;
-  background-color: #6c5ce7;
-  margin-bottom: 10px;
-}
-        .search-bar {
-            margin-bottom: 20px;
-        }
-        .search-bar input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
-            transition: border-color 0.3s ease;
-        }
-        .search-bar input:hover,
-        .search-bar input:focus {
-            border-color: #6c5ce7;
-            outline: none;
-        }
-        .nav-item {
-            display: flex;
-            align-items: center;
-            padding: 10px;
-            color: #495057;
-            text-decoration: none;
-            border-radius: 5px;
-            margin-bottom: 5px;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-        .nav-item:hover {
-            background-color: #e9ecef;
-            color:rgb(131, 26, 26);
-        }
-        .nav-item.active {
-            background-color: #6c5ce7;
-            color: white;
-        }
-        .nav-item i {
-            margin-right: 10px;
-        }
-        .menu-icon {
-            display: none;
-            font-size: 24px;
-            cursor: pointer;
-            position: fixed;
-            top: 10px;
-            left: 10px;
-            z-index: 1001;
-        }
-        .footer {
-            text-align: center;
-            padding: 10px;
-            background: linear-gradient(135deg, #5a090a 0%, #060606 100%);
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            color:white;
-        }
-        .sidebar-footer {
-            margin-top: auto;
-            padding-bottom: 70px;
-        }
-        .w3-main {
-            transition: margin-left 0.3s ease;
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            .sidebar.active {
-                transform: translateX(0);
-            }
-            .menu-icon {
-                display: block;
-            }
-            .w3-main {
-                margin-left: 0 !important;
-            }
-        }
-
-        .profile-picture-container {
-     display: flex;
-     justify-content: center; 
-    align-items: center; 
-    width: 100px; 
-    height: 100px;
-    overflow: hidden;
-    border-radius: 50%; 
-    margin: 0 auto; 
-}
-
-.profile-picture-container img {
-    width: 100%; 
-    height: auto; 
-    display: block; 
-}
-        .profile-name {
-            margin-top: 10px;
-            opacity: 0;
-            transition: 0.3s;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../HpDashboard/SideBarStyle.css">
 </head>
 
 <body class="w3-light-grey">
@@ -166,11 +37,14 @@
         <a href="Home.php" class="nav-item">
             <i class="fa fa-home"></i> Home
         </a>
-        <a href="HpDashboard.php" class="nav-item">
-            <i class="fa fa-users"></i> Dashboard
+        <a href="Award.php" class="nav-item">
+            <i class="fa fa-trophy"></i>Awards
         </a>
         <a href="SettingProfile.php" class="nav-item">
             <i class="fa fa-cog"></i> Profile
+        </a>
+        <a href="Contact.php" class="nav-item">
+            <i class="fa fa-cog"></i> Contact
         </a>
     </div>
 
@@ -187,9 +61,7 @@
     <!-- Content here -->
 </div>
 
-<div class="footer">
-    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
-</div>
+
 
 <script>
     var mySidebar = document.getElementById("mySidebar");

@@ -98,73 +98,107 @@ $db->close();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood Transfer Between Hospitals</title>
+    <title>Blood Transfer Between Hospitals - BloodLinePro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        .btn-success:hover {
-            background-color: #218838;
-            border-color: #1e7e34;
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
         }
-        .alert {
-            margin-top: 20px;
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
         }
         .card {
-            margin-top: 20px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #dc3545;
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .btn-primary {
+            background-color: #dc3545;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #c82333;
+        }
+        .form-control:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+        }
+        .alert {
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
- 
-    <div class="w3-main" style="margin-left:200px;margin-top:43px;">
-        <div class="container">
-            <h1>Blood Transfer Between Hospitals</h1>
+    <div class="container">
+        <div class="card">
+            <div class="card-header">
+                <h2 class="mb-0"><i class="fas fa-exchange-alt me-2"></i>Blood Transfer Between Hospitals</h2>
+            </div>
+            <div class="card-body">
+                <?php if ($error): ?>
+                    <div class="alert alert-danger" role="alert">
+                        <i class="fas fa-exclamation-circle me-2"></i><?= htmlspecialchars($error) ?>
+                    </div>
+                <?php elseif ($submissionSuccess): ?>
+                    <div class="alert alert-success" role="alert">
+                        <i class="fas fa-check-circle me-2"></i>Blood transfer completed successfully!
+                    </div>
+                <?php endif; ?>
 
-            <?php if ($error): ?>
-                <div class="alert alert-danger mt-3"><?= htmlspecialchars($error) ?></div>
-            <?php elseif ($submissionSuccess): ?>
-                <div class="alert alert-success mt-3">Blood transfer completed successfully!</div>
-            <?php endif; ?>
-
-            <form method="post">
-                <div class="form-group">
-                    <label for="senderHospital">Sender Hospital:</label>
-                    <input type="text" class="form-control" id="senderHospital" value="HP Hospital" disabled>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="receiverHospitalID">Receiver Hospital:</label>
-                    <select class="form-control" id="receiverHospitalID" name="receiverHospitalID" required>
-                        <option value="">Select a hospital</option>
-                        <?php foreach ($hospitals as $hospital): ?>
-                            <option value="<?= htmlspecialchars($hospital['hospitalID']) ?>"><?= htmlspecialchars($hospital['hospitalName']) ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="bloodType">Blood Type:</label>
-                    <select class="form-control" id="bloodType" name="bloodType" required>
-                        <option value="">Select a blood type</option>
-                        <option value="A+">A+</option>
-                        <option value="A-">A-</option>
-                        <option value="B+">B+</option>
-                        <option value="B-">B-</option>
-                        <option value="AB+">AB+</option>
-                        <option value="AB-">AB-</option>
-                        <option value="O+">O+</option>
-                        <option value="O-">O-</option>
-                    </select>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="bloodQuantity">Blood Quantity (in ml):</label>
-                    <input type="number" class="form-control" id="bloodQuantity" name="bloodQuantity" required>
-                </div>
-                <div class="form-group mt-3">
-                    <label for="description">Description:</label>
-                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary mt-3">Transfer Blood</button>
-            </form>
+                <form method="post">
+                    <div class="mb-3">
+                        <label for="senderHospital" class="form-label">Sender Hospital:</label>
+                        <input type="text" class="form-control" id="senderHospital" value="HP Hospital" disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="receiverHospitalID" class="form-label">Receiver Hospital:</label>
+                        <select class="form-select" id="receiverHospitalID" name="receiverHospitalID" required>
+                            <option value="">Select a hospital</option>
+                            <?php foreach ($hospitals as $hospital): ?>
+                                <option value="<?= htmlspecialchars($hospital['hospitalID']) ?>"><?= htmlspecialchars($hospital['hospitalName']) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bloodType" class="form-label">Blood Type:</label>
+                        <select class="form-select" id="bloodType" name="bloodType" required>
+                            <option value="">Select a blood type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="bloodQuantity" class="form-label">Blood Quantity (in ml):</label>
+                        <input type="number" class="form-control" id="bloodQuantity" name="bloodQuantity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description:</label>
+                        <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-2"></i>Transfer Blood
+                    </button>
+                </form>
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
