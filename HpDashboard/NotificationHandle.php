@@ -12,22 +12,22 @@
     <link rel="stylesheet" href="Css/DonorHandle.css">    
 </head>
 <body>
-    <?php include 'HpSidebar.php'; ?>
+    <?php include './HpSidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
     <div class="w3-main" style="margin-left:200px;margin-top:43px;">
         
         <div class="container">
-            <h3><strong>Blood Request</strong></h3>
+            <h3><strong>Notifications</strong></h3>
             
             <!-- Operation links with icons -->
             <div class="operation-links">
-                <a href="Request.php" target="contentFrame" class="btn btn-primary">
-                    <i class="fa fa-plus" style="margin-right: 5px;"></i>Request Blood
+                <a href="Notify.php" target="contentFrame" class="btn btn-primary">
+                    <i class="fa fa-plus" style="margin-right: 5px;"></i>Reminder For Donation camp
                 </a>
                 
                 <a href="" target="contentFrame" class="btn btn-info">
-                    <i class="fa fa-eye" style="margin-right: 5px;"></i>View Blood Request
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>Reminder For Next Donation
                 </a>
             </div>
 

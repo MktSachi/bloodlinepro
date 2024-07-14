@@ -17,18 +17,7 @@
 }
 
 /* Division properties */
-.container {
-  margin-left: 20px;
-  margin-top: 20px;
-  text-align: left;
-  display: inline-block;
-  max-width: 1200px;
-  width: 100%;
-  padding: 20px;
-  background: #fff;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
-}
+
 
         .btn-block {
             background-color: #1E7CE7;
@@ -43,7 +32,7 @@
     </style>
 </head>
 <body class="p-0 m-0 border-0 bd-example">
-<?php include './HpSidebar.php'; ?>
+
 
 <main role="main" class="container" style="margin-left:210px;">
     <div class="row">

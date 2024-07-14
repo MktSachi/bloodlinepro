@@ -200,7 +200,7 @@
 
       <!-- Notify -->
       <div class="w3-quarter gap-2">
-        <a href="Notify.php">
+        <a href="NotificationHandle.php">
           <div class="w3-container">
             <div class="button-text">
               <h4>Notify</h4>

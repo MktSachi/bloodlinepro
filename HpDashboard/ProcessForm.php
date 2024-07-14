@@ -26,7 +26,7 @@ class EmailSender {
 
             // Content
             $mail->isHTML(true);
-            $mail->Subject = 'Blood Request Submitted';
+            $mail->Subject = 'Requesting Blood!';
             $mail->Body = "<html>
                 <head>
                   <style>
@@ -57,15 +57,21 @@ class EmailSender {
                 </head>
                 <body>
                   <div class='container'>
-                    <h1>Blood Request Submitted!</h1>
-                    <p>Dear Hospital,</p>
-                    <p>Thank you for your request. Here are the details:</p>
-                    <p>Hospital: <strong>$hospital</strong></p>
-                    <p>Blood Group: <strong>$blood</strong></p>
-                    <p>Quantity: <strong>$quantity</strong> pints</p>
-                    <p>Description: <strong>$description</strong></p>
-                    <p>We will process your request as soon as possible.</p>
-                    <p>Best Regards,<br>BloodlinePro</p>
+                    <h1>Urgent Request for Blood Donation</h1>
+                    <p>Dear $hospital,</p>
+                    <p>We are writing to request an urgent blood donation for [Patient's Name], 
+                        who is currently undergoing treatment at $hospital. The details of the
+                        required blood are as follows:</p>
+                    <p>
+                      <strong>Hospital:</strong> $hospital<br>
+                      <strong>Blood Group:</strong> $blood<br>
+                      <strong>Quantity:</strong>$quantity pints<br>
+                      <strong>Description:</strong>$description
+                    </p>
+        <p>Your immediate response and support in this matter will be highly appreciated. 
+        Your donation could be a life-saving gift for [Patient's Name] and many others in need.</p>
+        <p>Thank you for your prompt attention to this urgent request.</p>
+        <p>Best Regards,<br>$hospital</p>
                   </div>
                 </body>
                 </html>";
@@ -118,6 +124,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // Prepare and bind
         $stmt = $conn->prepare("INSERT INTO blood_requests (hospital, email, blood_group, quantity, description) VALUES (?, ?, ?, ?, ?)");
+        
+        // Check if prepare() failed
+        if ($stmt === false) {
+            die("Prepare failed: " . $conn->error);
+        }
+
         $stmt->bind_param("sssis", $hospital, $email, $blood, $quantity, $description);
 
         if ($stmt->execute()) {
