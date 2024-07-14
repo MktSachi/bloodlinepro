@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>About Blood</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -65,7 +65,7 @@
     }
 
     footer {
-      background-color: #555;
+      background-color: rgb(103, 37, 37);
       color: white;
       padding: 15px;
       margin-top: 5%;
@@ -202,7 +202,7 @@
     </div>
   </div>
 
-  <footer class="container-fluid text-center" style="background-color:#2470a5; color: white; padding: 15px; margin-top: 20px;">
+  <footer class="container-fluid text-center" style=" color: white; padding: 15px; margin-top: 20px;">
     <div class="row">
       <div class="col-sm-6">
         <div class="footer-topic">

@@ -4,16 +4,84 @@
 <title>Blood Group</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="css/C_blood_group.css">
+
+<style>
+
+        
+* {
+    box-sizing: border-box;
+  }
+
+    .jumbotron {
+      padding: 100px 0;
+      background: linear-gradient(135deg, #5a090a 0%, #060606 100%);
+      color: white;
+      text-align: center;
+      margin-bottom: 3%;
+    }
+
+  body {
+    font-family: Arial;
+    text-align: justify;
+    line-height: 1.5; 
+  }
+  
+  button{
+    border: 2px solid black;
+  background-color: #f44336;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
+ 
+  }
+
+    button:hover{
+        background: rgb(220, 105, 97);
+        color: white;
+    }
+  .row {  
+    display: -ms-flexbox; 
+    display: flex;
+    -ms-flex-wrap: wrap; 
+    flex-wrap: wrap; 
+  }
+  
+  /*Left side content properties*/
+  .side {
+    -ms-flex: 40%; 
+    flex: 30%;
+    background-color: #f1f1f1;
+    padding: 20px;
+  }
+  
+  /*right side content properties*/
+  .main {   
+    -ms-flex: 60%; 
+    flex: 70%;
+    background-color: white;
+    padding: 20px;
+  }
+  
+  /*responsive quaries*/
+  @media screen and (max-width: 700px) {
+    .row {   
+      flex-direction: column;
+    }
+  }
+</style>
 </head>
 
 
 <body>
     <!--header and cover image-->
-    <div  style="background-color: rgb(131,26,26); color:white; text-align:center; ">
-        <h1 style="padding: 1%;">Blood Groups</h1>
-        <img src="image/cover1.jpg" alt="cover4" style="width: 100%; height: 10%;" class="cover_b">
+    <div class="jumbotron">
+        <h1>Blood Group</h1>
+        <h3>Blood Groups Unite: Lifesavers of Every Type!</h3>
+        <button>Learn More</button>
     </div>
+
 
     <!--left side content-->
     <div class="row">

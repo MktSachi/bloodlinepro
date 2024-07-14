@@ -8,9 +8,14 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <style>
-    /* Remove the jumbotron's default bottom margin */ 
+    
+    
     .jumbotron {
-      margin-bottom: 0;
+      padding: 100px 0;
+      background: linear-gradient(135deg, #5a090a 0%, #060606 100%);
+      color: white;
+      text-align: center;
+      margin-bottom: 5%;
     }
     /* Adjust panel footer text justification */
     .panel-footer {
@@ -31,34 +36,28 @@
       width: 100%;
       height: auto;
     }
-    .containerimg {
-      position: relative;
-      font-family: Arial;
-    }
-
-    .text-block {
-      position: absolute;
-      bottom: 40%;
-      right: 35%;
-      border-bottom: 5px solid white;
-      color: white;
-      padding-left: 5%;
-      padding-right: 5%;
-    }
-
+    
     .panel:hover{
-      box-shadow: 0 8px 25px 0 rgba(0,0,0,0.2);
+      box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.2);
+      transform: scale(1.05);
     }
+    .well{
+      transition: 0.1s;
+    }
+
+    .well:hover {
+      transform: scale(1.05);
+    }
+    
   </style>
 </head>
 <body>
 
-<div class="containerimg">
-  <img src="image/Cover!.jpg" alt="cover" style="width:100%;">
-  <div class="text-block">
-    <h1><strong>Functions Of Blood</strong></h1>
-  </div>
+<div class="jumbotron">
+  <h1>Functions Of Blood</h1>
+  <h3>Transporting Vitality, Defending Against Harm, and Nourishing Every Cell</h3>
 </div>
+
 
 <div class="container text-center">    
   <h3></h3><br>
