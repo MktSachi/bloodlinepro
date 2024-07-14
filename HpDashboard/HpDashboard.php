@@ -155,7 +155,7 @@
               </div>
               <i class="fas fa-bell icon text-info"></i>
             </div>
-            <a href="SendBlood.php" class="stretched-link"></a>
+            <a href="NotificationHandle.php" class="stretched-link"></a>
           </div>
         </div>
 
