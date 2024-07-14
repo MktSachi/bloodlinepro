@@ -1,9 +1,11 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  
+
   <!-- Bootstrap 5 CSS  -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
@@ -15,9 +17,9 @@
 
   <style>
     .btn-block {
-      background-color:#1E7CE7; /* Light blue color */
+      background-color: #1E7CE7; /* Light blue color */
       color: #fff; /* White text color */
-      border-color:#1E7CE7; /* Matching border color */
+      border-color: #1E7CE7; /* Matching border color */
     }
   </style>
 </head>
@@ -40,7 +42,7 @@
         <div class="mb-3">
           <label for="hospital">Hospital</label>
           <select id="hospital" name="hospital" class="form-control" required>
-            <option value="">-Select Hospital- </option>
+            <option value="">-Select Hospital-</option>
             <option value="Teaching hospital Badulla">Teaching hospital Badulla</option>
             <option value="Monaragala Hospital">Monaragala Hospital</option>
             <option value="Welimada Hospital">Welimada Hospital</option>
@@ -82,7 +84,6 @@
         </div>
 
         <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Send Request</button>
-
       </form>
     </div>
   </div>

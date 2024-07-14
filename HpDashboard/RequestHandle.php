@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="Css/DonorHandle.css">    
 </head>
 <body>
-    <?php include './HpSidebar.php'; ?>
+    <?php include 'HpSidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
     <div class="w3-main" style="margin-left:200px;margin-top:43px;">
