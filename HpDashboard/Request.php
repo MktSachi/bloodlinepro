@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -53,10 +51,7 @@
           </select>
         </div>
 
-        <div class="mb-3">
-          <label for="email">E-mail</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="Enter hospital e-mail" required>
-        </div>
+        
 
         <div class="mb-3">
           <label for="blood">Blood Group</label>
@@ -74,13 +69,18 @@
         </div>
 
         <div class="mb-3">
-          <label for="quantity">Blood quantity (pints)</label>
+          <label for="quantity">Blood quantity (paints)</label>
           <input type="number" class="form-control" id="quantity" name="quantity" placeholder="Required blood quantity" required>
         </div>
 
         <div class="mb-3">
+    <label for="patientname">Patient Name</label>
+    <input type="text" class="form-control" id="patientname" name="patientname" placeholder="Enter patient name" required>
+</div>
+
+        <div class="mb-3">
           <label for="description">Description</label>
-          <input type="text" class="form-control" id="description" name="description" placeholder="Your requirements" required>
+          <input type="text" class="form-control" id="description" name="description" placeholder="Enter the reason" required>
         </div>
 
         <button class="btn btn-primary btn-lg btn-block" type="submit" name="submit">Send Request</button>
