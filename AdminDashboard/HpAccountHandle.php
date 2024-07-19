@@ -26,7 +26,7 @@
                     <i class="fa fa-plus" style="margin-right: 5px;"></i>Create HealthCare Person
                 </a>
                 
-                <a href="View/ViewDonor.php" target="contentFrame" class="btn btn-info">
+                <a href="ViewHp.php" target="contentFrame" class="btn btn-info">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>HealthCare Person Information
                 </a>
             </div>
