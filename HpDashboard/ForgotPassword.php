@@ -65,7 +65,7 @@
     <div class="forgot-password-card">
       <div class="text-center">
         <i class="fas fa-lock icon"></i>
-        <h2 class="title">Reset Password</h2>
+        <h2 class="title">Forgot Password</h2>
         <p class="sub-title">Enter your email to receive a password reset link</p>
       </div>
       <form action="ForgotPassword.php" method="post">
