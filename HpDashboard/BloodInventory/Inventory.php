@@ -1,5 +1,6 @@
 <?php
-include_once '../../DonorRegistration/Database.php';
+$root = $_SERVER['DOCUMENT_ROOT'] . '/bloodlinepro/';
+require_once $root . 'DonorRegistration/Database.php';
 class Inventory {
     private $conn;
 
@@ -110,6 +111,54 @@ class Inventory {
         readfile($filename);
         unlink($filename);
         exit;
+    }
+
+    public function getHospitalBloodDistribution($hospitalName) {
+        $hospitalName = $this->conn->real_escape_string($hospitalName);
+        $data = [
+            'bloodTypeData' => [],
+            'hospitalDetails' => [],
+            'totalUnits' => 0
+        ];
+
+        // Fetch blood type distribution
+        $queryBloodType = "SELECT bloodType, quantity FROM hospital_blood_inventory hbi 
+                           JOIN hospitals h ON hbi.hospitalID = h.hospitalID 
+                           WHERE h.hospitalName = ?";
+        $stmtBloodType = $this->conn->prepare($queryBloodType);
+        $stmtBloodType->bind_param('s', $hospitalName);
+        $stmtBloodType->execute();
+        $resultBloodType = $stmtBloodType->get_result();
+        while ($row = $resultBloodType->fetch_assoc()) {
+            $data['bloodTypeData'][$row['bloodType']] = $row['quantity'];
+        }
+        $stmtBloodType->close();
+
+        // Fetch hospital contact details
+        $queryHospitalDetails = "SELECT * FROM hospitals WHERE hospitalName = ?";
+        $stmtHospitalDetails = $this->conn->prepare($queryHospitalDetails);
+        $stmtHospitalDetails->bind_param('s', $hospitalName);
+        $stmtHospitalDetails->execute();
+        $resultHospitalDetails = $stmtHospitalDetails->get_result();
+        if ($resultHospitalDetails->num_rows > 0) {
+            $data['hospitalDetails'] = $resultHospitalDetails->fetch_assoc();
+        }
+        $stmtHospitalDetails->close();
+
+        // Fetch total blood units
+        $queryTotalUnits = "SELECT SUM(quantity) AS total FROM hospital_blood_inventory 
+                            WHERE hospitalID = (SELECT hospitalID FROM hospitals WHERE hospitalName = ?)";
+        $stmtTotalUnits = $this->conn->prepare($queryTotalUnits);
+        $stmtTotalUnits->bind_param('s', $hospitalName);
+        $stmtTotalUnits->execute();
+        $resultTotalUnits = $stmtTotalUnits->get_result();
+        if ($resultTotalUnits->num_rows > 0) {
+            $row = $resultTotalUnits->fetch_assoc();
+            $data['totalUnits'] = $row['total'];
+        }
+        $stmtTotalUnits->close();
+
+        return $data;
     }
 }
 ?>
