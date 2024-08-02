@@ -210,7 +210,12 @@ class Donor {
             throw $e;
         }
     }
-    
+    public function updateRememberToken($username, $token) {
+        $sql = "UPDATE users SET remember_token = ? WHERE username = ?";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bind_param("ss", $token, $username);
+        return $stmt->execute();
+    }
     
     }
 
