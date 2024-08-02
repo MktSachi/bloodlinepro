@@ -322,23 +322,6 @@
     <div class="footer">
     @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
 </div>
-    <script>
-        function initMap() {
-            const colombo = { lat: 6.9271, lng: 79.8612 };
-            const map = new google.maps.Map(document.getElementById("map"), {
-                zoom: 12,
-                center: colombo,
-            });
-
-            const bloodBank1 = new google.maps.Marker({
-                position: { lat: 6.9200, lng: 79.8544 },
-                map: map,
-                title: "National Blood Center"
-            });
-
-        }
-
-        window.onload = initMap;
-    </script>
+<script src="DonorScript.js"></script>
 </body>
 </html>
