@@ -1,6 +1,4 @@
-
 <?php include 'LoginProcess.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,130 +8,98 @@
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
-    body {
-      background-color: #131212;
-      color: #1b1919;
-    }
-    .login-container {
+    .login-section {
       display: flex;
-      align-items: center;
       justify-content: center;
-      height: 100vh;
+      align-items: center;
+      min-height: 100vh;
+      background-color: hsl(0, 0%, 96%);
     }
-    .login-frame {
-      display: flex;
-      width: 80%;
-      max-width: 1000px;
-      background: #fff;
-      border: 1px solid #1b1919;
-      box-shadow: 0 8px 8px 8px rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .movie-image, .login-form {
-      flex: 1;
-    }
-    .movie-image {
-      position: relative;
-      overflow: hidden;
-    }
-    .movie-image img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
+    .login-card {
+      max-width: 600px;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transform: translate(-50%, -50%);
     }
-    .login-form {
-      padding: 20px;
-    }
-    .login-form h1 {
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 50px;
-    }
-    .login-form .form-group {
-      margin-bottom: 20px;
-    }
-    .login-form .reset-password {
-      text-align: right;
-    }
-    .login-form hr {
-      border-color: #1b1919;
-    }
-    .social-icons {
+    .form-check {
       text-align: center;
     }
-    .social-icons i {
-      font-size: 24px;
-      margin: 0 10px;
-    }
+    .text-dark-red {
+    color: darkred;
+}
 
-    @media (max-width: 992px) {
-      .login-frame {
-        flex-direction: column;
-      }
-      .movie-image, .login-form {
-        width: 100%;
-        height: 50%;
-      }
-    }
-    @media (max-width: 576px) {
-      .login-form {
-        padding: 15px;
-      }
-      .login-form h1 {
-        font-size: 1.5rem;
-      }
-      .social-icons i {
-        font-size: 20px;
-        margin: 0 5px;
-      }
-    }
+.btn-dark-red {
+    background-color: darkred;
+    border-color: darkred;
+    color: white; /* Ensure the text is readable */
+}
+
+.btn-dark-red:hover {
+    background-color: #a00000; /* Darker shade for hover effect */
+    border-color: #a00000;
+}
   </style>
 </head>
 <body>
-
-
-<div class="container">
-  <div class="login-container">
-    <div class="login-frame">
-      <div class="movie-image">
-        <img src="../Image/1212log.png" alt="Movie Image">
-      </div>
-      <div class="login-form">
-        <h1>Hello! Welcome to Bloodlinepro</h1>
-        <?php if (!empty($error_msg)) { ?>
-          <div class="alert alert-danger"><?php echo $error_msg; ?></div>
-        <?php } ?>
-        <form action="login.php" method="post">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username">
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password">
-          </div>
-          <div class="form-group reset-password">
-            <a href="ForgotPassword.php">Forgot Password?</a>
-          </div>
-          <button type="submit" class="btn btn-primary btn-block">Login</button>
-          <hr>
-          <div class="social-icons">
-            <a href="#" class="text-dark"><i class="fab fa-google"></i></a>
-            <a href="#" class="text-dark"><i class="fab fa-facebook"></i></a>
-            <a href="#" class="text-dark"><i class="fab fa-apple"></i></a>
-          </div>
-        </form>
-        <p class="text-center mt-3">Don't have an account? <a href="">Create Account</a></p>
+<section class="login-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <h1 class="my-5 display-4 fw-bold text-center">
+          Sri-Lanka <br />
+          <span class="text-dark-red" style="color: darkred;">Blood Line Pro</span>
+        </h1>
+        <p class="text-center" style="color: hsl(217, 10%, 50.8%)">
+        Our platform simplifies the entire process of blood donation, from donor registration to hospital inventory management. With real-time updates, automated notifications, and comprehensive reporting, BloodLinePro ensures that the right resources are always available at the right time.
+        </p>
       </div>
 
-    
+      <div class="col-lg-6">
+        <div class="card login-card">
+          <div class="card-body py-5 px-md-5">
+            <?php if (!empty($error_msg)) { ?>
+              <div class="alert alert-danger"><?php echo $error_msg; ?></div>
+            <?php } ?>
+            <form action="login.php" method="post">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
+              </div>
+              <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" class="form-control" id="password" name="password" placeholder="Enter your password" required>
+              </div>
+              <div class="form-group form-check text-left">
+                  <input type="checkbox" name="remember_me" id="remember_me" class="form-check-input">
+                  <label for="remember_me" class="form-check-label">Remember Me</label>
+              </div>
+             
+              <button type="submit" class="btn btn-dark-red btn-block">Login</button>
+              <div class="form-group text-right">
+                  <a href="ForgotPassword.php">Forgot Password?</a>
+              </div>
+            </form>
+            <div class="text-center ">
+                <p>or sign up with:</p>
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-facebook-f text-dark-red"></i>
+                </button>
+            
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-google text-dark-red"></i>
+                </button>
+            
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-twitter text-dark-red"></i>
+                </button>
+            
+                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
+                    <i class="fab fa-github text-dark-red"></i>
+                </button>
+            </div>
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

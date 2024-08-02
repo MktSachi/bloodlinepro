@@ -74,12 +74,24 @@ body {
 .footer {
     text-align: center;
     padding: 10px;
-    background: linear-gradient(135deg, #5a090a 0%, #060606 100%);
+    background-color: #f8f9fa;
     position: fixed;
     bottom: 0;
-    left: 0;
-    width: 100%;
-    color:white;
+    left: 210px; /* Same as sidebar width */
+    width: calc(100% - 210px); /* Full width minus sidebar width */
+    color: #000000;
+    transition: left 0.3s ease, width 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Shadow with a slightly larger blur */
+    z-index: 1000; /* Ensures the footer is on top of other content */
+}
+
+
+
+@media (max-width: 768px) {
+    .footer {
+        left: 0;
+        width: 100%;
+    }
 }
 .sidebar-footer {
     margin-top: auto;

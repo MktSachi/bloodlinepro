@@ -1,41 +1,19 @@
 <?php
 require '../DonorRegistration/Database.php';
+require 'BloodInventory/inventory.php';
 
 $db = new Database();
 $conn = $db->getConnection();
 
+$inventory = new Inventory($conn);
+
 $hospitalName = $_GET['hospital'] ?? '';
-$hospitalName = $conn->real_escape_string($hospitalName);
 
-// Fetch blood type distribution for the specific hospital
-$bloodTypeData = [];
-$queryBloodType = "SELECT bloodType, quantity FROM hospital_blood_inventory hbi JOIN hospitals h ON hbi.hospitalID = h.hospitalID WHERE h.hospitalName = '$hospitalName'";
-$resultBloodType = $conn->query($queryBloodType);
-if ($resultBloodType->num_rows > 0) {
-    while ($row = $resultBloodType->fetch_assoc()) {
-        $bloodTypeData[$row['bloodType']] = $row['quantity'];
-    }
-}
-$resultBloodType->free();
+$data = $inventory->getHospitalBloodDistribution($hospitalName);
 
-// Fetch hospital contact details
-$hospitalDetails = [];
-$queryHospitalDetails = "SELECT * FROM hospitals WHERE hospitalName = '$hospitalName'";
-$resultHospitalDetails = $conn->query($queryHospitalDetails);
-if ($resultHospitalDetails->num_rows > 0) {
-    $hospitalDetails = $resultHospitalDetails->fetch_assoc();
-}
-$resultHospitalDetails->free();
-
-// Fetch total blood units for the specific hospital
-$totalUnits = 0;
-$queryTotalUnits = "SELECT SUM(quantity) AS total FROM hospital_blood_inventory WHERE hospitalID = (SELECT hospitalID FROM hospitals WHERE hospitalName = '$hospitalName')";
-$resultTotalUnits = $conn->query($queryTotalUnits);
-if ($resultTotalUnits->num_rows > 0) {
-    $row = $resultTotalUnits->fetch_assoc();
-    $totalUnits = $row['total'];
-}
-$resultTotalUnits->free();
+$bloodTypeData = $data['bloodTypeData'];
+$hospitalDetails = $data['hospitalDetails'];
+$totalUnits = $data['totalUnits'];
 
 $db->close();
 ?>
@@ -147,38 +125,38 @@ $db->close();
       <a href="index.php" class="btn btn-primary mt-3">Back to Dashboard</a>
     </div>
   </div>
-            </div>
-  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const bloodTypeData = <?= json_encode($bloodTypeData) ?>;
-        const ctx = document.getElementById('hospitalBloodDistributionChart').getContext('2d');
-        const hospitalBloodDistributionChart = new Chart(ctx, {
-          type: 'bar',
-          data: {
-            labels: Object.keys(bloodTypeData),
-            datasets: [{
-              label: 'Units',
-              data: Object.values(bloodTypeData),
-              backgroundColor: 'rgb(131, 26, 26)',
-              borderColor: 'rgb(131, 26, 26)',
-              borderWidth: 1
-            }]
+</div>
+<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      const bloodTypeData = <?= json_encode($bloodTypeData) ?>;
+      const ctx = document.getElementById('hospitalBloodDistributionChart').getContext('2d');
+      const hospitalBloodDistributionChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels: Object.keys(bloodTypeData),
+          datasets: [{
+            label: 'Units',
+            data: Object.values(bloodTypeData),
+            backgroundColor: 'rgb(131, 26, 26)',
+            borderColor: 'rgb(131, 26, 26)',
+            borderWidth: 1
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              beginAtZero: true
+            }
           },
-          options: {
-            scales: {
-              y: {
-                beginAtZero: true
-              }
-            },
-            plugins: {
-              legend: {
-                display: false
-              }
+          plugins: {
+            legend: {
+              display: false
             }
           }
-        });
-    });
-  </script>
+        }
+      });
+  });
+</script>
 </body>
 </html>

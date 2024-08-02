@@ -4,7 +4,6 @@ require '../DonorRegistration/Donor.php';
 
 session_start();
 
-// Check if hospital ID is set in the session
 if (isset($_SESSION['hospitalID'])) {
     $hospitalID = $_SESSION['hospitalID'];
 } else {
@@ -99,6 +98,7 @@ $db->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -118,10 +118,12 @@ $db->close();
         body {
             font-family: 'Poppins', sans-serif;
             background-color: var(--light-color);
+            padding-top: 20px;
         }
 
         .main-content {
-            padding: 20px;
+            padding: 5px; /* Reduced from 20px to 10px */
+            margin-left: 150px; /* Reduced from 250px to 200px */
         }
 
         .card {
@@ -184,19 +186,34 @@ $db->close();
         @media (max-width: 768px) {
             .main-content {
                 margin-left: 0;
+                padding: 10px;
+            }
+
+            .card {
+                margin-bottom: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+                margin-bottom: 15px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 8px 16px;
             }
         }
-        
     </style>
 </head>
+
 <body>
     <?php include 'HpSidebar.php'; ?>
     <div class="main-content">
         <div class="container">
-            <div class="row">
-                <div class="col-12 col-md-8 col-lg-6 mx-auto">
-                    <h1 class="mb-4">Donation Camp Management</h1>
-                    
+            <div class="row justify-content-center">
+                <div class="col-12 col-md-10 col-lg-8">
+                    <h1 class="mb-4 text-center">Donation Camp Management</h1>
+
                     <div class="card mb-3">
                         <div class="card-header">
                             Donor Search
@@ -244,42 +261,38 @@ $db->close();
                                             <p><?= htmlspecialchars($donorDetails['first_name'] . ' ' . $donorDetails['last_name']) ?></p>
                                         </div>
                                         <div class="highlight">
+                                            <label>NIC Number:</label>
+                                            <p><?= htmlspecialchars($donorDetails['donorNIC']) ?></p>
+                                        </div>
+                                        <div class="highlight">
                                             <label>Blood Type:</label>
                                             <p><?= htmlspecialchars($donorDetails['bloodType']) ?></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-md-6">
+                                        <div class="highlight">
+                                            <label>Address:</label>
+                                            <p><?= htmlspecialchars($donorDetails['address']) ?></p>
                                         </div>
                                         <div class="highlight">
                                             <label>Email:</label>
                                             <p><?= htmlspecialchars($donorDetails['email']) ?></p>
                                         </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
                                         <div class="highlight">
                                             <label>Phone Number:</label>
                                             <p><?= htmlspecialchars($donorDetails['phoneNumber']) ?></p>
                                         </div>
-                                        <div class="highlight">
-                                            <label>Address:</label>
-                                            <p><?= htmlspecialchars($donorDetails['address'] . ' ' . $donorDetails['address2']) ?></p>
-                                        </div>
-                                        <div class="highlight">
-                                            <label>Donation Count:</label>
-                                            <p><?= htmlspecialchars($donorDetails['donation_count']) ?></p>
-                                        </div>
-                                        <div class="highlight">
-                                            <label>Donor NIC:</label>
-                                            <p><?= htmlspecialchars($donorDetails['donorNIC']) ?></p>
-                                        </div>
                                     </div>
                                 </div>
 
-                                <form id="donation-form" method="post" class="mt-4">
-                                    <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorNIC) ?>">
+                                <form id="donation-form" method="post">
+                                    <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorDetails['donorNIC']) ?>">
                                     <div class="form-group">
-                                        <label for="donatedBloodCount">Amount of Blood Donated (ml):</label>
-                                        <input type="number" class="form-control mb-2" id="donatedBloodCount" name="donatedBloodCount" required>
+                                        <label for="donatedBloodCount">Donated Blood Count:</label>
+                                        <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" required>
                                     </div>
                                     <button type="submit" class="btn btn-success w-100 mt-3">
-                                        <i class="fas fa-plus-circle"></i> Submit Donation
+                                        <i class="fas fa-check-circle"></i> Submit Donation Details
                                     </button>
                                 </form>
                             </div>
@@ -289,11 +302,8 @@ $db->close();
             </div>
         </div>
     </div>
-    <div class="footer">
-    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
-</div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
