@@ -33,132 +33,51 @@ while ($row = $result->fetch_assoc()) {
 
 $stmt->close();
 $conn->close();
-?>
 
-
-<!DOCTYPE html>
+// Set session variable for notifications
+$_SESSION['lowStockCount'] = count($lowStockBloodTypes);
+$_SESSION['lowStockNotifications'] = $lowStockBloodTypes;
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Inventory Status</title>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #f5f7fa;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        
-        .inventory-container {
-            margin: 40px auto;
-            max-width: 1000px;
-            padding: 30px;
-            background: #fff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-        }
-        
-        .inventory-container h1 {
-            font-size: 24px;
-            color: #2c3e50;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e74c3c;
-        }
-        
-        .blood-group {
-            margin-bottom: 15px;
-            padding: 15px;
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 6px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.2s ease;
-        }
-        
-        .blood-group:hover {
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-        }
-        
-        .blood-group h2 {
-            font-size: 18px;
-            color: #2c3e50;
-            margin: 0;
-            font-weight: 500;
-        }
-        
-        .blood-group p {
-            font-size: 16px;
-            color: #e74c3c;
-            margin: 5px 0 0;
-            font-weight: 500;
-        }
-        
-        .quantity-bar {
-            height: 6px;
-            background-color: #ecf0f1;
-            border-radius: 3px;
-            overflow: hidden;
-            margin-top: 8px;
-            width: 100%;
-        }
-        
-        .quantity-fill {
-            height: 100%;
-            background-color: #e74c3c;
-            transition: width 0.5s ease;
-        }
-        
-        .no-alerts {
-            text-align: center;
-            color: #27ae60;
-            font-size: 18px;
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #e8f6e9;
-            border-radius: 6px;
-        }
-    </style>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <?php include './HpSidebar.php'; ?>
     
-    <div class="w3-main" style="margin-left:270px;margin-top:43px;">
-        <div class="inventory-container">
-            <h1>Blood Inventory Status</h1>
+    <div class="container-fluid" style="margin-left:150px;margin-top:43px;">
+        <div class="container mt-5 p-4 bg-white shadow rounded">
+            <h1 class="mb-4 text-center">Blood Inventory Status</h1>
             
             <?php if (empty($lowStockBloodTypes)): ?>
-                <p class="no-alerts">All blood types are currently at adequate levels.</p>
+                <div class="alert alert-success text-center" role="alert">
+                    All blood types are currently at adequate levels.
+                </div>
             <?php else: ?>
-                <?php foreach ($lowStockBloodTypes as $bloodGroup): ?>
-                    <div class="blood-group">
-                        <div style="width: 100%;">
-                            <h2>Blood Type: <?= $bloodGroup['bloodType'] ?></h2>
-                            <p>Available: <?= $bloodGroup['quantity'] ?> units</p>
-                            <div class="quantity-bar">
-                                <div class="quantity-fill" style="width: <?= ($bloodGroup['quantity'] / 10) * 100 ?>%;"></div>
+                <div class="row">
+                    <?php foreach ($lowStockBloodTypes as $bloodGroup): ?>
+                        <div class="col-12 col-md-6 col-lg-4 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h2 class="card-title">Blood Type: <?= $bloodGroup['bloodType'] ?></h2>
+                                    <p class="card-text text-danger">Available: <?= $bloodGroup['quantity'] ?> units</p>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-danger" role="progressbar" style="width: <?= ($bloodGroup['quantity'] / 10) * 100 ?>%;" aria-valuenow="<?= $bloodGroup['quantity'] ?>" aria-valuemin="0" aria-valuemax="10"></div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
+                    <?php endforeach; ?>
+                </div>
             <?php endif; ?>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('.blood-group').forEach((group, index) => {
-                setTimeout(() => {
-                    group.style.opacity = '1';
-                    group.style.transform = 'translateY(0)';
-                }, index * 100);
-            });
-        });
-    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
