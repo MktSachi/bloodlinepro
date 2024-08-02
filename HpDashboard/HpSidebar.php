@@ -34,6 +34,26 @@
         <a href="Profile.php" class="nav-item">
             <i class="fa fa-cog"></i> Profile
         </a>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-bell"></i> Notifications
+                <?php if (isset($_SESSION['lowStockCount']) && $_SESSION['lowStockCount'] > 0): ?>
+                    <span class="badge badge-danger"><?= $_SESSION['lowStockCount'] ?></span>
+                <?php endif; ?>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="notificationDropdown">
+                <?php if (isset($_SESSION['lowStockNotifications']) && count($_SESSION['lowStockNotifications']) > 0): ?>
+                    <?php foreach ($_SESSION['lowStockNotifications'] as $index => $notification): ?>
+                        <div class="dropdown-item">
+                            <?= $notification['message'] ?>
+                            <button class="btn btn-sm btn-danger" onclick="deleteNotification(<?= $index ?>)">Delete</button>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="dropdown-item">No notifications</div>
+                <?php endif; ?>
+            </div>
+        </div>
     </div>
 
     <div class="sidebar-footer">
