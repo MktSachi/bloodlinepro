@@ -19,14 +19,11 @@ include 'DonorProfile.php';
 
     <div class="main-content">
         <div class="container">
-            <div class="achievement-header animate__animated animate__fadeInDown">
-                <h1 class="text-center mb-0">Your Donor Achievements</h1>
-            </div>
+            <h1 class="text-center mb-4 animate__animated animate__fadeInDown">Your Donor Achievements</h1>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php
                 $badges = Badge::getAllBadges();
-
                 foreach ($badges as $index => $badge):
                     $progress = $badge->getProgress($donationCount);
                     $isUnlocked = $badge->isUnlocked($donationCount);
@@ -37,9 +34,9 @@ include 'DonorProfile.php';
                             <img src="<?php echo $isUnlocked ? $badge->getImageUnlocked() : $badge->getImageLocked(); ?>" 
                                  alt="<?php echo $badge->getName(); ?> Badge" 
                                  class="img-fluid badge-image <?php echo $isUnlocked ? 'badge-unlocked' : 'badge-locked'; ?>">
-                            <h3 class="styled-title"><?php echo $badge->getName(); ?> Badge</h3>
+                            <h3><?php echo $badge->getName(); ?> Badge</h3>
                             <?php if ($isUnlocked): ?>
-                                <p class="styled-text">Congratulations! You've earned the <?php echo $badge->getName(); ?> Badge!</p>
+                                <p>Congratulations! You've earned this badge!</p>
                                 <div class="share-buttons">
                                     <a href="https://www.facebook.com/sharer/sharer.php?u=<?php echo urlencode('https://bloodlinepro.com/achievements'); ?>" 
                                        target="_blank" class="btn btn-primary btn-sm">
@@ -51,7 +48,7 @@ include 'DonorProfile.php';
                                     </a>
                                 </div>
                             <?php else: ?>
-                                <p class="styled-text">Donate <?php echo $badge->getRemainingDonations($donationCount); ?> more time(s) to unlock!</p>
+                                <p>Donate <?php echo $badge->getRemainingDonations($donationCount); ?> more time(s) to unlock!</p>
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" style="width: <?php echo $progress; ?>%" 
                                          aria-valuenow="<?php echo $progress; ?>" aria-valuemin="0" aria-valuemax="100">
@@ -65,7 +62,7 @@ include 'DonorProfile.php';
                 <?php endforeach; ?>
             </div>
             
-            <div class="total-donations text-center animate__animated animate__fadeInUp" style="margin-top: 20px;">
+            <div class="total-donations text-center animate__animated animate__fadeInUp mt-4">
                 <h4 class="mb-3">Total Donations: <span class="text-danger"><?php echo $donationCount; ?></span></h4>
                 <p class="mb-4">Keep donating to unlock more achievements and save more lives!</p>
                 <a href="#" class="btn btn-danger btn-lg">Donate Now</a>
@@ -76,18 +73,6 @@ include 'DonorProfile.php';
         @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', (event) => {
-        // Animate progress bars
-        const progressBars = document.querySelectorAll('.progress-bar');
-        progressBars.forEach((bar) => {
-            const width = bar.style.width;
-            bar.style.width = '0%';
-            setTimeout(() => {
-                bar.style.width = width;
-            }, 500);
-        });
-    });
-    </script>
+    <script src="DonorScript.js"></script>
 </body>
 </html>
