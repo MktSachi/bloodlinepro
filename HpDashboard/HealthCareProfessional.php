@@ -1,5 +1,9 @@
 <?php
-require_once '../DonorRegistration/Database.php';
+require_once($_SERVER['DOCUMENT_ROOT'] . '/bloodlinepro/DonorRegistration/Database.php');
+
+require '../DonorRegistration/Validator.php';
+require '../DonorRegistration/Donor.php';
+require 'Email.php';
 
 class HealthCareProfessional {
     private $db;
@@ -8,6 +12,94 @@ class HealthCareProfessional {
     public function __construct(Database $db) {
         $this->db = $db;
         $this->conn = $db->getConnection();
+        $this->validator = new Validator();
+    }
+    public function registerDonor($data, $file_destination = '') {
+        // Check if username already exists
+        if ($this->checkUserName($data['username'])) {
+            return "Username '{$data['username']}' already exists. Please choose a different username.";
+        }
+
+        // Check if NIC already exists
+        if ($this->donorNICExists($data['donorNIC'])) {
+            return "Donor NIC '{$data['donorNIC']}' already exists. Please use a different NIC.";
+        }
+
+        // Validate health conditions
+        $healthConditions = [
+            'hiv' => $data['hiv'] ?? 0,
+            'heart_disease' => $data['heart_disease'] ?? 0,
+            'diabetes' => $data['diabetes'] ?? 0,
+            'fits' => $data['fits'] ?? 0,
+            'paralysis' => $data['paralysis'] ?? 0,
+            'lung_diseases' => $data['lung_diseases'] ?? 0,
+            'liver_diseases' => $data['liver_diseases'] ?? 0,
+            'kidney_diseases' => $data['kidney_diseases'] ?? 0,
+            'blood_diseases' => $data['blood_diseases'] ?? 0,
+            'cancer' => $data['cancer'] ?? 0
+        ];
+
+        if ($this->validator->validateHealthConditions($healthConditions)) {
+            return "Sorry, you cannot register as a donor due to health conditions.";
+        }
+
+        // Generate a default password
+        $password = bin2hex(random_bytes(4)); // 8 characters long
+        $password_hashed = password_hash($password, PASSWORD_DEFAULT);
+
+        // Prepare the SQL query
+        $query = "INSERT INTO donors (firstName, lastName, donorNIC, username, email, password, phoneNumber, address, address2, gender, bloodType, otherHealthConditions, profile_picture) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param(
+            'sssssssssssss',
+            $data['firstName'],
+            $data['lastName'],
+            $data['donorNIC'],
+            $data['username'],
+            $data['email'],
+            $password_hashed,
+            $data['phoneNumber'],
+            $data['address'],
+            $data['address2'],
+            $data['gender'],
+            $data['bloodType'],
+            $data['otherHealthConditions'],
+            $file_destination
+        );
+
+        if ($stmt->execute()) {
+            $stmt->close();
+
+            // Send confirmation email
+            $emailSender = new EmailSender();
+            $emailSender->sendConfirmationEmail($data['email'], $data['firstName'], $data['username'], $password);
+
+            return "success";
+        } else {
+            $stmt->close();
+            return "Error: Registration failed.";
+        }
+    }
+
+    private function checkUserName($username) {
+        $query = "SELECT * FROM donors WHERE username = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('s', $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result->num_rows > 0;
+    }
+
+    private function donorNICExists($donorNIC) {
+        $query = "SELECT * FROM donors WHERE donorNIC = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('s', $donorNIC);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+        return $result->num_rows > 0;
     }
 
     public function insertDonation($donorNIC, $hospitalID, $donatedBloodCount, $donationDate, $bloodExpiryDate) {
