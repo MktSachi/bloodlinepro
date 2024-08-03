@@ -172,6 +172,13 @@ $db->close();
       margin-top: 5px;
     }
 
+    .bg-light-red {
+        background-color: #f8d7da; /* Light Red */
+    }
+    .text-dark {
+        color: #343a40; /* Dark text */
+    }
+
     @media (max-width: 768px) {
   .dashboard-container {
     padding: 15px;
@@ -230,9 +237,9 @@ $db->close();
       <h3 class="text-center mb-4">Blood Inventory Dashboard</h3>
       <div class="row mb-4">
                 
-<div class="row">
+      <div class="row">
     <div class="col-md-3 mb-4">
-        <div class="card">
+        <div class="card bg-light-red text-dark">
             <div class="card-body">
                 <h5 class="card-title">Total Donors</h5>
                 <h2 class="card-text"><?php echo number_format($donorStats['total_donors']); ?></h2>
@@ -241,7 +248,7 @@ $db->close();
         </div>
     </div>
     <div class="col-md-3 mb-4">
-        <div class="card">
+        <div class="card bg-light-red text-dark">
             <div class="card-body">
                 <h5 class="card-title">Blood Units Available</h5>
                 <h2 class="card-text"><?php echo number_format($totalunits); ?></h2>
@@ -250,16 +257,16 @@ $db->close();
         </div>
     </div>
     <div class="col-md-3 mb-4">
-        <div class="card">
+        <div class="card bg-light-red text-dark">
             <div class="card-body">
-                <h5 class="card-title">Avg Donations/Donor</h5>
+                <h5 class="card-title">Avg Donations</h5>
                 <h2 class="card-text"><?php echo number_format($donorStats['avg_donations'], 1); ?></h2>
                 <p class="card-text text-success"><i class="fas fa-arrow-up me-2"></i>3% increase</p>
             </div>
         </div>
     </div>
     <div class="col-md-3 mb-4">
-        <div class="card">
+        <div class="card bg-light-red text-dark">
             <div class="card-body">
                 <h5 class="card-title">Last Donation Date</h5>
                 <h2 class="card-text"><?php echo date('M d, Y', strtotime($lastDonation['last_donation'])); ?></h2>
