@@ -218,51 +218,59 @@ $db->close();
     width: 100%;
   }
 }
+
+
   </style>
 </head>
 <body>
   <?php include 'HpSidebar.php'; ?>
   <div class="w3-main" style="margin-left:200px;">
-    <div class="dashboard-container">
+  
+  <div class="dashboard-container">
       <h3 class="text-center mb-4">Blood Inventory Dashboard</h3>
       <div class="row mb-4">
-        <div class="col-md-3">
-          <div class="stat-card">
-            <div class="icon-circle">
-              <i class="fas fa-tint"></i>
+                
+<div class="row">
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Total Donors</h5>
+                <h2 class="card-text"><?php echo number_format($donorStats['total_donors']); ?></h2>
+                <p class="card-text text-success"><i class="fas fa-arrow-up me-2"></i>5% increase</p>
             </div>
-            <div class="stat-value"><?= $totalunits ?></div>
-            <div class="stat-label">Total Blood Units</div>
-          </div>
         </div>
-        <div class="col-md-3">
-          <div class="stat-card">
-            <div class="icon-circle" style="background-color: #3498db;">
-              <i class="fas fa-hospital"></i>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Blood Units Available</h5>
+                <h2 class="card-text"><?php echo number_format($totalunits); ?></h2>
+                <p class="card-text text-danger"><i class="fas fa-arrow-down me-2"></i>2% decrease</p>
             </div>
-            <div class="stat-value"><?= count($hospitals) ?></div>
-            <div class="stat-label">Hospitals</div>
-          </div>
         </div>
-        <div class="col-md-3">
-          <div class="stat-card">
-            <div class="icon-circle" style="background-color: #2ecc71;">
-              <i class="fas fa-user-md"></i>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Avg Donations/Donor</h5>
+                <h2 class="card-text"><?php echo number_format($donorStats['avg_donations'], 1); ?></h2>
+                <p class="card-text text-success"><i class="fas fa-arrow-up me-2"></i>3% increase</p>
             </div>
-            <div class="stat-value">24/7</div>
-            <div class="stat-label">Service Hours</div>
-          </div>
         </div>
-        <div class="col-md-3">
-          <div class="stat-card">
-            <div class="icon-circle" style="background-color: #f39c12;">
-              <i class="fas fa-ambulance"></i>
+    </div>
+    <div class="col-md-3 mb-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Last Donation Date</h5>
+                <h2 class="card-text"><?php echo date('M d, Y', strtotime($lastDonation['last_donation'])); ?></h2>
+                <p class="card-text text-success"><i class="fas fa-check-circle me-2"></i>Recent</p>
             </div>
-            <div class="stat-value">15</div>
-            <div class="stat-label">Emergency Units</div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
+                
+      
+
       <div class="row">
         <div class="col-md-4 mb-4">
           <div class="card h-100">
@@ -317,7 +325,7 @@ $db->close();
       </div>
     </div>
   </div>
-</div>
+
 
       </div>
       <div class="row">
