@@ -1,6 +1,7 @@
 <?php
 require '../DonorRegistration/Database.php';
 require '../DonorRegistration/Donor.php';
+require 'HealthCareProfessional.php';
 
 session_start();
 
@@ -14,6 +15,7 @@ if (isset($_SESSION['hospitalID'])) {
 $db = new Database();
 $conn = $db->getConnection();
 $donor = new Donor($db);
+$healthcareProfessional = new HealthCareProfessional($db);
 
 $donorDetails = null;
 $donorNotFound = false;
@@ -40,52 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $bloodType = $donorDetails['bloodType'];
 
-            $donationDate = date('Y-m-d');
-            $bloodExpiryDate = date('Y-m-d', strtotime($donationDate . ' + 40 days'));
-
-            // Insert donation details into donations table
-            $insertDonationQuery = "INSERT INTO donations (donorNIC, hospitalID, donatedBloodCount, donationDate, bloodExpiryDate) VALUES (?, ?, ?, ?, ?)";
-            $insertDonationStmt = $conn->prepare($insertDonationQuery);
-            $insertDonationStmt->bind_param('siiss', $donorNIC, $hospitalID, $donatedBloodCount, $donationDate, $bloodExpiryDate);
-
-            if ($insertDonationStmt->execute()) {
-                $insertDonationStmt->close();
-
-                // Update donation count in donors table
-                $updateDonorQuery = "UPDATE donors SET donation_count = donation_count + 1 WHERE donorNIC = ?";
-                $updateDonorStmt = $conn->prepare($updateDonorQuery);
-                $updateDonorStmt->bind_param('s', $donorNIC);
-                $updateDonorStmt->execute();
-                $updateDonorStmt->close();
-
-                // Update hospital blood inventory
-                $selectInventoryQuery = "SELECT * FROM hospital_blood_inventory WHERE hospitalID = ? AND bloodType = ?";
-                $selectInventoryStmt = $conn->prepare($selectInventoryQuery);
-                $selectInventoryStmt->bind_param('is', $hospitalID, $bloodType);
-                $selectInventoryStmt->execute();
-                $result = $selectInventoryStmt->get_result();
-
-                if ($result->num_rows > 0) {
-                    // Update existing entry
-                    $updateInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity + ? WHERE hospitalID = ? AND bloodType = ?";
-                    $updateInventoryStmt = $conn->prepare($updateInventoryQuery);
-                    $updateInventoryStmt->bind_param('iis', $donatedBloodCount, $hospitalID, $bloodType);
-                } else {
-                    // Insert new entry
-                    $updateInventoryQuery = "INSERT INTO hospital_blood_inventory (hospitalID, bloodType, quantity) VALUES (?, ?, ?)";
-                    $updateInventoryStmt = $conn->prepare($updateInventoryQuery);
-                    $updateInventoryStmt->bind_param('isi', $hospitalID, $bloodType, $donatedBloodCount);
-                }
-
-                $updateInventoryStmt->execute();
-                $updateInventoryStmt->close();
-
+            if ($healthcareProfessional->processDonation($donorNIC, $hospitalID, $donatedBloodCount, $bloodType)) {
                 $submissionSuccess = true;
-
                 // Retrieve updated donor details
                 $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
             } else {
-                $error = 'Error submitting the donation details: ' . $conn->error;
+                $error = 'Error submitting the donation details.';
             }
         }
     } else {
@@ -183,6 +145,18 @@ $db->close();
             color: var(--dark-color);
         }
 
+        .btn-dark-red {
+        background-color: #8B0000; /* Dark Red */
+        color: #ffffff; /* White text */
+    }
+    .btn-dark-red:hover {
+        background-color: #a52a2a; /* Lighter Dark Red on hover */
+    }
+    .bg-dark-red {
+        background-color: #8B0000; /* Dark Red */
+        color: #ffffff; /* White text */
+    }
+
         @media (max-width: 768px) {
             .main-content {
                 margin-left: 0;
@@ -215,7 +189,9 @@ $db->close();
                     <h1 class="mb-4 text-center">Donation Camp Management</h1>
 
                     <div class="card mb-3">
-                        <div class="card-header">
+                    <div class="card">
+    <div class="card-header bg-dark-red text-white">
+
                             Donor Search
                         </div>
                         <div class="card-body">
@@ -282,6 +258,10 @@ $db->close();
                                             <label>Phone Number:</label>
                                             <p><?= htmlspecialchars($donorDetails['phoneNumber']) ?></p>
                                         </div>
+                                        <div class="highlight">
+                                            <label>Donation Count:</label>
+                                            <p><?= htmlspecialchars($donorDetails['donation_count']) ?></p>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -291,9 +271,9 @@ $db->close();
                                         <label for="donatedBloodCount">Donated Blood Count:</label>
                                         <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" required>
                                     </div>
-                                    <button type="submit" class="btn btn-success w-100 mt-3">
-                                        <i class="fas fa-check-circle"></i> Submit Donation Details
-                                    </button>
+                                    <button type="submit" class="btn btn-dark-red w-100 mt-3">
+    <i class="fas fa-check-circle"></i> Submit Donation Details
+</button>
                                 </form>
                             </div>
                         </div>
