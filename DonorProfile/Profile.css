@@ -120,7 +120,7 @@ body {
 }
 
 .btn-primary {
-    background: #2980b9;
+    background: #8b0000;
     border: none;
     color: white;
     padding: 0.5rem 1.5rem;
@@ -141,7 +141,7 @@ body {
 
 .form-group label {
     font-weight: 500;
-    color: #34495e;
+    color: #8b0000;
 }
 
 .form-control {
@@ -152,8 +152,8 @@ body {
 }
 
 .form-control:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+    border-color: #8b0000;
+    box-shadow: 0 0 0 0.2rem rgba(255,0,0,0.7);
 }
 
 .profile-picture-container {
@@ -246,7 +246,7 @@ body {
     padding-bottom: 1rem;
 }
 .contact-header h2 {
-    color: #2c3e50;
+    color: #8b0000;
     font-weight: 600;
 }
 .contact-item {
@@ -254,7 +254,7 @@ body {
 }
 .contact-item label {
     font-weight: 600;
-    color: #34495e;
+    color: #8b0000;
     margin-bottom: 0.5rem;
 }
 .contact-item .profile-text {
@@ -262,14 +262,14 @@ body {
     border-radius: 8px;
     padding: 0.75rem 1rem;
     font-size: 1rem;
-    color: #2c3e50;
+    color: #8b0000;
 }
 .social-media-icons {
     display: flex;
     gap: 1rem;
 }
 .social-media-icons a {
-    background-color: #3498db;
+    background-color: #8b0000;
     color: white;
     width: 40px;
     height: 40px;
@@ -281,7 +281,7 @@ body {
 }
 .social-media-icons a:hover {
     transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+    box-shadow: 0 5px 15px rgba(255,0,0,0.7);
 }
 .edit-btn {
     background-color: #2ecc71;

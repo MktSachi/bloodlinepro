@@ -65,7 +65,6 @@ include 'DonorProfile.php';
             <div class="total-donations text-center animate__animated animate__fadeInUp mt-4">
                 <h4 class="mb-3">Total Donations: <span class="text-danger"><?php echo $donationCount; ?></span></h4>
                 <p class="mb-4">Keep donating to unlock more achievements and save more lives!</p>
-                <a href="#" class="btn btn-danger btn-lg">Donate Now</a>
             </div>
         </div>
     </div>
