@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
             // Redirect to success page
-            header("Location: ../../Classes/Success.php");
+            header("Location: Success.php");
             exit();
         } else {
             $error_msg .= "Error: Registration failed.";

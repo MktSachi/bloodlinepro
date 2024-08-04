@@ -1,6 +1,6 @@
 <?php
 $root = $_SERVER['DOCUMENT_ROOT'] . '/bloodlinepro/';
-require_once $root . 'DonorRegistration/Database.php';
+require_once $root . 'Classes/Database.php';
 
 /**
  * Inventory Class

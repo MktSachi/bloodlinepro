@@ -15,26 +15,26 @@
   <title>Blood Bank Management System</title>
   <style>
     .loader {
-            position: fixed;
-            z-index: 9999;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.7);
-            display: none;
-        }
+        position: fixed;
+        z-index: 9999;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        display: none;
+    }
 
-        .loader img {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-        }
+    .loader img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
   </style>
 </head>
 <body class="p-0 m-0 border-0 bd-example">
 <div class="loader" id="loader">
-        <img src="../../AdminDashboard/Animation - 1720851760552.gif" alt="Loading...">
-    </div>
+    <img src="../../AdminDashboard/Animation - 1720851760552.gif" alt="Loading...">
+</div>
 <main role="main" class="container">
   <div class="row">
     <div class="col-md-6 mb-3"></div>
@@ -51,14 +51,14 @@
         <div class="row">
           <div class="col-md-6 mb-3">
             <label for="firstName">First name</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="" value="" required>
+            <input type="text" class="form-control" id="firstName" name="firstName" required>
             <div class="invalid-feedback">
               Valid first name is required.
             </div>
           </div>
           <div class="col-md-6 mb-3">
             <label for="lastName">Last name</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="" value="" required>
+            <input type="text" class="form-control" id="lastName" name="lastName" required>
             <div class="invalid-feedback">
               Valid last name is required.
             </div>
@@ -67,7 +67,7 @@
 
         <div class="mb-3">
           <label for="donorNIC">NIC Num</label>
-          <input type="text" class="form-control" id="donorNIC" name="donorNIC" placeholder="National Identity Card Number" required>
+          <input type="text" class="form-control" id="donorNIC" name="donorNIC" required>
           <div class="invalid-feedback">
             Please enter NIC Number.
           </div>
@@ -76,7 +76,7 @@
         <div class="mb-3">
           <label for="username">Username</label>
           <div class="input-group">
-            <input type="text" class="form-control" id="username" name="username" placeholder="Username" required>
+            <input type="text" class="form-control" id="username" name="username" required>
             <div class="invalid-feedback" style="width: 50%;">
               Your username is required.
             </div>
@@ -85,31 +85,15 @@
 
         <div class="mb-3">
           <label for="email">Email</label>
-          <input type="email" class="form-control" id="email" name="email" placeholder="you@gmail.com">
+          <input type="email" class="form-control" id="email" name="email">
           <div class="invalid-feedback">
             Please enter a valid email.
           </div>
         </div>
 
-      <!--  <div class="mb-3">
-          <label for="password">Password</label>
-          <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-          <div class="invalid-feedback">
-            Please enter a valid password.
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
-          <div class="invalid-feedback">
-            Please confirm your password.
-          </div>
-        </div> -->
-
         <div class="mb-3">
           <label for="phoneNumber">Phone Number</label>
-          <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" placeholder="Enter your phone number" pattern="[0-9]{10}" required>
+          <input type="tel" class="form-control" id="phoneNumber" name="phoneNumber" pattern="[0-9]{10}" required>
           <div class="invalid-feedback">
             Please enter a valid 10-digit phone number.
           </div>
@@ -117,7 +101,7 @@
 
         <div class="mb-3">
           <label for="address">Address</label>
-          <input type="text" class="form-control" id="address" name="address" placeholder="1234 Main St" required>
+          <input type="text" class="form-control" id="address" name="address" required>
           <div class="invalid-feedback">
             Please enter your address.
           </div>
@@ -125,7 +109,7 @@
 
         <div class="mb-3">
           <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-          <input type="text" class="form-control" id="address2" name="address2" placeholder="Apartment or suite">
+          <input type="text" class="form-control" id="address2" name="address2">
         </div>
 
         <div class="mb-3">
@@ -165,17 +149,22 @@
   </div>
 </main>
 <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var form = document.querySelector('form[name="Donor_Creation"]');
-            var loader = document.getElementById('loader');
+document.addEventListener('DOMContentLoaded', function() {
+    var form = document.querySelector('form[name="Donor_Creation"]');
+    var loader = document.getElementById('loader');
 
-            form.addEventListener('submit', function() {
-                loader.style.display = 'block';
-            });
-        });
-    </script>
+    form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+        } else {
+            loader.style.display = 'block';
+        }
+        form.classList.add('was-validated');
+    }, false);
+});
+</script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
-
 </body>
 </html>
