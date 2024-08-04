@@ -1,13 +1,14 @@
 <?php include 'DonorProfile.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Blood Donor Dashboard</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         body {
             font-family: 'Poppins', sans-serif;
@@ -31,7 +32,7 @@
             padding: 30px;
             border-radius: 20px;
             margin-bottom: 30px;
-            box-shadow: 0 10px 20px rgba(139,0,0,0.2);
+            box-shadow: 0 10px 20px rgba(139, 0, 0, 0.2);
             color: white;
         }
 
@@ -57,7 +58,7 @@
             background-color: #ffffff;
             padding: 25px;
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(139,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(139, 0, 0, 0.1);
             transition: all 0.3s ease;
             overflow: hidden;
             position: relative;
@@ -66,7 +67,7 @@
 
         .card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(139,0,0,0.2);
+            box-shadow: 0 15px 40px rgba(139, 0, 0, 0.2);
         }
 
         .card::before {
@@ -76,7 +77,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(139,0,0,0.1), transparent);
+            background: linear-gradient(45deg, transparent, rgba(139, 0, 0, 0.1), transparent);
             transform: rotate(45deg);
             transition: all 0.5s;
         }
@@ -107,12 +108,12 @@
             text-transform: uppercase;
             font-size: 14px;
             letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(139,0,0,0.4);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.4);
         }
 
         .btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(139,0,0,0.6);
+            box-shadow: 0 8px 20px rgba(139, 0, 0, 0.6);
         }
 
         .map-container {
@@ -121,7 +122,7 @@
             border-radius: 15px;
             overflow: hidden;
             margin-bottom: 15px;
-            box-shadow: 0 5px 15px rgba(139,0,0,0.1);
+            box-shadow: 0 5px 15px rgba(139, 0, 0, 0.1);
         }
 
         .stat {
@@ -181,7 +182,8 @@
             font-size: 20px;
         }
 
-        .health-icon, .diet-icon {
+        .health-icon,
+        .diet-icon {
             font-size: 54px;
             background: linear-gradient(135deg, #8b0000, #ff0000);
             -webkit-background-clip: text;
@@ -265,8 +267,8 @@
             }
         }
     </style>
-    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY"></script>
 </head>
+
 <body>
     <?php include 'sidebar.php'; ?>
 
@@ -278,7 +280,6 @@
 
         <div class="dashboard-grid">
             <div class="card health-condition">
-                <i class="fas fa-heartbeat health-icon"></i>
                 <h2>Health Condition</h2>
                 <p>Your last checkup results show excellent health!</p>
                 <ul>
@@ -286,7 +287,6 @@
                     <li>Hemoglobin: 14.5 g/dL</li>
                     <li>Iron: 80 µg/dL</li>
                 </ul>
-                <a href="#" class="btn">View Full Report</a>
             </div>
 
             <div class="card diet-plan">
@@ -301,28 +301,16 @@
             </div>
 
             <div class="card blood-banks-map">
-                <h2>Blood Banks Near You</h2>
-                <div id="map" class="map-container"></div>
-                <p>5 blood banks within 10km radius</p>
-            </div>
-
-            <div class="card donation-stats">
-                <h2>Your Donation Impact</h2>
-                <div class="stat">
-                    <span class="stat-number">8</span>
-                    <span class="stat-label">Lives Saved</span>
-                </div>
-                <div class="stat">
-                    <span class="stat-number">4</span>
-                    <span class="stat-label">Donations Made</span>
-                </div>
-                <a href="#" class="btn">View Donation History</a>
+                <h2>Our Head Office</h2>
+                <div id="map" class="map-container"><img src="Image/map.jpg" alt="Head office location"
+                        style="width:100%;height:100%;"></div>
             </div>
         </div>
     </div>
     <div class="footer">
-    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
-</div>
-<script src="DonorScript.js"></script>
+        @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+    </div>
+    <script src="DonorScript.js"></script>
 </body>
+
 </html>

@@ -159,22 +159,27 @@ class HealthCareProfessional {
     public function processDonation($donorNIC, $hospitalID, $donatedBloodCount, $bloodType) {
         $donationDate = date('Y-m-d');
         $bloodExpiryDate = date('Y-m-d', strtotime($donationDate . ' + 40 days'));
-
+    
+        // Validate donated blood count
+        if ($donatedBloodCount <= 0) {
+            return false;
+        }
+    
         $this->conn->begin_transaction();
-
+    
         try {
             if (!$this->insertDonation($donorNIC, $hospitalID, $donatedBloodCount, $donationDate, $bloodExpiryDate)) {
                 throw new Exception("Failed to insert donation");
             }
-
+    
             if (!$this->updateDonorDonationCount($donorNIC)) {
                 throw new Exception("Failed to update donor donation count");
             }
-
+    
             if (!$this->updateHospitalBloodInventory($hospitalID, $bloodType, $donatedBloodCount)) {
                 throw new Exception("Failed to update hospital blood inventory");
             }
-
+    
             $this->conn->commit();
             return true;
         } catch (Exception $e) {
@@ -182,4 +187,5 @@ class HealthCareProfessional {
             return false;
         }
     }
+    
 }

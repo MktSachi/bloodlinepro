@@ -9,43 +9,42 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../Assets/css/header.css">
   <title>Blood Bank Management System - Donor Registration</title>
-  <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f8f9fa;
-    }
-    .container {
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-      padding: 30px;
-      margin-top: 50px;
-    }
-    h4, h5 {
-      color: #dc3545;
-    }
-    .form-label {
-      font-weight: 600;
-    }
-    .btn-primary {
-      background-color: #dc3545;
-      border-color: #dc3545;
-    }
-    .btn-primary:hover {
-      background-color: #c82333;
-      border-color: #bd2130;
-    }
-    hr {
-      border-top: 2px solid #dc3545;
-    }
-    .form-control:focus {
-      border-color: #dc3545;
-      box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
-    }
+    <style>
+      body {
+        font-family: 'Roboto', sans-serif;
+        background-color: #f8f9fa;
+      }
+      .container {
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        margin-top: 50px;
+      }
+      h4, h5 {
+        color: #8B0000;
+      }
+      .form-label {
+        font-weight: 600;
+      }
+      .btn-primary {
+        background-color: #8B0000;
+        border-color: #8B0000;
+      }
+      .btn-primary:hover {
+        background-color: #a00000;
+        border-color: #a00000;
+      }
+      hr {
+        border-top: 2px solid #8B0000;
+      }
+      .form-control:focus {
+        border-color: #8B0000;
+        box-shadow: 0 0 0 0.2rem rgba(139, 0, 0, 0.25);
+      }
   </style>
 </head>
 <body>
-<?php include '../part_of_home_page/home/Header.php'; ?>
 
 <main role="main" class="container">
   <h4 class="mb-4 text-center">Donor Registration</h4>

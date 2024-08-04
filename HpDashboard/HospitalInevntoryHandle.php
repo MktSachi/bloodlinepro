@@ -18,19 +18,19 @@
     <div class="w3-main" style="margin-left:200px;margin-top:43px;">
         
         <div class="container">
-            <h3><strong>Donor Account</strong></h3>
+                      <h3><i class="fa fa-bars" style="margin-right: 5px;"></i><strong>Inventory</strong></h3>
             
             <!-- Operation links with icons -->
             <div class="operation-links">
                 <a href="BloodInventory/BloodCount.php" target="contentFrame" class="btn btn-primary">
-                    <i class="fa fa-plus" style="margin-right: 5px;"></i>Show Blood Count
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>Show Blood Count
                 </a>
                 
                 <a href="BloodInventory/BloodDonationReport.php" target="contentFrame" class="btn btn-info">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>Show Details Donation
                 </a>
 
-                <a href="BloodInventory/BloodUsageReport.php" target="contentFrame" class="btn btn-info">
+                <a href="BloodInventory/BloodUsageReport.php" target="contentFrame" class="btn btn-primary">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>Blood Usage
                 </a>
             </div>

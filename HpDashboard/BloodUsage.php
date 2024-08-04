@@ -23,11 +23,11 @@
             <!-- Operation links with icons -->
             <div class="operation-links">
                 <a href="HandleBloodUsage/BloodUsagePatient.php" target="contentFrame" class="btn btn-primary">
-                    <i class="fa fa-plus" style="margin-right: 5px;"></i> Patient
+                                       <i class="fa fa-user-injured"></i></i> Patient
                 </a>
                 
                 <a href="HandleBloodUsage/TransferBlood.php" target="contentFrame" class="btn btn-info">
-                    <i class="fa fa-eye" style="margin-right: 5px;"></i>Transfer to Other Hospital
+                                       <i class="fa fa-hospital" style="margin-right: 5px;"></i>Transfer to Other Hospital
                 </a>
             </div>
 

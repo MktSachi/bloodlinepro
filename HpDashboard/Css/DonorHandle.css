@@ -5,7 +5,6 @@ body {
 /* Division properties */
 .container {
   margin-left: 20px;
- 
   text-align: left;
   display: inline-block;
   max-width: 1200px;
@@ -29,19 +28,18 @@ input[type=text], input[type=password], select {
 
 /* Label properties */
 label {
-  color: rgb(131, 26, 26);
+  color: #8B0000;
 }
 
 /* Asterisk mark */
 .required::after {
   content: "*";
-  color: rgb(131, 26, 26);
+  color: #8B0000;
 }
 
 /* Create button properties */
 input[type=submit] {
-   /* Corrected from 1o% to 10% */
-  background-color: rgb(131, 26, 26);
+  background-color: #8B0000;
   color: white;
   padding: 10px 20px;
   margin: 8px 0;
@@ -49,8 +47,8 @@ input[type=submit] {
   cursor: pointer;
 }
 
- /* CSS for expandable areas */
- .operation {
+/* CSS for expandable areas */
+.operation {
   display: inline-block;
   margin: 10px;
   cursor: pointer;

@@ -32,7 +32,7 @@ $db->close();
     <title>Donor Management</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-    <style>
+       <style>
         body {
             background-color: #f8f9fa;
         }
@@ -46,7 +46,7 @@ $db->close();
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
         .card-header {
-            background-color: #007bff;
+            background-color: #8B0000;
             color: white;
             font-weight: bold;
             border-radius: 10px 10px 0 0;
@@ -62,19 +62,19 @@ $db->close();
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 15px;
-            border-left: 5px solid #007bff;
+            border-left: 5px solid #8B0000;
         }
         .highlight label {
             font-weight: bold;
             color: #495057;
         }
         .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
+            background-color: #8B0000;
+            border-color: #8B0000;
         }
         .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
+            background-color: #a00000;
+            border-color: #a00000;
         }
     </style>
 </head>
@@ -82,7 +82,7 @@ $db->close();
 
     <div class="main-content" style="margin-left: 43px; padding: 20px;">
         <div class="container">
-            <h1 class="mb-4">Donor Management</h1>
+            <h3 class="mb-4"><i class="fas fa-user"></i>Donor Management</h1>
             
             <div class="card mb-4">
                 <div class="card-header">

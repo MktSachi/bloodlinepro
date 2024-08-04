@@ -18,8 +18,7 @@
     <div class="w3-main" style="margin-left:200px;margin-top:43px;">
         
         <div class="container">
-            <h3><strong>Donor Account</strong></h3>
-            
+                       <h3><i class="fa fa-user" style="margin-right: 5px;"></i><strong>Donor Account</strong></h3>
             <!-- Operation links with icons -->
             <div class="operation-links">
                 <a href="CreateDonor/CreateDonor.php" target="contentFrame" class="btn btn-primary">

@@ -1,17 +1,14 @@
 <?php
-require '../Classes/Database.php';
-// Changed to require_once
-require 'HealthCareProfessional.php';
+require_once '../Classes/Database.php';
+require_once 'HealthCareProfessional.php';
 
 session_start();
 
-if (isset($_SESSION['hospitalID'])) {
-    $hospitalID = $_SESSION['hospitalID'];
-} else {
-    echo "Hospital ID is not set in the session.";
-    exit;
+if (!isset($_SESSION['hospitalID'])) {
+    die("Error: Hospital ID is not set in the session.");
 }
 
+$hospitalID = $_SESSION['hospitalID'];
 $db = new Database();
 $conn = $db->getConnection();
 $donor = new Donor($db);
@@ -23,267 +20,213 @@ $submissionSuccess = false;
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['donorNIC'])) {
-        $donorNIC = $_POST['donorNIC'];
+    $donorNIC = $_POST['donorNIC'] ?? '';
+    $donatedBloodCount = $_POST['donatedBloodCount'] ?? '';
+
+    if (!empty($donorNIC)) {
         $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
         if (!$donorDetails) {
             $donorNotFound = true;
-        }
-    }
-
-    if (isset($_POST['donorNIC'], $_POST['donatedBloodCount'])) {
-        $donorNIC = $_POST['donorNIC'];
-        $donatedBloodCount = $_POST['donatedBloodCount'];
-
-        $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
-
-        if (!$donorDetails) {
-            $donorNotFound = true;
-        } else {
+        } elseif (!empty($donatedBloodCount)) {
             $bloodType = $donorDetails['bloodType'];
-
-            if ($healthcareProfessional->processDonation($donorNIC, $hospitalID, $donatedBloodCount, $bloodType)) {
+            $result = $healthcareProfessional->processDonation($donorNIC, $hospitalID, $donatedBloodCount, $bloodType);
+            
+            if ($result === true) {
                 $submissionSuccess = true;
-                // Retrieve updated donor details
-                $donorDetails = $donor->getDonorDetailsByNIC($donorNIC);
+                $donorDetails = $donor->getDonorDetailsByNIC($donorNIC); // Refresh donor details
             } else {
-                $error = 'Error submitting the donation details.';
+                $error = $result; // Error message from processDonation
             }
         }
-    } else {
-        $error = 'Please enter both NIC Number and Donated Blood Count.';
+    } elseif (!empty($donatedBloodCount)) {
+        $error = 'Please enter the NIC Number.';
     }
 }
 
 $db->close();
 ?>
 
+
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Donation Camp Management</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-color: #007bff;
-            --secondary-color: #6c757d;
-            --success-color: #28a745;
-            --danger-color: #dc3545;
-            --light-color: #f8f9fa;
-            --dark-color: #343a40;
-        }
-
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--light-color);
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            height: 100vh;
+            background-color: #343a40;
+            color: #fff;
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 250px;
             padding-top: 20px;
         }
-
         .main-content {
-            padding: 5px; /* Reduced from 20px to 10px */
-            margin-left: 150px; /* Reduced from 250px to 200px */
+            margin-left: 250px;
+            padding: 20px;
         }
-
         .card {
             border: none;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
         }
-
         .card-header {
-            background-color: var(--primary-color);
-            color: white;
+            background-color: #007bff;
+            color: #fff;
             font-weight: bold;
-            border-radius: 10px 10px 0 0;
         }
-
-        .form-control {
-            border-radius: 5px;
-        }
-
-        .btn {
-            border-radius: 5px;
+        .highlight label {
+            color: #007bff;
             font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 10px 20px;
         }
-
-        .btn-primary {
-            background-color: var(--primary-color);
-            border-color: var(--primary-color);
-        }
-
-        .btn-success {
-            background: linear-gradient(135deg, #5a090a 0%, #060606 100%);
-            border-color: var(--success-color);
-        }
-
-        .alert {
-            border-radius: 5px;
-        }
-
         .highlight {
-            background-color: rgba(0, 123, 255, 0.1);
-            padding: 10px;
-            border-radius: 5px;
+            border-bottom: 1px solid #e9ecef;
+            padding-bottom: 10px;
             margin-bottom: 10px;
         }
-
-        .highlight label {
-            font-weight: bold;
-            color: var(--secondary-color);
-        }
-
-        .highlight p {
-            margin-bottom: 0;
-            color: var(--dark-color);
-        }
-
         .btn-dark-red {
-        background-color: #8B0000; /* Dark Red */
-        color: #ffffff; /* White text */
-    }
-    .btn-dark-red:hover {
-        background-color: #a52a2a; /* Lighter Dark Red on hover */
-    }
-    .bg-dark-red {
-        background-color: #8B0000; /* Dark Red */
-        color: #ffffff; /* White text */
-    }
-
-        @media (max-width: 768px) {
-            .main-content {
-                margin-left: 0;
-                padding: 10px;
-            }
-
-            .card {
-                margin-bottom: 15px;
-            }
-
-            h1 {
-                font-size: 24px;
-                margin-bottom: 15px;
-            }
-
-            .btn {
-                font-size: 14px;
-                padding: 8px 16px;
-            }
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #fff;
         }
+        .btn-dark-red:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+            color: #fff;
+        }
+        .card-header-dark-red {
+    background-color: #8B0000;
+    color: white; /* Ensure the text is readable */
+}.text-dark-red {
+    color: #8B0000;
+}
+
+i {
+    color: #8B0000;
+}
     </style>
 </head>
-
 <body>
-    <?php include 'HpSidebar.php'; ?>
+   
+        <?php include 'HpSidebar.php'; ?>
+    
+    
     <div class="main-content">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-8">
-                    <h1 class="mb-4 text-center">Donation Camp Management</h1>
-
-                    <div class="card mb-3">
-                    <div class="card">
-    <div class="card-header bg-dark-red text-white">
-
-                            Donor Search
+            <h1 class="mb-4"><i class="fas fa-heartbeat"></i> Donation Camp Management</h1>
+            
+            <div class="card">
+            <div class="card-header card-header-dark-red">
+                    <i class="fas fa-search"></i> Donor Search
+                </div>
+                <div class="card-body">
+                    <form id="donor-form" method="post" class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" id="donorNIC" name="donorNIC" placeholder="Enter NIC Number" required>
+                                                                                                               <button type="submit" class="btn">
+                                                                                                                        <span class="text-dark-red">
+                                                                <i class="fas fa-search"></i> Search
+                                                            </span>
+                                                        </button>
                         </div>
-                        <div class="card-body">
-                            <form id="donor-form" method="post" class="mb-3">
-                                <div class="form-group">
-                                    <input type="text" class="form-control mb-2" id="donorNIC" name="donorNIC" placeholder="Enter NIC Number" required>
-                                    <button type="submit" class="btn btn-primary w-100">
-                                        <i class="fas fa-search"></i> Search
-                                    </button>
-                                </div>
-                            </form>
+                    </form>
 
-                            <?php if ($donorNotFound): ?>
-                                <div class="alert alert-danger">
-                                    <i class="fas fa-exclamation-circle"></i> Donor not found.
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if ($submissionSuccess): ?>
-                                <div class="alert alert-success">
-                                    <i class="fas fa-check-circle"></i> Donation details submitted successfully.
-                                </div>
-                            <?php endif; ?>
-
-                            <?php if ($error): ?>
-                                <div class="alert alert-danger">
-                                    <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?>
-                                </div>
-                            <?php endif; ?>
+                    <?php if ($donorNotFound): ?>
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle"></i> Donor not found.
                         </div>
-                    </div>
+                    <?php endif; ?>
 
-                    <?php if ($donorDetails): ?>
-                        <div class="card">
-                            <div class="card-header">
-                                Donor Details
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-12 col-md-6">
-                                        <div class="highlight">
-                                            <label>Full Name:</label>
-                                            <p><?= htmlspecialchars($donorDetails['first_name'] . ' ' . $donorDetails['last_name']) ?></p>
-                                        </div>
-                                        <div class="highlight">
-                                            <label>NIC Number:</label>
-                                            <p><?= htmlspecialchars($donorDetails['donorNIC']) ?></p>
-                                        </div>
-                                        <div class="highlight">
-                                            <label>Blood Type:</label>
-                                            <p><?= htmlspecialchars($donorDetails['bloodType']) ?></p>
-                                        </div>
-                                    </div>
-                                    <div class="col-12 col-md-6">
-                                        <div class="highlight">
-                                            <label>Address:</label>
-                                            <p><?= htmlspecialchars($donorDetails['address']) ?></p>
-                                        </div>
-                                        <div class="highlight">
-                                            <label>Email:</label>
-                                            <p><?= htmlspecialchars($donorDetails['email']) ?></p>
-                                        </div>
-                                        <div class="highlight">
-                                            <label>Phone Number:</label>
-                                            <p><?= htmlspecialchars($donorDetails['phoneNumber']) ?></p>
-                                        </div>
-                                        <div class="highlight">
-                                            <label>Donation Count:</label>
-                                            <p><?= htmlspecialchars($donorDetails['donation_count']) ?></p>
-                                        </div>
-                                    </div>
-                                </div>
+                    <?php if ($submissionSuccess): ?>
+                        <div class="alert alert-success">
+                            <i class="fas fa-check-circle"></i> Donation details submitted successfully.
+                        </div>
+                    <?php endif; ?>
 
-                                <form id="donation-form" method="post">
-                                    <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorDetails['donorNIC']) ?>">
-                                    <div class="form-group">
-                                        <label for="donatedBloodCount">Donated Blood Count:</label>
-                                        <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" required>
-                                    </div>
-                                    <button type="submit" class="btn btn-dark-red w-100 mt-3">
-    <i class="fas fa-check-circle"></i> Submit Donation Details
-</button>
-                                </form>
-                            </div>
+                    <?php if ($error): ?>
+                        <div class="alert alert-danger">
+                            <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?>
                         </div>
                     <?php endif; ?>
                 </div>
             </div>
+
+            <?php if ($donorDetails): ?>
+                <div class="card">
+                                        <div class="card-header card-header-dark-red">
+                        <i class="fas fa-user"></i> Donor Details
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="highlight">
+                                    <label><i class="fas fa-user"></i> Full Name:</label>
+                                    <p><?= htmlspecialchars($donorDetails['first_name'] . ' ' . $donorDetails['last_name']) ?></p>
+                                </div>
+                                <div class="highlight">
+                                    <label><i class="fas fa-id-card"></i> NIC Number:</label>
+                                    <p><?= htmlspecialchars($donorDetails['donorNIC']) ?></p>
+                                </div>
+                                <div class="highlight">
+                                    <label><i class="fas fa-tint"></i> Blood Type:</label>
+                                    <p><?= htmlspecialchars($donorDetails['bloodType']) ?></p>
+                                </div>
+                                <div class="highlight">
+                                    <label><i class="fas fa-envelope"></i> Email:</label>
+                                    <p><?= htmlspecialchars($donorDetails['email']) ?></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="highlight">
+                                    <label><i class="fas fa-map-marker-alt"></i> Address:</label>
+                                    <p><?= htmlspecialchars($donorDetails['address']) ?></p>
+                                </div>
+                                <div class="highlight">
+                                    <label><i class="fas fa-phone"></i> Phone Number:</label>
+                                    <p><?= htmlspecialchars($donorDetails['phoneNumber']) ?></p>
+                                </div>
+                                <div class="highlight">
+                                    <label><i class="fas fa-donate"></i> Donation Count:</label>
+                                    <p><?= htmlspecialchars($donorDetails['donation_count']) ?></p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <form id="donation-form" method="post" onsubmit="return validateForm()">
+                            <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorDetails['donorNIC']) ?>">
+                            <div class="form-group mb-3">
+                                <label for="donatedBloodCount"><i class="fas fa-syringe"></i> Donated Blood Count:</label>
+                                <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" min="1" step="1" required>
+                            </div>
+                            <button type="submit" class="btn btn-dark-red ">
+                                <i class="fas fa-check-circle"></i> Submit Donation Details
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function validateForm() {
+            var donatedBloodCount = document.getElementById('donatedBloodCount').value;
+            if (donatedBloodCount <= 0 || !Number.isInteger(Number(donatedBloodCount))) {
+                alert('Please enter a valid positive whole number for the donated blood count.');
+                return false;
+            }
+            return true;
+        }
+    </script>
 </body>
-
 </html>
