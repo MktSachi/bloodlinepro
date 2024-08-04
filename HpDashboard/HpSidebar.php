@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel ="stylesheet" href="SideBarStyle.css">
+    <style>
+
+</style>
 </head>
 
 <body class="w3-light-grey">
@@ -19,15 +22,13 @@
             <strong>person name</strong>
         </div>
     </div>
-    
-    <div class="search-bar">
-        <input type="text" placeholder="Search...">
-    </div>
+ 
 
     <div class="w3-bar-block">
-        <a href="Home.php" class="nav-item">
-            <i class="fa fa-home"></i> Home
-        </a>
+    <a href="Home.php" class="nav-item large-icon-text ">
+        <i class="fa fa-home large-icon"></i> Home
+    </a>
+</div>
         <a href="HpDashboard.php" class="nav-item">
             <i class="fa fa-users"></i> Dashboard
         </a>
@@ -65,7 +66,14 @@
 
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
-
+<div class="breadcrumb-container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="Home.php">Home</a></li>
+            <li class="breadcrumb-item " aria-current="page">Dashboard</li>
+        </ol>
+    </nav>
+</div>
 
 
 <script>
@@ -120,6 +128,20 @@
 
     // Initial call to set correct state
     handleResize();
+
+    function handleResize() {
+        var breadcrumbContainer = document.querySelector('.breadcrumb-container');
+        if (window.innerWidth > 768) {
+            mySidebar.style.transform = "translateX(0)";
+            main.style.marginLeft = "210px";
+            overlayBg.style.display = "none";
+            breadcrumbContainer.style.marginLeft = "230px";
+        } else {
+            mySidebar.style.transform = "translateX(-100%)";
+            main.style.marginLeft = "0";
+            breadcrumbContainer.style.marginLeft = "20px";
+        }
+    }
 </script>
 
 </body>

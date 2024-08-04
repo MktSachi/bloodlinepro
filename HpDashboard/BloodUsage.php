@@ -22,7 +22,7 @@
             
             <!-- Operation links with icons -->
             <div class="operation-links">
-                <a href="" target="contentFrame" class="btn btn-primary">
+                <a href="HandleBloodUsage/BloodUsagePatient.php" target="contentFrame" class="btn btn-primary">
                     <i class="fa fa-plus" style="margin-right: 5px;"></i> Patient
                 </a>
                 

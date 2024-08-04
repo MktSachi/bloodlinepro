@@ -1,101 +1,32 @@
 <?php
 session_start();
 require '../../DonorRegistration/Database.php';
+require 'Inventory.php';
+
 $db = new Database();
 $conn = $db->getConnection();
 
-
-
-
-$usages = [];
-
+$inventory = new Inventory($conn);
 
 $username = $_SESSION['username'] ?? '';
-if (!empty($username)) {
-    $queryHpHospital = "SELECT h.hospitalID FROM healthcare_professionals hp 
-                        JOIN users u ON hp.userid = u.userid
-                        JOIN hospitals h ON hp.hospitalID = h.hospitalID
-                        WHERE u.username = ?";
-    $stmtHpHospital = $conn->prepare($queryHpHospital);
-    $stmtHpHospital->bind_param('s', $username);
-    $stmtHpHospital->execute();
-    $resultHpHospital = $stmtHpHospital->get_result();
-
-    if ($resultHpHospital->num_rows > 0) {
-        $hpHospital = $resultHpHospital->fetch_assoc();
-        $hospitalID = $hpHospital['hospitalID'];
-    }
-
-    $stmtHpHospital->close();
-}
-
+$hospitalID = 1; // Example hospital ID, replace with the actual ID for the logged-in user
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['startDate'], $_POST['endDate'])) {
-    
-    $startDate = date('Y-m-d', strtotime($_POST['startDate']));
-    $endDate = date('Y-m-d', strtotime($_POST['endDate']));
+    $startDate = $_POST['startDate'];
+    $endDate = $_POST['endDate'];
 
-    
-    $queryUsage = "SELECT bu.usageID, bu.bloodType, bu.bloodQuantity, bu.transferDate, 
-                          h.hospitalName AS senderHospitalName, h.address AS senderHospitalAddress, h.phoneNumber AS senderHospitalPhone, h.email AS senderHospitalEmail, bu.description
-                   FROM blood_usage bu
-                   JOIN hospitals h ON bu.senderHospitalID = h.hospitalID
-                   WHERE bu.senderHospitalID = ? AND bu.transferDate BETWEEN ? AND ?";
-$stmtDonations = $conn->prepare($queryUsage);
-$stmtDonations->bind_param('iss', $hospitalID, $startDate, $endDate);
-$stmtDonations->execute();
-$resultDonations = $stmtDonations->get_result();
-
-
-while ($row = $resultDonations->fetch_assoc()) {
-    $donations[] = $row;
+    if (!empty($username) && !empty($hospitalID)) {
+        $bloodUsage = $inventory->getBloodUsageReport($hospitalID, $startDate, $endDate);
+        $_SESSION['bloodUsage'] = $bloodUsage;
+    }
 }
 
-$stmtDonations->close();
-$_SESSION['usages'] = $usages;
-
-
-}
-
-
+// Optional: Display a success message or redirect if needed
+// header('Location: success_page.php');
+// exit;
 
 $db->close();
-function generateHTMLDownload($data) {
-    $filename = 'blood_usage_report_' . date('Y-m-d') . '.html';
-    $htmlContent = '<html><head><title>Blood Usage Report</title>';
-    $htmlContent .= '<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">';
-    $htmlContent .= '</head><body><div class="container"><h1>Blood Usage Report</h1>';
-    $htmlContent .= '<table class="table table-bordered"><thead><tr>';
-    $htmlContent .= '<th>Usage ID</th><th>Blood Type</th><th>Blood Quantity</th><th>Transfer Date</th><th>Hospital Name</th><th>Address</th><th>Phone Number</th><th>Email</th><th>Description</th>';
-    $htmlContent .= '</tr></thead><tbody>';
-
-    foreach ($data as $row) {
-        $htmlContent .= '<tr>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['usageID']) . '</td>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['bloodType']) . '</td>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['bloodQuantity']) . '</td>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['transferDate']) . '</td>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['senderHospitalName']) . '</td>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['senderHospitalAddress']) . '</td>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['senderHospitalPhone']) . '</td>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['senderHospitalEmail']) . '</td>';
-        $htmlContent .= '<td>' . htmlspecialchars($row['description']) . '</td>';
-        $htmlContent .= '</tr>';
-    }
-
-    $htmlContent .= '</tbody></table></div></body></html>';
-
-    
-    file_put_contents($filename, $htmlContent);
-
-    header('Content-Type: text/html');
-    header('Content-Disposition: attachment; filename="' . $filename . '"');
-    readfile($filename);
-    unlink($filename);
-    exit;
-}
 ?>
-
 
 
 <!DOCTYPE html>
@@ -103,77 +34,131 @@ function generateHTMLDownload($data) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blood Usage Report - BloodLinePro</title>
+    <title>Blood Usage - BloodLinePro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
+        body {
+            background-color: #f8f9fa;
+        }
         .dashboard-container {
-            margin: 20px;
+            margin-top: 50px;
         }
         .card {
-            margin-bottom: 20px;
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .card-header {
+            background-color: #007bff;
+            color: white;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .btn-success {
+            background-color: #28a745;
+            border: none;
+        }
+        .btn-success:hover {
+            background-color: #218838;
+        }
+        .table {
+            margin-top: 20px;
+        }
+        .table thead th {
+            background-color: #f8f9fa;
+            border-bottom: 2px solid #dee2e6;
         }
     </style>
 </head>
 <body>
-<div class="dashboard-container">
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-body" style="max-width: 400px; margin: 0 auto;">
-                    <h5 class="card-title">Generate Blood Usage Report</h5>
+<div class="container dashboard-container">
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4 class="mb-0"><i class="fas fa-chart-line me-2"></i>Generate Blood Usage Reports</h4>
+                </div>
+                <div class="card-body">
                     <form id="reportForm" method="POST">
-                        <div class="mb-3">
-                            <label for="startDate" class="form-label">Start Date</label>
-                            <input type="date" class="form-control" id="startDate" name="startDate" required>
+                        <div class="row">
+                            <div class="col-md-5 mb-3">
+                                <label for="startDate" class="form-label">Start Date</label>
+                                <input type="date" class="form-control" id="startDate" name="startDate" required>
+                            </div>
+                            <div class="col-md-5 mb-3">
+                                <label for="endDate" class="form-label">End Date</label>
+                                <input type="date" class="form-control" id="endDate" name="endDate" required>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-end">
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-search me-2"></i>Generate
+                                </button>
+                            </div>
                         </div>
-                        <div class="mb-3">
-                            <label for="endDate" class="form-label">End Date</label>
-                            <input type="date" class="form-control" id="endDate" name="endDate" required>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Generate Report</button>
                     </form>
                 </div>
             </div>
 
-            <?php if (!empty($usages)): ?>
+            <?php if (!empty($bloodUsage)): ?>
                 <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Blood Usage Report</h5>
-                        <table class="table table-bordered">
-                            <thead>
-                            <tr>
-                                <th>Usage ID</th>
-                                <th>Blood Type</th>
-                                <th>Blood Quantity</th>
-                                <th>Transfer Date</th>
-                                <th>Sender Hospital</th>
-                                <th>Receiver Hospital</th>
-                                <th>Description</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php foreach ($usages as $usage): ?>
-                                <tr>
-                                    <td><?= htmlspecialchars($usage['usageID']) ?></td>
-                                    <td><?= htmlspecialchars($usage['bloodType']) ?></td>
-                                    <td><?= htmlspecialchars($usage['bloodQuantity']) ?></td>
-                                    <td><?= htmlspecialchars($usage['transferDate']) ?></td>
-                                    <td><?= htmlspecialchars($usage['senderHospitalName']) ?></td>
-                                    <td><?= htmlspecialchars($usage['receiverHospitalName']) ?></td>
-                                    <td><?= htmlspecialchars($usage['description']) ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                            </tbody>
-                        </table>
-                        <a href="BloodUsageReport.php?download=html" class="btn btn-success">Download Report</a>
+                    <div class="card-header">
+                        <h4 class="mb-0"><i class="fas fa-hospital me-2"></i>Blood Usage</h4>
                     </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Sender Hospital</th>
+                                    <th>Receiver Hospital</th>
+                                    <th>Blood Type</th>
+                                    <th>Blood Quantity</th>
+                                    <th>Transfer Date</th>
+                                    <th>Description</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php foreach ($bloodUsage as $usage): ?>
+                                    <tr>
+                                        <td><?= htmlspecialchars($usage['senderHospitalName']) ?></td>
+                                        <td><?= htmlspecialchars($usage['receiverHospitalName']) ?></td>
+                                        <td><?= htmlspecialchars($usage['bloodType']) ?></td>
+                                        <td><?= htmlspecialchars($usage['bloodQuantity']) ?></td>
+                                        <td><?= htmlspecialchars($usage['transferDate']) ?></td>
+                                        <td><?= htmlspecialchars($usage['description']) ?></td>
+                                    </tr>
+                                <?php endforeach; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                        <a href="Download.php?download=html" class="btn btn-success mt-3">
+                            <i class="fas fa-download me-2"></i>Download Report
+                        </a>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="alert alert-warning" role="alert">
+                    No data available for the selected date range.
                 </div>
             <?php endif; ?>
         </div>
     </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
+    // Prevent form resubmission on page reload
     if (window.history.replaceState) {
         window.history.replaceState(null, null, window.location.href);
     }
@@ -181,4 +166,3 @@ function generateHTMLDownload($data) {
 
 </body>
 </html>
-
