@@ -24,7 +24,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="fullName" class="fw-bold">Full Name</label>
+                            <label for="fullName"  class="fw-bold">Full Name</label>
                             <div class="profile-text"><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></div>
                         </div>
                         <div class="form-group">
