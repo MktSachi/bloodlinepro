@@ -160,8 +160,9 @@ $db->close();
 
                 <form method="post">
                     <div class="mb-3">
-                        <label for="senderHospital" class="form-label">Sender Hospital:</label>
-                        <input type="text" class="form-control" id="senderHospital" value="HP Hospital" disabled>
+                       
+                        <input type="text" class="form-control" id="senderHospital" value="HP Hospital" style="display: none;">
+
                     </div>
                     <div class="mb-3">
                         <label for="receiverHospitalID" class="form-label">Receiver Hospital:</label>

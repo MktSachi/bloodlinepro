@@ -4,7 +4,7 @@ class Database {
     private $host = 'localhost';
     private $user = 'root';
     private $password = '';
-    private $dbname = 'bloodlinepro';
+    private $dbname = 'bloodlinepro_';
 
     public function __construct() {
         $this->conn = new mysqli($this->host, $this->user, $this->password, $this->dbname);

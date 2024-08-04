@@ -3,7 +3,7 @@ require_once($_SERVER['DOCUMENT_ROOT'] . '/bloodlinepro/DonorRegistration/Databa
 
 require '../DonorRegistration/Validator.php';
 require '../DonorRegistration/Donor.php';
-require 'Email.php';
+
 
 class HealthCareProfessional {
     private $db;

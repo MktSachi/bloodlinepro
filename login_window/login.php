@@ -78,7 +78,7 @@
               </div>
             </form>
             <div class="text-center ">
-                <p>or sign up with:</p>
+                                <p>Sign up: <a href="../DonorRegistration/RegisterForm.php">sign up</a></p>
                 <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
                     <i class="fab fa-facebook-f text-dark-red"></i>
                 </button>

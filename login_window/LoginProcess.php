@@ -91,7 +91,7 @@ function redirectBasedOnRole($user_data) {
             break;
         case 'admin':
             if ($user_data['active'] == 3) {
-                header("Location: ../AdminDashboard/index.php");
+                header("Location: ../AdminDashboard/AdminDashboard.php");
             } else {
                 $error_msg = "Account not active. Please contact support.";
             }

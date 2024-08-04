@@ -1,6 +1,6 @@
 <?php
 require '../DonorRegistration/Database.php';
-require '../DonorRegistration/Donor.php';
+// Changed to require_once
 require 'HealthCareProfessional.php';
 
 session_start();

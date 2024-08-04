@@ -1,3 +1,75 @@
+<?php
+session_start();
+require_once('../DonorRegistration/Database.php');
+
+// Initialize database connection
+$db = new Database();
+$conn = $db->getConnection();
+
+// Check if the admin is logged in (this should be part of a login script, not here)
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+
+    // Fetch hashed password from database
+    $sql = "SELECT password FROM users WHERE username = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $username);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $hashed_password_from_db = '';
+
+    if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $hashed_password_from_db = $row['password'];
+        $stmt->close();
+
+        // Verify password
+        if (password_verify($password, $hashed_password_from_db)) {
+            $_SESSION['username'] = $username;
+            header('Location: AdminDashboard.php');
+            exit;
+        } else {
+            echo "Invalid login credentials.";
+        }
+    } else {
+        echo "Username not found.";
+    }
+}
+
+// Ensure user is logged in
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php'); // Redirect to login page if not logged in
+    exit;
+}
+
+// Fetch admin details using the logged-in username
+$username = $_SESSION['username'];
+$sql = "SELECT * FROM admin WHERE username = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param('s', $username);
+$stmt->execute();
+$result = $stmt->get_result();
+
+$adminid = '';
+$full_name = '';
+$email = '';
+
+if ($result->num_rows > 0) {
+    $row = $result->fetch_assoc();
+    $adminid = $row['adminid'];
+    $full_name = $row['full_name'];
+    $email = $row['email'];
+
+    $stmt->close();
+} else {
+    $error_msg = "Error fetching admin information.";
+    $stmt->close();
+}
+
+$db->close();
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
