@@ -129,5 +129,57 @@ class Admin {
 
         return $errors;
     }
+
+    public function fetchHealthcareProfessional($registration_number) {
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM healthcare_professionals WHERE hpRegNo = ?");
+        $stmt->bind_param("s", $registration_number);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $hpData = $result->num_rows > 0 ? $result->fetch_assoc() : null;
+        $stmt->close();
+        $this->db->close();
+        return $hpData;
+    }
+
+    public function updateHealthcareProfessional($data) {
+        $errors = $this->validateInputs($data['registration_number'], $data['position'], $data['nic_number'], $data['phone_number'], $data['email']);
+
+        if (!empty($errors)) {
+            return ['errors' => $errors];
+        }
+
+        $conn = $this->db->getConnection();
+        try {
+            $conn->begin_transaction();
+            $stmt = $conn->prepare("UPDATE healthcare_professionals SET firstname = ?, lastname = ?, email = ?, position = ?, phonenumber = ?, hpnic = ?, hospitalid = ? WHERE hpRegNo = ?");
+            $stmt->bind_param("ssssssis", $data['first_name'], $data['last_name'], $data['email'], $data['position'], $data['phone_number'], $data['nic_number'], $data['hospital'], $data['registration_number']);
+            $stmt->execute();
+            $conn->commit();
+            $stmt->close();
+            return ['success' => "Healthcare professional account updated successfully!"];
+        } catch (Exception $e) {
+            $conn->rollback();
+            return ['error' => "Account update failed: " . $e->getMessage()];
+        } finally {
+            $this->db->close();
+        }
+    }
+
+    public function deleteHealthcareProfessional($registration_number) {
+        $conn = $this->db->getConnection();
+        try {
+            $stmt = $conn->prepare("DELETE FROM healthcare_professionals WHERE hpRegNo = ?");
+            $stmt->bind_param("s", $registration_number);
+            $stmt->execute();
+            $success = $stmt->affected_rows > 0 ? "Healthcare professional account deleted successfully!" : "No data found for the given registration number.";
+            $stmt->close();
+            return ['success' => $success];
+        } catch (Exception $e) {
+            return ['error' => "Account deletion failed: " . $e->getMessage()];
+        } finally {
+            $this->db->close();
+        }
+    }
 }
 ?>
