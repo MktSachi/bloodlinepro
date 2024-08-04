@@ -239,20 +239,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
     </div>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-            var form = document.querySelector('form[name="hp_creation_form"]');
-            var loader = document.getElementById('loader');
-
-            form.addEventListener('submit', function (event) {
-                event.preventDefault(); // Prevent the form from submitting immediately
-                setTimeout(function () {
-                    loader.style.display = 'block';
-                    form.submit(); // Submit the form after showing the loader
-                }, 1000); // Delay of 1000 milliseconds (1 second)
-            });
-        });
-    </script>
+  
 </body>
 
 </html>
