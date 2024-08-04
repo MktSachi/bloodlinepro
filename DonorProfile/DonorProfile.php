@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once('../DonorRegistration/Database.php');
+require_once('../Classes/Database.php');
 
 
 if (!isset($_SESSION['username'])) {

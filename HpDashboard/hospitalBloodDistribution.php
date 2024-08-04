@@ -1,5 +1,5 @@
 <?php
-require '../DonorRegistration/Database.php';
+require '../Classes/Database.php';
 require 'BloodInventory/inventory.php';
 
 $db = new Database();

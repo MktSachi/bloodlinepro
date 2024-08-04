@@ -1,5 +1,5 @@
 <?php
-require_once('../DonorRegistration/Database.php');
+require_once('../Classes/Database.php');
 
 
 class Badge {

@@ -1,5 +1,5 @@
 <?php
-require '../DonorRegistration/Database.php'; 
+require '../Classes/Database.php'; 
 session_start();
 
 if (!isset($_SESSION['hospitalID'])) {

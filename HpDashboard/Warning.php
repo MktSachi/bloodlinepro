@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../DonorRegistration/Database.php';
+require '../Classes/Database.php';
 
 if (!isset($_SESSION['hospitalID'])) {
     die("Hospital ID not set.");

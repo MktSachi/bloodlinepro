@@ -53,7 +53,7 @@
           <a class="nav-link active" href="../login_window/login.php">Sign-In</a>
         </li>
         <!--<li class="nav-item">
-          <a class="nav-link active" href="../DonorRegistration/RegistartionForm.php">Register</a>
+          <a class="nav-link active" href="../Classes/RegistartionForm.php">Register</a>
         </li>-->
       </ul>
     </div>

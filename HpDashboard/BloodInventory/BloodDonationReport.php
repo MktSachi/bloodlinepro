@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../../DonorRegistration/Database.php';
+require '../../Classes/Database.php';
 require 'Inventory.php';
 
 $db = new Database();

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require '../DonorRegistration/Database.php';
-require '../DonorRegistration/Donor.php';
+require '../Classes/Database.php';
+require '../Classes/Donor.php';
 
 $db = new Database();
 $donor = new Donor($db);

@@ -1,9 +1,9 @@
 <?php
 session_start();
 
-require '../../DonorRegistration/Database.php';
-require '../../DonorRegistration/Donor.php';
-require '../../DonorRegistration/Validator.php';
+require '../../Classes/Database.php';
+require '../../Classes/Donor.php';
+require '../../Classes/Validator.php';
 require 'Email.php'; // Assuming Email.php is in the same folder as other classes
 
 $db = new Database();
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Handle file upload if a file was selected
     $file_destination = '';
     if (!empty($_FILES['profile_picture']['name'])) {
-        $upload_dir = '../../DonorRegistration/Upload/'; // Ensure the path is correct
+        $upload_dir = '../../Classes/Upload/'; // Ensure the path is correct
         $allowed_types = array("jpg", "jpeg", "png", "gif");
         $file_name = $_FILES['profile_picture']['name'];
         $file_tmp = $_FILES['profile_picture']['tmp_name'];
@@ -89,7 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $_SESSION['status'] = "Thank you for registering. A confirmation email has been sent to your email address.";
             // Redirect to success page
-            header("Location: ../../DonorRegistration/Success.php");
+            header("Location: ../../Classes/Success.php");
             exit();
         } else {
             $error_msg .= "Error: Registration failed.";

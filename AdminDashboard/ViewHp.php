@@ -1,6 +1,6 @@
 <?php
-require '../DonorRegistration/Database.php';
-require '../DonorRegistration/Validator.php';
+require '../Classes/Database.php';
+require '../Classes/Validator.php';
 
 function getHospitals()
 {
@@ -150,6 +150,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             left: 50%;
             transform: translate(-50%, -50%);
         }
+        #loader {
+            display: none;
+            /* Add your loader styles here */
+        }
     </style>
 </head>
 
@@ -236,12 +240,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('DOMContentLoaded', function () {
             var form = document.querySelector('form[name="hp_creation_form"]');
             var loader = document.getElementById('loader');
 
-            form.addEventListener('submit', function () {
-                loader.style.display = 'block';
+            form.addEventListener('submit', function (event) {
+                event.preventDefault(); // Prevent the form from submitting immediately
+                setTimeout(function () {
+                    loader.style.display = 'block';
+                    form.submit(); // Submit the form after showing the loader
+                }, 1000); // Delay of 1000 milliseconds (1 second)
             });
         });
     </script>

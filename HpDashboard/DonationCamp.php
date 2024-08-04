@@ -1,5 +1,5 @@
 <?php
-require '../DonorRegistration/Database.php';
+require '../Classes/Database.php';
 // Changed to require_once
 require 'HealthCareProfessional.php';
 

@@ -5,9 +5,9 @@ $error_msg = "";
 $success_msg = "";
 
 // Include classes
-require 'Database.php';
-require 'Donor.php';
-require 'Validator.php';
+require '../Classes/Database.php';
+require '../Classes/Donor.php';
+require '../Classes/Validator.php';
 require 'Email.php';
 
 $db = new Database();

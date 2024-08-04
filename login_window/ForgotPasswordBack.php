@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../DonorRegistration/Database.php'; 
+require '../Classes/Database.php'; 
 require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';

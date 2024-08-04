@@ -1,8 +1,8 @@
 <?php
-require_once($_SERVER['DOCUMENT_ROOT'] . '/bloodlinepro/DonorRegistration/Database.php');
+require_once($_SERVER['DOCUMENT_ROOT'] . '/bloodlinepro/Classes/Database.php');
 
-require '../DonorRegistration/Validator.php';
-require '../DonorRegistration/Donor.php';
+require '../Classes/Validator.php';
+require '../Classes/Donor.php';
 
 
 class HealthCareProfessional {

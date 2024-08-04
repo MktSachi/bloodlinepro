@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../../DonorRegistration/Database.php';
+require '../../Classes/Database.php';
 require 'Inventory.php';
 
 if (isset($_GET['download']) && $_GET['download'] === 'html') {

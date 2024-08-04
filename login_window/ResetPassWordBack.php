@@ -1,6 +1,6 @@
 <?php
 session_start();
-require '../DonorRegistration/Database.php'; // Adjust the path as per your file structure
+require '../Classes/Database.php'; // Adjust the path as per your file structure
 
 $db = new Database(); // Create an instance of Database
 
