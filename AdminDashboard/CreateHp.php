@@ -1,125 +1,17 @@
 <?php
-require '../DonorRegistration/Database.php';
-require 'CreateHpEmail.php';
-require '../DonorRegistration/Validator.php';
+require '../Classes/admin.php';
 
-function generateRandomPassword($length = 8) {
-    $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    $charactersLength = strlen($characters);
-    $randomPassword = '';
-    for ($i = 0; $i < $length; $i++) {
-        $randomPassword .= $characters[rand(0, $charactersLength - 1)];
-    }
-    return $randomPassword;
-}
-
-function getHospitals() {
-    $db = new Database();
-    $conn = $db->getConnection();
-
-    $sql = "SELECT hospitalID, hospitalName FROM hospitals";
-    $result = $conn->query($sql);
-
-    $hospitals = [];
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
-            $hospitals[$row['hospitalID']] = $row['hospitalName'];
-        }
-    }
-
-    $db->close();
-    return $hospitals;
-}
-
-$validator = new Validator();
+$admin = new Admin();
 $errors = [];
 $success_message = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $db = new Database();
-    $conn = $db->getConnection();
-
-    $username = $validator->sanitizeInput($_POST['username']);
-    $roleID = 'hp';
-    $active = 2;
-
-    $registration_number = $validator->sanitizeInput($_POST['registration_number']);
-    $first_name = $validator->sanitizeInput($_POST['first_name']);
-    $last_name = $validator->sanitizeInput($_POST['last_name']);
-    $email = filter_var($_POST['email'], FILTER_VALIDATE_EMAIL);
-    $position = $validator->sanitizeInput($_POST['position']);
-    $phone_number = $validator->sanitizeInput($_POST['phone_number']);
-    $nic_number = $validator->sanitizeInput($_POST['nic_number']);
-    $hospital_id = filter_var($_POST['hospital'], FILTER_VALIDATE_INT);
-
-    // Validate registration number and position match
-    $position_prefix = [
-        'ho' => 'HO',
-        'mho' => 'MHO',
-        'sho' => 'SHO'
-    ];
-    
-    if (!preg_match('/^(' . $position_prefix[$position] . ')\d{5}$/', $registration_number)) {
-        $errors[] = "Invalid registration number";
+    $result = $admin->createHealthcareProfessional($_POST);
+    if (isset($result['errors'])) {
+        $errors = $result['errors'];
+    } elseif (isset($result['success'])) {
+        $success_message = $result['success'];
     }
-
-    // Validate NIC number
-    if (!$validator->validateNIC($nic_number)) {
-        $errors[] = "Invalid NIC number.";
-    }
-
-    // Validate phone number
-    if (!preg_match('/^\d{10}$/', $phone_number)) {
-        $errors[] = "Invalid phone number.";
-    }
-
-    // Validate email
-    if (!$email) {
-        $errors[] = "Invalid email address.";
-    }
-
-    if (empty($errors)) {
-        try {
-            $conn->begin_transaction();
-
-            $password = generateRandomPassword();
-            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
-            $stmtUser = $conn->prepare("INSERT INTO users (username, password, roleID, createdate, modifieddate, active) VALUES (?, ?, ?, NOW(), NOW(), ?)");
-            $stmtUser->bind_param("sssi", $username, $hashed_password, $roleID, $active);
-            $stmtUser->execute();
-
-            $userid = $conn->insert_id;
-
-            $stmtHp = $conn->prepare("INSERT INTO healthcare_professionals (hpRegNo, userid, firstname, lastname, email, position, phonenumber, hpnic, hospitalid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            $stmtHp->bind_param("ssssssssi", $registration_number, $userid, $first_name, $last_name, $email, $position, $phone_number, $nic_number, $hospital_id);
-            $stmtHp->execute();
-
-            $conn->commit();
-
-            $success_message = "Account created successfully!<br>Here are the details:<br><br>";
-            $success_message .= "First Name: " . htmlspecialchars($first_name) . "<br>";
-            $success_message .= "Last Name: " . htmlspecialchars($last_name) . "<br>";
-            $success_message .= "User Name: " . htmlspecialchars($username) . "<br>";
-            $success_message .= "Email: " . htmlspecialchars($email) . "<br>";
-            $success_message .= "Position: " . htmlspecialchars($position) . "<br>";
-            $success_message .= "Registration Number: " . htmlspecialchars($registration_number) . "<br>";
-            $success_message .= "NIC Number: " . htmlspecialchars($nic_number) . "<br>";
-            $success_message .= "Hospital: " . htmlspecialchars(getHospitals()[$hospital_id]) . "<br>";
-            $success_message .= "Contact Number: " . htmlspecialchars($phone_number) . "<br><br>";
-
-            $emailSender = new EmailSender();
-            $emailSender->sendConfirmationEmail($email, $first_name, $username, $password);
-
-            $stmtUser->close();
-            $stmtHp->close();
-        } catch (Exception $e) {
-            $conn->rollback();
-            $errors[] = "Account creation failed: " . $e->getMessage();
-        }
-    }
-
-    $db->close();
 }
 ?>
 
@@ -199,34 +91,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <input type="text" class="form-control" id="registration_number" name="registration_number" required>
                 </div>
                 <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" class="form-control" id="email" name="email" required>
-                </div>
-                <div class="form-group">
                     <label for="nic_number">NIC Number</label>
                     <input type="text" class="form-control" id="nic_number" name="nic_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="text" class="form-control" id="phone_number" name="phone_number" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
                 </div>
                 <div class="form-group">
                     <label for="hospital">Hospital</label>
                     <select class="form-control" id="hospital" name="hospital" required>
                         <option value="">Select Hospital</option>
                         <?php
-                        $hospitals = getHospitals();
-                        foreach ($hospitals as $hospitalID => $hospitalName) {
-                            echo '<option value="' . htmlspecialchars($hospitalID) . '">' . htmlspecialchars($hospitalName) . '</option>';
+                        $hospitals = $admin->getHospitals();
+                        foreach ($hospitals as $id => $name) {
+                            echo "<option value=\"$id\">$name</option>";
                         }
                         ?>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label for="phone_number">Contact Number</label>
-                    <input type="text" class="form-control" id="phone_number" name="phone_number" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Create Account</button>
             </form>
         <?php endif; ?>
     </div>
-
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var form = document.querySelector('form[name="hp_creation_form"]');
@@ -237,5 +128,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             });
         });
     </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
