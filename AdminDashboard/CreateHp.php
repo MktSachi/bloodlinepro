@@ -1,5 +1,5 @@
 <?php
-require '../Classes/admin.php';
+require '../Classes/Admin.php';
 
 $admin = new Admin();
 $errors = [];

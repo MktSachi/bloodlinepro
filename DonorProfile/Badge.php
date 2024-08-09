@@ -51,9 +51,9 @@ class Badge {
 
     public static function getAllBadges() {
         return [
-            new Badge('Silver', 5, 'Image/Silver.png', 'Image/locked-badge.png', 'linear-gradient(135deg, #B7B7B7, #E8E8E8)'),
-            new Badge('Gold', 10, 'Image/Gold.png', 'Image/locked-badge.png', 'linear-gradient(135deg, #FFD700, #FFA500)'),
-            new Badge('Platinum', 15, 'Image/Platinum.png', 'Image/locked-badge.png', 'linear-gradient(135deg, #E5E4E2, #A9A9A9)')
+            new Badge('Silver', 5, 'Image/Silver.png', 'Image/Animation - 1720863479825.gif', 'linear-gradient(135deg, #B7B7B7, #E8E8E8)'),
+            new Badge('Gold', 10, 'Image/Gold.png', 'Image/Animation - 1720863479825.gif', 'linear-gradient(135deg, #FFD700, #FFA500)'),
+            new Badge('Platinum', 15, 'Image/Platinum.png', 'Image/Animation - 1720863479825.gif', 'linear-gradient(135deg, #E5E4E2, #A9A9A9)')
         ];
     }
 }

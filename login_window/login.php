@@ -39,6 +39,7 @@
   </style>
 </head>
 <body>
+
 <section class="login-section">
   <div class="container">
     <div class="row justify-content-center">
@@ -78,7 +79,7 @@
               </div>
             </form>
             <div class="text-center ">
-                                <p>Sign up: <a href="../Classes/RegisterForm.php">sign up</a></p>
+                                <p>Sign up: <a href="../DonorRegistration/RegisterForm.php">sign up</a></p>
                 <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
                     <i class="fab fa-facebook-f text-dark-red"></i>
                 </button>
@@ -91,9 +92,7 @@
                     <i class="fab fa-twitter text-dark-red"></i>
                 </button>
             
-                <button type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-link btn-floating mx-1">
-                    <i class="fab fa-github text-dark-red"></i>
-                </button>
+               
             </div>
         </div>
       </div>

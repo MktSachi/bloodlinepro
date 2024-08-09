@@ -76,23 +76,15 @@ class Admin {
 
                 $conn->commit();
 
-                $success_message = "Account created successfully!<br>Here are the details:<br><br>";
-                $success_message .= "First Name: " . htmlspecialchars($first_name) . "<br>";
-                $success_message .= "Last Name: " . htmlspecialchars($last_name) . "<br>";
-                $success_message .= "User Name: " . htmlspecialchars($username) . "<br>";
-                $success_message .= "Email: " . htmlspecialchars($email) . "<br>";
-                $success_message .= "Position: " . htmlspecialchars($position) . "<br>";
-                $success_message .= "Registration Number: " . htmlspecialchars($registration_number) . "<br>";
-                $success_message .= "NIC Number: " . htmlspecialchars($nic_number) . "<br>";
-                $success_message .= "Hospital: " . htmlspecialchars($this->getHospitals()[$hospital_id]) . "<br>";
-                $success_message .= "Contact Number: " . htmlspecialchars($phone_number) . "<br><br>";
+                
 
                 $this->emailSender->sendConfirmationEmail($email, $first_name, $username, $password);
 
                 $stmtUser->close();
                 $stmtHp->close();
 
-                return ['success' => $success_message];
+                header("Location: ../HpDashboard/CreateDonor/Success.php");
+            exit();
             } catch (Exception $e) {
                 $conn->rollback();
                 return ['error' => "Account creation failed: " . $e->getMessage()];

@@ -84,14 +84,14 @@ function redirectBasedOnRole($user_data) {
             break;
         case 'hp':
             if ($user_data['active'] == 2) {
-                header("Location: ../HpDashboard/Profile.php");
+                header("Location: ../HpDashboard/Home.php");
             } else {
                 $error_msg = "Account not active. Please contact support.";
             }
             break;
         case 'admin':
             if ($user_data['active'] == 3) {
-                header("Location: ../AdminDashboard/AdminDashboard.php");
+                header("Location: ../AdminDashboard/Home.php");
             } else {
                 $error_msg = "Account not active. Please contact support.";
             }
