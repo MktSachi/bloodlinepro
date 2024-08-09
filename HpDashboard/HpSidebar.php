@@ -19,7 +19,7 @@
     <div class="sidebar-header">
         <img src="images/avatar.png" class="profile-pic">
         <div style="font-size: 18px;">
-            <strong>person name</strong>
+            <strong>Mandira Perera</strong>
         </div>
     </div>
  

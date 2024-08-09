@@ -8,7 +8,7 @@ require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 
 class EmailSender {
-    public function sendConfirmationEmail($email, $firstName, $username, $password) {
+    public function sendConfirmationEmail($email, $firstName, $hpRegNo, $password) {
         $mail = new PHPMailer(true); // Passing `true` enables exceptions
 
         try {
@@ -76,7 +76,7 @@ class EmailSender {
                     <h1>Welcome to BloodlinePro!</h1>
                     <p>Dear '.$firstName.',</p>
                     <p>Thank you for registering with BloodlinePro.</p>
-                    <p>Your username is: <strong>'.$username.'</strong></p>
+                    <p>Your username : <strong>'.$hpRegNo.'</strong></p>
                     <p><strong>Your Password:</strong> <strong>'.$password.'</strong></p>
                     <p>Please keep this information secure. You can now log in to your account.</p>
                     <p>We are excited to have you onboard!</p>

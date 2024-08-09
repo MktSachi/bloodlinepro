@@ -139,9 +139,9 @@ $db->close();
                         <td><?= $type ?></td>
                         <td><?= $count ?></td>
                         <td>
-                          <?php if ($count > 100): ?>
+                          <?php if ($count > 300): ?>
                             <span class="badge bg-success">Sufficient</span>
-                          <?php elseif ($count > 50): ?>
+                          <?php elseif ($count > 150): ?>
                             <span class="badge bg-warning">Moderate</span>
                           <?php else: ?>
                             <span class="badge bg-danger">Low</span>

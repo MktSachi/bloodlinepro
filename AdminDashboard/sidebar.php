@@ -15,9 +15,9 @@
 
     <nav class="sidebar" id="mySidebar">
         <div class="sidebar-header">
-            <img src="images/avatar.png" class="profile-pic">
+            <img src="../HpDashboard/images/avatar.png" class="profile-pic">
             <div style="font-size: 18px;">
-                <strong>person name</strong>
+                <strong>Admin</strong>
             </div>
         </div>
 

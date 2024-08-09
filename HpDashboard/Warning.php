@@ -14,7 +14,7 @@ $conn = $db->getConnection();
 $lowStockBloodTypes = [];
 
 $queryLowStock = "SELECT bloodType, quantity FROM hospital_blood_inventory 
-                  WHERE hospitalID = ? AND quantity < 11";
+                  WHERE hospitalID = ? AND quantity < 10";
 $stmt = $conn->prepare($queryLowStock);
 $stmt->bind_param("i", $hospitalID);
 $stmt->execute();

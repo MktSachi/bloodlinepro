@@ -302,7 +302,7 @@
 
             <div class="card blood-banks-map">
                 <h2>Our Head Office</h2>
-                <div id="map" class="map-container"><img src="Image/map.jpg" alt="Head office location"
+                <div id="map" class="map-container"><img src="Image/map.jpeg" alt="Head office location"
                         style="width:100%;height:100%;"></div>
             </div>
         </div>

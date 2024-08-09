@@ -59,7 +59,7 @@
       <i class="fas fa-check-circle"></i>
     </div>
     <div class="message">Success!</div>
-    <div class="sub-message">Donor registration successfully!</div>
+    <div class="sub-message">Registration successfully!</div>
   
   </div>
 </div>
