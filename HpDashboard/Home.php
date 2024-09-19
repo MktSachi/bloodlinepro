@@ -69,117 +69,145 @@ $db->close();
 
   <style>
     body {
-      background-color: #f0f2f5;
-      font-family: 'Roboto', sans-serif;
-    }
-    .dashboard-container {
-      padding: 30px;
-    }
+  background-color: #f0f4f8;
+  font-family: 'Roboto', sans-serif;
+  color: #2c3e50;
+}
 
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      color: #34495e;
-    }
-    h3 {
-      font-weight: 700;
-      font-size: 28px; 
-      color: #2c3e50;
-      margin-bottom: 30px;
-    }
-    .card {
-      border-radius: 10px;
-      border: none;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
-      transition: all 0.3s ease;
-    }
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-    }
-    .card-body {
-      padding: 25px;
-    }
-    .card-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      color: #34495e;
-    }
-    .small-chart {
-      max-width: 100%;
-      margin: 0 auto;
-    }
-    .blue-dot {
-      color: #3498db;
-      font-size: 20px;
-      margin-right: 10px;
-    }
-    .organ-icon {
-      width: 70px;
-      height: 70px;
-      background-color: #ecf0f1;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 24px;
-      color: #2c3e50;
-      transition: all 0.3s ease;
-    }
-    .organ-icon:hover {
-      background-color: #3498db;
-      color: white;
-    }
- 
-    .small-chart {
-      max-width: 100%;
-      margin: 0 auto;
-    }
-    .icon-circle {
-      width: 50px;
-      height: 50px;
-      background-color: #e74c3c;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 24px;
-      margin-bottom: 15px;
-    }
-    .stat-card {
-      background-color: #fff;
-      border-radius: 10px;
-      padding: 20px;
-      text-align: center;
-      transition: all 0.3s ease;
-    }
-    .stat-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.1);
-    }
-    .stat-value {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #2c3e50;
-    }
-    .stat-label {
-      font-size: 0.9rem;
-      color: #7f8c8d;
-      margin-top: 5px;
-    }
+.dashboard-container {
+  padding: 30px;
+}
 
-    .bg-light-red {
-        background-color: #f8d7da; /* Light Red */
-    }
-    .text-dark {
-        color: #343a40; /* Dark text */
-    }
+h3 {
+  font-weight: 700;
+  font-size: 32px;
+  color: #2c3e50;
+  margin-bottom: 30px;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
 
-    @media (max-width: 768px) {
+.card {
+  border-radius: 15px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.card-body {
+  padding: 25px;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: #34495e;
+  border-bottom: 2px solid #3498db;
+  padding-bottom: 10px;
+}
+
+.blue-dot {
+  color: #3498db;
+  font-size: 24px;
+  margin-right: 10px;
+}
+
+.organ-icon {
+  width: 80px;
+  height: 80px;
+  background-color: #ecf0f1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  color: #2c3e50;
+  transition: all 0.3s ease;
+  margin: 0 10px;
+}
+
+.organ-icon:hover {
+  background-color: #3498db;
+  color: white;
+  transform: scale(1.1);
+}
+
+.bg-light-red {
+  background-color: #fde8e8;
+  border-left: 5px solid #e74c3c;
+}
+
+.text-dark {
+  color: #2c3e50;
+}
+
+.stat-card {
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+  transition: all 0.3s ease;
+  height: 100%;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.stat-value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.stat-label {
+  font-size: 1rem;
+  color: #7f8c8d;
+  margin-top: 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.icon-circle {
+  width: 60px;
+  height: 60px;
+  background-color: #e74c3c;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 28px;
+  margin: 0 auto 20px;
+  transition: all 0.3s ease;
+}
+
+.stat-card:hover .icon-circle {
+  transform: scale(1.1);
+}
+
+.text-success, .text-danger {
+  font-weight: 600;
+}
+
+.small-chart {
+  max-width: 100%;
+  margin: 0 auto;
+  height: 250px;
+}
+
+@media (max-width: 768px) {
   .dashboard-container {
     padding: 15px;
   }
@@ -189,40 +217,48 @@ $db->close();
     margin-right: -10px;
   }
 
-  .col-md-3 {
+  .col-md-3, .col-md-4 {
     padding-left: 10px;
     padding-right: 10px;
     margin-bottom: 20px;
   }
 
   .stat-card {
-    padding: 15px;
+    padding: 20px;
   }
 
   .stat-value {
-    font-size: 1.5rem;
+    font-size: 2rem;
   }
 
   .stat-label {
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
 
   .icon-circle {
-    width: 40px;
-    height: 40px;
-    font-size: 18px;
+    width: 50px;
+    height: 50px;
+    font-size: 24px;
+  }
+
+  .organ-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 24px;
   }
 }
 
 @media (max-width: 576px) {
-  .col-md-3 {
-    width: 50%;
-  }
-}
-
-@media (max-width: 400px) {
-  .col-md-3 {
+  .col-md-3, .col-md-4 {
     width: 100%;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  .card-title {
+    font-size: 1.1rem;
   }
 }
 
