@@ -15,7 +15,7 @@
     <?php include './HpSidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
-    <div class="w3-main" style="margin-left:200px;margin-top:43px;">
+    <div class="w3-main" style="margin-left:230px;margin-top:0px;">
         
         <div class="container">
                        <h3><i class="fa fa-user" style="margin-right: 5px;"></i><strong>Donor Account</strong></h3>
@@ -35,5 +35,8 @@
         </div>
     
     </div>
+    <div class="footer">
+    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+</div>
 </body>
 </html>

@@ -13,7 +13,7 @@
       background-color: #f0f2f5;
     }
     .dashboard-container {
-      padding: 30px;
+      padding: 50px;
     }
     h3 {
       font-weight: 700;

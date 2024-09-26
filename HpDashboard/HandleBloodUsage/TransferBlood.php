@@ -1,26 +1,17 @@
 <?php
 session_start();
 require '../../Classes/Database.php';
+require '../BloodInventory/Inventory.php';
 
 $db = new Database();
 $conn = $db->getConnection();
+$inventory = new Inventory($conn);
 
-$hospitals = [];
-
-// Fetch hospitals data from the database
-$query = "SELECT hospitalID, hospitalName FROM hospitals";
-$result = $conn->query($query);
-if ($result->num_rows > 0) {
-    while ($row = $result->fetch_assoc()) {
-        $hospitals[] = $row;
-    }
-}
-$result->free();
+$hospitals = $inventory->getHospitals();
 
 $error = '';
 $submissionSuccess = false;
 
-// Assume the HP's hospital ID is stored in the session
 if (isset($_SESSION['hospitalID'])) {
     $hpHospitalID = $_SESSION['hospitalID'];
 } else {
@@ -34,64 +25,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'],
     $bloodQuantity = $_POST['bloodQuantity'];
     $description = $_POST['description'];
 
-    // Validate input
-    if ($senderHospitalID == $receiverHospitalID) {
-        $error = 'Sender and receiver hospitals cannot be the same.';
+    $resultMessage = $inventory->transferBlood($senderHospitalID, $receiverHospitalID, $bloodType, $bloodQuantity, $description);
+    if (strpos($resultMessage, 'successful') !== false) {
+        $submissionSuccess = true;
     } else {
-        // Begin transaction
-        $conn->begin_transaction();
-        try {
-            // Update sender hospital blood inventory
-            $updateSenderInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity - ? WHERE hospitalID = ? AND bloodType = ?";
-            $updateSenderInventoryStmt = $conn->prepare($updateSenderInventoryQuery);
-            $updateSenderInventoryStmt->bind_param('iis', $bloodQuantity, $senderHospitalID, $bloodType);
-            $updateSenderInventoryStmt->execute();
-
-            if ($updateSenderInventoryStmt->affected_rows === 0) {
-                throw new Exception('Sender hospital does not have the specified blood type in inventory or insufficient quantity.');
-            }
-            $updateSenderInventoryStmt->close();
-
-            // Update receiver hospital blood inventory
-            $selectReceiverInventoryQuery = "SELECT * FROM hospital_blood_inventory WHERE hospitalID = ? AND bloodType = ?";
-            $selectReceiverInventoryStmt = $conn->prepare($selectReceiverInventoryQuery);
-            $selectReceiverInventoryStmt->bind_param('is', $receiverHospitalID, $bloodType);
-            $selectReceiverInventoryStmt->execute();
-            $resultReceiver = $selectReceiverInventoryStmt->get_result();
-
-            if ($resultReceiver->num_rows > 0) {
-                $updateReceiverInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity + ? WHERE hospitalID = ? AND bloodType = ?";
-                $updateReceiverInventoryStmt = $conn->prepare($updateReceiverInventoryQuery);
-                $updateReceiverInventoryStmt->bind_param('iis', $bloodQuantity, $receiverHospitalID, $bloodType);
-            } else {
-                $updateReceiverInventoryQuery = "INSERT INTO hospital_blood_inventory (hospitalID, bloodType, quantity) VALUES (?, ?, ?)";
-                $updateReceiverInventoryStmt = $conn->prepare($updateReceiverInventoryQuery);
-                $updateReceiverInventoryStmt->bind_param('isi', $receiverHospitalID, $bloodType, $bloodQuantity);
-            }
-
-            $updateReceiverInventoryStmt->execute();
-            $updateReceiverInventoryStmt->close();
-            $selectReceiverInventoryStmt->close();
-
-            // Insert record into blood_usage table
-            $insertBloodUsageQuery = "INSERT INTO blood_usage (senderHospitalID, receiverHospitalID, bloodType, bloodQuantity, description) VALUES (?, ?, ?, ?, ?)";
-            $insertBloodUsageStmt = $conn->prepare($insertBloodUsageQuery);
-            $insertBloodUsageStmt->bind_param('iisis', $senderHospitalID, $receiverHospitalID, $bloodType, $bloodQuantity, $description);
-            $insertBloodUsageStmt->execute();
-            $insertBloodUsageStmt->close();
-
-            $submissionSuccess = true;
-            // Commit transaction
-            $conn->commit();
-        } catch (Exception $e) {
-            $error = 'An error occurred during the blood transfer process: ' . $e->getMessage();
-            // Rollback transaction
-            $conn->rollback();
-        }
+        $error = $resultMessage;
     }
 }
-
-$db->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -205,3 +145,7 @@ $db->close();
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
+
+
+

@@ -15,8 +15,8 @@
     <?php include 'HpSidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
-    <div class="w3-main" style="margin-left:200px;margin-top:43px;">
-        
+    
+    <div class="w3-main" style="margin-left:230px;margin-top:0px;">
         <div class="container">
             <h3><strong>Blood Request</strong></h3>
             
@@ -26,7 +26,7 @@
                     <i class="fa fa-plus" style="margin-right: 5px;"></i>Request Blood
                 </a>
                 
-                <a href="" target="contentFrame" class="btn btn-info">
+                <a href="ViewRequests.php" target="contentFrame" class="btn btn-info">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>View Blood Request
                 </a>
             </div>
@@ -36,5 +36,8 @@
         </div>
     
     </div>
+    <div class="footer">
+    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+</div>
 </body>
 </html>

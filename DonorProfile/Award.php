@@ -19,7 +19,7 @@ include 'DonorProfile.php';
 
     <div class="main-content">
         <div class="container">
-            <h1 class="text-center mb-4 animate__animated animate__fadeInDown">Your Donor Achievements</h1>
+            <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Your Donor Achievements</h2>
 
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php
