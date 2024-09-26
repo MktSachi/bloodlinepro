@@ -1,7 +1,7 @@
 <?php
-require '../Classes/Database.php';
-require '../Classes/Validator.php';
-require 'CreateHpEmail.php';
+include_once 'Database.php';
+include_once 'Validator.php';
+include_once 'CreatehpEmail.php';
 
 class Admin {
     private $db;

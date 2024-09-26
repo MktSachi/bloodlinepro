@@ -17,7 +17,7 @@
         <div class="container">
             <div class="profile-header">
                 <h2 class="text-center mb-4">Donor Profile</h2>
-                <p class="text-center text-muted">Welcome back, <?php echo htmlspecialchars($firstName . ' ' . $lastName); ?>!</p>
+                <p class="text-center text-muted"></p>
             </div>
 
             <div class="profile-section">

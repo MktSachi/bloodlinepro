@@ -322,5 +322,104 @@ class Inventory {
         exit;
     }
     
+    public function getHospitals() {
+        $hospitals = [];
+        $query = "SELECT hospitalID, hospitalName FROM hospitals";
+        $result = $this->conn->query($query);
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $hospitals[] = $row;
+            }
+        }
+        $result->free();
+        return $hospitals;
+    }
+
+    public function transferBlood($senderHospitalID, $receiverHospitalID, $bloodType, $bloodQuantity, $description) {
+        if ($senderHospitalID == $receiverHospitalID) {
+            return 'Sender and receiver hospitals cannot be the same.';
+        }
+
+        $conn = $this->conn;
+        $conn->begin_transaction();
+
+        try {
+            // Update sender hospital blood inventory
+            $updateSenderInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity - ? WHERE hospitalID = ? AND bloodType = ?";
+            $updateSenderInventoryStmt = $conn->prepare($updateSenderInventoryQuery);
+            $updateSenderInventoryStmt->bind_param('iis', $bloodQuantity, $senderHospitalID, $bloodType);
+            $updateSenderInventoryStmt->execute();
+
+            if ($updateSenderInventoryStmt->affected_rows === 0) {
+                throw new Exception('Sender hospital does not have the specified blood type in inventory or insufficient quantity.');
+            }
+            $updateSenderInventoryStmt->close();
+
+            // Check receiver hospital blood inventory
+            $selectReceiverInventoryQuery = "SELECT * FROM hospital_blood_inventory WHERE hospitalID = ? AND bloodType = ?";
+            $selectReceiverInventoryStmt = $conn->prepare($selectReceiverInventoryQuery);
+            $selectReceiverInventoryStmt->bind_param('is', $receiverHospitalID, $bloodType);
+            $selectReceiverInventoryStmt->execute();
+            $resultReceiver = $selectReceiverInventoryStmt->get_result();
+
+            if ($resultReceiver->num_rows > 0) {
+                // Update receiver hospital blood inventory
+                $updateReceiverInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity + ? WHERE hospitalID = ? AND bloodType = ?";
+                $updateReceiverInventoryStmt = $conn->prepare($updateReceiverInventoryQuery);
+                $updateReceiverInventoryStmt->bind_param('iis', $bloodQuantity, $receiverHospitalID, $bloodType);
+            } else {
+                // Insert new record for receiver hospital
+                $insertReceiverInventoryQuery = "INSERT INTO hospital_blood_inventory (hospitalID, bloodType, quantity) VALUES (?, ?, ?)";
+                $updateReceiverInventoryStmt = $conn->prepare($insertReceiverInventoryQuery);
+                $updateReceiverInventoryStmt->bind_param('isi', $receiverHospitalID, $bloodType, $bloodQuantity);
+            }
+
+            $updateReceiverInventoryStmt->execute();
+            $updateReceiverInventoryStmt->close();
+            $selectReceiverInventoryStmt->close();
+
+            // Log the transfer
+            $insertBloodUsageQuery = "INSERT INTO blood_usage (senderHospitalID, receiverHospitalID, bloodType, bloodquantity, description, transferDate) VALUES (?, ?, ?, ?, ?, NOW())";
+            $insertBloodUsageStmt = $conn->prepare($insertBloodUsageQuery);
+            $insertBloodUsageStmt->bind_param('iisis', $senderHospitalID, $receiverHospitalID, $bloodType, $bloodQuantity, $description);
+            $insertBloodUsageStmt->execute();
+            $insertBloodUsageStmt->close();
+
+            // Commit transaction
+            $conn->commit();
+            return 'Blood transfer was successful!';
+        } catch (Exception $e) {
+            // Rollback transaction
+            $conn->rollback();
+            return 'Error: ' . $e->getMessage();
+        }
+    }
+
+    public function getAvailableBloodGroups($hospitalID) {
+        $bloodGroups = [];
+    
+        $query = "
+            SELECT bloodType 
+            FROM hospital_blood_inventory 
+            WHERE hospitalID = ? AND quantity > 0
+        ";
+    
+        if ($stmt = $this->conn->prepare($query)) {
+            $stmt->bind_param('i', $hospitalID);
+            $stmt->execute();
+            $result = $stmt->get_result();
+    
+            while ($row = $result->fetch_assoc()) {
+                $bloodGroups[] = $row['bloodType'];
+            }
+    
+            $stmt->close();
+        } else {
+            die('Database query failed: ' . $this->conn->error);
+        }
+    
+        return $bloodGroups;
+    }
+    
 }
 ?>

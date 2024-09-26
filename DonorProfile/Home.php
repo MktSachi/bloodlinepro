@@ -271,10 +271,11 @@
 
 <body>
     <?php include 'sidebar.php'; ?>
-
-    <div class="main-content">
+    
+   
+    <div class="main-content"style="margin-left:230px;margin-top:0px;" >
         <header>
-            <h1>Welcome, <?php echo htmlspecialchars($firstName); ?>!</h1>
+            <h1>Welcome, <?php echo htmlspecialchars($lastName); ?>!</h1>
             <p>Your next donation date: <strong>15th August 2024</strong></p>
         </header>
 
@@ -302,10 +303,11 @@
 
             <div class="card blood-banks-map">
                 <h2>Our Head Office</h2>
-                <div id="map" class="map-container"><img src="Image/map.jpeg" alt="Head office location"
+                <div id="map" class="map-container"><img src="Image/WhatsApp Image 2024-08-04 at 19.44.40.jpeg" alt="Head office location"
                         style="width:100%;height:100%;"></div>
             </div>
         </div>
+    </div>
     </div>
     <div class="footer">
         @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM

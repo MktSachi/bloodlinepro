@@ -20,7 +20,8 @@ if (!isset($_SESSION['username']) && isset($_COOKIE['remember_me'])) {
             $_SESSION['roleID'] = $user_data['roleID'];
             $_SESSION['active'] = $user_data['active'];
             
-            if (isset($user_data['hospitalID'])) {
+            // Set hospitalID for HP role
+            if ($user_data['roleID'] === 'hp' && isset($user_data['hospitalID'])) {
                 $_SESSION['hospitalID'] = $user_data['hospitalID'];
             }
             
@@ -42,7 +43,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['roleID'] = $user_data['roleID'];
             $_SESSION['active'] = $user_data['active'];
 
-            if (isset($user_data['hospitalID'])) {
+            // Set hospitalID for HP role
+            if ($user_data['roleID'] === 'hp' && isset($user_data['hospitalID'])) {
                 $_SESSION['hospitalID'] = $user_data['hospitalID'];
             }
 
