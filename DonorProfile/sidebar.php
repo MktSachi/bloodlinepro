@@ -206,13 +206,13 @@
             <i class="bx bx-home-alt"></i> Home
         </a>
         <a href="Award.php" class="nav-item" id="award-link">
-            <i class="fas fa-trophy"></i> Awards
+                       <i class="bx bx-award"></i> Awards
         </a>
         <a href="SettingProfile.php" class="nav-item" id="profile-link">
             <i class="bx bx-cog"></i> Profile
         </a>
         <a href="Contact.php" class="nav-item" id="contact-link">
-            <i class="fas fa-envelope"></i> Contact
+                       <i class="bx bx-envelope"></i> Contact
         </a>
         <div class="nav-item dropdown">
             <a href="#" class="nav-link dropdown-toggle no-underline" id="notification-link">
