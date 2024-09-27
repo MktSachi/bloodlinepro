@@ -26,7 +26,7 @@
             <i class="bx bx-home-alt"></i> Home
         </a>
         <a href="AdminDashboard.php" class="nav-item" id="dashboard-link">
-            <i class="fas fa-tachometer-alt"></i> Dashboard
+          <i class="bx bx-bar-chart"></i> Dashboard
         </a>
         <a href="Profile.php" class="nav-item" id="profile-link">
             <i class="bx bx-cog"></i> Profile
