@@ -231,5 +231,67 @@ class BloodRequest {
         return $bloodRequests;
     }
     
+    public function getAllBloodRequests() {
+        $requests = [];
+        $query = "
+            SELECT 
+                br.requestID, 
+                h_donating.hospitalName AS donatingHospital,
+                h_requesting.hospitalName AS requestingHospital,
+                br.bloodType, 
+                br.requestedQuantity, 
+                br.requestDate, 
+                br.status
+            FROM blood_requests br
+            JOIN hospitals h_donating ON br.DonatingHospitalID = h_donating.hospitalID
+            JOIN hospitals h_requesting ON br.RequestingHospitalID = h_requesting.hospitalID
+            ORDER BY br.requestDate DESC
+        ";
+
+        if ($result = $this->conn->query($query)) {
+            while ($row = $result->fetch_assoc()) {
+                $requests[] = $row;
+            }
+            $result->free();
+        } else {
+            die("Error fetching blood requests: " . $this->conn->error);
+        }
+
+        return $requests;
+    }
+
+    public function getBloodRequestsByDate($requestDate) {
+        $requests = [];
+        $query = "
+            SELECT 
+                br.requestID, 
+                h_donating.hospitalName AS donatingHospital,
+                h_requesting.hospitalName AS requestingHospital,
+                br.bloodType, 
+                br.requestedQuantity, 
+                br.requestDate, 
+                br.status
+            FROM blood_requests br
+            JOIN hospitals h_donating ON br.DonatingHospitalID = h_donating.hospitalID
+            JOIN hospitals h_requesting ON br.RequestingHospitalID = h_requesting.hospitalID
+            WHERE DATE(br.requestDate) = ?
+            ORDER BY br.requestDate DESC
+        ";
+
+        if ($stmt = $this->conn->prepare($query)) {
+            $stmt->bind_param("s", $requestDate);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            while ($row = $result->fetch_assoc()) {
+                $requests[] = $row;
+            }
+            $stmt->close();
+        } else {
+            die("Error preparing query: " . $this->conn->error);
+        }
+
+        return $requests;
+    }
+
 }
 ?>
