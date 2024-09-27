@@ -110,9 +110,7 @@ $db->close();
         .text-dark-red {
             color: #8B0000;
         }
-        i {
-            color: #8B0000;
-        }
+        
     </style>
 </head>
 <body>
