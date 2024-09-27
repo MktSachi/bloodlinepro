@@ -24,67 +24,9 @@ $db->close();
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link href="css/AdminDashboard.css" rel="stylesheet">
   <style>
-    body {
-      font-family: 'Roboto', sans-serif;
-      background-color: #f0f2f5;
-    }
-
-    .dashboard-container {
-      padding: 50px;
-    }
-
-    h3 {
-      font-weight: 700;
-      font-size: 28px;
-      color: #2c3e50;
-      margin-bottom: 30px;
-    }
-
-    .card {
-      border-radius: 10px;
-      border: none;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-      margin-bottom: 30px;
-      transition: all 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
-    }
-
-    .card-body {
-      padding: 25px;
-    }
-
-    .card-title {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #34495e;
-    }
-
-    .card-text {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #2c3e50;
-    }
-
-    .icon {
-      font-size: 2.5rem;
-      opacity: 0.7;
-    }
-
-    .w3-main {
-      margin-left: 200px;
-    }
-
-    @media (max-width: 768px) {
-      .w3-main {
-        margin-left: 0;
-      }
-    }
+    
   </style>
 </head>
 
@@ -118,7 +60,7 @@ $db->close();
               </div>
               <i class="fas fa-tint icon text-danger"></i>
             </div>
-            <a href="RequestHandle.php" class="stretched-link"></a>
+            <a href="ReqHandle.php" class="stretched-link"></a>
           </div>
         </div>
 
