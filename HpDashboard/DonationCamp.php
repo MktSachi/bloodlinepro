@@ -1,6 +1,7 @@
 <?php
 require_once '../Classes/Database.php';
 require_once 'HealthCareProfessional.php';
+require_once 'Donation.php';
 
 session_start();
 
@@ -13,6 +14,7 @@ $db = new Database();
 $conn = $db->getConnection();
 $donor = new Donor($db);
 $healthcareProfessional = new HealthCareProfessional($db);
+$donation = new Donation($db);
 
 $donorDetails = null;
 $donorNotFound = false;
@@ -29,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $donorNotFound = true;
         } elseif (!empty($donatedBloodCount)) {
             $bloodType = $donorDetails['bloodType'];
-            $result = $healthcareProfessional->processDonation($donorNIC, $hospitalID, $donatedBloodCount, $bloodType);
+            $result = $donation->processDonation($donorNIC, $hospitalID, $donatedBloodCount, $bloodType);
             
             if ($result === true) {
                 $submissionSuccess = true;
@@ -45,8 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $db->close();
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,39 +104,37 @@ $db->close();
             color: #fff;
         }
         .card-header-dark-red {
-    background-color: #8B0000;
-    color: white; /* Ensure the text is readable */
-}.text-dark-red {
-    color: #8B0000;
-}
-
-i {
-    color: #8B0000;
-}
+            background-color: #8B0000;
+            color: white;
+        }
+        .text-dark-red {
+            color: #8B0000;
+        }
+        i {
+            color: #8B0000;
+        }
     </style>
 </head>
 <body>
-   
-        <?php include 'HpSidebar.php'; ?>
-    
+    <?php include 'HpSidebar.php'; ?>
     
     <div class="main-content">
         <div class="container">
             <h1 class="mb-4"><i class="fas fa-heartbeat"></i> Donation Camp Management</h1>
             
             <div class="card">
-            <div class="card-header card-header-dark-red">
+                <div class="card-header card-header-dark-red">
                     <i class="fas fa-search"></i> Donor Search
                 </div>
                 <div class="card-body">
                     <form id="donor-form" method="post" class="mb-3">
                         <div class="input-group">
                             <input type="text" class="form-control" id="donorNIC" name="donorNIC" placeholder="Enter NIC Number" required>
-                                                                                                               <button type="submit" class="btn">
-                                                                                                                        <span class="text-dark-red">
-                                                                <i class="fas fa-search"></i> Search
-                                                            </span>
-                                                        </button>
+                            <button type="submit" class="btn">
+                                <span class="text-dark-red">
+                                    <i class="fas fa-search"></i> Search
+                                </span>
+                            </button>
                         </div>
                     </form>
 
@@ -162,7 +160,7 @@ i {
 
             <?php if ($donorDetails): ?>
                 <div class="card">
-                                        <div class="card-header card-header-dark-red">
+                    <div class="card-header card-header-dark-red">
                         <i class="fas fa-user"></i> Donor Details
                     </div>
                     <div class="card-body">
@@ -207,7 +205,7 @@ i {
                                 <label for="donatedBloodCount"><i class="fas fa-syringe"></i> Donated Blood Count:</label>
                                 <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" min="1" step="1" required>
                             </div>
-                            <button type="submit" class="btn btn-dark-red ">
+                            <button type="submit" class="btn btn-dark-red">
                                 <i class="fas fa-check-circle"></i> Submit Donation Details
                             </button>
                         </form>
