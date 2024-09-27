@@ -70,11 +70,13 @@
 
     .nav-item:hover {
       background-color: var(--hover-bg);
+      color: #fff;
     }
 
     .nav-item.active {
       background-color: var(--active-bg);
       color: var(--accent-color);
+      font-weight: bold;
     }
 
     .nav-item i {
@@ -169,17 +171,17 @@
     </div>
 
     <div class="w3-bar-block">
-        <a href="Home.php" class="nav-item">
+        <a href="Home.php" class="nav-item" id="home-link">
             <i class="bx bx-home-alt"></i> Home
         </a>
-        <a href="HpDashboard.php" class="nav-item">
-                        <i class="fas fa-tachometer-alt"></i> Dashboard
+        <a href="HpDashboard.php" class="nav-item" id="dashboard-link">
+            <i class="fas fa-tachometer-alt"></i> Dashboard
         </a>
-        <a href="Profile.php" class="nav-item">
+        <a href="Profile.php" class="nav-item" id="profile-link">
             <i class="bx bx-cog"></i> Profile
         </a>
         <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <a href="#" class="nav-link dropdown-toggle" id="notification-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="bx bx-bell"></i> Notifications
                 <?php if (isset($_SESSION['lowStockCount']) && $_SESSION['lowStockCount'] > 0): ?>
                     <span class="badge badge-danger"><?= $_SESSION['lowStockCount'] ?></span>
@@ -201,14 +203,13 @@
     </div>
 
     <div class="sidebar-footer">
-        <a href="../login_window/Logout.php" class="nav-item" onclick="logout()">
+        <a href="../login_window/Logout.php" class="nav-item" id="logout-link" onclick="logout()">
             <i class="bx bx-log-out"></i> Logout
         </a>
     </div>
 </nav>
 
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
 
 <script>
     var mySidebar = document.getElementById("mySidebar");
@@ -259,7 +260,20 @@
         }
     }
 
+    function setActiveNavLink() {
+        var currentPage = window.location.pathname.split("/").pop();
+        var navLinks = document.querySelectorAll('.nav-item');
+        
+        navLinks.forEach(function(link) {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    }
+
     window.addEventListener('resize', handleResize);
+    window.addEventListener('load', setActiveNavLink);
     handleResize();
 </script>
 
