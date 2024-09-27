@@ -15,7 +15,7 @@
     <?php include 'sidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
-    <div class="w3-main" style="margin-left:200px;margin-top:43px;">
+    <div class="w3-main" style="margin-left:230px;margin-top:0px;">
         
         <div class="container">
             <h3><strong>HealthCare Person Account</strong></h3>
