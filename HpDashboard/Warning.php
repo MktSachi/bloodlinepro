@@ -34,36 +34,41 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 $conn->close();
 
-// Set session variable for notifications
 $_SESSION['lowStockCount'] = count($lowStockBloodTypes);
 $_SESSION['lowStockNotifications'] = $lowStockBloodTypes;
-?><!DOCTYPE html>
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blood Inventory Status</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
         }
-        .container-fluid {
-            margin-left: 180px;
-            margin-top: 43px;
-            padding-bottom: 60px;
+        .w3-main {
+            margin-left: 230px;
+            margin-top: 0px;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
         }
         .card {
-            transition: all 0.3s ease;
             border: none;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
         .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+            transform: translateY(-5px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
         }
         .card-body {
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
@@ -74,82 +79,82 @@ $_SESSION['lowStockNotifications'] = $lowStockBloodTypes;
             font-weight: bold;
             font-size: 1.8rem;
         }
-        .progress {
-            height: 20px;
-            border-radius: 10px;
-            background-color: #e9ecef;
-            overflow: hidden;
-        }
-        .progress-bar {
+        .header {
             background-color: #dc3545;
-            transition: width 1s ease-in-out;
-        }
-        .footer {
-            background-color: #343a40;
             color: white;
-            text-align: center;
-            padding: 15px;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            margin-left: 180px;
+            padding: 1.5rem 0;
+            margin-bottom: 2rem;
         }
-        .warning-toast {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1050;
+        .header h1 {
+            font-weight: 700;
+            font-size: 2.2rem;
         }
-        .blood-icon {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 200px;
+            width: 200px;
+        }
+        .blood-status {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 1rem;
+        }
+        .alert-custom {
+            background-color: #ffc107;
+            color: #212529;
+            border: none;
+            border-radius: 10px;
+        }
+        @media (max-width: 768px) {
+            .w3-main {
+                margin-left: 0;
+                margin-top: 0;
+            }
         }
     </style>
 </head>
 <body>
     <?php include './HpSidebar.php'; ?>
-    
-    <div class="container-fluid">
-        <div class="container mt-5 p-4 bg-white shadow rounded">
-            <h1 class="mb-4 text-center text-danger">
-                <i class="fas fa-tint mr-2"></i>Blood Inventory Status
-            </h1>
-            
-            <div id="warningToast" class="toast warning-toast" role="alert" aria-live="assertive" aria-atomic="true" data-delay="5000">
-                <div class="toast-header bg-warning text-dark">
-                    <strong class="mr-auto"><i class="fas fa-exclamation-triangle mr-2"></i>Warning</strong>
-                    <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="toast-body">
-                    Some blood types are critically low. Please check the inventory status.
+
+    <div class="w3-main">
+        <div class="header text-center">
+            <h1><i class="fas fa-tint me-3"></i>Blood Inventory Status</h1>
+        </div>
+
+        <div class="container">
+            <div class="toast-container position-fixed top-0 end-0 p-3">
+                <div id="warningToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+                    <div class="toast-header bg-warning text-dark">
+                        <strong class="me-auto"><i class="fas fa-exclamation-triangle me-2"></i>Warning</strong>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                    </div>
+                    <div class="toast-body">
+                        Some blood types are critically low. Please check the inventory status.
+                    </div>
                 </div>
             </div>
 
             <?php if (empty($lowStockBloodTypes)): ?>
                 <div class="alert alert-success text-center" role="alert">
-                    <i class="fas fa-check-circle mr-2"></i>All blood types are currently at adequate levels.
+                    <i class="fas fa-check-circle me-2"></i>All blood types are currently at adequate levels.
                 </div>
             <?php else: ?>
+                <div class="alert alert-custom text-center mb-4" role="alert">
+                    <i class="fas fa-exclamation-triangle me-2"></i>Some blood types are critically low. Immediate attention required.
+                </div>
                 <div class="row">
                     <?php foreach ($lowStockBloodTypes as $bloodGroup): ?>
                         <div class="col-12 col-md-6 col-lg-4 mb-4">
                             <div class="card h-100">
                                 <div class="card-body text-center">
-                                    <i class="fas fa-tint blood-icon text-danger"></i>
-                                    <h2 class="card-title mb-3"><?= $bloodGroup['bloodType'] ?></h2>
-                                    <p class="card-text text-danger font-weight-bold mb-3">
+                                    <h2 class="card-title"><?= $bloodGroup['bloodType'] ?></h2>
+                                    <div class="chart-container">
+                                        <canvas id="chart<?= str_replace('+', '', $bloodGroup['bloodType']) ?>"></canvas>
+                                    </div>
+                                    <p class="blood-status text-danger">
                                         Available: <?= $bloodGroup['quantity'] ?> units
                                     </p>
-                                    <div class="progress mt-3">
-                                        <div class="progress-bar" role="progressbar" 
-                                             style="width: <?= ($bloodGroup['quantity'] / 10) * 100 ?>%;" 
-                                             aria-valuenow="<?= $bloodGroup['quantity'] ?>" 
-                                             aria-valuemin="0" aria-valuemax="10">
-                                            <?= $bloodGroup['quantity'] ?>/10
-                                        </div>
-                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -163,25 +168,51 @@ $_SESSION['lowStockNotifications'] = $lowStockBloodTypes;
         @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        $(document).ready(function() {
+        document.addEventListener('DOMContentLoaded', function() {
             // Show warning toast if there are low stock blood types
             <?php if (!empty($lowStockBloodTypes)): ?>
-                $('#warningToast').toast('show');
+                var warningToast = new bootstrap.Toast(document.getElementById('warningToast'));
+                warningToast.show();
             <?php endif; ?>
 
-            // Animate progress bars
-            $('.progress-bar').each(function() {
-                var $bar = $(this);
-                var progress = $bar.attr('aria-valuenow');
-                $bar.css('width', 0).animate({
-                    width: progress + '%'
-                }, 1000);
-            });
+            // Create pie charts
+            <?php foreach ($lowStockBloodTypes as $bloodGroup): ?>
+                createPieChart('chart<?= str_replace('+', '', $bloodGroup['bloodType']) ?>', <?= $bloodGroup['quantity'] ?>);
+            <?php endforeach; ?>
         });
+
+        function createPieChart(id, value) {
+            const ctx = document.getElementById(id).getContext('2d');
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    datasets: [{
+                        data: [value, 10 - value],
+                        backgroundColor: ['#dc3545', '#e9ecef'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    cutout: '70%',
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.parsed + ' units';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
     </script>
 </body>
 </html>
