@@ -57,60 +57,100 @@ $db->close();
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --primary-color: #dc3545;
+            --secondary-color: #007bff;
+        }
         body {
             background-color: #f8f9fa;
+            font-family: 'Arial', sans-serif;
         }
         .sidebar {
             height: 100vh;
-            background-color: #343a40;
+            background-color: var(--primary-color);
             color: #fff;
             position: fixed;
             left: 0;
             top: 0;
             width: 250px;
             padding-top: 20px;
+            transition: all 0.3s;
         }
         .main-content {
             margin-left: 250px;
             padding: 20px;
+            transition: all 0.3s;
         }
         .card {
             border: none;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 20px;
+            border-radius: 10px;
+            overflow: hidden;
         }
         .card-header {
-            background-color: #007bff;
+            background-color: var(--primary-color);
             color: #fff;
             font-weight: bold;
+            padding: 15px;
+            border-bottom: none;
         }
         .highlight label {
-            color: #007bff;
+            color: var(--secondary-color);
             font-weight: bold;
         }
         .highlight {
             border-bottom: 1px solid #e9ecef;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
         }
-        .btn-dark-red {
-            background-color: #dc3545;
-            border-color: #dc3545;
-            color: #fff;
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
         }
-        .btn-dark-red:hover {
+        .btn-primary:hover {
             background-color: #c82333;
             border-color: #bd2130;
+        }
+        .form-control:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+        }
+        .donor-info {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .donor-info h3 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        .donor-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: var(--secondary-color);
             color: #fff;
+            font-size: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            margin: 0 auto 20px;
         }
-        .card-header-dark-red {
-            background-color: #8B0000;
-            color: white;
+        .donation-form {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .text-dark-red {
-            color: #8B0000;
+        .animated {
+            animation: fadeIn 0.5s ease-in-out;
         }
-        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
     </style>
 </head>
 <body>
@@ -118,38 +158,36 @@ $db->close();
     
     <div class="main-content">
         <div class="container">
-            <h1 class="mb-4"><i class="fas fa-heartbeat"></i> Donation Camp Management</h1>
+            <h1 class="mb-4 text-center"><i class="fas fa-heartbeat"></i> Donation Camp Management</h1>
             
-            <div class="card">
-                <div class="card-header card-header-dark-red">
+            <div class="card animated">
+                <div class="card-header">
                     <i class="fas fa-search"></i> Donor Search
                 </div>
                 <div class="card-body">
                     <form id="donor-form" method="post" class="mb-3">
                         <div class="input-group">
                             <input type="text" class="form-control" id="donorNIC" name="donorNIC" placeholder="Enter NIC Number" required>
-                            <button type="submit" class="btn">
-                                <span class="text-dark-red">
-                                    <i class="fas fa-search"></i> Search
-                                </span>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-search"></i> Search
                             </button>
                         </div>
                     </form>
 
                     <?php if ($donorNotFound): ?>
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger animated">
                             <i class="fas fa-exclamation-circle"></i> Donor not found.
                         </div>
                     <?php endif; ?>
 
                     <?php if ($submissionSuccess): ?>
-                        <div class="alert alert-success">
+                        <div class="alert alert-success animated">
                             <i class="fas fa-check-circle"></i> Donation details submitted successfully.
                         </div>
                     <?php endif; ?>
 
                     <?php if ($error): ?>
-                        <div class="alert alert-danger">
+                        <div class="alert alert-danger animated">
                             <i class="fas fa-exclamation-circle"></i> <?= htmlspecialchars($error) ?>
                         </div>
                     <?php endif; ?>
@@ -157,56 +195,53 @@ $db->close();
             </div>
 
             <?php if ($donorDetails): ?>
-                <div class="card">
-                    <div class="card-header card-header-dark-red">
-                        <i class="fas fa-user"></i> Donor Details
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="highlight">
-                                    <label><i class="fas fa-user"></i> Full Name:</label>
-                                    <p><?= htmlspecialchars($donorDetails['first_name'] . ' ' . $donorDetails['last_name']) ?></p>
-                                </div>
-                                <div class="highlight">
-                                    <label><i class="fas fa-id-card"></i> NIC Number:</label>
-                                    <p><?= htmlspecialchars($donorDetails['donorNIC']) ?></p>
-                                </div>
-                                <div class="highlight">
-                                    <label><i class="fas fa-tint"></i> Blood Type:</label>
-                                    <p><?= htmlspecialchars($donorDetails['bloodType']) ?></p>
-                                </div>
-                                <div class="highlight">
-                                    <label><i class="fas fa-envelope"></i> Email:</label>
-                                    <p><?= htmlspecialchars($donorDetails['email']) ?></p>
-                                </div>
+                <div class="row animated">
+                    <div class="col-md-6">
+                        <div class="donor-info">
+                            <div class="donor-avatar">
+                                <?= strtoupper(substr($donorDetails['first_name'], 0, 1) . substr($donorDetails['last_name'], 0, 1)) ?>
                             </div>
-                            <div class="col-md-6">
-                                <div class="highlight">
-                                    <label><i class="fas fa-map-marker-alt"></i> Address:</label>
-                                    <p><?= htmlspecialchars($donorDetails['address']) ?></p>
-                                </div>
-                                <div class="highlight">
-                                    <label><i class="fas fa-phone"></i> Phone Number:</label>
-                                    <p><?= htmlspecialchars($donorDetails['phoneNumber']) ?></p>
-                                </div>
-                                <div class="highlight">
-                                    <label><i class="fas fa-donate"></i> Donation Count:</label>
-                                    <p><?= htmlspecialchars($donorDetails['donation_count']) ?></p>
-                                </div>
+                            <h3 class="text-center"><?= htmlspecialchars($donorDetails['first_name'] . ' ' . $donorDetails['last_name']) ?></h3>
+                            <div class="highlight">
+                                <label><i class="fas fa-id-card"></i> NIC Number:</label>
+                                <p><?= htmlspecialchars($donorDetails['donorNIC']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-tint"></i> Blood Type:</label>
+                                <p><?= htmlspecialchars($donorDetails['bloodType']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-envelope"></i> Email:</label>
+                                <p><?= htmlspecialchars($donorDetails['email']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-map-marker-alt"></i> Address:</label>
+                                <p><?= htmlspecialchars($donorDetails['address']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-phone"></i> Phone Number:</label>
+                                <p><?= htmlspecialchars($donorDetails['phoneNumber']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-donate"></i> Donation Count:</label>
+                                <p><?= htmlspecialchars($donorDetails['donation_count']) ?></p>
                             </div>
                         </div>
-
-                        <form id="donation-form" method="post" onsubmit="return validateForm()">
-                            <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorDetails['donorNIC']) ?>">
-                            <div class="form-group mb-3">
-                                <label for="donatedBloodCount"><i class="fas fa-syringe"></i> Donated Blood Count:</label>
-                                <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" min="1" step="1" required>
-                            </div>
-                            <button type="submit" class="btn btn-dark-red">
-                                <i class="fas fa-check-circle"></i> Submit Donation Details
-                            </button>
-                        </form>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="donation-form">
+                            <h3 class="text-center mb-4">Record New Donation</h3>
+                            <form id="donation-form" method="post" onsubmit="return validateForm()">
+                                <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorDetails['donorNIC']) ?>">
+                                <div class="form-group mb-3">
+                                    <label for="donatedBloodCount"><i class="fas fa-syringe"></i> Donated Blood Count:</label>
+                                    <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" min="1" step="1" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">
+                                    <i class="fas fa-check-circle"></i> Submit Donation Details
+                                </button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             <?php endif; ?>
