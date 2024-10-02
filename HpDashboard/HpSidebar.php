@@ -98,7 +98,7 @@ if (isset($_POST['viewed_notifications'])) {
     }
 
     .profile-pic {
-        width: 100px;
+        width: 105px;
         height: 100px;
         border-radius: 50%;
         margin-bottom: 15px;
