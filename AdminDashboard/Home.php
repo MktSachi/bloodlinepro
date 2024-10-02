@@ -70,7 +70,7 @@ $db->close();
     }
 
     .dashboard-container {
-      padding: 30px;
+      padding: 50px;
     }
 
     .card-title {
@@ -361,7 +361,9 @@ $db->close();
           </div>
         </div>
       </div>
-
+      <div class="footer">
+    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+</div>
       <script>
         document.addEventListener('DOMContentLoaded', function () {
           const bloodTypeData = <?= json_encode($bloodTypeData) ?>;

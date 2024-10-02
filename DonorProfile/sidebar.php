@@ -70,11 +70,13 @@
 
     .nav-item:hover {
       background-color: var(--hover-bg);
+      color: #fff;
     }
 
     .nav-item.active {
       background-color: var(--active-bg);
       color: var(--accent-color);
+      font-weight: bold;
     }
 
     .nav-item i {
@@ -153,31 +155,31 @@
       }
     }
     .profile-picture-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 10px;
-}
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 10px;
+    }
 
-.profile-picture {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
+    .profile-picture {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+    }
 
-.profile-name {
-    margin-top: 10px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #333;
-}
-.no-underline {
-            text-decoration: none;
-        }
+    .profile-name {
+      margin-top: 10px;
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+    }
+    .no-underline {
+      text-decoration: none;
+    }
 
-        .no-underline:hover {
-            text-decoration: none; /* Ensure no underline on hover */
-        }
+    .no-underline:hover {
+      text-decoration: none;
+    }
     </style>
 </head>
 
@@ -186,7 +188,7 @@
 <div class="menu-icon" onclick="w3_toggle()">☰</div>
 
 <nav class="sidebar" id="mySidebar">
-<div class="sidebar-header">
+    <div class="sidebar-header">
         <?php if (!empty($profilePicture)) : ?>
             <div class="profile-picture-container">
                 <img src="<?php echo htmlspecialchars($profilePicture); ?>" class="profile-picture" alt="Profile Picture">
@@ -200,22 +202,22 @@
     </div>
 
     <div class="w3-bar-block">
-        <a href="Home.php" class="nav-item">
+        <a href="Home.php" class="nav-item" id="home-link">
             <i class="bx bx-home-alt"></i> Home
         </a>
-        <a href="Award.php" class="nav-item">
-        <i class="fas fa-trophy"></i> Awards
-        <a href="SettingProfile.php" class="nav-item">
+        <a href="Award.php" class="nav-item" id="award-link">
+                       <i class="bx bx-award"></i> Awards
+        </a>
+        <a href="SettingProfile.php" class="nav-item" id="profile-link">
             <i class="bx bx-cog"></i> Profile
         </a>
-        <a href="Contact.php" class="nav-item">
-            <i class="fas fa-envelope"></i> Contact
+        <a href="Contact.php" class="nav-item" id="contact-link">
+                       <i class="bx bx-envelope"></i> Contact
         </a>
-                <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle no-underline" id="notificationDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle no-underline" id="notification-link">
                 <i class="bx bx-bell"></i> Notifications
             </a>
-        </div>
         </div>
     </div>
 
@@ -227,7 +229,6 @@
 </nav>
 
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
-
 
 <script>
     var mySidebar = document.getElementById("mySidebar");
@@ -278,11 +279,22 @@
         }
     }
 
+    function setActiveNavLink() {
+        var currentPage = window.location.pathname.split("/").pop();
+        var navLinks = document.querySelectorAll('.nav-item');
+        
+        navLinks.forEach(function(link) {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === currentPage) {
+                link.classList.add('active');
+            }
+        });
+    }
+
     window.addEventListener('resize', handleResize);
+    window.addEventListener('load', setActiveNavLink);
     handleResize();
 </script>
 
 </body>
 </html>
-
-

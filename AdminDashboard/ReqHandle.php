@@ -22,12 +22,12 @@
             
             <!-- Operation links with icons -->
             <div class="operation-links">
-                <a href="CreateHp.php" target="contentFrame" class="btn btn-primary">
-                    <i class="fa fa-plus" style="margin-right: 5px;"></i>Create HealthCare Person
+                <a href="ViewRequest.php" target="contentFrame" class="btn btn-primary">
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>View Requests
                 </a>
                 
-                <a href="ViewHp.php" target="contentFrame" class="btn btn-info">
-                    <i class="fa fa-eye" style="margin-right: 5px;"></i>HealthCare Person Information
+                <a href="FindReq.php" target="contentFrame" class="btn btn-info">
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>Search Request
                 </a>
             </div>
 
