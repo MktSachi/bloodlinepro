@@ -100,7 +100,7 @@ $db->close();
 
 <body>
   <?php include 'sidebar.php'; ?>
-  <div class="w3-main" style="margin-left:200px;">
+  <div class="w3-main" style="margin-left:230px;">
     <div class="dashboard-container">
       <h3 class="text-center mb-4">Blood Availability</h3>
 
