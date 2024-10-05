@@ -21,6 +21,7 @@ include 'DonorProfile.php';
         <div class="container">
             <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Your Donor Achievements</h2>
 
+            <!-- Badge Display Section -->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                 <?php
                 $badges = Badge::getAllBadges();
@@ -61,16 +62,36 @@ include 'DonorProfile.php';
                 </div>
                 <?php endforeach; ?>
             </div>
-            
-            <div class="total-donations text-center animate__animated animate__fadeInUp mt-4">
-                <h4 class="mb-3">Total Donations: <span class="text-danger"><?php echo $donationCount; ?></span></h4>
-                <p class="mb-4">Keep donating to unlock more achievements and save more lives!</p>
-            </div>
-        </div>
-    </div>
+
+            <!-- Donor ID Card Section -->
+           <!-- Link to Donor ID Card Page -->
+                <?php if ($donationCount >= 15): ?>
+                    <div class="text-center mt-5">
+                        <h3>Congratulations! You have earned your Donor ID Card</h3>
+                        <a href="DonationId.php" class="btn btn-primary">View and Download Your Donor ID Card</a>
+                    </div>
+                <?php else: 
+                    $remainingDonations = 15 - $donationCount; ?>
+                    <div class="text-center mt-5">
+                        <p>Donate <?php echo $remainingDonations; ?> more time(s) to unlock your Donor ID card!</p>
+                    </div>
+                <?php endif; ?>
+
+
+                            <!-- Total Donations Display -->
+                            <div class="total-donations text-center animate__animated animate__fadeInUp mt-4">
+                                <h4 class="mb-3">Total Donations: <span class="text-danger"><?php echo $donationCount; ?></span></h4>
+                                <p class="mb-4">Keep donating to unlock more achievements and save more lives!</p>
+                            </div>
+                        </div>
+                    </div>
+
+    <!-- Footer -->
     <div class="footer">
         @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
     </div>
+
+    <!-- Bootstrap JS and Custom Script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="DonorScript.js"></script>
 </body>
