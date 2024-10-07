@@ -73,34 +73,34 @@ class Validator {
     $messages = [];
 
     if ($data['hiv']) {
-        $messages[] = "Due to HIV, you are ineligible to donate blood for the safety of both donor and recipient.";
+        $messages[] = "Due to HIV, you are ineligible for blood donation. Focus on boosting your immune system with a balanced diet rich in fruits, vegetables, lean proteins, and whole grains. Regularly take prescribed antiretroviral medications and attend routine check-ups. Avoid smoking and excessive alcohol consumption. Stay active with moderate exercise, and ensure adequate sleep to support your overall health.";
     }
     if ($data['heart_disease']) {
-        $messages[] = "Heart condition detected: Blood donation is not recommended for your safety and the recipient's health.";
+        $messages[] = "Heart disease disqualifies you from blood donation for safety reasons. Prioritize heart-healthy foods like whole grains, leafy greens, and low-fat dairy. Reduce sodium, unhealthy fats, and processed foods. Stay physically active with light to moderate exercises as advised by your doctor. Manage stress, get adequate sleep, and take prescribed medications regularly. Regular check-ups with your cardiologist are important.";
     }
     if ($data['diabetes']) {
-        $messages[] = "Due to diabetes, you cannot donate blood to protect both your health and the recipient's safety.";
+        $messages[] = "Uncontrolled diabetes prevents you from donating blood. Manage your blood sugar levels through a balanced diet with whole grains, lean proteins, and fiber-rich vegetables. Avoid sugary foods and beverages. Regular exercise is important for glucose control—aim for at least 30 minutes of physical activity a day. Monitor your blood sugar and follow your doctor's advice on medications and insulin management.";
     }
     if ($data['fits']) {
-        $messages[] = "History of fits makes you ineligible to donate blood, ensuring safety for both donor and recipient.";
+        $messages[] = "Fits (Epilepsy) makes you ineligible for blood donation. Focus on a diet rich in omega-3s, such as fish, flaxseeds, and walnuts, to support brain health. Maintain a regular sleep schedule, avoid known seizure triggers, and take prescribed medications. Moderate physical activity can help manage stress, but always consult your neurologist before making any major lifestyle changes.";
     }
     if ($data['paralysis']) {
-        $messages[] = "Due to paralysis, you are not eligible to donate blood for safety reasons.";
+        $messages[] = "Paralysis prevents blood donation. Focus on maintaining a healthy, well-balanced diet with lean proteins, fruits, and vegetables to avoid other health complications. Engage in physical therapy exercises as recommended by your healthcare provider to maintain mobility and strength. Regular medical check-ups are essential to monitor your condition and prevent secondary issues like infections or bedsores.";
     }
     if ($data['lung_diseases']) {
-        $messages[] = "Lung disease detected: Blood donation is not permitted for your health and the recipient's safety.";
+        $messages[] = "Lung disease disqualifies you from blood donation. Follow a diet rich in antioxidants, such as berries, spinach, and nuts, to support lung health. Avoid pollutants, cigarette smoke, and processed foods. Regular breathing exercises, light physical activity, and prescribed medications can help improve your lung function. Consult your pulmonologist regularly for updates on your condition.";
     }
     if ($data['liver_diseases']) {
-        $messages[] = "Liver condition prevents you from donating blood to ensure safety for all involved.";
+        $messages[] = "With liver disease, you cannot donate blood. Eat a liver-friendly diet that includes leafy greens, berries, and lean proteins, while avoiding alcohol and high-fat or processed foods. Stay hydrated and exercise regularly to maintain a healthy weight. Follow your doctor’s advice regarding medications and regular check-ups to monitor liver function and prevent further damage.";
     }
     if ($data['kidney_diseases']) {
-        $messages[] = "Kidney disease makes blood donation unsafe for both you and the recipient.";
+        $messages[] = "Kidney disease restricts you from blood donation. Focus on a low-sodium, low-potassium, and low-phosphorus diet with lean proteins and fresh vegetables. Drink plenty of water to support kidney function. Avoid processed foods and high-salt snacks. Regular exercise and stress management are key. Follow your nephrologist’s recommendations and attend regular check-ups to manage your condition.";
     }
     if ($data['blood_diseases']) {
-        $messages[] = "Blood disorder detected: You are ineligible to donate blood to ensure safety during transfusion.";
+        $messages[] = "Blood disorders prevent you from donating blood. A diet rich in iron (such as spinach, beans, and lean meats) and vitamin C (like citrus fruits) can help improve blood health. Avoid alcohol, smoking, and any unnecessary medications that could affect blood quality. Regular follow-ups with your hematologist are essential to monitor your blood health and manage your condition effectively.";
     }
     if ($data['cancer']) {
-        $messages[] = "History of cancer disqualifies you from donating blood to protect both your health and the recipient.";
+        $messages[] = "Having cancer disqualifies you from donating blood. Support your recovery with a nutrient-rich diet, including lean proteins, fresh fruits, and vegetables, to aid in healing and energy. Stay hydrated and rest as needed. Follow your oncologist’s treatment plan closely, including prescribed medications, and attend regular check-ups. Manage stress with light physical activities, such as walking or yoga, and ensure sufficient rest.";
     }
 
     if (!empty($messages)) {
