@@ -70,10 +70,44 @@ class Validator {
     }
 
     public function validateHealthConditionsSelection($data) {
-        if ($this->validateHealthConditions($data)) {
-            return "Sorry, you cannot donate blood due to health conditions. ";
-        }
-        return "";
+    $messages = [];
+
+    if ($data['hiv']) {
+        $messages[] = "Due to HIV, you are ineligible to donate blood for the safety of both donor and recipient.";
     }
+    if ($data['heart_disease']) {
+        $messages[] = "Heart condition detected: Blood donation is not recommended for your safety and the recipient's health.";
+    }
+    if ($data['diabetes']) {
+        $messages[] = "Due to diabetes, you cannot donate blood to protect both your health and the recipient's safety.";
+    }
+    if ($data['fits']) {
+        $messages[] = "History of fits makes you ineligible to donate blood, ensuring safety for both donor and recipient.";
+    }
+    if ($data['paralysis']) {
+        $messages[] = "Due to paralysis, you are not eligible to donate blood for safety reasons.";
+    }
+    if ($data['lung_diseases']) {
+        $messages[] = "Lung disease detected: Blood donation is not permitted for your health and the recipient's safety.";
+    }
+    if ($data['liver_diseases']) {
+        $messages[] = "Liver condition prevents you from donating blood to ensure safety for all involved.";
+    }
+    if ($data['kidney_diseases']) {
+        $messages[] = "Kidney disease makes blood donation unsafe for both you and the recipient.";
+    }
+    if ($data['blood_diseases']) {
+        $messages[] = "Blood disorder detected: You are ineligible to donate blood to ensure safety during transfusion.";
+    }
+    if ($data['cancer']) {
+        $messages[] = "History of cancer disqualifies you from donating blood to protect both your health and the recipient.";
+    }
+
+    if (!empty($messages)) {
+        return implode(" ", $messages); // Combine all messages into one string
+    }
+
+    return "";
+}
 }
 ?>
