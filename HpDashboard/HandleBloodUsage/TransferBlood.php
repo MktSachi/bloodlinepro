@@ -7,32 +7,73 @@ $db = new Database();
 $conn = $db->getConnection();
 $inventory = new Inventory($conn);
 
+// Fetch hospitals with both ID and Name
 $hospitals = $inventory->getHospitals();
 
 $error = '';
 $submissionSuccess = false;
 
+// Retrieve hospitalID from session (logged-in health professional)
 if (isset($_SESSION['hospitalID'])) {
     $hpHospitalID = $_SESSION['hospitalID'];
 } else {
     $error = 'Hospital ID not set for the logged-in health professional.';
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'], $_POST['bloodType'], $_POST['bloodQuantity'], $_POST['description'])) {
-    $senderHospitalID = $hpHospitalID;
-    $receiverHospitalID = $_POST['receiverHospitalID'];
-    $bloodType = $_POST['bloodType'];
-    $bloodQuantity = $_POST['bloodQuantity'];
-    $description = $_POST['description'];
+// Retrieve data from query string
+$requestID = isset($_GET['requestID']) ? $_GET['requestID'] : '';
+$receiverHospitalName = isset($_GET['receiverHospital']) ? urldecode($_GET['receiverHospital']) : '';
+$bloodType = isset($_GET['bloodType']) ? urldecode($_GET['bloodType']) : '';  // Properly decode blood type
+$requestedQuantity = isset($_GET['requestedQuantity']) ? $_GET['requestedQuantity'] : '';
 
-    $resultMessage = $inventory->transferBlood($senderHospitalID, $receiverHospitalID, $bloodType, $bloodQuantity, $description);
-    if (strpos($resultMessage, 'successful') !== false) {
-        $submissionSuccess = true;
-    } else {
-        $error = $resultMessage;
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'], $_POST['bloodType'], $_POST['bloodQuantity'], $_POST['description'])) {
+    // Start transaction
+    $conn->begin_transaction();
+
+    try {
+        $senderHospitalID = $hpHospitalID;
+        $receiverHospitalID = $_POST['receiverHospitalID'];
+        $bloodType = $_POST['bloodType'];
+        $bloodQuantity = $_POST['bloodQuantity'];
+        $description = $_POST['description'];
+
+        // Transfer blood logic
+        $resultMessage = $inventory->transferBlood($senderHospitalID, $receiverHospitalID, $bloodType, $bloodQuantity, $description);
+
+        if (strpos($resultMessage, 'successful') !== false) {
+            // Blood transfer successful, now delete the blood request
+            if (!empty($requestID)) {
+                $query = "DELETE FROM blood_requests WHERE requestID = ?";
+                if ($stmt = $conn->prepare($query)) {
+                    $stmt->bind_param('i', $requestID);
+                    if ($stmt->execute()) {
+                        $stmt->close();
+                        $deleteResult = true;
+                    } else {
+                        $deleteResult = false;
+                    }
+                } else {
+                    die("Failed to prepare statement: " . $conn->error);
+                }
+
+                if (!$deleteResult) {
+                    throw new Exception("Blood transfer succeeded, but failed to delete the blood request.");
+                }
+            }
+
+            $submissionSuccess = true;
+            $conn->commit(); // Commit the transaction
+        } else {
+            throw new Exception($resultMessage); // Handle any error during blood transfer
+        }
+    } catch (Exception $e) {
+        $conn->rollback(); // Rollback the transaction on error
+        $error = $e->getMessage();
     }
 }
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -41,7 +82,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'],
     <title>Blood Transfer Between Hospitals - BloodLinePro</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -72,13 +112,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'],
         .btn-primary:hover {
             background-color: #c82333;
         }
-        .form-control:focus {
-            border-color: #dc3545;
-            box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
-        }
-        .alert {
-            border-radius: 10px;
-        }
     </style>
 </head>
 <body>
@@ -94,42 +127,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'],
                     </div>
                 <?php elseif ($submissionSuccess): ?>
                     <div class="alert alert-success" role="alert">
-                        <i class="fas fa-check-circle me-2"></i>Blood transfer completed successfully!
+                        <i class="fas fa-check-circle me-2"></i>Blood transfer completed successfully and request deleted!
                     </div>
                 <?php endif; ?>
 
                 <form method="post">
-                    <div class="mb-3">
-                       
-                        <input type="text" class="form-control" id="senderHospital" value="HP Hospital" style="display: none;">
+                    <input type="hidden" name="requestID" value="<?= htmlspecialchars($requestID) ?>">
 
-                    </div>
                     <div class="mb-3">
                         <label for="receiverHospitalID" class="form-label">Receiver Hospital:</label>
                         <select class="form-select" id="receiverHospitalID" name="receiverHospitalID" required>
-                            <option value="">Select a hospital</option>
+                            <option value="" disabled>Select a Hospital</option>
                             <?php foreach ($hospitals as $hospital): ?>
-                                <option value="<?= htmlspecialchars($hospital['hospitalID']) ?>"><?= htmlspecialchars($hospital['hospitalName']) ?></option>
+                                <option value="<?= htmlspecialchars($hospital['hospitalID']) ?>" <?= ($hospital['hospitalName'] == $receiverHospitalName) ? 'selected' : '' ?>>
+                                    <?= htmlspecialchars($hospital['hospitalName']) ?>
+                                </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
+
                     <div class="mb-3">
                         <label for="bloodType" class="form-label">Blood Type:</label>
                         <select class="form-select" id="bloodType" name="bloodType" required>
-                            <option value="">Select a blood type</option>
-                            <option value="A+">A+</option>
-                            <option value="A-">A-</option>
-                            <option value="B+">B+</option>
-                            <option value="B-">B-</option>
-                            <option value="AB+">AB+</option>
-                            <option value="AB-">AB-</option>
-                            <option value="O+">O+</option>
-                            <option value="O-">O-</option>
+                            <option value="<?= htmlspecialchars($bloodType) ?>" selected><?= htmlspecialchars($bloodType) ?></option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label for="bloodQuantity" class="form-label">Blood Quantity (in ml):</label>
-                        <input type="number" class="form-control" id="bloodQuantity" name="bloodQuantity" required>
+                        <input type="number" class="form-control" id="bloodQuantity" name="bloodQuantity" value="<?= htmlspecialchars($requestedQuantity) ?>" required>
                     </div>
                     <div class="mb-3">
                         <label for="description" class="form-label">Description:</label>
@@ -145,7 +170,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'],
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-
-
-
-
