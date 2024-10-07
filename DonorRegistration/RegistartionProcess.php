@@ -60,9 +60,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'cancer' => isset($_POST['cancer']) ? 1 : 0
     ];
 
-    $error_msg .= $validator->validateHealthConditionsSelection($data);
+    $health_warning = $validator->validateHealthConditionsSelection($data);
 
-    if (empty($error_msg)) {
+    if (empty($error_msg) && empty($health_warning)) {
         // Prepare data for registration
         $data = array_merge($data, [
             'firstName' => $validator->sanitizeInput($_POST['firstName']),
@@ -98,3 +98,114 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 $db->close();
 ?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration</title>
+    <style>
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 10px;
+            text-align: center;
+            align-items: center;
+        }
+
+        .modal-content p {
+            margin-bottom: 20px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        /* Close button at the bottom */
+        .bottom-close {
+            background-color: #990000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: auto;
+            color: white;
+        }
+
+        .bottom-close:hover {
+            background-color: #c10000;
+        }
+    </style>
+    <script>
+        // Show modal function
+        function showModal(message) {
+            var modal = document.getElementById("healthModal");
+            var modalMessage = document.getElementById("modalMessage");
+            modalMessage.innerHTML = message;
+            modal.style.display = "block";
+        }
+
+        // Close modal function
+        function closeModal() {
+            var modal = document.getElementById("healthModal");
+            modal.style.display = "none";
+        }
+
+        // Close modal when clicking outside of modal content
+        window.onclick = function(event) {
+            var modal = document.getElementById("healthModal");
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+</head>
+<body>
+
+    <!-- Modal structure -->
+    <div id="healthModal" class="modal">
+        <div class="modal-content">
+            <p id="modalMessage"></p><br>
+            <button class="bottom-close" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <?php if (!empty($health_warning)): ?>
+        <script>
+            showModal("<h5>Health and Safety First</h5><br><?= htmlspecialchars($health_warning) ?>");
+        </script>
+    <?php endif; ?>
+
+</body>
+</html>
