@@ -2,13 +2,14 @@
 require_once '../Classes/Database.php';
 require_once '../Classes/BloodRequest.php';
 
+session_start();
+
 // Initialize database connection and blood request object
 $db = new Database();  // Connection is made in the constructor
 $conn = $db->getConnection();  // Get the connection using getConnection()
 $bloodRequest = new BloodRequest($conn);
 
 // Assuming username is stored in session
-session_start();
 $username = $_SESSION['username'];  // Retrieve the logged-in username
 
 // Fetch blood requests specific to HP's hospital
@@ -28,22 +29,27 @@ $requests = $bloodRequest->getBloodRequests($username);
             background-color: #f8f9fa;
             padding-top: 20px;
         }
+
         .container {
             background-color: #ffffff;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             padding: 30px;
         }
+
         h2 {
             color: #dc3545;
             margin-bottom: 30px;
         }
+
         .table {
             margin-bottom: 0;
         }
+
         .table th {
             background-color: #f8f9fa;
         }
+
         .btn-action {
             padding: 0.25rem 0.5rem;
             font-size: 0.875rem;
@@ -52,6 +58,7 @@ $requests = $bloodRequest->getBloodRequests($username);
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h2 class="text-center">
@@ -79,9 +86,9 @@ $requests = $bloodRequest->getBloodRequests($username);
                                 <td><?php echo $request['requestedQuantity']; ?></td>
                                 <td><?php echo $request['status']; ?></td>
                                 <td>
-                                <button class="btn btn-success btn-action me-1" onclick="confirmAction()">Accept</button>
-                            <button class="btn btn-danger btn-action" onclick="confirmAction()">Reject</button>
-                        </td>
+                                    <button class="btn btn-success btn-action me-1" onclick="confirmRequest('<?php echo $request['requestID']; ?>', '<?php echo urlencode($request['requestingHospital']); ?>', '<?php echo urlencode($request['bloodType']); ?>', '<?php echo $request['requestedQuantity']; ?>')">Accept</button>
+                                    <button class="btn btn-danger btn-action" onclick="confirmReject('<?php echo $request['requestID']; ?>')">Reject</button>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>
@@ -96,9 +103,18 @@ $requests = $bloodRequest->getBloodRequests($username);
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        function confirmAction() {
+        function confirmRequest(requestID, requestingHospital, bloodType, requestedQuantity) {
             if (confirm("Are you sure you want to proceed?")) {
-                window.location.href = "BloodReqSuccess.php"; // Redirect to success page
+                window.location.href = "HandleBloodUsage/TransferBlood.php?requestID=" + requestID + 
+                "&receiverHospital=" + encodeURIComponent(requestingHospital) + 
+                "&bloodType=" + encodeURIComponent(bloodType) + 
+                "&requestedQuantity=" + requestedQuantity;
+            }
+        }
+
+        function confirmReject(requestID) {
+            if (confirm("Are you sure you want to reject this request?")) {
+                window.location.href = "RejectBloodRequest.php?requestID=" + requestID;
             }
         }
     </script>

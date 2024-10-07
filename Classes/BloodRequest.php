@@ -293,5 +293,21 @@ class BloodRequest {
         return $requests;
     }
 
+    public function deleteRequestByID($requestID) {
+        $query = "DELETE FROM blood_requests WHERE requestID = ?";
+        if ($stmt = $this->conn->prepare($query)) {
+            $stmt->bind_param('i', $requestID);
+            if ($stmt->execute()) {
+                $stmt->close();
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            die("Failed to prepare statement: " . $this->conn->error);
+        }
+    }
+    
+
 }
 ?>
