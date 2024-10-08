@@ -22,11 +22,8 @@
             
             <!-- Operation links with icons -->
             <div class="operation-links">
-                <a href="Notify.php" target="contentFrame" class="btn btn-primary">
-                    <i class="fa fa-plus" style="margin-right: 5px;"></i>Reminder For Donation camp
-                </a>
-                
-                <a href="" target="contentFrame" class="btn btn-info">
+               
+                <a href="Reminder.php" target="contentFrame" class="btn btn-info">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>Reminder For Next Donation
                 </a>
             </div>
