@@ -93,6 +93,18 @@ $db->close();
           <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
+                <h5 class="card-title">Warning</h5>
+                <p class="card-text">15</p>
+              </div>
+              <i class="fas fa-exclamation-triangle icon text-warning"></i>
+            </div>
+            <a href="Warning.php" class="stretched-link"></a>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 mb-4">
+          <div class="card h-100">
+            <div class="card-body d-flex justify-content-between align-items-center">
+              <div>
                 <h5 class="card-title">Blood Availability</h5>
                 <p class="card-text">5</p>
               </div>

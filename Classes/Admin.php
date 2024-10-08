@@ -42,7 +42,7 @@ class Admin {
 
     public function createHealthcareProfessional($postData) {
         $conn = $this->db->getConnection();
-
+    
         $username = $this->validator->sanitizeInput($postData['username']);
         $roleID = 'hp';
         $active = 2;
@@ -54,37 +54,59 @@ class Admin {
         $phone_number = $this->validator->sanitizeInput($postData['phone_number']);
         $nic_number = $this->validator->sanitizeInput($postData['nic_number']);
         $hospital_id = filter_var($postData['hospital'], FILTER_VALIDATE_INT);
-
+    
         $errors = $this->validateInputs($registration_number, $position, $nic_number, $phone_number, $email);
-
+    
+        // Check if NIC number already exists
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM healthcare_professionals WHERE hpnic = ?");
+        $stmt->bind_param("s", $nic_number);
+        $stmt->execute();
+        $stmt->bind_result($nic_count);
+        $stmt->fetch();
+        $stmt->close();
+    
+        if ($nic_count > 0) {
+            $errors[] = "The NIC number already exists in the system.";
+        }
+    
+        // Check if registration number already exists
+        $stmt = $conn->prepare("SELECT COUNT(*) FROM healthcare_professionals WHERE hpRegNo = ?");
+        $stmt->bind_param("s", $registration_number);
+        $stmt->execute();
+        $stmt->bind_result($reg_count);
+        $stmt->fetch();
+        $stmt->close();
+    
+        if ($reg_count > 0) {
+            $errors[] = "The registration number already exists in the system.";
+        }
+    
         if (empty($errors)) {
             try {
                 $conn->begin_transaction();
-
+    
                 $password = $this->generateRandomPassword();
                 $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-
+    
                 $stmtUser = $conn->prepare("INSERT INTO users (username, password, roleID, createdate, modifieddate, active) VALUES (?, ?, ?, NOW(), NOW(), ?)");
                 $stmtUser->bind_param("sssi", $username, $hashed_password, $roleID, $active);
                 $stmtUser->execute();
-
+    
                 $userid = $conn->insert_id;
-
+    
                 $stmtHp = $conn->prepare("INSERT INTO healthcare_professionals (hpRegNo, userid, firstname, lastname, email, position, phonenumber, hpnic, hospitalid) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmtHp->bind_param("ssssssssi", $registration_number, $userid, $first_name, $last_name, $email, $position, $phone_number, $nic_number, $hospital_id);
                 $stmtHp->execute();
-
+    
                 $conn->commit();
-
-                
-
+    
                 $this->emailSender->sendConfirmationEmail($email, $first_name, $username, $password);
-
+    
                 $stmtUser->close();
                 $stmtHp->close();
-
+    
                 header("Location: ../HpDashboard/CreateDonor/Success.php");
-            exit();
+                exit();
             } catch (Exception $e) {
                 $conn->rollback();
                 return ['error' => "Account creation failed: " . $e->getMessage()];
