@@ -7,39 +7,91 @@ require_once '../Classes/Database.php';
 $db = new Database();
 $conn = $db->getConnection();
 
-// Fetch low stock notifications
-$hospitalID = $_SESSION['hospitalID'];
-$queryLowStock = "SELECT bloodType, quantity FROM hospital_blood_inventory 
-                  WHERE hospitalID = ? AND quantity < 10";
-$stmt = $conn->prepare($queryLowStock);
-$stmt->bind_param("i", $hospitalID);
-$stmt->execute();
-$result = $stmt->get_result();
+// Only fetch low stock notifications if not already set
+if (!isset($_SESSION['lowStockNotifications'])) {
+    $hospitalID = $_SESSION['hospitalID'];
+    $queryLowStock = "SELECT bloodType, quantity FROM hospital_blood_inventory 
+                      WHERE hospitalID = ? AND quantity < 10";
+    $stmt = $conn->prepare($queryLowStock);
+    $stmt->bind_param("i", $hospitalID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-$lowStockNotifications = [];
-while ($row = $result->fetch_assoc()) {
-    $lowStockNotifications[] = [
-        'message' => "Low stock alert: " . $row['bloodType'] . " (Quantity: " . $row['quantity'] . ")",
-        'bloodType' => $row['bloodType'],
-        'quantity' => $row['quantity']
-    ];
+    $lowStockNotifications = [];
+    while ($row = $result->fetch_assoc()) {
+        $lowStockNotifications[] = [
+            'message' => "Low stock alert: " . $row['bloodType'] . " (Quantity: " . $row['quantity'] . ")",
+            'bloodType' => $row['bloodType'],
+            'quantity' => $row['quantity']
+        ];
+    }
+
+    $_SESSION['lowStockNotifications'] = $lowStockNotifications;
+    $_SESSION['lowStockCount'] = count($lowStockNotifications);
+
+    $stmt->close();
 }
 
-$_SESSION['lowStockNotifications'] = $lowStockNotifications;
-$_SESSION['lowStockCount'] = count($lowStockNotifications);
+// Only fetch blood request notifications if not already set
+if (!isset($_SESSION['bloodRequestNotifications'])) {
+    $queryBloodRequests = "SELECT BR.requestID, BR.bloodType, BR.requestedQuantity, DH.hospitalName AS DonatingHospitalName
+                           FROM blood_requests BR
+                           INNER JOIN hospitals DH ON BR.DonatingHospitalID = DH.hospitalID
+                           WHERE BR.RequestingHospitalID = ? AND BR.status = 'Pending'";
+    $stmt = $conn->prepare($queryBloodRequests);
+    $stmt->bind_param("i", $hospitalID);
+    $stmt->execute();
+    $result = $stmt->get_result();
 
-$stmt->close();
+    $bloodRequestNotifications = [];
+    while ($row = $result->fetch_assoc()) {
+        $bloodRequestNotifications[] = [
+            'message' => "Blood request from: " ."<br>". $row['DonatingHospitalName'] ."\n"."(". $row['bloodType'] .")" . "\n".$row['requestedQuantity'] ."ml",
+            'bloodType' => $row['bloodType'],
+            'requestedQuantity' => $row['requestedQuantity'],
+            'donatingHospitalName' => $row['DonatingHospitalName']
+        ];
+    }
+
+    $_SESSION['bloodRequestNotifications'] = $bloodRequestNotifications;
+    $_SESSION['bloodRequestCount'] = count($bloodRequestNotifications);
+
+    $stmt->close();
+}
+
 $conn->close();
 
 // Handle notification deletion
 if (isset($_POST['delete_notification'])) {
     $index = $_POST['notification_index'];
-    if (isset($_SESSION['lowStockNotifications'][$index])) {
-        unset($_SESSION['lowStockNotifications'][$index]);
-        $_SESSION['lowStockNotifications'] = array_values($_SESSION['lowStockNotifications']);
-        $_SESSION['lowStockCount'] = count($_SESSION['lowStockNotifications']);
+    $type = $_POST['notification_type'];
+
+    // Debug output for received parameters
+    error_log("Type: " . $type . ", Index: " . $index);
+
+    if ($type === 'lowStock') {
+        if (isset($_SESSION['lowStockNotifications']) && isset($_SESSION['lowStockNotifications'][$index])) {
+            unset($_SESSION['lowStockNotifications'][$index]);
+            $_SESSION['lowStockNotifications'] = array_values($_SESSION['lowStockNotifications']);
+            $_SESSION['lowStockCount'] = count($_SESSION['lowStockNotifications']);
+            echo 'Low stock notification deleted'; // Debug output
+        } else {
+            echo 'Low stock notification not found'; // Debug output
+        }
+    } elseif ($type === 'bloodRequest') {
+        if (isset($_SESSION['bloodRequestNotifications']) && isset($_SESSION['bloodRequestNotifications'][$index])) {
+            unset($_SESSION['bloodRequestNotifications'][$index]);
+            $_SESSION['bloodRequestNotifications'] = array_values($_SESSION['bloodRequestNotifications']);
+            $_SESSION['bloodRequestCount'] = count($_SESSION['bloodRequestNotifications']);
+            echo 'Blood request notification deleted'; // Debug output
+        } else {
+            echo 'Blood request notification not found'; // Debug output
+        }
+    } else {
+        echo 'Invalid notification type'; // Debug output
     }
-    exit;
+
+    exit; // Ensure exit after handling the request
 }
 
 // Handle marking notifications as viewed
@@ -48,6 +100,7 @@ if (isset($_POST['viewed_notifications'])) {
     exit;
 }
 ?>
+
 
 <!DOCTYPE html>
 <html>
@@ -222,6 +275,10 @@ if (isset($_POST['viewed_notifications'])) {
         display: block;
     }
 
+    .dropdown-menu:empty {
+    display: none; 
+}
+
     .dropdown-item:hover {
         background-color: #f1f1f1;
     }
@@ -274,18 +331,34 @@ if (isset($_POST['viewed_notifications'])) {
                     <span class="badge badge-danger notification-badge"><?= $_SESSION['lowStockCount'] ?></span>
                 <?php endif; ?>
             </a>
-            <div class="dropdown-menu" id="notificationDropdown">
-                <?php if (isset($_SESSION['lowStockNotifications']) && count($_SESSION['lowStockNotifications']) > 0): ?>
-                    <?php foreach ($_SESSION['lowStockNotifications'] as $index => $notification): ?>
-                        <div class="dropdown-item">
-                            <?= $notification['message'] ?>
-                            <button class="btn btn-sm btn-danger" style="float: right;" onclick="deleteNotification(<?= $index ?>)">Delete</button>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <div class="dropdown-item">No notifications</div>
-                <?php endif; ?>
+            <div class="dropdown-menu" id="notificationDropdown" style="display: none;">
+    <!-- Check if there are low stock notifications -->
+    <?php if (isset($_SESSION['lowStockNotifications']) && count($_SESSION['lowStockNotifications']) > 0): ?>
+        <?php foreach ($_SESSION['lowStockNotifications'] as $index => $notification): ?>
+            <div class="dropdown-item">
+                <?= $notification['message'] ?>
+                <button class="btn btn-sm btn-danger" style="float: right;" onclick="deleteNotification(event, <?= $index ?>, 'lowStock')">Delete</button>
             </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <!-- Check if there are blood request notifications -->
+    <?php if (isset($_SESSION['bloodRequestNotifications']) && count($_SESSION['bloodRequestNotifications']) > 0): ?>
+        <?php foreach ($_SESSION['bloodRequestNotifications'] as $index => $notification): ?>
+            <div class="dropdown-item">
+                <?= $notification['message'] ?>
+                <button class="btn btn-sm btn-danger" style="float: right;" onclick="deleteNotification(event, <?= $index ?>, 'bloodRequest')">Delete</button>
+            </div>
+        <?php endforeach; ?>
+    <?php endif; ?>
+
+    <!-- If no notifications -->
+    <?php if (empty($_SESSION['lowStockNotifications']) && empty($_SESSION['bloodRequestNotifications'])): ?>
+        <div class="dropdown-item">No notifications</div>
+    <?php endif; ?>
+</div>
+
+
         </div>
     </div>
 
@@ -370,11 +443,25 @@ if (isset($_POST['viewed_notifications'])) {
         }
     }
 
-    function deleteNotification(index) {
-        $.post('', { delete_notification: true, notification_index: index }, function() {
-            location.reload();
-        });
-    }
+    function deleteNotification(event, index, type) {
+    event.preventDefault(); // Prevent form submission
+    $.post('', { delete_notification: true, notification_index: index, notification_type: type }, function(response) {
+        console.log(response); // Log the response for debugging
+        if (response.includes('deleted')) {
+            // Remove the notification from the UI
+            const notificationItem = event.target.closest('.dropdown-item');
+            if (notificationItem) {
+                notificationItem.remove();
+            }
+            // Check if there are any notifications left
+            const dropdownItems = document.querySelectorAll('.dropdown-item');
+            if (dropdownItems.length === 0) {
+                // If no notifications left, hide the dropdown
+                $('#notificationDropdown').hide(); // Hide the dropdown if no notifications
+            }
+        }
+    });
+}
 
     window.addEventListener('resize', handleResize);
     window.addEventListener('load', setActiveNavLink);
