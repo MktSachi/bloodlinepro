@@ -74,7 +74,7 @@ $db->close();
               </div>
               <i class="fas fa-database icon text-info"></i>
             </div>
-            <a href="../HpDashboard/HospitalInevntoryHandle.php" class="stretched-link"></a>
+            <a href="Inventory.php" class="stretched-link"></a>
           </div>
         </div>
                 <div class="col-md-3 col-sm-6 mb-4">
