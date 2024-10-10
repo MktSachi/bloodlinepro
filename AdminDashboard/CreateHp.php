@@ -135,7 +135,7 @@ select.form-control {
 </head>
 <body>
     <div class="loader" id="loader">
-        <img src="Animation - 1720851760552.gif" alt="Loading...">
+        <img src="Animation - 1728392021858.gif" alt="Loading...">
     </div>
     <div class="container">
         <div class="page-title">Healthcare Professional Account</div>

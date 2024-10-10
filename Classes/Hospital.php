@@ -35,5 +35,11 @@ class Hospital {
 
         return false;
     }
+
+    public function getHospitals() {
+        $query = "SELECT hospitalID, hospitalName FROM " . $this->table;
+        $result = $this->conn->query($query);
+        return $result;
+    }
 }
 ?>
