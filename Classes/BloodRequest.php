@@ -215,7 +215,8 @@ class BloodRequest {
                     SELECT br.requestID, hr.hospitalName AS requestingHospital, br.bloodType, br.requestedQuantity, br.status
                     FROM blood_requests br
                     JOIN hospitals hr ON br.RequestingHospitalID = hr.hospitalID
-                    WHERE br.DonatingHospitalID = ?
+                    WHERE br.DonatingHospitalID = ? AND br.status = 'Pending'
+
                 ";
                 if ($stmt = $this->conn->prepare($query)) {
                     $stmt->bind_param('i', $hpHospitalID);
@@ -293,21 +294,12 @@ class BloodRequest {
         return $requests;
     }
 
-    public function deleteRequestByID($requestID) {
-        $query = "DELETE FROM blood_requests WHERE requestID = ?";
-        if ($stmt = $this->conn->prepare($query)) {
-            $stmt->bind_param('i', $requestID);
-            if ($stmt->execute()) {
-                $stmt->close();
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            die("Failed to prepare statement: " . $this->conn->error);
-        }
-    }
-    
+    public function updateRequestStatusToRejected($requestID) {
+        $query = "UPDATE blood_requests SET status = 'Rejected' WHERE requestID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $requestID);
+        return $stmt->execute();
+    }    
 
 }
 ?>

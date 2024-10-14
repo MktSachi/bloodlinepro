@@ -19,17 +19,17 @@ $db = new Database();  // Connection is made in the constructor
 $conn = $db->getConnection();  // Get the connection using getConnection()
 $bloodRequest = new BloodRequest($conn);
 
-// Call a method to delete the blood request by requestID
-$success = $bloodRequest->deleteRequestByID($requestID);
+// Call a method to update the status of the blood request to 'Rejected'
+$success = $bloodRequest->updateRequestStatusToRejected($requestID);
 
 // Redirect back to the list of requests with a status message
 if ($success) {
     // You can use a session or query string to pass success messages
-    $_SESSION['message'] = "Request rejected and deleted successfully.";
+    $_SESSION['message'] = "Request rejected successfully.";
     header("Location: ViewRequests.php");
 } else {
-    // Handle the error case if the deletion fails
-    $_SESSION['message'] = "Failed to delete the request.";
+    // Handle the error case if the update fails
+    $_SESSION['message'] = "Failed to reject the request.";
     header("Location: ViewRequests.php");
 }
 exit();
