@@ -43,23 +43,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'],
         $popupMessage = $resultMessage;  // Set the message from Inventory
 
         if (strpos($resultMessage, 'successful') !== false) {
-            // Blood transfer successful, now delete the blood request
+            // Blood transfer successful, now update the blood request status to Approved
             if (!empty($requestID)) {
-                $query = "DELETE FROM blood_requests WHERE requestID = ?";
+                $query = "UPDATE blood_requests SET status = 'Approved' WHERE requestID = ?";
                 if ($stmt = $conn->prepare($query)) {
                     $stmt->bind_param('i', $requestID);
                     if ($stmt->execute()) {
                         $stmt->close();
-                        $deleteResult = true;
+                        $updateResult = true;
                     } else {
-                        $deleteResult = false;
+                        $updateResult = false;
                     }
                 } else {
                     die("Failed to prepare statement: " . $conn->error);
                 }
 
-                if (!$deleteResult) {
-                    throw new Exception("Blood transfer succeeded, but failed to delete the blood request.");
+                if (!$updateResult) {
+                    throw new Exception("Blood transfer succeeded, but failed to update the blood request status.");
                 }
             }
 
@@ -73,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'],
         $error = $e->getMessage();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -247,28 +246,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['receiverHospitalID'],
                     <div class="icon">
                         <i class="fas fa-check-circle"></i>
                     </div>
-                    <div class="message">Success!</div>
-                    <div class="sub-message"><?= htmlspecialchars($popupMessage) ?></div> <!-- Using dynamic message here -->
-                    <a href="../RequestHandle.php" class="btn btn-primary btn-block">Go to Request List</a>
+                    <div class="message">Transfer Successful</div>
+                    <div class="sub-message"><?= htmlspecialchars($popupMessage); ?></div>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
                 </div>
+            </div>
         </div>
     </div>
 
     <!-- Error Modal -->
     <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-                <div class="error-card">
-                    <div class="icon">
-                        <i class="fas fa-times-circle"></i>
-                    </div>
-                    <div class="message">Unsuccess!</div>
-                    <div class="sub-message"><?= htmlspecialchars($popupMessage) ?></div> <!-- Using dynamic message here -->
-                    <a href="../RequestHandle.php" class="btn btn-primary btn-block">Go to Request List</a>
+            <div class="error-card">
+                <div class="icon">
+                    <i class="fas fa-times-circle"></i>
                 </div>
+                <div class="message">Error Occurred</div>
+                <div class="sub-message"><?= htmlspecialchars($error); ?></div>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+            </div>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
