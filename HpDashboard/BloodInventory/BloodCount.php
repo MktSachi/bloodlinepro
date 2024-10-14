@@ -111,13 +111,10 @@ $db->close();
         </div>
     </div>
 
-    <div class="theme-toggle">
-        <button class="btn btn-primary" onclick="toggleDarkMode()">
-            <i class="fas fa-moon"></i> Toggle Dark Mode
-        </button>
-    </div>
+       <a href="InventoryReport.php" class="btn btn-primary" style="margin: 20px;" id="downloadChart">Download Chart</a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
     <script>
         const bloodTypes = <?= json_encode(array_keys($bloodInventory)) ?>;
         const quantities = <?= json_encode(array_values($bloodInventory)) ?>;
