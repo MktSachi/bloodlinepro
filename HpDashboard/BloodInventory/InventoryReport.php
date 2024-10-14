@@ -109,9 +109,9 @@ if (method_exists($db, 'close')) {
                                 <strong>Total Units:</strong> <?= htmlspecialchars($inventoryReport['totalUnits']) ?>
                             </div>
                         </div>
-                        <a href="DownloadInventory.php?download=html" class="btn btn-success mt-3">
-                            <i class="fas fa-download me-2"></i>Download Report
-                        </a>
+                        <a href="DownloadInventory.php?download=pdf" class="btn btn-success mt-3">
+    <i class="fas fa-download me-2"></i>Download PDF Report
+</a>
                     <?php else: ?>
                         <p>No inventory data available for your hospital.</p>
                     <?php endif; ?>
