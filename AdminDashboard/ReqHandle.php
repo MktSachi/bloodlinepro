@@ -7,7 +7,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
-    <title>Donor Account</title>
+    <title>Blood Requests</title>
     <link rel="stylesheet" href="../HpDashboard/Css/DonorHandle.css">
     <style>
         #content-loader {
@@ -51,7 +51,7 @@
 
         <div class="main-content">
             <div class="container">
-                <h3><strong>HealthCare Person Account</strong></h3>
+                <h3><strong>Blood Requests</strong></h3>
                 
                 <!-- Operation links with icons -->
                 <div class="operation-links">
