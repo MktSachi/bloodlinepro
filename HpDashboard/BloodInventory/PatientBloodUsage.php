@@ -1,79 +1,12 @@
 <?php
 session_start();
 
-// Include the FPDF library
+// Include the FPDF library and the Inventory class
+// Include the FPDF library and the Inventory class
 require 'fpdf/fpdf.php';
-require_once '../../Classes/Database.php';
+require_once '../../Classes/Database.php'; // Ensure this path is correct
+require_once dirname(__FILE__) . '../Inventory.php'; // Update the path if necessary
 
-/**
- * Inventory Class
- * Handles data retrieval for reports from the 'patients' table using mysqli.
- */
-class Inventory {
-    private $conn;
-
-    /**
-     * Constructor
-     *
-     * @param mysqli $dbConnection The mysqli database connection.
-     */
-    public function __construct($dbConnection) {
-        $this->conn = $dbConnection;
-    }
-
-    /**
-     * Fetches patient report data based on admission date range.
-     *
-     * @param string $startDate The start date for the report.
-     * @param string $endDate The end date for the report.
-     * @return array The report data including blood types, patient counts, and blood quantities.
-     */
-    public function getPatientReport($startDate, $endDate) {
-        $query = "
-            SELECT 
-                bloodType, 
-                COUNT(patientID) AS patientCount, 
-                SUM(bloodQuantity) AS totalBloodUsed
-            FROM 
-                patients
-            WHERE 
-                admissionDate BETWEEN ? AND ?
-            GROUP BY 
-                bloodType
-            ORDER BY 
-                bloodType ASC
-        ";
-
-        // Prepare the statement
-        $stmt = $this->conn->prepare($query);
-        if ($stmt === false) {
-            throw new Exception("Error preparing query: " . $this->conn->error);
-        }
-
-        // Bind parameters
-        $stmt->bind_param('ss', $startDate, $endDate);
-        
-        // Execute the statement
-        if (!$stmt->execute()) {
-            throw new Exception("Error executing query: " . $stmt->error);
-        }
-
-        // Fetch the result
-        $result = $stmt->get_result();
-        if (!$result) {
-            throw new Exception("Error fetching results: " . $stmt->error);
-        }
-
-        // Fetch all data into an associative array
-        $reportData = $result->fetch_all(MYSQLI_ASSOC);
-        
-        // Free the result and return the data
-        $result->free();
-        $stmt->close();
-        
-        return $reportData;
-    }
-}
 
 // Initialize Database and Inventory
 try {
