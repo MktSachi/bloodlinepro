@@ -134,9 +134,9 @@ $db->close();
                                 </tbody>
                             </table>
                         </div>
-                        <a href="Download.php?download=html" class="btn btn-success mt-3">
-                            <i class="fas fa-download me-2"></i>Download Report
-                        </a>
+                        <a href="Download.php?download=pdf" class="btn btn-success mt-3">
+    <i class="fas fa-download me-2"></i>Download PDF Report
+</a>
                     </div>
                 </div>
             <?php endif; ?>
