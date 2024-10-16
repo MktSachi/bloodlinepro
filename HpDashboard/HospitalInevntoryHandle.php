@@ -33,6 +33,11 @@
                 <a href="BloodInventory/BloodUsageReport.php" target="contentFrame" class="btn btn-primary">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>Blood Usage
                 </a>
+
+                <a href="BloodInventory/PatientBloodUsage.php" target="contentFrame" class="btn btn-info">
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>Patient Blood Usage
+                </a>
+                
             </div>
 
             <!-- Iframe to load content -->
