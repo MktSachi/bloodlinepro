@@ -1,8 +1,13 @@
 <?php
 require '../Classes/Database.php';
+require '../Classes/Hospital.php';
+require 'WarningEmailSender.php';
 
 $db = new Database();
 $conn = $db->getConnection();
+
+$hospital = new Hospital($conn);
+$emailSender = new WarningEmailSender();
 
 // Fetch blood type distribution
 $bloodTypeData = [];
@@ -27,6 +32,16 @@ foreach ($bloodTypeData as $bloodType => $quantity) {
 }
 
 $lowStockCount = count($lowStockBloodTypes);
+
+// Send email alerts if there are low stock blood types
+$emailsSent = false;
+if ($lowStockCount > 0) {
+    $hospitals = $hospital->getHospitals();
+    while ($row = $hospitals->fetch_assoc()) {
+        $emailSent = $emailSender->sendLowStockAlert($row['email'], $row['hospitalName'], $lowStockBloodTypes);
+        $emailsSent = $emailsSent || $emailSent;
+    }
+}
 
 $conn->close();
 ?>
@@ -129,13 +144,11 @@ $conn->close();
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
-        
     </style>
 </head>
 <body>
 <?php include './sidebar.php'; ?>
     <div class="w3-main">
-
         <div class="header text-center">
             <h1><i class="fas fa-tint me-3"></i>Blood Inventory Warning</h1>
         </div>
@@ -145,6 +158,11 @@ $conn->close();
         <?php if ($lowStockCount > 0): ?>
             <div class="alert alert-danger text-center mb-4" role="alert">
                 <i class="fas fa-exclamation-triangle me-2"></i>Warning: <?= $lowStockCount ?> blood type<?= $lowStockCount > 1 ? 's are' : ' is' ?> critically low (below 100 units).
+                <?php if ($emailsSent): ?>
+                    Email alerts have been sent to all hospitals.
+                <?php else: ?>
+                    Unable to send email alerts. Please check the system logs.
+                <?php endif; ?>
             </div>
             <div class="row">
                 <?php foreach ($lowStockBloodTypes as $bloodGroup): ?>
@@ -208,13 +226,12 @@ $conn->close();
                 }
             });
         }
-    </script>
-     <script>
+
         document.addEventListener('DOMContentLoaded', function() {
             setTimeout(function() {
                 document.getElementById('content-loader').style.display = 'none';
-                document.querySelector('.main-content').style.display = 'block';
-            }, 1500); // 1500 milliseconds = 1.5 seconds
+                document.querySelector('.w3-main').style.display = 'block';
+            }, 1500);
         });
     </script>
 </body>
