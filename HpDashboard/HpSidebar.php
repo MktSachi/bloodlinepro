@@ -101,6 +101,15 @@ if (isset($_POST['viewed_notifications'])) {
 }
 ?>
 
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Fetch the logged-in user's username from the session
+$username = isset($_SESSION['username']) ? $_SESSION['username'] : 'User';
+?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -312,7 +321,7 @@ if (isset($_POST['viewed_notifications'])) {
         <div class="sidebar-header">
             <img src="doc.jpg" class="profile-pic">
             <div class="profile-name">
-                <strong>M.Perera</strong>
+                <strong><?php echo $username; ?></strong>
             </div>
         </div>
 
@@ -428,3 +437,4 @@ if (isset($_POST['viewed_notifications'])) {
 </body>
 
 </html>
+
