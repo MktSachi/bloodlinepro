@@ -37,6 +37,10 @@
                 <a href="BloodInventory/PatientBloodUsage.php" target="contentFrame" class="btn btn-info">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>Patient Blood Usage
                 </a>
+
+                <a href="BloodInventory/StatusOfBlood.php" target="contentFrame" class="btn btn-info">
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>Status Of Blood
+                </a>
                 
             </div>
 
