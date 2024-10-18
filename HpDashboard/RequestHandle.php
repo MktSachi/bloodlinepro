@@ -29,6 +29,11 @@
                 <a href="ViewRequests.php" target="contentFrame" class="btn btn-info">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>View Blood Request
                 </a>
+
+                <!-- New "Blood Request" button -->
+                <a href="BloodRequestReport.php" target="contentFrame" class="btn btn-primary">
+                    <i class="fa fa-tint" style="margin-right: 5px;"></i>Blood Request Details
+                </a>
             </div>
 
             <!-- Iframe to load content -->
@@ -38,6 +43,9 @@
     </div>
     <div class="footer">
     @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
-</div>
+    </div>
+
+    <!-- Bootstrap 5 JS and Popper.js -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
