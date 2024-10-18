@@ -17,7 +17,15 @@
     <div class="sidebar-header">
         <img src="doc.jpg" class="profile-pic">
         <div class="profile-name">
-            <strong>M.Perera</strong>
+            <strong>
+                <?php 
+                    if (isset($_SESSION['username'])) {
+                        echo htmlspecialchars($_SESSION['username']); 
+                    } else {
+                        echo "Guest"; 
+                    }
+                ?>
+            </strong>
         </div>
     </div>
 
