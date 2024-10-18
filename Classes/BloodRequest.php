@@ -215,7 +215,8 @@ class BloodRequest {
                     SELECT br.requestID, hr.hospitalName AS requestingHospital, br.bloodType, br.requestedQuantity, br.status
                     FROM blood_requests br
                     JOIN hospitals hr ON br.RequestingHospitalID = hr.hospitalID
-                    WHERE br.DonatingHospitalID = ?
+                    WHERE br.DonatingHospitalID = ? AND br.status = 'Pending'
+
                 ";
                 if ($stmt = $this->conn->prepare($query)) {
                     $stmt->bind_param('i', $hpHospitalID);
@@ -293,21 +294,39 @@ class BloodRequest {
         return $requests;
     }
 
-    public function deleteRequestByID($requestID) {
-        $query = "DELETE FROM blood_requests WHERE requestID = ?";
+    public function updateRequestStatusToRejected($requestID) {
+        $query = "UPDATE blood_requests SET status = 'Rejected' WHERE requestID = ?";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bind_param('i', $requestID);
+        return $stmt->execute();
+    }    
+
+
+    public function getBloodRequestsByStatusAndDate($hospitalID, $startDate, $endDate, $statuses) {
+        $statusPlaceholders = implode(',', array_fill(0, count($statuses), '?'));
+        $query = "SELECT h.hospitalName as hospitalName, r.bloodType, r.requestedQuantity as bloodQuantity, r.requestDate, r.status 
+                  FROM blood_requests r 
+                  JOIN hospitals h ON r.RequestingHospitalID = h.hospitalID 
+                  WHERE r.DonatingHospitalID = ? 
+                  AND r.status IN ($statusPlaceholders) 
+                  AND r.requestDate BETWEEN ? AND ?";
+        
         if ($stmt = $this->conn->prepare($query)) {
-            $stmt->bind_param('i', $requestID);
-            if ($stmt->execute()) {
-                $stmt->close();
-                return true;
-            } else {
-                return false;
+            $stmt->bind_param(str_repeat('s', count($statuses)) . 'iss', ...array_merge([$hospitalID], $statuses, [$startDate, $endDate]));
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $requests = [];
+            while ($row = $result->fetch_assoc()) {
+                $requests[] = $row;
             }
+            $stmt->close();
+            return $requests;
         } else {
-            die("Failed to prepare statement: " . $this->conn->error);
+            die("Error preparing query: " . $this->conn->error);
         }
     }
     
+
 
 }
 ?>

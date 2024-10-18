@@ -3,29 +3,19 @@
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
-// Since the user provided manual requires, we'll include them directly
+// Include PHPMailer classes
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-// Adjust the path to PHPMailer accordingly
 require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 
-/**
- * Class EmailSender
- * Handles the configuration and sending of individual emails using PHPMailer.
- */
 class EmailSender {
     private $mail;
 
-    /**
-     * Constructor to initialize PHPMailer with SMTP settings.
-     *
-     * @param array $smtpConfig SMTP configuration settings.
-     */
     public function __construct($smtpConfig) {
-        $this->mail = new PHPMailer(true); // Enable exceptions
+        $this->mail = new PHPMailer(true);
 
         try {
             // SMTP configuration
@@ -39,60 +29,33 @@ class EmailSender {
 
             // Sender details
             $this->mail->setFrom($smtpConfig['from_email'], $smtpConfig['from_name']);
-            $this->mail->isHTML(true); // Set email format to HTML
+            $this->mail->isHTML(true);
         } catch (Exception $e) {
             die("Mailer could not be initialized. Error: {$e->getMessage()}");
         }
     }
 
-    /**
-     * Sends an email to a single recipient.
-     *
-     * @param string $email   Recipient's email address.
-     * @param string $subject Email subject.
-     * @param string $body    HTML content of the email.
-     * @return bool           True on success, False on failure.
-     */
     public function sendEmail($email, $subject, $body) {
         try {
-            // Clear previous recipients and attachments
             $this->mail->clearAddresses();
             $this->mail->clearAttachments();
-
-            // Recipient
             $this->mail->addAddress($email);
-
-            // Content
             $this->mail->Subject = $subject;
             $this->mail->Body    = $body;
-
-            // Send the email
             $this->mail->send();
             return true;
         } catch (Exception $e) {
-            // Log the error message (you can customize the logging mechanism)
             error_log("Message could not be sent to {$email}. Mailer Error: {$this->mail->ErrorInfo}\n", 3, '../logs/email_errors.log');
             return false;
         }
     }
 }
 
-/**
- * Class DonationEmailSender
- * Manages database interactions and sends emails to donors based on form input.
- */
 class DonationEmailSender {
     private $db;
     private $emailSender;
 
-    /**
-     * Constructor to initialize database connection and EmailSender.
-     *
-     * @param array $dbConfig    Database configuration settings.
-     * @param array $smtpConfig  SMTP configuration settings.
-     */
     public function __construct($dbConfig, $smtpConfig) {
-        // Initialize database connection
         $this->db = new mysqli(
             $dbConfig['host'],
             $dbConfig['username'],
@@ -104,23 +67,25 @@ class DonationEmailSender {
             die("Database connection failed: " . $this->db->connect_error);
         }
 
-        // Initialize EmailSender
         $this->emailSender = new EmailSender($smtpConfig);
     }
 
-    /**
-     * Retrieves donors based on city and blood group.
-     *
-     * @param string $address2  City address.
-     * @param string $bloodGroup Blood group.
-     * @return array            Array of donors.
-     */
     private function getDonors($address2, $bloodGroup) {
-        $sql = "SELECT donorNIC, email FROM donors WHERE address2 = ? AND bloodType = ?";
-        $stmt = $this->db->prepare($sql);
+        // Join donors and donations to get the last donation date and donor first name
+        $sql = "
+            SELECT d.donorNIC, d.email, d.first_name, MAX(dt.donationDate) AS lastDonationDate
+            FROM donors AS d
+            LEFT JOIN donations AS dt ON d.donorNIC = dt.donorNIC
+            WHERE d.address2 = ? AND d.bloodType = ?
+            GROUP BY d.donorNIC
+        ";
 
+        // Prepare statement
+        $stmt = $this->db->prepare($sql);
+        
+        // Check for errors in the preparation
         if ($stmt === false) {
-            die("Error preparing the statement: " . $this->db->error);
+            die("SQL prepare failed: " . $this->db->error);
         }
 
         $stmt->bind_param("ss", $address2, $bloodGroup);
@@ -129,25 +94,23 @@ class DonationEmailSender {
 
         $donors = [];
         while ($row = $result->fetch_assoc()) {
-            $donors[] = $row;
+            // Calculate if it's been more than 1 month since last donation
+            if (!empty($row['lastDonationDate'])) {
+                $lastDonationDate = new DateTime($row['lastDonationDate']);
+                $currentDate = new DateTime();
+                $interval = $lastDonationDate->diff($currentDate);
+                // Check if more than 1 month has passed
+                if ($interval->d >= 10 || $interval->m >= 0 || $interval->y > 0) {
+                    $donors[] = $row;
+                }
+            }
         }
 
         $stmt->close();
-
         return $donors;
     }
 
-    /**
-     * Creates the HTML email message.
-     *
-     * @param string $donorNIC   Donor's NIC.
-     * @param string $date       Date of the donation camp.
-     * @param string $time       Time of the donation camp.
-     * @param string $venue      Venue of the donation camp.
-     * @param string $bloodGroup  Donor's blood group.
-     * @return string            HTML formatted email message.
-     */
-    private function createEmailMessage($donorNIC, $date, $time, $venue, $bloodGroup) {
+    private function createEmailMessage($donorFirstName, $date, $time, $venue, $bloodGroup) {
         return '
         <html>
             <head>
@@ -168,7 +131,7 @@ class DonationEmailSender {
                         box-shadow: 0 0 10px rgba(0,0,0,0.1);
                     }
                     h1 {
-                        color: #8B0000; /* Dark red color */
+                        color: #8B0000;
                         font-size: 28px;
                         text-align: center;
                     }
@@ -183,7 +146,7 @@ class DonationEmailSender {
                     .button {
                         display: inline-block;
                         padding: 10px 20px;
-                        background-color: #8B0000; /* Dark red button */
+                        background-color: #8B0000;
                         color: #fff;
                         text-decoration: none;
                         border-radius: 5px;
@@ -195,7 +158,7 @@ class DonationEmailSender {
             <body>
                 <div class="container">
                     <h1>Donation Camp Reminder!</h1>
-                    <p>Dear Donor,</p>
+                    <p>Dear ' . htmlspecialchars($donorFirstName) . ',</p>
                     <p>We are organizing a blood donation camp for donors with blood type <strong>' . htmlspecialchars($bloodGroup) . '</strong>.</p>
                     <p><strong>Date:</strong> ' . htmlspecialchars($date) . '</p>
                     <p><strong>Time:</strong> ' . htmlspecialchars($time) . '</p>
@@ -208,45 +171,32 @@ class DonationEmailSender {
         </html>';
     }
 
-    /**
-     * Sends donation emails to eligible donors based on form data.
-     *
-     * @param array $formData Form data containing blood group, address, date, venue, and time.
-     */
     public function sendDonationEmails($formData) {
-        // Retrieve and sanitize form data
         $bloodGroup = trim($formData['blood']);
         $address2   = trim($formData['address2']);
         $date       = trim($formData['date']);
         $time       = trim($formData['time']);
         $venue      = trim($formData['venue']);
 
-        // Validate form data
         if (empty($bloodGroup) || empty($address2) || empty($date) || empty($time) || empty($venue)) {
             die("All form fields are required.");
         }
 
-        // Fetch donors
         $donors = $this->getDonors($address2, $bloodGroup);
 
-        // Check if any donors found
         if (empty($donors)) {
-            echo "No donors found for the specified criteria.";
+            echo "No eligible donors found for the specified criteria.";
             return;
         }
 
-        // Email subject
         $subject = "Upcoming Blood Donation Camp";
-
-        // Counters for summary
         $sentCount = 0;
         $failedCount = 0;
 
-        // Iterate through each donor and send email
         foreach ($donors as $donor) {
-            $email     = $donor['email'];
-            $donorNIC  = htmlspecialchars($donor['donorNIC']);
-            $message   = $this->createEmailMessage($donorNIC, $date, $time, $venue, $bloodGroup);
+            $email       = $donor['email'];
+            $donorFirstName = htmlspecialchars($donor['first_name']);
+            $message     = $this->createEmailMessage($donorFirstName, $date, $time, $venue, $bloodGroup);
 
             if ($this->emailSender->sendEmail($email, $subject, $message)) {
                 echo "Email sent to: {$email}<br>";
@@ -257,7 +207,6 @@ class DonationEmailSender {
             }
         }
 
-        // Summary of the email sending process
         echo "<br>Total successful emails sent: {$sentCount}<br>";
         if ($failedCount > 0) {
             echo "Total emails failed: {$failedCount}<br>";
@@ -265,11 +214,7 @@ class DonationEmailSender {
     }
 }
 
-// -------------------------
 // Main Execution Block
-// -------------------------
-
-// Define database configuration
 $dbConfig = [
     'host'     => 'localhost',
     'username' => 'root',
@@ -277,21 +222,18 @@ $dbConfig = [
     'dbname'   => 'bloodlinepro_', // Database name
 ];
 
-// Define SMTP configuration
 $smtpConfig = [
     'host'       => 'smtp.gmail.com',
-    'username'   => 'bloodlinepro.lk@gmail.com', // Replace with your SMTP email
-    'password'   => 'czqktgongmcdolnn',          // Replace with your SMTP password or App Password
+    'username'   => 'bloodlinepro.lk@gmail.com',
+    'password'   => 'czqktgongmcdolnn',
     'secure'     => PHPMailer::ENCRYPTION_SMTPS,
     'port'       => 465,
-    'from_email' => 'bloodlinepro.lk@gmail.com', // Sender's email
-    'from_name'  => 'BloodlinePro',             // Sender's name
+    'from_email' => 'bloodlinepro.lk@gmail.com',
+    'from_name'  => 'BloodlinePro',
 ];
 
-// Instantiate the DonationEmailSender class
 $donationEmailSender = new DonationEmailSender($dbConfig, $smtpConfig);
 
-// Retrieve form data securely
 $formData = [
     'blood'    => isset($_POST['blood']) ? $_POST['blood'] : '',
     'address2' => isset($_POST['address2']) ? $_POST['address2'] : '',
@@ -300,6 +242,6 @@ $formData = [
     'venue'    => isset($_POST['venue']) ? $_POST['venue'] : '',
 ];
 
-// Send donation emails
 $donationEmailSender->sendDonationEmails($formData);
+
 ?>

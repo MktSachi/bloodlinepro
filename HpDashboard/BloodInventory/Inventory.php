@@ -473,5 +473,51 @@ class Inventory {
         return ['inventory' => $bloodInventory, 'totalUnits' => $totalUnits];
     }
     
+    public function getPatientReport($startDate, $endDate) {
+        $query = "
+            SELECT 
+                bloodType, 
+                COUNT(patientID) AS patientCount, 
+                SUM(bloodQuantity) AS totalBloodUsed
+            FROM 
+                patients
+            WHERE 
+                admissionDate BETWEEN ? AND ?
+            GROUP BY 
+                bloodType
+            ORDER BY 
+                bloodType ASC
+        ";
+
+        // Prepare the statement
+        $stmt = $this->conn->prepare($query);
+        if ($stmt === false) {
+            throw new Exception("Error preparing query: " . $this->conn->error);
+        }
+
+        // Bind parameters
+        $stmt->bind_param('ss', $startDate, $endDate);
+        
+        // Execute the statement
+        if (!$stmt->execute()) {
+            throw new Exception("Error executing query: " . $stmt->error);
+        }
+
+        // Fetch the result
+        $result = $stmt->get_result();
+        if (!$result) {
+            throw new Exception("Error fetching results: " . $stmt->error);
+        }
+
+        // Fetch all data into an associative array
+        $reportData = $result->fetch_all(MYSQLI_ASSOC);
+        
+        // Free the result and return the data
+        $result->free();
+        $stmt->close();
+        
+        return $reportData;
+    }
+
 }
 ?>

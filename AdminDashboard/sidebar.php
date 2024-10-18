@@ -112,7 +112,7 @@
     }
 
     function setActiveNavLink() {
-        var currentPage = window.location.pathname.split("/").pop();
+        var currentPage = localStorage.getItem('selectedNav') || window.location.pathname.split("/").pop();
         var navLinks = document.querySelectorAll('.nav-item');
         
         navLinks.forEach(function(link) {
@@ -120,6 +120,10 @@
             if (link.getAttribute('href') === currentPage) {
                 link.classList.add('active');
             }
+
+            link.addEventListener('click', function() {
+                localStorage.setItem('selectedNav', link.getAttribute('href'));
+            });
         });
     }
 

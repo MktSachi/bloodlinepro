@@ -37,7 +37,7 @@ class Hospital {
     }
 
     public function getHospitals() {
-        $query = "SELECT hospitalID, hospitalName FROM " . $this->table;
+        $query = "SELECT * FROM " . $this->table;
         $result = $this->conn->query($query);
         return $result;
     }
