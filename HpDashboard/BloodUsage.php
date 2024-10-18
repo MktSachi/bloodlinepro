@@ -26,9 +26,7 @@
                                        <i class="fa fa-user-injured"></i></i> Patient
                 </a>
                 
-                <a href="HandleBloodUsage/TransferBlood.php" target="contentFrame" class="btn btn-info">
-                                       <i class="fa fa-hospital" style="margin-right: 5px;"></i>Transfer to Other Hospital
-                </a>
+               
             </div>
 
             <!-- Iframe to load content -->
