@@ -396,12 +396,31 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'User';
         }
 
         function deleteNotification(event, index, type) {
-            event.preventDefault();
-            // Add the code for AJAX request to delete notification based on index and type
-            // After deleting the notification, remove the notification from the DOM
+    event.preventDefault();
+
+    // Send an AJAX request to delete the notification
+    $.ajax({
+        url: '', // Use the same PHP file or the appropriate URL for deletion handling
+        type: 'POST',
+        data: {
+            delete_notification: true,
+            notification_index: index,
+            notification_type: type
+        },
+        success: function(response) {
+            console.log(response); // Debug response from server
+
+            // After successfully deleting, remove the notification from the DOM
             var dropdownItem = event.target.closest('.dropdown-item');
             dropdownItem.parentNode.removeChild(dropdownItem);
+        },
+        error: function() {
+            console.log('Error deleting notification');
         }
+    });
+}
+
+
 
         function logout() {
             // Add the logout logic here
