@@ -157,9 +157,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </tbody>
                             </table>
                         </div>
-                        <a href="Download.php?download=html&date=<?= urlencode($requestDate) ?>" class="btn btn-success mt-3">
-                            <i class="fas fa-download me-2"></i>Download Report
-                        </a>
+                        <a href="DownloadReqReport.php?download=pdf&date=<?= urlencode($requestDate) ?>" class="btn btn-success mt-3">
+    <i class="fas fa-download me-2"></i>Download PDF Report
+</a>
                     </div>
                 </div>
             <?php elseif ($_SERVER['REQUEST_METHOD'] === 'POST'): ?>
