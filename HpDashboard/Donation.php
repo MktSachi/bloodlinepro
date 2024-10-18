@@ -1,7 +1,6 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'] . '/bloodlinepro/Classes/Database.php');
 
-
 class Donation {
     private $db;
     private $conn;
@@ -9,7 +8,6 @@ class Donation {
     public function __construct(Database $db) {
         $this->db = $db;
         $this->conn = $db->getConnection();
-        
     }
 
     public function insertDonation($donorNIC, $hospitalID, $donatedBloodCount, $donationDate, $bloodExpiryDate) {
@@ -95,6 +93,94 @@ class Donation {
         } catch (Exception $e) {
             $this->conn->rollback();
             return "Error: " . $e->getMessage();
+        }
+    }
+
+    public function getExpiredDonationsByHospitalAndDate($hospitalID, $selectedDate) {
+        $query = "SELECT d.id as donation_id, 
+                         d.donorNIC, 
+                         d.hospitalID, 
+                         d.donatedBloodCount, 
+                         d.donationDate, 
+                         d.bloodExpiryDate,
+                         dn.bloodType,
+                         h.hospitalName
+                  FROM donations d
+                  JOIN donors dn ON d.donorNIC = dn.donorNIC
+                  JOIN hospitals h ON d.hospitalID = h.hospitalID
+                  WHERE d.hospitalID = ? 
+                  AND d.bloodExpiryDate = ?
+                  ORDER BY d.bloodExpiryDate ASC";
+        
+        try {
+            $stmt = $this->conn->prepare($query);
+            if (!$stmt) {
+                throw new Exception("Query preparation failed: " . $this->conn->error);
+            }
+    
+            $stmt->bind_param('is', $hospitalID, $selectedDate);
+            
+            if (!$stmt->execute()) {
+                throw new Exception("Query execution failed: " . $stmt->error);
+            }
+    
+            $result = $stmt->get_result();
+            
+            $expiredDonations = [];
+            while ($row = $result->fetch_assoc()) {
+                $expiredDonations[] = $row;
+            }
+            
+            $stmt->close();
+            return [
+                'success' => true,
+                'data' => $expiredDonations
+            ];
+        } catch (Exception $e) {
+            if (isset($stmt)) {
+                $stmt->close();
+            }
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function deleteExpiredDonations($hospitalID, $selectedDate) {
+        $threeMonthsAgo = date('Y-m-d', strtotime($selectedDate . ' - 3 months'));
+        
+        $query = "DELETE FROM donations 
+                  WHERE hospitalID = ? 
+                  AND bloodExpiryDate <= ?";
+        
+        try {
+            $stmt = $this->conn->prepare($query);
+            if (!$stmt) {
+                throw new Exception("Query preparation failed: " . $this->conn->error);
+            }
+    
+            $stmt->bind_param('is', $hospitalID, $threeMonthsAgo);
+            
+            if (!$stmt->execute()) {
+                throw new Exception("Query execution failed: " . $stmt->error);
+            }
+    
+            $deletedRows = $stmt->affected_rows;
+            
+            $stmt->close();
+            return [
+                'success' => true,
+                'deletedCount' => $deletedRows
+            ];
+        } catch (Exception $e) {
+            if (isset($stmt)) {
+                $stmt->close();
+            }
+            return [
+                'success' => false,
+                'error' => $e->getMessage()
+            ];
         }
     }
 }
