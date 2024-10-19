@@ -344,21 +344,7 @@ $db->close();
             </div>
 
           </div>
-          <div class="row">
-            <div class="col-md-12">
-              <div class="card">
-                <div class="card-body">
-                  <h5 class="card-title"><i class="fas fa-user-md blue-dot"></i>Body Condition Overview</h5>
-                  <div class="d-flex justify-content-around">
-                    <div class="organ-icon"><i class="fas fa-person"></i></div>
-                    <div class="organ-icon"><i class="fas fa-chart-bar"></i></div>
-                    <div class="organ-icon"><i class="fas fa-ambulance"></i></div>
-                    <div class="organ-icon"><i class="fas fa-exclamation-triangle"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+          
         </div>
       </div>
       <div class="footer">
