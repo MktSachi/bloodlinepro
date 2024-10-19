@@ -9,11 +9,57 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/Profile.css">
+    <style>
+        .w3-main {
+            margin-left: 220px;
+            padding: 20px;
+        }
+
+        .form-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #profileForm {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-custom {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #successMessage {
+            display: none;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        @media (max-width: 768px) {
+            .w3-main {
+                margin-left: 0;
+                padding: 10px;
+            }
+
+            #profileForm {
+                padding: 15px;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <?php include 'sidebar.php'; ?>
-    <div class="w3-main" style="margin-left:210px;margin-top:43px;">
+
+    <div class="w3-main">
         <div class="row">
             <div class="col-12">
                 <div class="form-title">Admin Profile Details</div>
@@ -82,13 +128,20 @@
 
     <?php
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Dummy validation
         $currentPassword = $_POST['currentPassword'];
         $newPassword = $_POST['newPassword'];
 
-        // In a real scenario, validate the current password and update the new password in the database
-        // Assuming validation is successful for demonstration
-        echo 'success';
+        // Validate current password and update new password in the database.
+        // Here, for simplicity, just echo 'success' for demonstration.
+        $storedPassword = 'admin123'; // This is for demonstration; replace with database logic.
+
+        if ($currentPassword === $storedPassword) {
+            // Assume password is updated successfully.
+            echo 'success';
+        } else {
+            // If the current password is incorrect.
+            echo 'Incorrect current password';
+        }
     }
     ?>
 </body>

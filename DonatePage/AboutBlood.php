@@ -125,9 +125,7 @@
   </style>
 </head>
 <body>
-<?php 
-   include '../part_of_home_page/header.php';
-?>
+
 <div class="jumbotron">
   <h1>About Blood</h1>
   <h3>Blood: The Gift That Costs Nothing but Saves Everything.</h3>
