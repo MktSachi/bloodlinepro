@@ -110,6 +110,25 @@ if (session_status() == PHP_SESSION_NONE) {
 $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'User';
 ?>
 
+<?php
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+$totalNotifications = 0;
+
+// Check if low stock notifications exist
+if (isset($_SESSION['lowStockCount'])) {
+    $totalNotifications += $_SESSION['lowStockCount'];
+}
+
+// Check if blood request notifications exist
+if (isset($_SESSION['bloodRequestCount'])) {
+    $totalNotifications += $_SESSION['bloodRequestCount'];
+}
+?>
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -336,37 +355,39 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'User';
                 <i class="bx bx-cog"></i> Profile
             </a>
             <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" id="notification-link" onclick="toggleNotifications()">
-                    <i class="bx bx-bell"></i> Notifications
-                    <?php if (isset($_SESSION['lowStockCount']) && $_SESSION['lowStockCount'] > 0 && !isset($_SESSION['notificationsViewed'])) : ?>
-                        <span class="badge badge-danger notification-badge"><?= $_SESSION['lowStockCount'] ?></span>
-                    <?php endif; ?>
-                </a>
-                <div class="dropdown-menu" id="notificationDropdown" style="display: none;">
-                    <!-- Notification dropdown logic remains unchanged -->
-                    <?php if (isset($_SESSION['lowStockNotifications']) && count($_SESSION['lowStockNotifications']) > 0) : ?>
-                        <?php foreach ($_SESSION['lowStockNotifications'] as $index => $notification) : ?>
-                            <div class="dropdown-item">
-                                <?= $notification['message'] ?>
-                                <button class="btn btn-sm btn-danger" style="float: right;" onclick="deleteNotification(event, <?= $index ?>, 'lowStock')">Delete</button>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-
-                    <?php if (isset($_SESSION['bloodRequestNotifications']) && count($_SESSION['bloodRequestNotifications']) > 0) : ?>
-                        <?php foreach ($_SESSION['bloodRequestNotifications'] as $index => $notification) : ?>
-                            <div class="dropdown-item">
-                                <?= $notification['message'] ?>
-                                <button class="btn btn-sm btn-danger" style="float: right;" onclick="deleteNotification(event, <?= $index ?>, 'bloodRequest')">Delete</button>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-
-                    <?php if (empty($_SESSION['lowStockNotifications']) && empty($_SESSION['bloodRequestNotifications'])) : ?>
-                        <div class="dropdown-item">No notifications</div>
-                    <?php endif; ?>
+    <a href="#" class="nav-link dropdown-toggle" id="notification-link" onclick="toggleNotifications()">
+        <i class="bx bx-bell"></i> Notifications
+        <!-- Show badge only if there are notifications -->
+        <?php if ($totalNotifications > 0) : ?>
+            <span class="badge badge-danger notification-badge"><?= $totalNotifications ?></span>
+        <?php endif; ?>
+    </a>
+    <div class="dropdown-menu" id="notificationDropdown" style="display: none;">
+        <!-- Notification dropdown logic remains unchanged -->
+        <?php if (isset($_SESSION['lowStockNotifications']) && count($_SESSION['lowStockNotifications']) > 0) : ?>
+            <?php foreach ($_SESSION['lowStockNotifications'] as $index => $notification) : ?>
+                <div class="dropdown-item">
+                    <?= $notification['message'] ?>
+                    <button class="btn btn-sm btn-danger" style="float: right;" onclick="deleteNotification(event, <?= $index ?>, 'lowStock')">Delete</button>
                 </div>
-            </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if (isset($_SESSION['bloodRequestNotifications']) && count($_SESSION['bloodRequestNotifications']) > 0) : ?>
+            <?php foreach ($_SESSION['bloodRequestNotifications'] as $index => $notification) : ?>
+                <div class="dropdown-item">
+                    <?= $notification['message'] ?>
+                    <button class="btn btn-sm btn-danger" style="float: right;" onclick="deleteNotification(event, <?= $index ?>, 'bloodRequest')">Delete</button>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
+
+        <?php if (empty($_SESSION['lowStockNotifications']) && empty($_SESSION['bloodRequestNotifications'])) : ?>
+            <div class="dropdown-item">No notifications</div>
+        <?php endif; ?>
+    </div>
+</div>
+
         </div>
 
         <div class="sidebar-footer">
@@ -389,13 +410,29 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'User';
             var sidebar = document.getElementById("mySidebar");
             sidebar.classList.toggle("active");
         }
+// Function to toggle the notification dropdown
+function toggleNotifications() {
+    var dropdown = document.getElementById("notificationDropdown");
+    dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
 
-        function toggleNotifications() {
-            var dropdown = document.getElementById("notificationDropdown");
-            dropdown.style.display = dropdown.style.display === "none" ? "block" : "none";
-        }
+    // Add a one-time event listener to close the dropdown when clicking outside
+    document.addEventListener('click', closeDropdownOnClickOutside);
+}
 
-        function deleteNotification(event, index, type) {
+// Function to close the dropdown if the click is outside the dropdown area
+function closeDropdownOnClickOutside(event) {
+    var dropdown = document.getElementById("notificationDropdown");
+    var notificationLink = document.getElementById("notification-link");
+
+    // Check if the click is outside the dropdown or the notification link
+    if (!dropdown.contains(event.target) && !notificationLink.contains(event.target)) {
+        dropdown.style.display = "none"; // Close the dropdown
+        document.removeEventListener('click', closeDropdownOnClickOutside); // Remove the event listener after handling
+    }
+}
+
+// Function to delete the notification via AJAX
+function deleteNotification(event, index, type) {
     event.preventDefault();
 
     // Send an AJAX request to delete the notification
@@ -419,6 +456,7 @@ $username = isset($_SESSION['username']) ? $_SESSION['username'] : 'User';
         }
     });
 }
+
 
 
 
