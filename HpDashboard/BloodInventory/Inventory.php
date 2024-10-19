@@ -503,16 +503,16 @@ class Inventory {
             throw new Exception("Error executing query: " . $stmt->error);
         }
 
-        // Fetch the result
+        
         $result = $stmt->get_result();
         if (!$result) {
             throw new Exception("Error fetching results: " . $stmt->error);
         }
 
-        // Fetch all data into an associative array
+        
         $reportData = $result->fetch_all(MYSQLI_ASSOC);
         
-        // Free the result and return the data
+        
         $result->free();
         $stmt->close();
         

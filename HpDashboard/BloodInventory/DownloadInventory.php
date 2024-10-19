@@ -17,11 +17,11 @@ class PDF extends FPDF
         $y = $this->GetY();
         $barWidth = $w / count($data);
         
-        // Axis
+        
         $this->Line(45, $y, 45, $y+$h);
         $this->Line(45, $y+$h, 45+$w, $y+$h);
         
-        // Bars
+        
         $i = 0;
         foreach($data as $key => $val) {
             $barHeight = ($h / $maxVal) * $val;
@@ -32,7 +32,7 @@ class PDF extends FPDF
             $i++;
         }
         
-        // Y-Axis values
+        
         for($j=0; $j<=$nbDiv; $j++) {
             $yval = $maxVal/$nbDiv*$j;
             $yaxis = sprintf($format, $yval);
@@ -49,18 +49,18 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
         $pdf = new PDF();
         $pdf->AddPage();
 
-        // Title
+        
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 10, 'Hospital Blood Inventory Report', 0, 1, 'C');
         $pdf->Ln(10);
 
-        // Table Header
+        
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(95, 10, 'Blood Type', 1);
         $pdf->Cell(95, 10, 'Quantity', 1);
         $pdf->Ln();
 
-        // Table data
+        
         $pdf->SetFont('Arial', '', 12);
         foreach ($inventoryReport['inventory'] as $bloodType => $quantity) {
             $pdf->Cell(95, 10, $bloodType, 1);
@@ -91,7 +91,7 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
     if (isset($_SESSION['inventoryReport'])) {
         $inventoryReport = $_SESSION['inventoryReport'];
 
-        // Generate HTML content with improved styling
+        
         $html = '
         <!DOCTYPE html>
         <html lang="en">

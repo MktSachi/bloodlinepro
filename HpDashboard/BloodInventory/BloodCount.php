@@ -20,6 +20,7 @@ $db->close();
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -32,30 +33,37 @@ $db->close();
             font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
         }
+
         .dashboard-container {
             padding: 30px;
         }
+
         .card {
             border: none;
             border-radius: 15px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             margin-bottom: 30px;
         }
+
         .card-title {
             color: #333;
             font-weight: 600;
         }
+
         .table {
             color: #333;
         }
+
         .table thead th {
             border-top: none;
             background-color: #f1f3f5;
         }
+
         .chart-container {
             max-width: 600px;
             margin: 0 auto;
         }
+
         .theme-toggle {
             position: fixed;
             bottom: 20px;
@@ -64,6 +72,7 @@ $db->close();
         }
     </style>
 </head>
+
 <body>
     <div class="dashboard-container">
         <div class="row">
@@ -111,15 +120,15 @@ $db->close();
         </div>
     </div>
 
-       <a href="InventoryReport.php" class="btn btn-primary" style="margin: 20px;" id="downloadChart">Download Chart</a>
+    <a href="InventoryReport.php" class="btn btn-primary" style="margin: 20px;" id="downloadChart">Download Chart</a>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+
     <script>
         const bloodTypes = <?= json_encode(array_keys($bloodInventory)) ?>;
         const quantities = <?= json_encode(array_values($bloodInventory)) ?>;
 
-        // Chart.js Bar Chart
+        // Bar Chart.js
         var ctx = document.getElementById('bloodInventoryChart').getContext('2d');
         var chart = new Chart(ctx, {
             type: 'bar',
@@ -158,4 +167,5 @@ $db->close();
         }
     </script>
 </body>
+
 </html>

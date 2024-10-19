@@ -11,12 +11,12 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
         $pdf = new FPDF();
         $pdf->AddPage();
         
-        // Title
+        
         $pdf->SetFont('Arial', 'B', 16);
         $pdf->Cell(0, 10, 'Hospital Donations Report', 0, 1, 'C');
         $pdf->Ln(10);
         
-        // Table Header
+        
         $pdf->SetFont('Arial', 'B', 12);
         $pdf->Cell(50, 10, 'Donor Name', 1);
         $pdf->Cell(30, 10, 'Donor NIC', 1);
@@ -25,7 +25,7 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
         $pdf->Cell(40, 10, 'Expiry Date', 1);
         $pdf->Ln();
         
-        // Table data
+        
         $pdf->SetFont('Arial', '', 12);
         foreach ($data as $row) {
             $pdf->Cell(50, 10, $row['first_name'] . ' ' . $row['last_name'], 1);

@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $bloodType = $_POST['blood'];
     $quantity = $_POST['quantity'];
     $description = $_POST['description'];
-    $username = $_SESSION['username'];  // Assume username is stored in the session upon login
+    $username = $_SESSION['username']; // Assume username is stored in the ses+sion upon login
 
     // Validate input
     if (empty($donatingHospitalID) || empty($bloodType) || empty($quantity) || empty($description)) {
@@ -24,9 +24,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     $success = $bloodRequest->processBloodRequest($donatingHospitalID, $bloodType, $quantity, $username);
 
     if ($success) {
-        $_SESSION['success_msg'] = "Blood request submitted successfully.";
+        $_SESSION['success_msg'] = "Your request has been sent successfully.";
     } else {
-        $_SESSION['error_msg'] = "Error submitting blood request. Please try again.";
+        $_SESSION['error_msg'] = "Your request could not be sent. Please try again later.";
     }
 
     header("Location: Request.php");
@@ -36,4 +36,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
     header("Location: Request.php");
     exit();
 }
-?>

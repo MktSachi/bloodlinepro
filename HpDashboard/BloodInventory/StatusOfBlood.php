@@ -2,10 +2,10 @@
 require_once($_SERVER['DOCUMENT_ROOT'] . '/bloodlinepro/Classes/Database.php');
 require_once '../Donation.php';
 
-// Start the session if not already started
+
 session_start();
 
-// Get hospital ID from session
+
 $hospitalID = isset($_SESSION['hospitalID']) ? $_SESSION['hospitalID'] : null;
 
 if (!$hospitalID) {
@@ -17,9 +17,9 @@ $donationManager = new Donation($db);
 
 $expiredDonations = [];
 $selectedDate = isset($_POST['date']) ? $_POST['date'] : date('Y-m-d');
-$showResults = true; // Always show results
+$showResults = true; 
 
-// Process form submission
+// Process form 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkExpired'])) {
     $deleteResult = $donationManager->deleteExpiredDonations($hospitalID, $selectedDate);
     if ($deleteResult['success']) {
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['checkExpired'])) {
     }
 }
 
-// Get expired donations
+
 $result = $donationManager->getExpiredDonationsByHospitalAndDate($hospitalID, $selectedDate);
 $expiredDonations = $result['success'] ? $result['data'] : [];
 
@@ -66,7 +66,7 @@ if (!$result['success']) {
 </head>
 <body class="bg-light">
     <div class="container py-5">
-        <!-- Date Selection Card -->
+        
         <div class="card date-selection-card shadow-sm">
             <div class="card-header bg-primary text-white">
                 <h4 class="mb-0">Check Expired Blood Status</h4>
@@ -88,7 +88,7 @@ if (!$result['success']) {
             </div>
         </div>
 
-        <!-- Display success or error messages -->
+        
         <?php if (isset($successMessage)): ?>
             <div class="alert alert-success mt-3"><?php echo $successMessage; ?></div>
         <?php endif; ?>
@@ -96,7 +96,7 @@ if (!$result['success']) {
             <div class="alert alert-danger mt-3"><?php echo $errorMessage; ?></div>
         <?php endif; ?>
 
-        <!-- Results Section -->
+        
         <?php if ($showResults): ?>
         <div class="results-section">
             <div class="card shadow-sm">
@@ -148,7 +148,7 @@ if (!$result['success']) {
                                 </tbody>
                             </table>
                         </div>
-                        <div style="margin-top: 20px;"> <!-- Adjust the margin value as needed -->
+                        <div style="margin-top: 20px;"> 
     <a href="download_expired_report.php?download=pdf&date=<?php echo $selectedDate; ?>" class="btn btn-primary">Download PDF Report</a>
 </div>
 

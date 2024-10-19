@@ -12,6 +12,14 @@ if (!empty($_SESSION['error_msg'])) {
 }
 ?>
 
+<?php if (!empty($_SESSION['success_msg'])) { ?>
+    <div class="alert alert-success" role="alert">
+        <?php echo $_SESSION['success_msg']; ?>
+    </div>
+    <?php unset($_SESSION['success_msg']); // Clear the message after displaying it ?>
+<?php } ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -179,6 +187,9 @@ if (!empty($_SESSION['error_msg'])) {
 
         
     </script>
+
+
+
 
 </body>
 </html>

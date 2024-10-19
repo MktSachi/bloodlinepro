@@ -46,7 +46,7 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
         $pdf->Cell(0, 10, 'Expired Blood Donations as of ' . date('d M Y', strtotime($selectedDate)), 0, 1);
         $pdf->Ln(5);
 
-        // Table Header
+        
         $pdf->SetFillColor(200, 220, 255);
         $pdf->SetFont('Arial', 'B', 10);
         $pdf->Cell(25, 7, 'Donation ID', 1, 0, 'C', true);

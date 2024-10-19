@@ -462,6 +462,7 @@ $db->close();
                   const index = elements[0].index;
                   const hospitalName = this.data.labels[index];
                   window.location.href = `hospitalBloodDistribution.php?hospital=${encodeURIComponent(hospitalName)}`;
+                  
                 }
               }
             }

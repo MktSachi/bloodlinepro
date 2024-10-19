@@ -1,11 +1,11 @@
 <?php
 session_start();
 
-// Include the FPDF library and the Inventory class
-// Include the FPDF library and the Inventory class
+
+
 require 'fpdf/fpdf.php';
-require_once '../../Classes/Database.php'; // Ensure this path is correct
-require_once dirname(__FILE__) . '../Inventory.php'; // Update the path if necessary
+require_once '../../Classes/Database.php'; 
+require_once dirname(__FILE__) . '../Inventory.php'; 
 
 
 // Initialize Database and Inventory
@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['startDate'], $_POST['
             try {
                 $reportData = $inventory->getPatientReport($startDate, $endDate);
                 $reportPeriod = ['start' => $startDate, 'end' => $endDate];
-                // Store in session if needed
+                
                 $_SESSION['reportData'] = $reportData;
                 $_SESSION['reportPeriod'] = $reportPeriod;
             } catch (Exception $e) {
@@ -136,7 +136,7 @@ function generatePDFReport($startDate, $endDate, $reportData) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
-        /* Custom Styles */
+        
         body {
             background-color: #f8f9fa;
         }
@@ -216,7 +216,7 @@ function generatePDFReport($startDate, $endDate, $reportData) {
                         <?php endif; ?>
                     </form>
 
-                    <!-- Display Report Data if available -->
+                    
                     <?php if (!empty($reportData)): ?>
                         <table class="table table-striped">
                             <thead>
@@ -243,7 +243,7 @@ function generatePDFReport($startDate, $endDate, $reportData) {
     </div>
 </div>
 
-<!-- Include Bootstrap JS for functionality -->
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
