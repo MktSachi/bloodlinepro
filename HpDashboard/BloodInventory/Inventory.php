@@ -70,8 +70,7 @@ class Inventory {
         $donations = [];
 
         $query = "
-            SELECT d.id, d.donorNIC, d.donatedBloodCount, d.donationDate, d.bloodExpiryDate, 
-                   dn.first_name, dn.last_name
+            SELECT *
             FROM donations d
             JOIN donors dn ON d.donorNIC = dn.donorNIC
             JOIN healthcare_professionals hp ON d.hospitalID = hp.hospitalID
@@ -519,5 +518,62 @@ class Inventory {
         return $reportData;
     }
 
+    public function checkBloodAvailability($hospitalID, $bloodType, $requestedQuantity) {
+        $query = "SELECT quantity FROM hospital_blood_inventory WHERE hospitalID = ? AND bloodType = ?";
+        
+        if ($stmt = $this->conn->prepare($query)) {
+            $stmt->bind_param('is', $hospitalID, $bloodType);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                $availableQuantity = $row['quantity'];
+                
+                if ($availableQuantity >= $requestedQuantity) {
+                    return [
+                        'success' => true,
+                        'message' => "Sufficient quantity available. {$availableQuantity} units in stock."
+                    ];
+                } else {
+                    return [
+                        'success' => false,
+                        'message' => "Insufficient quantity. Only {$availableQuantity} units available."
+                    ];
+                }
+            } else {
+                // Debug information
+                error_log("No inventory found for hospitalID: $hospitalID, bloodType: $bloodType");
+                
+                // Check if the hospital exists
+                $hospitalQuery = "SELECT hospitalName FROM hospitals WHERE hospitalID = ?";
+                $hospitalStmt = $this->conn->prepare($hospitalQuery);
+                $hospitalStmt->bind_param('i', $hospitalID);
+                $hospitalStmt->execute();
+                $hospitalResult = $hospitalStmt->get_result();
+                
+                if ($hospitalResult->num_rows === 0) {
+                    return [
+                        'success' => false,
+                        'message' => "Hospital not found. Please check the hospital ID."
+                    ];
+                }
+                
+                // If hospital exists, it means there's no inventory for this blood type
+                return [
+                    'success' => false,
+                    'message' => "No inventory found for the specified blood type. Please check the blood type or contact the administrator."
+                ];
+            }
+            
+            $stmt->close();
+        } else {
+            error_log("Error preparing query: " . $this->conn->error);
+            return [
+                'success' => false,
+                'message' => "Error checking inventory. Please try again later or contact support."
+            ];
+        }
+    }
 }
 ?>
