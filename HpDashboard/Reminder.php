@@ -58,14 +58,12 @@
         .form-group {
             margin-bottom: 25px;
         }
-
         label {
             font-weight: 600;
             color: #34495e;
             margin-bottom: 8px;
             display: block;
         }
-
         .form-control {
             border: 1px solid #ced4da;
             border-radius: 4px;
@@ -73,52 +71,10 @@
             font-size: 16px;
             transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
         }
-
         .form-control:focus {
             border-color: #007bff;
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
-
-        .btn-primary {
-            background-color: #007bff;
-            border-color: #007bff;
-            padding: 12px 20px;
-            font-size: 18px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: background-color 0.15s ease-in-out;
-        }
-
-        .btn-primary:hover {
-            background-color: #0056b3;
-            border-color: #0056b3;
-        }
-
-        .header-buttons {
-            margin-top: 20px;
-        }
-
-        .header-buttons .btn {
-            margin-right: 10px;
-            border-radius: 20px;
-            padding: 10px 20px;
-            font-weight: 500;
-            color: white;
-            background-color: #007bff;
-        }
-
-        .btn-send-reminder {
-            background-color: #007bff;
-        }
-
-        .btn-send-reminder:hover {
-            background-color: #0056b3;
-        }
-
-        #reminderForm {
-            display: block;
-        }
-
         .footer {
             text-align: center;
             padding: 20px;
@@ -155,7 +111,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="city">Address</label>
+                        <label for="address2">Address</label>
                         <input type="text" class="form-control" id="address2" name="address2" placeholder="Enter the address" required>
                     </div>
 
@@ -170,7 +126,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="city">Venue</label>
+                        <label for="venue">Venue</label>
                         <input type="text" class="form-control" id="venue" name="venue" placeholder="Enter the venue" required>
                     </div>
 
@@ -186,7 +142,17 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
     
+    <script>
+        // Set the minimum date for the date input to today
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const dd = String(today.getDate()).padStart(2, '0');
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0
+            const yyyy = today.getFullYear();
+            const minDate = yyyy + '-' + mm + '-' + dd;
+            document.getElementById('date').setAttribute('min', minDate);
+        });
+    </script>
 </body>
 </html>
