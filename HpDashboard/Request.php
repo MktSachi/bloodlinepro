@@ -176,6 +176,9 @@ if (!empty($_SESSION['error_msg'])) {
                 }
             });
         });
+
+        
     </script>
+
 </body>
 </html>
