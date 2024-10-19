@@ -1,9 +1,11 @@
 <?php
 session_start();
 require '../../Classes/Database.php';
+require '../BloodInventory/Inventory.php';
 
 $db = new Database();
 $conn = $db->getConnection();
+$inventory = new Inventory($conn);
 
 $hospitals = [];
 
@@ -40,34 +42,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['patientName'], $_POST
     if (empty($patientName) || empty($gender) || empty($bloodType) || empty($admissionDate) || empty($description) || $bloodQuantity <= 0) {
         $error = 'All fields are required and blood quantity must be positive.';
     } else {
-        // Begin transaction
-        $conn->begin_transaction();
-        try {
-            // Update hospital blood inventory
-            $updateInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity - ? WHERE hospitalID = ? AND bloodType = ?";
-            $updateInventoryStmt = $conn->prepare($updateInventoryQuery);
-            $updateInventoryStmt->bind_param('iis', $bloodQuantity, $hospitalID, $bloodType);
-            $updateInventoryStmt->execute();
+        // Check blood availability
+        $availabilityCheck = $inventory->checkBloodAvailability($hospitalID, $bloodType, $bloodQuantity);
+        
+        if ($availabilityCheck['success']) {
+            // Begin transaction
+            $conn->begin_transaction();
+            try {
+                // Update hospital blood inventory
+                $updateInventoryQuery = "UPDATE hospital_blood_inventory SET quantity = quantity - ? WHERE hospitalID = ? AND bloodType = ?";
+                $updateInventoryStmt = $conn->prepare($updateInventoryQuery);
+                $updateInventoryStmt->bind_param('iis', $bloodQuantity, $hospitalID, $bloodType);
+                $updateInventoryStmt->execute();
 
-            if ($updateInventoryStmt->affected_rows === 0) {
-                throw new Exception('Hospital does not have the specified blood type in inventory or insufficient quantity.');
+                if ($updateInventoryStmt->affected_rows === 0) {
+                    throw new Exception('Failed to update inventory. Please try again.');
+                }
+                $updateInventoryStmt->close();
+
+                // Insert record into patients table
+                $insertPatientQuery = "INSERT INTO patients (patientName, gender, bloodType, hospitalID, admissionDate, `condition`, bloodQuantity) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                $insertPatientStmt = $conn->prepare($insertPatientQuery);
+                $insertPatientStmt->bind_param('sssisss', $patientName, $gender, $bloodType, $hospitalID, $admissionDate, $description, $bloodQuantity);
+                $insertPatientStmt->execute();
+                $insertPatientStmt->close();
+
+                $submissionSuccess = true;
+                // Commit transaction
+                $conn->commit();
+            } catch (Exception $e) {
+                $error = 'An error occurred during the blood usage process: ' . $e->getMessage();
+                // Rollback transaction
+                $conn->rollback();
             }
-            $updateInventoryStmt->close();
-
-            // Insert record into patients table
-            $insertPatientQuery = "INSERT INTO patients (patientName, gender, bloodType, hospitalID, admissionDate, `condition`, bloodQuantity) VALUES (?, ?, ?, ?, ?, ?, ?)";
-            $insertPatientStmt = $conn->prepare($insertPatientQuery);
-            $insertPatientStmt->bind_param('sssisss', $patientName, $gender, $bloodType, $hospitalID, $admissionDate, $description, $bloodQuantity);
-            $insertPatientStmt->execute();
-            $insertPatientStmt->close();
-
-            $submissionSuccess = true;
-            // Commit transaction
-            $conn->commit();
-        } catch (Exception $e) {
-            $error = 'An error occurred during the blood usage process: ' . $e->getMessage();
-            // Rollback transaction
-            $conn->rollback();
+        } else {
+            $error = $availabilityCheck['message'];
         }
     }
 }
@@ -187,5 +196,11 @@ $db->close();
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById('admissionDate').setAttribute('max', today);
+    });
+</script>
 </body>
 </html>

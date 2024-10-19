@@ -78,9 +78,9 @@
                 <div class="col-md-4">
                     <div class="card">
                         <div class="card-body text-center">
-                            <img src="images/avatar.png" class="profile-pic mb-3">
+                          <!--  <img src="images/avatar.png" class="profile-pic mb-3">-->
                             <h4><?php echo htmlspecialchars($firstName . ' ' . $lastName); ?></h4>
-                            <p class="text-muted"><?php echo htmlspecialchars($position); ?></p>
+                          <!--  <p class="text-muted"><?php echo htmlspecialchars($position); ?></p>-->
                             <p><i class="fas fa-id-card blue-dot"></i> <?php echo htmlspecialchars($hpnic); ?></p>
                             <p><i class="fas fa-hospital blue-dot"></i> <?php echo htmlspecialchars($hospitalName); ?></p>
                         </div>
