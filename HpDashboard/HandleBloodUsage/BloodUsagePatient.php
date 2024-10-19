@@ -196,5 +196,11 @@ $db->close();
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var today = new Date().toISOString().split('T')[0];
+        document.getElementById('admissionDate').setAttribute('max', today);
+    });
+</script>
 </body>
 </html>
