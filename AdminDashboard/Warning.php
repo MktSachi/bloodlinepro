@@ -47,6 +47,7 @@ $conn->close();
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,67 +60,80 @@ $conn->close();
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f8f9fa;
         }
+
         .w3-main {
             margin-left: 230px;
             margin-top: 0px;
             padding: 20px;
         }
+
         .container {
             max-width: 1200px;
         }
+
         .card {
             border: none;
             border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
+
         .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
         }
+
         .card-body {
             background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
             padding: 1.5rem;
         }
+
         .card-title {
             color: #dc3545;
             font-weight: bold;
             font-size: 1.8rem;
         }
+
         .header {
             background-color: #dc3545;
             color: white;
             padding: 1.5rem 0;
             margin-bottom: 2rem;
         }
+
         .header h1 {
             font-weight: 700;
             font-size: 2.2rem;
         }
+
         .chart-container {
             position: relative;
             margin: auto;
             height: 200px;
             width: 200px;
         }
+
         .blood-status {
             font-size: 1.1rem;
             font-weight: 500;
             margin-top: 1rem;
         }
+
         .alert-custom {
             background-color: #ffc107;
             color: #212529;
             border: none;
             border-radius: 10px;
         }
+
         @media (max-width: 768px) {
             .w3-main {
                 margin-left: 0;
                 margin-top: 0;
             }
         }
+
         #content-loader {
             position: absolute;
             top: 0;
@@ -132,6 +146,7 @@ $conn->close();
             align-items: center;
             z-index: 9999;
         }
+
         .spinner {
             width: 50px;
             height: 50px;
@@ -140,14 +155,21 @@ $conn->close();
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
+
 <body>
-<?php include './sidebar.php'; ?>
+    <?php include './sidebar.php'; ?>
     <div class="w3-main">
         <div class="header text-center">
             <h1><i class="fas fa-tint me-3"></i>Blood Inventory Warning</h1>
@@ -157,7 +179,8 @@ $conn->close();
         </div>
         <?php if ($lowStockCount > 0): ?>
             <div class="alert alert-danger text-center mb-4" role="alert">
-                <i class="fas fa-exclamation-triangle me-2"></i>Warning: <?= $lowStockCount ?> blood type<?= $lowStockCount > 1 ? 's are' : ' is' ?> critically low (below 100 units).
+                <i class="fas fa-exclamation-triangle me-2"></i>Warning: <?= $lowStockCount ?> blood
+                type<?= $lowStockCount > 1 ? 's are' : ' is' ?> critically low (below 100 units).
                 <?php if ($emailsSent): ?>
                     Email alerts have been sent to all hospitals.
                 <?php else: ?>
@@ -190,7 +213,7 @@ $conn->close();
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             <?php foreach ($lowStockBloodTypes as $bloodGroup): ?>
                 createPieChart('chart<?= str_replace('+', '', $bloodGroup['bloodType']) ?>', <?= $bloodGroup['quantity'] ?>);
             <?php endforeach; ?>
@@ -217,7 +240,7 @@ $conn->close();
                         },
                         tooltip: {
                             callbacks: {
-                                label: function(context) {
+                                label: function (context) {
                                     return context.parsed + ' units';
                                 }
                             }
@@ -227,12 +250,13 @@ $conn->close();
             });
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            setTimeout(function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            setTimeout(function () {
                 document.getElementById('content-loader').style.display = 'none';
                 document.querySelector('.w3-main').style.display = 'block';
             }, 1500);
         });
     </script>
 </body>
+
 </html>

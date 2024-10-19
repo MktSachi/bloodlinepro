@@ -1,6 +1,7 @@
 body {
     font-family: Arial, sans-serif;
 }
+
 .form-title {
     font-size: 24px;
     font-weight: bold;
@@ -8,20 +9,24 @@ body {
     text-align: center;
     padding: 20px;
 }
+
 .btn-custom {
     background-color: #000D54;
     border-color: black;
     color: white;
     width: 150px;
 }
+
 .btn-custom:hover {
     background-color: darkblue;
     border-color: #0056b3;
     color: white;
 }
+
 .alert {
     display: none;
 }
-.form-label{
+
+.form-label {
     font-weight: bold;
 }

@@ -1,6 +1,6 @@
 <?php
 require '../Classes/Database.php';
-require '../Classes/Donor.php'; // Assuming this file has relevant classes or functions
+require '../Classes/Donor.php';
 
 $db = new Database();
 $connection = $db->getConnection();

@@ -58,7 +58,6 @@ if (isset($_GET['download']) && $_GET['download'] === 'pdf') {
         // Table data
         $pdf->SetFont('Arial', '', 8);
         foreach ($requests as $request) {
-            // Remove "- National Blood Bank" case-insensitively from hospital names
             $donatingHospital = str_ireplace("- national blood bank", "", $request['donatingHospital']);
             $requestingHospital = str_ireplace("- national blood bank", "", $request['requestingHospital']);
 

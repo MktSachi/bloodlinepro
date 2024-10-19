@@ -1,47 +1,57 @@
-body{
+body {
     font-family: Arial, sans-serif;
 }
-.box{
+
+.box {
     width: 23.4%;
     margin-left: 1%;
     margin-top: 2%;
     display: inline-block;
     background-color: darkred;
 }
-.box:hover{
+
+.box:hover {
     background-color: red;
 }
-img{
+
+img {
     width: 20%;
     margin-top: 0%;
     padding-top: 10px;
     margin-bottom: -5%;
 }
-p{
+
+p {
     color: white;
     font-size: 20px;
     font-weight: bold;
     padding-bottom: 20px;
     margin-bottom: 0px;
 }
-a{
+
+a {
     text-decoration: none;
 }
-img,p{
+
+img,
+p {
     margin-left: 4%;
 }
+
 @media only screen and (max-width: 900px) {
-    .box{
+    .box {
         width: 31.5%;
     }
 }
+
 @media only screen and (max-width: 700px) {
-    .box{
+    .box {
         width: 48%;
     }
 }
+
 @media only screen and (max-width: 450px) {
-    .box{
+    .box {
         width: 97%;
     }
 }

@@ -7,28 +7,30 @@ require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 
-class EmailSender {
-    public function sendConfirmationEmail($email, $firstName, $hpRegNo, $password) {
-        $mail = new PHPMailer(true); // Passing `true` enables exceptions
+class EmailSender
+{
+  public function sendConfirmationEmail($email, $firstName, $hpRegNo, $password)
+  {
+    $mail = new PHPMailer(true);
 
-        try {
-            // SMTP configuration
-            $mail->isSMTP();
-            $mail->SMTPAuth = true;
-            $mail->Host = 'smtp.gmail.com';
-            $mail->Username = 'bloodlinepro.lk@gmail.com';
-            $mail->Password = 'czqktgongmcdolnn';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $mail->Port = 465;
+    try {
+      // SMTP configuration
+      $mail->isSMTP();
+      $mail->SMTPAuth = true;
+      $mail->Host = 'smtp.gmail.com';
+      $mail->Username = 'bloodlinepro.lk@gmail.com';
+      $mail->Password = 'czqktgongmcdolnn';
+      $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+      $mail->Port = 465;
 
-            // Sender and recipient
-            $mail->setFrom('bloodlinepro.lk@gmail.com', 'bloodlinepro');
-            $mail->addAddress($email);
+      // Sender and recipient
+      $mail->setFrom('bloodlinepro.lk@gmail.com', 'bloodlinepro');
+      $mail->addAddress($email);
 
-            // Content
-            $mail->isHTML(true);
-            $mail->Subject = 'Welcome to BloodlinePro - Your Blood Bank Management System';
-            $mail->Body = '<html>
+      // Content
+      $mail->isHTML(true);
+      $mail->Subject = 'Welcome to BloodlinePro - Your Blood Bank Management System';
+      $mail->Body = '<html>
                 <head>
                   <style>
                     body {
@@ -74,10 +76,10 @@ class EmailSender {
                 <body>
                   <div class="container">
                     <h1>Welcome to BloodlinePro!</h1>
-                    <p>Dear '.$firstName.',</p>
+                    <p>Dear ' . $firstName . ',</p>
                     <p>Thank you for registering with BloodlinePro.</p>
-                    <p>Your username : <strong>'.$hpRegNo.'</strong></p>
-                    <p><strong>Your Password:</strong> <strong>'.$password.'</strong></p>
+                    <p>Your username : <strong>' . $hpRegNo . '</strong></p>
+                    <p><strong>Your Password:</strong> <strong>' . $password . '</strong></p>
                     <p>Please keep this information secure. You can now log in to your account.</p>
                     <p>We are excited to have you onboard!</p>
                     
@@ -86,12 +88,11 @@ class EmailSender {
                   </div>
                 </body>
                 </html>';
-            // Send email
-            $mail->send();
-            echo 'Email sent successfully';
-        } catch (Exception $e) {
-            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
-        }
+      $mail->send();
+      echo 'Email sent successfully';
+    } catch (Exception $e) {
+      echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
     }
+  }
 }
 ?>
