@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = $db->getConnection();
 
     if (isset($_POST['registration_number']) && !isset($_POST['first_name'])) {
-        // Step 1: Fetch data based on registration number
+        //Fetch data based on registration number
         $registration_number = $validator->sanitizeInput($_POST['registration_number']);
 
         $stmt = $conn->prepare("SELECT * FROM healthcare_professionals WHERE hpRegNo = ?");
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
     } elseif (isset($_POST['update'])) {
-        // Step 2: Update form data
+        //Update form data
         $registration_number = $validator->sanitizeInput($_POST['registration_number']);
         $first_name = $validator->sanitizeInput($_POST['first_name']);
         $last_name = $validator->sanitizeInput($_POST['last_name']);
@@ -139,10 +139,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             --primary-color: #dc3545;
             --secondary-color: #007bff;
         }
+
         body {
             background-color: #f8f9fa;
             font-family: 'Arial', sans-serif;
         }
+
         .card {
             border: none;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -150,6 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 10px;
             overflow: hidden;
         }
+
         .card-header {
             background-color: var(--primary-color);
             color: #fff;
@@ -157,37 +160,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             padding: 15px;
             border-bottom: none;
         }
+
         .highlight label {
             color: var(--secondary-color);
             font-weight: bold;
         }
+
         .highlight {
             border-bottom: 1px solid #e9ecef;
             padding-bottom: 15px;
             margin-bottom: 15px;
         }
+
         .btn-primary {
             background-color: var(--primary-color);
             border-color: var(--primary-color);
         }
+
         .btn-primary:hover {
             background-color: #c82333;
             border-color: #bd2130;
         }
+
         .form-control:focus {
             border-color: var(--secondary-color);
             box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
         }
+
         .hp-info {
             background-color: #fff;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .hp-info h3 {
             color: var(--primary-color);
             margin-bottom: 20px;
         }
+
         .hp-avatar {
             width: 100px;
             height: 100px;
@@ -200,19 +211,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 50%;
             margin: 0 auto 20px;
         }
+
         .hp-form {
             background-color: #fff;
             border-radius: 10px;
             padding: 20px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         .animated {
             animation: fadeIn 0.5s ease-in-out;
         }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         #content-loader {
             position: fixed;
             top: 0;
@@ -225,6 +247,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             z-index: 9999;
         }
+
         .spinner {
             width: 50px;
             height: 50px;
@@ -233,9 +256,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
+
         @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
         }
     </style>
 </head>
@@ -259,10 +288,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
 
         <?php if (!empty($success_message)): ?>
-    <div class="alert alert-success animated">
-        <i class="fas fa-check-circle"></i> <?php echo $success_message; ?>
-    </div>
-<?php endif; ?>
+            <div class="alert alert-success animated">
+                <i class="fas fa-check-circle"></i> <?php echo $success_message; ?>
+            </div>
+        <?php endif; ?>
 
         <div class="card animated">
             <div class="card-header">
@@ -271,7 +300,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="card-body">
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" id="hp">
                     <div class="input-group">
-                        <input type="text" class="form-control" id="registration_number" name="registration_number" placeholder="Enter Registration Number" required>
+                        <input type="text" class="form-control" id="registration_number" name="registration_number"
+                            placeholder="Enter Registration Number" required>
                         <button type="submit" class="btn btn-primary">
                             <i class="fas fa-search"></i> Search
                         </button>
@@ -284,74 +314,86 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="row animated">
                 <div class="col-md-6">
                     <div class="hp-info">
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" name="hp_update_form">
-                        <div class="hp-avatar">
-                            <?= strtoupper(substr($hpData['firstname'], 0, 1) . substr($hpData['lastname'], 0, 1)) ?>
-                        </div>
-                        <h3 class="text-center"><?= htmlspecialchars($hpData['firstname'] . ' ' . $hpData['lastname']) ?></h3>
-                        <div class="highlight">
-                            <label><i class="fas fa-id-card"></i> Registration Number:</label>
-                            <p><?= htmlspecialchars($hpData['hpRegNo']) ?></p>
-                        </div>
-                        <div class="highlight">
-                            <label><i class="fas fa-user-tag"></i> Position:</label>
-                            <p><?= htmlspecialchars($hpData['position']) ?></p>
-                        </div>
-                        <div class="highlight">
-                            <label><i class="fas fa-envelope"></i> Email:</label>
-                            <p><?= htmlspecialchars($hpData['email']) ?></p>
-                        </div>
-                        <div class="highlight">
-                            <label><i class="fas fa-id-badge"></i> NIC Number:</label>
-                            <p><?= htmlspecialchars($hpData['hpnic']) ?></p>
-                        </div>
-                        <div class="highlight">
-                            <label><i class="fas fa-hospital"></i> Hospital:</label>
-                            <p>
-                                <?php
-                                $hospitals = getHospitals();
-                                echo htmlspecialchars($hospitals[$hpData['hospitalid']]);
-                                ?>
-                            </p>
-                        </div>
-                    
-                        <div class="highlight">
-                            <label><i class="fas fa-phone"></i> Contact Number:</label>
-                            <p><?= htmlspecialchars($hpData['phonenumber']) ?></p>
-                        </div>
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"
+                            name="hp_update_form">
+                            <div class="hp-avatar">
+                                <?= strtoupper(substr($hpData['firstname'], 0, 1) . substr($hpData['lastname'], 0, 1)) ?>
+                            </div>
+                            <h3 class="text-center">
+                                <?= htmlspecialchars($hpData['firstname'] . ' ' . $hpData['lastname']) ?></h3>
+                            <div class="highlight">
+                                <label><i class="fas fa-id-card"></i> Registration Number:</label>
+                                <p><?= htmlspecialchars($hpData['hpRegNo']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-user-tag"></i> Position:</label>
+                                <p><?= htmlspecialchars($hpData['position']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-envelope"></i> Email:</label>
+                                <p><?= htmlspecialchars($hpData['email']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-id-badge"></i> NIC Number:</label>
+                                <p><?= htmlspecialchars($hpData['hpnic']) ?></p>
+                            </div>
+                            <div class="highlight">
+                                <label><i class="fas fa-hospital"></i> Hospital:</label>
+                                <p>
+                                    <?php
+                                    $hospitals = getHospitals();
+                                    echo htmlspecialchars($hospitals[$hpData['hospitalid']]);
+                                    ?>
+                                </p>
+                            </div>
+
+                            <div class="highlight">
+                                <label><i class="fas fa-phone"></i> Contact Number:</label>
+                                <p><?= htmlspecialchars($hpData['phonenumber']) ?></p>
+                            </div>
                     </div>
                     </form>
                 </div>
                 <div class="col-md-6">
                     <div class="hp-form">
                         <h3 class="text-center mb-4">Update Healthcare Professional</h3>
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" name="hp_update_form">
-                            <input type="hidden" name="registration_number" value="<?php echo htmlspecialchars($hpData['hpRegNo']); ?>">
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post"
+                            name="hp_update_form">
+                            <input type="hidden" name="registration_number"
+                                value="<?php echo htmlspecialchars($hpData['hpRegNo']); ?>">
 
                             <div class="mb-3">
                                 <label for="first_name" class="form-label"><i class="fas fa-user"></i> First Name</label>
-                                <input type="text" class="form-control" id="first_name" name="first_name" value="<?php echo htmlspecialchars($hpData['firstname']); ?>" required>
+                                <input type="text" class="form-control" id="first_name" name="first_name"
+                                    value="<?php echo htmlspecialchars($hpData['firstname']); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="last_name" class="form-label"><i class="fas fa-user"></i> Last Name</label>
-                                <input type="text" class="form-control" id="last_name" name="last_name" value="<?php echo htmlspecialchars($hpData['lastname']); ?>" required>
+                                <input type="text" class="form-control" id="last_name" name="last_name"
+                                    value="<?php echo htmlspecialchars($hpData['lastname']); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="position" class="form-label"><i class="fas fa-user-tag"></i> Position</label>
                                 <select class="form-control" id="position" name="position" required>
                                     <option value="">Select Position</option>
-                                    <option value="ho" <?php echo $hpData['position'] == 'ho' ? 'selected' : ''; ?>>House Officer</option>
-                                    <option value="mho" <?php echo $hpData['position'] == 'mho' ? 'selected' : ''; ?>>Medical House Officer</option>
-                                    <option value="sho" <?php echo $hpData['position'] == 'sho' ? 'selected' : ''; ?>>Senior House Officer</option>
+                                    <option value="ho" <?php echo $hpData['position'] == 'ho' ? 'selected' : ''; ?>>House
+                                        Officer</option>
+                                    <option value="mho" <?php echo $hpData['position'] == 'mho' ? 'selected' : ''; ?>>Medical
+                                        House Officer</option>
+                                    <option value="sho" <?php echo $hpData['position'] == 'sho' ? 'selected' : ''; ?>>Senior
+                                        House Officer</option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label"><i class="fas fa-envelope"></i> Email</label>
-                                <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($hpData['email']); ?>" required>
+                                <input type="email" class="form-control" id="email" name="email"
+                                    value="<?php echo htmlspecialchars($hpData['email']); ?>" required>
                             </div>
                             <div class="mb-3">
-                                <label for="nic_number" class="form-label"><i class="fas fa-id-badge"></i> NIC Number</label>
-                                <input type="text" class="form-control" id="nic_number" name="nic_number" value="<?php echo htmlspecialchars($hpData['hpnic']); ?>" required>
+                                <label for="nic_number" class="form-label"><i class="fas fa-id-badge"></i> NIC
+                                    Number</label>
+                                <input type="text" class="form-control" id="nic_number" name="nic_number"
+                                    value="<?php echo htmlspecialchars($hpData['hpnic']); ?>" required>
                             </div>
                             <div class="mb-3">
                                 <label for="hospital" class="form-label"><i class="fas fa-hospital"></i> Hospital</label>
@@ -366,16 +408,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label for="phone_number" class="form-label"><i class="fas fa-phone"></i> Contact Number</label>
-                                <input type="text" class="form-control" id="phone_number" name="phone_number" value="<?php echo htmlspecialchars($hpData['phonenumber']); ?>" required>
+                                <label for="phone_number" class="form-label"><i class="fas fa-phone"></i> Contact
+                                    Number</label>
+                                <input type="text" class="form-control" id="phone_number" name="phone_number"
+                                    value="<?php echo htmlspecialchars($hpData['phonenumber']); ?>" required>
                             </div>
 
                             <button type="submit" name="update" class="btn btn-primary w-100 mb-2">
-    <i class="fas fa-save"></i> Update
-</button>
-<button type="submit" name="delete" class="btn btn-danger w-100">
-    <i class="fas fa-trash-alt"></i> Delete
-</button>
+                                <i class="fas fa-save"></i> Update
+                            </button>
+                            <button type="submit" name="delete" class="btn btn-danger w-100">
+                                <i class="fas fa-trash-alt"></i> Delete
+                            </button>
                         </form>
                     </div>
                 </div>
@@ -391,14 +435,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Show loader when form is submitted and hide after 1.5 seconds
-        document.getElementById('hp').addEventListener('submit', function(e) {
-            e.preventDefault(); // Prevent the form from submitting immediately
+        document.getElementById('hp').addEventListener('submit', function (e) {
+            e.preventDefault();
             document.getElementById('content-loader').style.display = 'flex';
-            
-            setTimeout(function() {
+
+            setTimeout(function () {
                 document.getElementById('content-loader').style.display = 'none';
-                e.target.submit(); // Submit the form after the loader disappears
-            }, 1500); // 1500 milliseconds = 1.5 seconds
+                e.target.submit();
+            }, 1500);
         });
     </script>
 </body>

@@ -1,28 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-  
-    <!-- Bootstrap 5 CSS -->
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
     <title>HealthCare Person Account</title>
-    <link rel="stylesheet" href="../HpDashboard/Css/DonorHandle.css">    
+    <link rel="stylesheet" href="../HpDashboard/Css/DonorHandle.css">
     <style>
         body {
             background-color: #f5f5f5;
             font-family: Arial, sans-serif;
         }
+
         .w3-main {
             background-color: #ffffff;
             min-height: 100vh;
-            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
+
         .container {
             padding: 25px;
         }
+
         h3 {
             color: #333;
             font-size: 24px;
@@ -32,16 +35,19 @@
             display: flex;
             align-items: center;
         }
+
         h3 i {
             color: #2c3e50;
             margin-right: 10px;
         }
+
         .operation-links {
             margin: 20px 0;
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
         }
+
         .btn {
             padding: 12px 20px;
             font-size: 15px;
@@ -50,22 +56,27 @@
             align-items: center;
             white-space: nowrap;
         }
+
         .btn-primary {
             background-color: #2c3e50;
             border-color: #2c3e50;
         }
+
         .btn-primary:hover {
             background-color: #34495e;
             border-color: #34495e;
         }
+
         .btn-info {
             background-color: #3498db;
             border-color: #3498db;
         }
+
         .btn-info:hover {
             background-color: #2980b9;
             border-color: #2980b9;
         }
+
         .footer {
             background-color: #2c3e50;
             color: #ffffff;
@@ -76,6 +87,7 @@
             text-align: center;
             font-size: 14px;
         }
+
         iframe {
             border: 1px solid #e0e0e0;
             background: #ffffff;
@@ -84,46 +96,53 @@
             height: 600px;
             display: none;
         }
+
         #backButton {
             background-color: #95a5a6;
             border-color: #95a5a6;
             color: white;
             display: none;
         }
+
         #backButton:hover {
             background-color: #7f8c8d;
             border-color: #7f8c8d;
         }
+
         .welcome-message {
             text-align: center;
             padding: 50px;
             color: #666;
             display: block;
         }
+
         @media (max-width: 768px) {
             .operation-links {
                 flex-direction: column;
             }
+
             .btn {
                 width: 100%;
             }
         }
     </style>
 </head>
+
 <body>
     <?php include 'sidebar.php'; ?>
 
-    <!-- PAGE CONTENT -->
     <div class="w3-main" style="margin-left:230px;margin-top:0px;">
         <div class="container">
             <h3><strong>HealthCare Person Account</strong></h3>
-            
+
             <div class="operation-links">
-                <a href="CreateHp.php" target="contentFrame" class="btn btn-primary" id="createHpBtn" onclick="showButton('createHp', 'CreateHp.php')">
+                <a href="CreateHp.php" target="contentFrame" class="btn btn-primary" id="createHpBtn"
+                    onclick="showButton('createHp', 'CreateHp.php')">
                     <i class="fa fa-plus" style="margin-right: 5px;"></i>Create HealthCare Person
                 </a>
-                
-                <a href="ViewHp.php" target="contentFrame" class="btn btn-info" id="viewHpBtn" onclick="showButton('viewHp', 'ViewHp.php')">
+
+                <a href="ViewHp.php" target="contentFrame" class="btn btn-info" id="viewHpBtn"
+                    onclick="showButton('viewHp', 'ViewHp.php')">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>HealthCare Person Information
                 </a>
 
@@ -137,7 +156,6 @@
                 <p>Please select an option above to proceed</p>
             </div>
 
-            <!-- Iframe to load content -->
             <iframe name="contentFrame" id="contentFrame"></iframe>
         </div>
     </div>
@@ -191,4 +209,5 @@
         }
     </script>
 </body>
+
 </html>

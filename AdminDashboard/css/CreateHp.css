@@ -2,6 +2,7 @@ body {
     font-family: Arial, sans-serif;
     padding: 20px;
 }
+
 .page-title {
     font-size: 24px;
     font-weight: bold;
@@ -10,28 +11,34 @@ body {
     padding: 20px 0;
     margin-top: -20px;
 }
+
 .form-group {
     margin-bottom: 20px;
 }
+
 .form-control {
     border-radius: 5px;
     transition: border-color 0.3s;
 }
+
 .btn-custom {
     background-color: #000D54;
     border-color: black;
     color: white;
     width: 150px;
 }
+
 .btn-custom:hover {
     background-color: darkblue;
     border-color: #0056b3;
     color: white;
 }
+
 .success-message {
     text-align: center;
     margin-top: 20px;
 }
-.form-label{
+
+.form-label {
     font-weight: bold;
 }

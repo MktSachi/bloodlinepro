@@ -25,6 +25,4 @@ if ($hospital->addHospital()) {
     echo "<p>Failed to add hospital.</p>";
 }
 
-// Optionally, redirect to another page after processing
-// header("Location: success.php"); // Adjust the path as necessary
 ?>
