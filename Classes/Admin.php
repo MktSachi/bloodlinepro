@@ -14,6 +14,59 @@ class Admin {
         $this->emailSender = new EmailSender();
     }
 
+    public function updateAdminPassword($currentPassword, $newPassword) {
+        $conn = $this->db->getConnection();
+
+        // Fetch the current admin's data from both users and admin tables
+        $stmt = $conn->prepare("
+            SELECT u.userid, u.password, a.email 
+            FROM users u
+            JOIN admin a ON u.userid = a.userid
+            WHERE u.roleID = 'admin' 
+            LIMIT 1
+        ");
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows === 0) {
+            return ['error' => 'Admin user not found.'];
+        }
+
+        $admin = $result->fetch_assoc();
+        $stmt->close();
+
+        // Verify current password
+        if (!password_verify($currentPassword, $admin['password'])) {
+            return ['error' => 'Current password is incorrect.'];
+        }
+
+        // Validate new password
+        if (!$this->validator->isValidPassword($newPassword)) {
+            return ['error' => 'New password does not meet the required criteria.'];
+        }
+
+        // Hash the new password
+        $hashedNewPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+        // Update the password in the users table
+        $updateStmt = $conn->prepare("UPDATE users SET password = ?, modifieddate = NOW() WHERE userid = ?");
+        $updateStmt->bind_param("si", $hashedNewPassword, $admin['userid']);
+
+        if ($updateStmt->execute()) {
+            $updateStmt->close();
+            $this->db->close();
+            
+            // Send email notification
+            $this->emailSender->sendPasswordChangeNotification($admin['email']);
+            
+            return ['success' => 'Password updated successfully.'];
+        } else {
+            $updateStmt->close();
+            $this->db->close();
+            return ['error' => 'Failed to update password. Please try again.'];
+        }
+    }
+
     public function generateRandomPassword($length = 8) {
         $characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
         $charactersLength = strlen($characters);
