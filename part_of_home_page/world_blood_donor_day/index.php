@@ -34,7 +34,7 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="card"style="box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); ">
-                    <img src="images/5.jpg" class="card-img-top" alt="Blood donation event">
+                    <img src="Image/5.jpg" class="card-img-top" alt="Blood donation event">
                     <div class="card-body">
                         <h5 class="card-title">Join a Blood Drive</h5>
                         <p class="card-text">Participate in local blood drives and contribute to saving lives in your community.</p>

@@ -164,7 +164,7 @@
     <nav class="navbar navbar-expand-md navbar-dark fixed-top">
         <div class="container-fluid">
             <a href="#" class="navbar-brand navimg">
-                <img src="Image/1212.png" alt="Logo" class="img-fluid">
+                <img src="part_of_home_page/Image/1212.png" alt="Logo" class="img-fluid">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
                 <span class="navbar-toggler-icon"></span>
@@ -179,10 +179,10 @@
                             Donate
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../DonatePage/AboutBlood.php">About Blood</a></li>
-                            <li><a class="dropdown-item" href="../DonatePage/FunctionBlood.php">Function Of Blood</a></li>
-                            <li><a class="dropdown-item" href="../DonatePage/BloodGroup.php">Blood Groups</a></li>
-                            <li><a class="dropdown-item" href="../DonatePage/Donate.php">Who Can Donate Blood</a></li>
+                            <li><a class="dropdown-item" href="DonatePage/AboutBlood.php">About Blood</a></li>
+                            <li><a class="dropdown-item" href="DonatePage/FunctionBlood.php">Function Of Blood</a></li>
+                            <li><a class="dropdown-item" href="DonatePage/BloodGroup.php">Blood Groups</a></li>
+                            <li><a class="dropdown-item" href="DonatePage/Donate.php">Who Can Donate Blood</a></li>
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
@@ -190,7 +190,7 @@
                             WBDD
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="world_blood_donor_day/index.php">World Blood Donors Day 2020</a></li>
+                            <li><a class="dropdown-item" href="part_of_home_page/world_blood_donor_day/index.php">World Blood Donors Day 2020</a></li>
                             <li><a class="dropdown-item" href="world_blood_donor_day/index.php">World Blood Donors Day 2021</a></li>
                             <li><a class="dropdown-item" href="world_blood_donor_day/index.php">World Blood Donors Day 2022</a></li>
                             <li><a class="dropdown-item" href="world_blood_donor_day/index.php">World Blood Donors Day 2023</a></li>
@@ -204,8 +204,8 @@
                             About
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="about/about.php">About BloodLinePro</a></li>
-                            <li><a class="dropdown-item" href="vision&mission/vision&mission.php">Vision - Mission</a></li>
+                            <li><a class="dropdown-item" href="part_of_home_page/about/about.php">About BloodLinePro</a></li>
+                            <li><a class="dropdown-item" href="part_of_home_page/vision&mission/vision&mission.php">Vision - Mission</a></li>
                             <li><a class="dropdown-item" href="#">About Blood</a></li>
                             <li><a class="dropdown-item" href="#">Donor Camps</a></li>
                         </ul>
@@ -213,7 +213,7 @@
                 </ul>
                 <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href="../login_window/login.php">Sign-In</a>
+                        <a class="nav-link active" href="login_window/login.php">Sign-In</a>
                     </li>
                 </ul>
             </div>

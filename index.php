@@ -66,6 +66,7 @@
         }
 
         .hero h1 {
+            padding-top: 80px;
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
@@ -78,7 +79,7 @@
             margin-bottom: 2rem;
         }
         .btn-primary {
-            background: linear-gradient(45deg, #e81a35, #c2185b);
+            background: linear-gradient(45deg, #e81a35,);
             padding:2rem ;
             font-weight: 500;
             color: #fff; 
@@ -208,18 +209,18 @@
 </head>
 <body>
 <?php 
-   include 'header.php';
+   include 'part_of_home_page/header.php';
 ?>
     <section class="hero">
         <div class="slideshow-container">
             <div class="mySlides fade">
-                <img src="Image/25.jpg" alt="Slide 1">
+                <img src="part_of_home_page/Image/25.jpg" alt="Slide 1">
             </div>
             <div class="mySlides fade">
-                <img src="Image/24.jpg" alt="Slide 2">
+                <img src="part_of_home_page/Image/24.jpg" alt="Slide 2">
             </div>
             <div class="mySlides fade">
-                <img src="Image/9.jpg" alt="Slide 3">
+                <img src="part_of_home_page/Image/9.jpg" alt="Slide 3">
             </div>
         </div>
         <div class="hero-content">
@@ -273,7 +274,7 @@
             <div class="row">
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
                     <div class="card">
-                        <img src="Image/22.jpg" class="card-img-top" alt="Project 1">
+                        <img src="part_of_home_page/Image/22.jpg" class="card-img-top" alt="Project 1">
                         <div class="card-body">
                             <h5 class="card-title">Enhanced Real-Time Monitoring</h5>
                             <p class="card-text">BloodLinePro updates blood stocks in real-time for better management.</p>
@@ -282,7 +283,7 @@
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
                     <div class="card">
-                        <img src="Image/26.jpg" class="card-img-top" alt="Project 2">
+                        <img src="part_of_home_page/Image/26.jpg" class="card-img-top" alt="Project 2">
                         <div class="card-body">
                             <h5 class="card-title">Improved Donor Engagement</h5>
                             <p class="card-text"> Simplifies donations with online forms, badges, and reminders.</p>
@@ -291,7 +292,7 @@
                 </div>
                 <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
                     <div class="card">
-                        <img src="Image/23.jpg" class="card-img-top" alt="Project 3">
+                        <img src="part_of_home_page/Image/23.jpg" class="card-img-top" alt="Project 3">
                         <div class="card-body">
                             <h5 class="card-title"> Administrative Processes</h5>
                             <p class="card-text">Automates paperwork, reducing errors and improving efficiency.</p>
@@ -308,7 +309,7 @@
             <p class="text-center section-subtitle" data-aos="fade-up" data-aos-delay="200">Learn more about my journey in tech</p>
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-4" data-aos="fade-right">
-                    <img src="Image/19.png" alt="James Anderson" class="img-fluid rounded-circle">
+                    <img src="part_of_home_page/Image/19.png" alt="James Anderson" class="img-fluid rounded-circle">
                 </div>
                 <div class="col-lg-6" data-aos="fade-left">
                     <div class="timeline-item">
@@ -347,7 +348,7 @@
                             <label for="message" class="form-label">Message</label>
                             <textarea class="form-control" id="message" rows="4" placeholder="Your Message"></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>
             </div>
@@ -395,7 +396,7 @@
         
     </script>
     <?php 
-   include 'footer.php';
+   include 'part_of_home_page/footer.php';
 ?>
 </body>
 </html>
