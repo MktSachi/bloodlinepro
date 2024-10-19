@@ -1,3 +1,60 @@
+<?php
+// Include your database connection file
+include '../Classes/Database.php';
+
+session_start();
+$db = new Database();
+$conn = $db->getConnection();
+
+// Assuming the logged-in HP's hospital ID is stored in the session
+$hospitalID = $_SESSION['hospitalID'];
+
+// Fetch donor account count
+$donorCountQuery = "SELECT COUNT(*) as count FROM donors";
+$donorCountResult = $conn->query($donorCountQuery);
+$donorCount = $donorCountResult->fetch_assoc()['count'];
+
+// Fetch blood request count
+$bloodRequestCountQuery = "SELECT COUNT(*) as count FROM blood_requests";
+$bloodRequestCountResult = $conn->query($bloodRequestCountQuery);
+$bloodRequestCount = $bloodRequestCountResult->fetch_assoc()['count'];
+
+// Fetch total blood units in inventory for the HP's hospital
+$totalHospitalUnits = 0;
+$queryHospitalBlood = "SELECT SUM(quantity) AS total FROM hospital_blood_inventory WHERE hospitalID = ?";
+$stmt = $conn->prepare($queryHospitalBlood);
+$stmt->bind_param("i", $hospitalID);
+$stmt->execute();
+$resultHospitalBlood = $stmt->get_result();
+
+if ($resultHospitalBlood->num_rows > 0) {
+    $row = $resultHospitalBlood->fetch_assoc();
+    $totalHospitalUnits = $row['total'];
+}
+$stmt->close();
+
+// Fetch blood usage count
+$bloodUsageQuery = "SELECT SUM(bloodQuantity) as total_usage FROM blood_usage";
+$bloodUsageResult = $conn->query($bloodUsageQuery);
+$bloodUsageCount = 0;
+if ($bloodUsageResult->num_rows > 0) {
+    $row = $bloodUsageResult->fetch_assoc();
+    $bloodUsageCount = $row['total_usage'];
+}
+$bloodUsageResult->free();
+
+$totalunits = 0;
+$queryTotalBlood = "SELECT SUM(quantity) AS total FROM hospital_blood_inventory";
+$resultTotalBlood = $conn->query($queryTotalBlood);
+if ($resultTotalBlood->num_rows > 0) {
+    $row = $resultTotalBlood->fetch_assoc();
+    $totalunits = $row['total'];
+}
+$resultTotalBlood->free();
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -73,7 +130,7 @@
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="card-title">Donor Account</h5>
-                <p class="card-text">15</p>
+                <p class="card-text"><?php echo $donorCount; ?></p>
               </div>
               <i class="fas fa-users icon text-primary"></i>
             </div>
@@ -86,7 +143,7 @@
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="card-title">Blood Request</h5>
-                <p class="card-text">14</p>
+                <p class="card-text"><?php echo $bloodRequestCount; ?></p>
               </div>
               <i class="fas fa-tint icon text-danger"></i>
             </div>
@@ -98,8 +155,8 @@
           <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="card-title">Inventory</h5>
-                <p class="card-text">20</p>
+                <h5 class="card-title">Hospital Inventory</h5>
+                <p class="card-text"><?php echo $totalHospitalUnits; ?></p> <!-- HP Hospital Blood Inventory -->
               </div>
               <i class="fas fa-database icon text-info"></i>
             </div>
@@ -112,7 +169,7 @@
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="card-title">Warning</h5>
-                <p class="card-text">15</p>
+                <p class="card-text">2</p> <!-- Replace with dynamic warning count if available -->
               </div>
               <i class="fas fa-exclamation-triangle icon text-warning"></i>
             </div>
@@ -124,21 +181,25 @@
           <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="card-title">Blood Availability</h5>
-                <p class="card-text">5</p>
+                <h5 class="card-title">Blood Usage</h5>
+                <p class="card-text"><?php echo $bloodUsageCount; ?></p> <!-- Blood Usage Count -->
               </div>
-              <i class="fas fa-heartbeat icon text-success"></i>
+              <i class="fas fa-chart-line icon text-primary"></i>
             </div>
-            <a href="WholeBloodInv.php" class="stretched-link"></a>
+            <a href="BloodUsage.php" class="stretched-link"></a>
           </div>
         </div>
+
+        
+
+        
 
         <div class="col-md-3 col-sm-6 mb-4">
           <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
                 <h5 class="card-title">Donation Camp</h5>
-                <p class="card-text">10</p>
+                <p class="card-text">2</p> <!-- Replace with dynamic donation camp count if available -->
               </div>
               <i class="fas fa-campground icon text-secondary"></i>
             </div>
@@ -150,12 +211,12 @@
           <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="card-title">Notify</h5>
-                <p class="card-text">10</p>
+                <h5 class="card-title">Blood Availability</h5>
+                <p class="card-text"><?php echo $totalunits; ?></p> <!-- Blood Availability -->
               </div>
-              <i class="fas fa-bell icon text-info"></i>
+              <i class="fas fa-heartbeat icon text-success"></i>
             </div>
-            <a href="NotificationHandle.php" class="stretched-link"></a>
+            <a href="WholeBloodInv.php" class="stretched-link"></a>
           </div>
         </div>
 
@@ -163,14 +224,15 @@
           <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="card-title">Blood Usage</h5>
-                <p class="card-text">10</p>
+                <h5 class="card-title">Notify</h5>
+                <p class="card-text">10</p> <!-- Replace with dynamic notification count if available -->
               </div>
-              <i class="fas fa-chart-line icon text-primary"></i>
+              <i class="fas fa-bell icon text-info"></i>
             </div>
-            <a href="BloodUsage.php" class="stretched-link"></a>
+            <a href="NotificationHandle.php" class="stretched-link"></a>
           </div>
         </div>
+
       </div>
     </div>
   </div>

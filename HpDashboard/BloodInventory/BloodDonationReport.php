@@ -9,6 +9,7 @@ $conn = $db->getConnection();
 $inventory = new Inventory($conn);
 
 $username = $_SESSION['username'] ?? '';
+$donations = []; // Initialize donations to prevent undefined variable error
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['startDate'], $_POST['endDate'])) {
     $startDate = $_POST['startDate'];
@@ -116,6 +117,7 @@ $db->close();
                                 <tr>
                                     <th>Donor Name</th>
                                     <th>Donor NIC</th>
+                                    <th>Blood Type</th>
                                     <th>Donated Blood Count</th>
                                     <th>Donation Date</th>
                                     <th>Blood Expiry Date</th>
@@ -126,6 +128,7 @@ $db->close();
                                     <tr>
                                         <td><?= htmlspecialchars($donation['first_name'] . ' ' . $donation['last_name']) ?></td>
                                         <td><?= htmlspecialchars($donation['donorNIC']) ?></td>
+                                        <td><?= htmlspecialchars($donation['bloodType']) ?></td>
                                         <td><?= htmlspecialchars($donation['donatedBloodCount']) ?></td>
                                         <td><?= htmlspecialchars($donation['donationDate']) ?></td>
                                         <td><?= htmlspecialchars($donation['bloodExpiryDate']) ?></td>
@@ -135,8 +138,8 @@ $db->close();
                             </table>
                         </div>
                         <a href="Download.php?download=pdf" class="btn btn-success mt-3">
-    <i class="fas fa-download me-2"></i>Download PDF Report
-</a>
+                            <i class="fas fa-download me-2"></i>Download PDF Report
+                        </a>
                     </div>
                 </div>
             <?php endif; ?>

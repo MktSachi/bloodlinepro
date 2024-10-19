@@ -109,7 +109,7 @@
 <body>
     <?php include './HpSidebar.php'; ?>
 
-    <div class="w3-main" style="margin-left:230px;margin-top:0px;">
+    <div class="w3-main" style="margin-left:240px;margin-top:0px;">
         <div class="container">
             <h3><i class="fa fa-bars"></i><strong>Inventory</strong></h3>
 

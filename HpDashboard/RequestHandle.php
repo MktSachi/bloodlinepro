@@ -113,7 +113,7 @@
     <?php include 'HpSidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
-    <div class="w3-main" style="margin-left:230px;margin-top:0px;">
+    <div class="w3-main" style="margin-left:240px;margin-top:0px;">
         <div class="container">
             <h3><i class="fa fa-tint" style="margin-right: 5px;"></i><strong>Blood Request</strong></h3>
 
@@ -124,7 +124,7 @@
                 </a>
 
                 <a href="ViewRequests.php" target="contentFrame" class="btn btn-info" id="viewRequestBtn" onclick="showButton('viewRequest', 'ViewRequests.php')">
-                    <i class="fa fa-eye" style="margin-right: 5px;"></i>View Blood Request
+                    <i class="fa fa-eye" style="margin-right: 5px;"></i>View Received Blood Request
                 </a>
 
                 <a href="BloodRequestReport.php" target="contentFrame" class="btn btn-primary" id="detailsBtn" onclick="showButton('details', 'BloodRequestReport.php')">
