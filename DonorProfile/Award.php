@@ -65,13 +65,13 @@ include 'DonorProfile.php';
 
             <!-- Donor ID Card Section -->
            <!-- Link to Donor ID Card Page -->
-                <?php if ($donationCount >= 15): ?>
+                <?php if ($donationCount = 5): ?>
                     <div class="text-center mt-5">
                         <h3>Congratulations! You have earned your Donor ID Card</h3>
                         <a href="DonationId.php" class="btn btn-primary">View and Download Your Donor ID Card</a>
                     </div>
                 <?php else: 
-                    $remainingDonations = 15 - $donationCount; ?>
+                    $remainingDonations = 5 - $donationCount; ?>
                     <div class="text-center mt-5">
                         <p>Donate <?php echo $remainingDonations; ?> more time(s) to unlock your Donor ID card!</p>
                     </div>
