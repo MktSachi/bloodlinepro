@@ -148,9 +148,7 @@ $db->close();
                     </div>
                 </div>
             <?php else: ?>
-                <div class="alert alert-warning" role="alert">
-                    No data available for the selected date range.
-                </div>
+                
             <?php endif; ?>
         </div>
     </div>

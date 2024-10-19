@@ -8,11 +8,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f4f7f6;
+            font-family: 'Arial', sans-serif;
+            background-color: #f8f9fa;
         }
-        .main-content {
-            margin-left: 250px;
-            padding: 20px;
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
         }
         .card {
             border: none;
@@ -20,34 +21,45 @@
             box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
         .card-header {
-            background-color: #0056b3;
+            background-color: #dc3545;
             color: white;
-            border-radius: 15px 15px 0 0 !important;
+            border-radius: 15px 15px 0 0;
+            padding: 20px;
+        }
+        .card-body {
+            padding: 30px;
+        }
+        .btn-primary {
+            background-color: #dc3545;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #c82333;
+        }
+        .form-control:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+        }
+        .alert {
+            border-radius: 10px;
+        }
+        .main-content {
+            margin-left: 250px;
+            padding: 20px;
         }
         .form-label {
             font-weight: 600;
         }
-        .btn-submit {
-        background-color: darkred;
-        color: white;
-        border: none;
-    }
-
-    .btn-submit:hover {
-        background-color: #a00000;
-        color:white;
-    }
-
-    .error {
-        color: red;
-    }
+        .error {
+            color: red;
+        }
     </style>
 </head>
 <body>
     <?php include 'sidebar.php'; ?>
 
     <div class="main-content">
-        <div class="container mt-4">
+        <div class="container">
             <div class="card">
                 <div class="card-header">
                     <h2 class="mb-0"><i class="fas fa-hospital-alt me-2"></i>Add Hospital</h2>
@@ -73,7 +85,7 @@
                             </div>
                         </div>
                         <div class="d-grid">
-                            <button type="submit" class="btn btn-submit btn-lg">Add Hospital</button>
+                            <button type="submit" class="btn btn-primary btn-lg">Add Hospital</button>
                         </div>
                     </form>
                 </div>

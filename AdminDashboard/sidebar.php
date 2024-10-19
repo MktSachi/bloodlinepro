@@ -172,52 +172,57 @@ $conn->close();
     </style>
 </head>
 <body class="w3-light-grey">
-    <div class="menu-icon" onclick="w3_toggle()">☰</div>
-    <nav class="sidebar" id="mySidebar">
-        <div class="sidebar-header">
-            <img src="doc.jpg" class="profile-pic">
-            <div class="profile-name">
-                <strong>M.Perera</strong>
+
+<div class="menu-icon" onclick="w3_toggle()">☰</div>
+
+<nav class="sidebar" id="mySidebar">
+    <div class="sidebar-header">
+        <img src="doc.jpg" class="profile-pic">
+        <div class="profile-name">
+            <strong>M.Perera</strong>
+        </div>
+    </div>
+
+    <div class="w3-bar-block">
+        <a href="Home.php" class="nav-item" id="home-link">
+            <i class="bx bx-home-alt"></i> Home
+        </a>
+        <a href="AdminDashboard.php" class="nav-item" id="dashboard-link">
+          <i class="bx bx-bar-chart"></i> Dashboard
+        </a>
+        <a href="Profile.php" class="nav-item" id="profile-link">
+            <i class="bx bx-cog"></i> Profile
+        </a>
+        <div class="nav-item dropdown">
+            <a href="#" class="nav-link dropdown-toggle" id="notification-link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="bx bx-bell"></i> Notifications
+                <?php if (isset($_SESSION['lowStockCount']) && $_SESSION['lowStockCount'] > 0): ?>
+                    <span class="badge badge-danger"><?= $_SESSION['lowStockCount'] ?></span>
+                <?php endif; ?>
+            </a>
+            <div class="dropdown-menu" aria-labelledby="notificationDropdown">
+                <?php if (isset($_SESSION['lowStockNotifications']) && count($_SESSION['lowStockNotifications']) > 0): ?>
+                    <?php foreach ($_SESSION['lowStockNotifications'] as $index => $notification): ?>
+                        <div class="dropdown-item">
+                            <?= $notification['message'] ?>
+                            <button class="btn btn-sm btn-danger" onclick="deleteNotification(<?= $index ?>)">Delete</button>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="dropdown-item">No notifications</div>
+                <?php endif; ?>
             </div>
         </div>
-        <div class="w3-bar-block">
-            <a href="Home.php" class="nav-item" id="home-link">
-                <i class="bx bx-home-alt"></i> Home
-            </a>
-            <a href="AdminDashboard.php" class="nav-item" id="dashboard-link">
-                <i class="bx bx-bar-chart"></i> Dashboard
-            </a>
-            <a href="Profile.php" class="nav-item" id="profile-link">
-                <i class="bx bx-cog"></i> Profile
-            </a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" id="notification-link" onclick="toggleNotifications()">
-                    <i class="bx bx-bell"></i> Notifications
-                    <?php if (isset($_SESSION['lowStockCount']) && $_SESSION['lowStockCount'] > 0 && !isset($_SESSION['notificationsViewed'])) : ?>
-                        <span class="badge badge-danger notification-badge"><?= $_SESSION['lowStockCount'] ?></span>
-                    <?php endif; ?>
-                </a>
-                <div class="dropdown-menu" id="notificationDropdown" style="display: none;">
-                    <?php if (isset($_SESSION['lowStockNotifications']) && count($_SESSION['lowStockNotifications']) > 0): ?>
-                        <?php foreach ($_SESSION['lowStockNotifications'] as $index => $notification): ?>
-                            <div class="dropdown-item">
-                                <?= $notification['message'] ?>
-                                <button class="btn btn-sm btn-danger" onclick="deleteNotification(<?= $index ?>)">Delete</button>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <div class="dropdown-item">No notifications</div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-        <div class="sidebar-footer">
-            <a href="../login_window/Logout.php" class="nav-item" id="logout-link" onclick="logout()">
-                <i class="bx bx-log-out"></i> Logout
-            </a>
-        </div>
-    </nav>
-    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    </div>
+
+    <div class="sidebar-footer">
+        <a href="../login_window/Logout.php" class="nav-item" id="logout-link" onclick="logout()">
+            <i class="bx bx-log-out"></i> Logout
+        </a>
+    </div>
+</nav>
+
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
     <script>
         var mySidebar = document.getElementById("mySidebar");
