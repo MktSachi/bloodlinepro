@@ -19,7 +19,7 @@ include 'DonorProfile.php';
 
     <div class="main-content">
         <div class="container">
-            <h2 class="text-center mb-4 animate__animated animate__fadeInDown">Your Donor Achievements</h2>
+            <h2 class="text-center mb-4 animate_animated animate_fadeInDown">Your Donor Achievements</h2>
 
             <!-- Badge Display Section -->
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
@@ -29,7 +29,7 @@ include 'DonorProfile.php';
                     $progress = $badge->getProgress($donationCount);
                     $isUnlocked = $badge->isUnlocked($donationCount);
                 ?>
-                <div class="col animate__animated animate__fadeInUp" style="animation-delay: <?php echo $index * 0.2; ?>s;">
+                <div class="col animate_animated animate_fadeInUp" style="animation-delay: <?php echo $index * 0.2; ?>s;">
                     <div class="achievement-card">
                         <div class="card-body">
                             <img src="<?php echo $isUnlocked ? $badge->getImageUnlocked() : $badge->getImageLocked(); ?>" 
@@ -65,7 +65,7 @@ include 'DonorProfile.php';
 
             <!-- Donor ID Card Section -->
            <!-- Link to Donor ID Card Page -->
-                <?php if ($donationCount >= 15): ?>
+                <?php if ($donationCount >= 5): ?>
                     <div class="text-center mt-5">
                         <h3>Congratulations! You have earned your Donor ID Card</h3>
                         <a href="DonationId.php" class="btn btn-primary">View and Download Your Donor ID Card</a>
@@ -79,7 +79,7 @@ include 'DonorProfile.php';
 
 
                             <!-- Total Donations Display -->
-                            <div class="total-donations text-center animate__animated animate__fadeInUp mt-4">
+                            <div class="total-donations text-center animate_animated animate_fadeInUp mt-4">
                                 <h4 class="mb-3">Total Donations: <span class="text-danger"><?php echo $donationCount; ?></span></h4>
                                 <p class="mb-4">Keep donating to unlock more achievements and save more lives!</p>
                             </div>

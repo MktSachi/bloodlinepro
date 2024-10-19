@@ -33,7 +33,7 @@ if ($result->num_rows > 0) {
     $profilePicture = $row['profile_picture'];
 
     // Check if the user is eligible for a donor ID card
-    if ($donationCount >= 15) {
+    if ($donationCount = 5) {
         // Generate a unique card number if not already set
         if (!isset($_SESSION['cardNumber'])) {
             $cardNumber = uniqid("BLOODPRO-");
@@ -63,10 +63,8 @@ if ($result->num_rows > 0) {
 ?>
 
 
-
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -74,112 +72,123 @@ if ($result->num_rows > 0) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <style>
         body {
             background-color: #f0f2f5;
             font-family: 'Poppins', sans-serif;
+            padding-left: 100px;
         }
 
         .card-container {
-            border-radius: 20px;
-            padding: 30px;
             width: 100%;
-            max-width: 900px;
-            margin: 50px auto;
-            background-color: #ffffff;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            max-width: 850px;
+            margin: 10px auto;
+            background: linear-gradient(135deg, #cc0000, #990000); 
+            border-radius: 15px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card-header-design {
+            background-color: #cc0000; 
+            padding: 20px;
             position: relative;
             overflow: hidden;
+        }
+
+        .header-content {
             display: flex;
-            flex-direction: row;
             align-items: center;
+            gap: 20px;
         }
 
-        .card-container::before,
-        .card-container::after {
-            content: '';
-            position: absolute;
-            border-radius: 50%;
-            z-index: 0;
+        .header-text {
+            color: white;
         }
 
-        .card-container::before {
-            top: -50px;
-            left: -50px;
-            width: 100px;
-            height: 100px;
-            background-color: rgba(230, 57, 70, 0.1);
-        }
-
-        .card-container::after {
-            bottom: -50px;
-            right: -50px;
-            width: 100px;
-            height: 100px;
-            background-color: rgba(29, 53, 87, 0.1);
-        }
-
-        .card-header {
-            font-weight: 700;
+        .header-text h1 {
             font-size: 28px;
-            color: #1d3557;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            margin: 0;
+            font-weight: 700;
+            text-align: center;
+        }
+
+        .header-text p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .diagonal-design {
             position: absolute;
-            top: 10px;
-            left: 50%;
-            transform: translateX(-50%);
+            top: 0;
+            right: 0;
+            width: 150px;
+            height: 100%;
+            background: linear-gradient(135deg, transparent 50%, #990000 50%); 
         }
 
         .card-body {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            background-color: #f8f9fa;
+            background-color: white;
             padding: 30px;
-            border-radius: 15px;
+            display: flex;
+            gap: 30px;
             position: relative;
-            z-index: 1;
-            width: 100%;
+        }
+
+        .profile-section {
+            flex: 0 0 200px;
         }
 
         .profile-picture {
-            width: 140px;
-            height: 140px;
+            width: 450px;  
+            height: 450px; 
             object-fit: cover;
-            border-radius: 50%;
-            margin-right: 30px;
-            border: 5px solid #e63946;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            border: 5px solid #cc0000; 
+            border-radius: 10px;
+        }
+
+        .info-section {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .card-title {
+            background-color: #cc0000; 
+            color: white;
+            padding: 10px 30px;
+            display: inline-block;
+            border-radius: 25px;
+            margin-bottom: 20px;
         }
 
         .donor-info {
-            width: 100%;
+            display: grid;
+            gap: 2px;
         }
 
-        .donor-info p {
-            margin: 12px 0;
-            font-size: 15px;
-            color: #333;
+        .info-row {
             display: flex;
-            justify-content: space-between;
             border-bottom: 1px solid #e0e0e0;
             padding-bottom: 8px;
         }
 
-        .donor-info strong {
-            color: #1d3557;
+        .info-label {
+            flex: 0 0 120px;
             font-weight: 600;
+            color: #cc0000; 
         }
 
-        .signature {
-            margin-top: 30px;
-            font-size: 14px;
-            font-style: italic;
-            color: #1d3557;
+        .info-value {
+            flex: 1;
+            color: #333;
+        }
+
+        .card-footer {
+            background-color: #990000; 
+            padding: 15px;
             text-align: right;
+            color: white;
         }
 
         .download-button {
@@ -188,31 +197,68 @@ if ($result->num_rows > 0) {
         }
 
         .download-button .btn {
-            font-size: 18px;
-            padding: 12px 35px;
-            background-color: #e63946;
+            background-color: #cc0000; 
             border: none;
+            padding: 12px 35px;
+            font-size: 18px;
+            border-radius: 25px;
             transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
-            color: #fff;
         }
 
         .download-button .btn:hover {
-            background-color: #1d3557;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(29, 53, 87, 0.4);
-            color: #fff;
+            background-color: #990000; 
         }
 
-        @media (max-width: 768px) {
-            .card-container {
-                flex-direction: column;
-            }
-
-            .profile-picture {
-                margin: 0 auto 30px;
-            }
+            @media (max-width: 768px) {
+        .card-body {
+            flex-direction: column;
+            padding: 15px;
         }
+
+        .profile-section {
+            flex: 0 0 auto;
+            text-align: center;
+        }
+
+        .profile-picture {
+            width: 250px;  
+            height: 250px;
+            margin: 0 auto;
+        }
+
+        .info-section {
+            padding: 15px 0;
+        }
+
+        .card-title {
+            text-align: center;
+            width: 100%;
+            padding: 10px 15px;
+        }
+
+        .donor-info {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+        .info-row {
+            flex-direction: column;
+            text-align: center;
+            padding: 10px 0;
+            border-bottom: none; 
+        }
+
+        .info-label {
+            flex: 0 0 auto;
+            font-weight: 600;
+        }
+
+        .info-value {
+            flex: 0 0 auto;
+        }
+    }
+
+
     </style>
 </head>
 
@@ -220,25 +266,60 @@ if ($result->num_rows > 0) {
     <?php include 'sidebar.php'; ?>
 
     <div class="container mt-5">
-        <?php if ($donationCount >= 15): ?>
-            <div class="card-container" id="donorIdCard"> <!-- Added id for capturing -->
-                <div class="card-header">
-                    BloodLinePro Donor ID
+        <?php if ($donationCount = 5): ?>
+            <div class="card-container" id="donorIdCard">
+                <div class="card-header-design">
+                    <div class="header-content">
+                        
+                        <div class="header-text">
+                            <h1>BLOODLINEPRO</h1>
+                            <p>Donor Identification Card</p>
+                        </div>
+                    </div>
+                    <div class="diagonal-design"></div>
                 </div>
+
                 <div class="card-body">
-                    <img src="<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" class="profile-picture">
-                    <div class="donor-info">
-                        <p><strong>Name:</strong> <span><?php echo htmlspecialchars($firstName . " " . $lastName); ?></span></p>
-                        <p><strong>NIC:</strong> <span><?php echo htmlspecialchars($donorNIC); ?></span></p>
-                        <p><strong>Blood Type:</strong> <span><?php echo htmlspecialchars($bloodType); ?></span></p>
-                        <p><strong>Birthday:</strong> <span><?php echo htmlspecialchars($birthday); ?></span></p>
-                        <p><strong>Address:</strong> <span><?php echo htmlspecialchars($address); ?></span></p>
-                        <p><strong>Card Number:</strong> <span><?php echo htmlspecialchars($_SESSION['cardNumber']); ?></span></p>
-                        <p><strong>Issued Date:</strong> <span><?php echo htmlspecialchars($issuedDate); ?></span></p>
+                    <div class="profile-section">
+                        <img src="<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" class="profile-picture">
+                    </div>
+                    <div class="info-section">
+                        <div class="card-title">DONOR INFORMATION</div>
+                        <div class="donor-info">
+                            <div class="info-row">
+                                <div class="info-label">Name</div>
+                                <div class="info-value"><?php echo htmlspecialchars($firstName . " " . $lastName); ?></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">NIC</div>
+                                <div class="info-value"><?php echo htmlspecialchars($donorNIC); ?></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Blood Type</div>
+                                <div class="info-value"><?php echo htmlspecialchars($bloodType); ?></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Birthday</div>
+                                <div class="info-value"><?php echo htmlspecialchars($birthday); ?></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Address</div>
+                                <div class="info-value"><?php echo htmlspecialchars($address); ?></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Card Number</div>
+                                <div class="info-value"><?php echo htmlspecialchars($_SESSION['cardNumber']); ?></div>
+                            </div>
+                            <div class="info-row">
+                                <div class="info-label">Issued Date</div>
+                                <div class="info-value"><?php echo htmlspecialchars($issuedDate); ?></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="signature">
-                    <strong>Signature:</strong> HP/MHO/SHO
+
+                <div class="card-footer">
+                    <div class="signature">Signature: HP/MHO/SHO</div>
                 </div>
             </div>
 
@@ -252,24 +333,21 @@ if ($result->num_rows > 0) {
         <?php endif; ?>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('downloadBtn').addEventListener('click', function() {
-            // Get the card-body element
             const cardBody = document.querySelector("#donorIdCard");
-
-            // Use html2canvas to capture the card body
             html2canvas(cardBody, {
-                scale: 2 // Increase the scale for better image quality
+                scale: 2,
+                useCORS: true,
+                logging: true,
+                backgroundColor: null
             }).then(canvas => {
-                // Create a link element for downloading
                 const link = document.createElement('a');
-                link.href = canvas.toDataURL('image/png'); // Convert the canvas to data URL
-                link.download = 'donor_id_card.png'; // Set the name of the downloaded file
-                link.click(); // Trigger the download
+                link.href = canvas.toDataURL('image/png');
+                link.download = 'donor_id_card.png';
+                link.click();
             });
         });
     </script>
 </body>
-
 </html>
