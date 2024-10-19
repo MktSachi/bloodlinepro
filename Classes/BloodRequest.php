@@ -301,5 +301,32 @@ class BloodRequest {
         return $stmt->execute();
     }    
 
+
+    public function getBloodRequestsByStatusAndDate($hospitalID, $startDate, $endDate, $statuses) {
+        $statusPlaceholders = implode(',', array_fill(0, count($statuses), '?'));
+        $query = "SELECT h.hospitalName as hospitalName, r.bloodType, r.requestedQuantity as bloodQuantity, r.requestDate, r.status 
+                  FROM blood_requests r 
+                  JOIN hospitals h ON r.RequestingHospitalID = h.hospitalID 
+                  WHERE r.DonatingHospitalID = ? 
+                  AND r.status IN ($statusPlaceholders) 
+                  AND r.requestDate BETWEEN ? AND ?";
+        
+        if ($stmt = $this->conn->prepare($query)) {
+            $stmt->bind_param(str_repeat('s', count($statuses)) . 'iss', ...array_merge([$hospitalID], $statuses, [$startDate, $endDate]));
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $requests = [];
+            while ($row = $result->fetch_assoc()) {
+                $requests[] = $row;
+            }
+            $stmt->close();
+            return $requests;
+        } else {
+            die("Error preparing query: " . $this->conn->error);
+        }
+    }
+    
+
+
 }
 ?>
