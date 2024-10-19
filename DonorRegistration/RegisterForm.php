@@ -160,12 +160,20 @@
                 </div>";
         }
         ?>
+
+
         <div class="form-group mt-2">
           <label for="otherHealthConditions" class="form-label">Other Health Conditions:</label>
           <textarea id="otherHealthConditions" name="otherHealthConditions" class="form-control"></textarea>
         </div>
       </div>
-    </section>
+
+      <div class="form-group mt-2">
+          <label for="otherHealthConditions" class="form-label">MyCare Account URL (Not required):</label>
+          <textarea id="otherHealthConditions" name="otherHealthConditions" class="form-control"></textarea>
+        </div>
+
+          </section>
 
     <section class="mt-4">
       <h5>Part 4: Upload Profile Picture</h5>
