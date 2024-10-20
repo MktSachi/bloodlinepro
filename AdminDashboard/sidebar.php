@@ -16,7 +16,7 @@
 
     <nav class="sidebar" id="mySidebar">
         <div class="sidebar-header">
-            <img src="doc.jpg" class="profile-pic">
+            <img src="../Upload/Admin.png" class="profile-pic">
             <div class="profile-name">
                 <strong>
                     <?php

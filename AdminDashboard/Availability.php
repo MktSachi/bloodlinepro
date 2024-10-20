@@ -115,6 +115,10 @@
     </div>
   </div>
 
+  <div class="footer">
+    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+  </div>
+
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const bloodTypeData = <?= json_encode($bloodTypeData) ?>;
@@ -212,7 +216,6 @@
             if (elements.length > 0) {
               const index = elements[0].index;
               const hospitalName = this.data.labels[index];
-              window.location.href = `hospitalBloodDistribution.php?hospital=${encodeURIComponent(hospitalName)}`;
             }
           }
         }

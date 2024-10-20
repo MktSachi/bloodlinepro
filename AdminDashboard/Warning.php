@@ -1,13 +1,11 @@
 <?php
 require '../Classes/Database.php';
 require '../Classes/Hospital.php';
-require 'WarningEmailSender.php';
 
 $db = new Database();
 $conn = $db->getConnection();
 
 $hospital = new Hospital($conn);
-$emailSender = new WarningEmailSender();
 
 // Fetch blood type distribution
 $bloodTypeData = [];
@@ -32,16 +30,6 @@ foreach ($bloodTypeData as $bloodType => $quantity) {
 }
 
 $lowStockCount = count($lowStockBloodTypes);
-
-// Send email alerts if there are low stock blood types
-$emailsSent = false;
-if ($lowStockCount > 0) {
-    $hospitals = $hospital->getHospitals();
-    while ($row = $hospitals->fetch_assoc()) {
-        $emailSent = $emailSender->sendLowStockAlert($row['email'], $row['hospitalName'], $lowStockBloodTypes);
-        $emailsSent = $emailsSent || $emailSent;
-    }
-}
 
 $conn->close();
 ?>
@@ -181,11 +169,6 @@ $conn->close();
             <div class="alert alert-danger text-center mb-4" role="alert">
                 <i class="fas fa-exclamation-triangle me-2"></i>Warning: <?= $lowStockCount ?> blood
                 type<?= $lowStockCount > 1 ? 's are' : ' is' ?> critically low (below 100 units).
-                <?php if ($emailsSent): ?>
-                    Email alerts have been sent to all hospitals.
-                <?php else: ?>
-                    Unable to send email alerts. Please check the system logs.
-                <?php endif; ?>
             </div>
             <div class="row">
                 <?php foreach ($lowStockBloodTypes as $bloodGroup): ?>
@@ -209,6 +192,10 @@ $conn->close();
                 <i class="fas fa-check-circle me-2"></i>All blood types are currently at adequate levels (100+ units).
             </div>
         <?php endif; ?>
+    </div>
+
+    <div class="footer">
+        @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
