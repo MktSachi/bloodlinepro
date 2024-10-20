@@ -146,16 +146,6 @@ $db->close();
         const lightModeURL = 'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css';
         const darkModeURL = 'https://cdn.jsdelivr.net/npm/bootswatch@5.3.3/dist/darkly/bootstrap.min.css';
 
-        function toggleDarkMode() {
-            const themeLink = document.getElementById('theme-link');
-            if (themeLink.getAttribute('href') === lightModeURL) {
-                themeLink.setAttribute('href', darkModeURL);
-                document.body.style.backgroundColor = '#222';
-            } else {
-                themeLink.setAttribute('href', lightModeURL);
-                document.body.style.backgroundColor = '#f8f9fa';
-            }
-        }
     </script>
 </body>
 </html>

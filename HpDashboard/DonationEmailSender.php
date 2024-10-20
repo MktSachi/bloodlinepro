@@ -133,7 +133,7 @@ class DonationEmailSender {
                     h1 {
                         color: #8B0000;
                         font-size: 28px;
-                        text-align: center;
+                        text-align: left;
                     }
                     h2 {
                         color: rgb(131, 26, 26);
@@ -191,7 +191,6 @@ class DonationEmailSender {
 
         $subject = "Upcoming Blood Donation Camp";
         $sentCount = 0;
-        $failedCount = 0;
 
         foreach ($donors as $donor) {
             $email       = $donor['email'];
@@ -199,18 +198,14 @@ class DonationEmailSender {
             $message     = $this->createEmailMessage($donorFirstName, $date, $time, $venue, $bloodGroup);
 
             if ($this->emailSender->sendEmail($email, $subject, $message)) {
-                echo "Email sent to: {$email}<br>";
                 $sentCount++;
             } else {
-                echo "Failed to send email to: {$email}<br>";
-                $failedCount++;
+                echo "Email not sent<br>";
+                return; // Stop further execution if any email fails
             }
         }
 
-        echo "<br>Total successful emails sent: {$sentCount}<br>";
-        if ($failedCount > 0) {
-            echo "Total emails failed: {$failedCount}<br>";
-        }
+        echo "<br>Successfully sent<br>";
     }
 }
 
@@ -243,5 +238,4 @@ $formData = [
 ];
 
 $donationEmailSender->sendDonationEmails($formData);
-
 ?>

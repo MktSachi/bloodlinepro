@@ -192,7 +192,7 @@
 
 <body>
   <?php include 'sidebar.php'; ?>
-  <div class="w3-main" style="margin-left:200px; margin-top:0;"> <!-- Updated margin-top to 0 -->
+  <div class="w3-main" style="margin-left:200px; margin-top:0;">
     <div class="dashboard-container">
       <h3 class="text-center mb-4">Blood Inventory Dashboard</h3>
       <div class="row mb-4">
@@ -292,12 +292,12 @@
             </div>
 
           </div>
-          
+
         </div>
       </div>
       <div class="footer">
-    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
-</div>
+        @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+      </div>
       <script>
         document.addEventListener('DOMContentLoaded', function () {
           const bloodTypeData = <?= json_encode($bloodTypeData) ?>;

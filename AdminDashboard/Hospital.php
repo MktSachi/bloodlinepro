@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,50 +12,62 @@
             font-family: 'Arial', sans-serif;
             background-color: #f8f9fa;
         }
+
         .container {
             max-width: 800px;
             margin-top: 50px;
         }
+
         .card {
             border: none;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
         }
+
         .card-header {
             background-color: #dc3545;
             color: white;
             border-radius: 15px 15px 0 0;
             padding: 20px;
         }
+
         .card-body {
             padding: 30px;
         }
+
         .btn-primary {
             background-color: #dc3545;
             border: none;
         }
+
         .btn-primary:hover {
             background-color: #c82333;
         }
+
         .form-control:focus {
             border-color: #dc3545;
-            box-shadow: 0 0 0 0.2rem rgba(220,53,69,.25);
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, .25);
         }
+
         .alert {
             border-radius: 10px;
         }
+
         .main-content {
             margin-left: 250px;
             padding: 20px;
         }
+
         .form-label {
             font-weight: 600;
         }
+
         .error {
             color: red;
         }
     </style>
 </head>
+
 <body>
     <?php include 'sidebar.php'; ?>
 
@@ -99,7 +112,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $("#addHospitalForm").validate({
                 rules: {
                     hospitalName: "required",
@@ -122,11 +135,12 @@
                     },
                     email: "Please enter a valid email address"
                 },
-                submitHandler: function(form) {
+                submitHandler: function (form) {
                     form.submit();
                 }
             });
         });
     </script>
 </body>
+
 </html>

@@ -6,9 +6,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin = new Admin();
     $currentPassword = $_POST['currentPassword'];
     $newPassword = $_POST['newPassword'];
-    
+
     $result = $admin->updateAdminPassword($currentPassword, $newPassword);
-    
+
     header('Content-Type: application/json');
     echo json_encode($result);
     exit;
@@ -17,6 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,10 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             font-family: 'Roboto', sans-serif;
             background-color: #f0f2f5;
         }
+
         .main-content {
             margin-left: 200px;
             padding: 30px;
         }
+
         .card {
             border-radius: 10px;
             border: none;
@@ -40,24 +43,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             margin-bottom: 30px;
             transition: all 0.3s ease;
         }
+
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 25px rgba(0, 0, 0, 0.15);
         }
+
         .card-body {
             padding: 25px;
         }
+
         .card-title {
             font-size: 1.2rem;
             font-weight: 600;
             margin-bottom: 20px;
             color: #34495e;
         }
+
         .blue-dot {
             color: #3498db;
             font-size: 20px;
             margin-right: 10px;
         }
+
         .btn-save {
             background-color: #3498db;
             color: white;
@@ -66,9 +74,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             border-radius: 5px;
             transition: all 0.3s ease;
         }
+
         .btn-save:hover {
             background-color: #2980b9;
         }
+
         @media (max-width: 768px) {
             .main-content {
                 margin-left: 0;
@@ -76,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     </style>
 </head>
+
 <body>
     <?php include 'sidebar.php'; ?>
 
@@ -94,7 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 </div>
                                 <div class="mb-3">
                                     <label for="email" class="form-label">E-mail</label>
-                                    <input type="email" class="form-control" id="email" value="bloodlinepro@gmail.com" readonly>
+                                    <input type="email" class="form-control" id="email" value="bloodlinepro@gmail.com"
+                                        readonly>
                                 </div>
                                 <div class="mb-3">
                                     <label for="currentPassword" class="form-label">Current Password</label>
@@ -109,7 +121,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <input type="password" class="form-control" id="confirmNewPassword" required>
                                 </div>
                                 <div class="text-center mt-4">
-                                    <button type="submit" class="btn btn-save"><i class="fas fa-save me-2"></i>Save Changes</button>
+                                    <button type="submit" class="btn btn-save"><i class="fas fa-save me-2"></i>Save
+                                        Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -151,27 +164,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 method: 'POST',
                 body: formData
             })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    document.getElementById('successMessage').textContent = data.success;
-                    document.getElementById('successMessage').style.display = 'block';
-                    document.getElementById('errorMessage').style.display = 'none';
-                    // Clear the form
-                    document.getElementById('profileForm').reset();
-                } else if (data.error) {
-                    document.getElementById('errorMessage').textContent = data.error;
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('successMessage').textContent = data.success;
+                        document.getElementById('successMessage').style.display = 'block';
+                        document.getElementById('errorMessage').style.display = 'none';
+                        // Clear the form
+                        document.getElementById('profileForm').reset();
+                    } else if (data.error) {
+                        document.getElementById('errorMessage').textContent = data.error;
+                        document.getElementById('errorMessage').style.display = 'block';
+                        document.getElementById('successMessage').style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('errorMessage').textContent = 'An unexpected error occurred. Please try again.';
                     document.getElementById('errorMessage').style.display = 'block';
                     document.getElementById('successMessage').style.display = 'none';
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                document.getElementById('errorMessage').textContent = 'An unexpected error occurred. Please try again.';
-                document.getElementById('errorMessage').style.display = 'block';
-                document.getElementById('successMessage').style.display = 'none';
-            });
+                });
         });
     </script>
 </body>
+
 </html>

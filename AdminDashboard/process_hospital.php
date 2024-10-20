@@ -32,6 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $resultMessage = "Failed to add hospital.";
     }
 }
+<<<<<<< HEAD
 ?>
 
 <!DOCTYPE html>
@@ -194,3 +195,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </script>
 </body>
 </html>
+=======
+
+?>
+>>>>>>> dfd7cca1e9d59fc8980273827d871413b877c94b
