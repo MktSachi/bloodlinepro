@@ -6,8 +6,7 @@ require '../PHPMailer/src/Exception.php';
 require '../PHPMailer/src/PHPMailer.php';
 require '../PHPMailer/src/SMTP.php';
 
-class WarningEmailSender
-{
+class WarningEmailSender {
     private $mail;
 
     public function __construct()
@@ -26,6 +25,9 @@ class WarningEmailSender
     public function sendLowStockAlert($recipientEmail, $hospitalName, $lowStockBloodTypes)
     {
         try {
+            // Clear all recipient addresses
+            $this->mail->clearAllRecipients();
+            
             $this->mail->addAddress($recipientEmail);
             $this->mail->isHTML(true);
             $this->mail->Subject = 'Blood Inventory Low Stock Alert';
@@ -40,6 +42,8 @@ class WarningEmailSender
             return false;
         }
     }
+
+    
 
     private function createEmailBody($hospitalName, $lowStockBloodTypes)
     {

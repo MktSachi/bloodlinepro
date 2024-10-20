@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <body>
     <div class="loader" id="loader">
-        <img src="Animation - 1728392021858.gif" alt="Loading...">
+        <img src="Image/Animation - 1728392021858.gif" alt="Loading...">
     </div>
     <div id="content-loader">
         <div class="spinner"></div>

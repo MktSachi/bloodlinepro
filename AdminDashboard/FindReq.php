@@ -201,17 +201,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             window.history.replaceState(null, null, window.location.href);
         }
 
-        // Show loader when form is submitted and hide after 1.5 seconds
-        document.getElementById('reportForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            document.getElementById('content-loader').style.display = 'flex';
-
-            setTimeout(function () {
-                document.getElementById('content-loader').style.display = 'none';
-                e.target.submit();
-            }, 1500);
-        });
-    </script>
+    // Show loader when form is submitted and hide after 1.5 seconds
+    document.getElementById('reportForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent the form from submitting immediately
+        document.getElementById('content-loader').style.display = 'flex';
+        
+        setTimeout(function() {
+            document.getElementById('content-loader').style.display = 'none';
+            e.target.submit(); // Submit the form after the loader disappears
+        }, 1500); // 1500 milliseconds = 1.5 seconds
+    });
+</script>
 
 </body>
 

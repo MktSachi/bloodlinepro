@@ -228,14 +228,17 @@ $db->close();
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                                        <div class="col-md-6">
                         <div class="donation-form">
                             <h3 class="text-center mb-4">Record New Donation</h3>
                             <form id="donation-form" method="post" onsubmit="return validateForm()">
                                 <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorDetails['donorNIC']) ?>">
                                 <div class="form-group mb-3">
                                     <label for="donatedBloodCount"><i class="fas fa-syringe"></i> Donated Blood Count:</label>
-                                    <input type="number" class="form-control" id="donatedBloodCount" name="donatedBloodCount" min="1" step="1" required>
+                                    <select class="form-control" id="donatedBloodCount" name="donatedBloodCount" required>
+                                        <option value="400">400ml</option>
+                                        <option value="500">500ml</option>
+                                    </select>
                                 </div>
                                 <button type="submit" class="btn btn-primary w-100">
                                     <i class="fas fa-check-circle"></i> Submit Donation Details

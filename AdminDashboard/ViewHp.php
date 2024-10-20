@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn = $db->getConnection();
 
     if (isset($_POST['registration_number']) && !isset($_POST['first_name'])) {
-        //Fetch data based on registration number
+        // Step 1: Fetch data based on registration number
         $registration_number = $validator->sanitizeInput($_POST['registration_number']);
 
         $stmt = $conn->prepare("SELECT * FROM healthcare_professionals WHERE hpRegNo = ?");
@@ -47,7 +47,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
     } elseif (isset($_POST['update'])) {
-        //Update form data
+        // Step 2: Update form data
         $registration_number = $validator->sanitizeInput($_POST['registration_number']);
         $first_name = $validator->sanitizeInput($_POST['first_name']);
         $last_name = $validator->sanitizeInput($_POST['last_name']);
