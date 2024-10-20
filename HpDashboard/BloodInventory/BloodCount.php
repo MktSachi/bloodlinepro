@@ -30,7 +30,7 @@ $db->close();
     <style>
         body {
             font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            background-color: white;
         }
         .dashboard-container {
             padding: 30px;

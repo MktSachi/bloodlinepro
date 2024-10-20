@@ -24,9 +24,11 @@ $requests = $bloodRequest->getBloodRequests($username);
     <title>View Blood Requests</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background-color: white;
             padding-top: 20px;
         }
 
@@ -86,9 +88,8 @@ $requests = $bloodRequest->getBloodRequests($username);
                                 <td><?php echo $request['requestedQuantity']; ?></td>
                                 <td><?php echo $request['status']; ?></td>
                                 <td>
-                                    <button class="btn btn-success btn-action me-1" onclick="confirmRequest('<?php echo $request['requestID']; ?>', '<?php echo urlencode($request['requestingHospital']); ?>', '<?php echo urlencode($request['bloodType']); ?>', '<?php echo $request['requestedQuantity']; ?>')">Accept</button>
-                                    <button class="btn btn-danger btn-action" onclick="confirmReject('<?php echo $request['requestID']; ?>')">Reject</button>
-                                </td>
+                                                                        <button class="btn btn-success btn-action me-2 mb-2" onclick="confirmRequest('<?php echo $request['requestID']; ?>', '<?php echo urlencode($request['requestingHospital']); ?>', '<?php echo urlencode($request['bloodType']); ?>', '<?php echo $request['requestedQuantity']; ?>')">Accept</button>
+                                    <button class="btn btn-danger btn-action mb-2" onclick="confirmReject('<?php echo $request['requestID']; ?>')">Reject</button> </td>
                             </tr>
                         <?php endforeach; ?>
                     <?php else: ?>

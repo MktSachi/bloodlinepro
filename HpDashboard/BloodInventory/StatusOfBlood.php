@@ -47,6 +47,9 @@ if (!$result['success']) {
     <title>Check Expired Blood Status</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
+         body {
+            background-color: white;
+        }
         .date-selection-card {
             max-width: 500px;
             margin: 50px auto;

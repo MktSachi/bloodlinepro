@@ -131,6 +131,10 @@
                     <i class="fa fa-tint" style="margin-right: 5px;"></i>Blood Request Details
                 </a>
 
+                <a href="ViewBloodRequest.php" target="contentFrame" class="btn btn-primary" id="ViewBtn" onclick="showButton('View', 'ViewBloodRequest.php')">
+                    <i class="fa fa-tint" style="margin-right: 5px;"></i>View Request Blood Request
+                </a>
+
                 <a href="#" class="btn" id="backButton" onclick="resetButtons()">
                     <i class="fa fa-arrow-left" style="margin-right: 5px;"></i>Back
                 </a>
@@ -152,7 +156,7 @@
     </div>
 
     <script>
-        const buttonIds = ['requestBtn', 'viewRequestBtn', 'detailsBtn'];
+        const buttonIds = ['requestBtn', 'viewRequestBtn', 'detailsBtn', 'ViewBtn'];
 
         function showButton(buttonType, url) {
             const contentFrame = document.getElementById('contentFrame');

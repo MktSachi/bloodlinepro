@@ -9,7 +9,7 @@
     <title>Notifications</title>
     <style>
         body {
-            background-color: #f5f5f5;
+            background-color: white;
             font-family: Arial, sans-serif;
         }
         .w3-main {

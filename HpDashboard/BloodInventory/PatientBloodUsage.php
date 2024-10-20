@@ -138,7 +138,7 @@ function generatePDFReport($startDate, $endDate, $reportData) {
     <style>
         /* Custom Styles */
         body {
-            background-color: #f8f9fa;
+            background-color: white;
         }
         .dashboard-container {
             margin-top: 50px;
