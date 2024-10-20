@@ -1,4 +1,4 @@
-<?php include 'HomePageProcess.php'; ?>	
+<?php include 'HomePageProcess.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -133,12 +133,10 @@
 
     .bg-light-red {
       background-color: #f8d7da;
-      /* Light Red */
     }
 
     .text-dark {
       color: #343a40;
-      /* Dark text */
     }
 
     @media (max-width: 768px) {
@@ -194,7 +192,7 @@
   <?php include 'sidebar.php'; ?>
   <div class="w3-main" style="margin-left:200px; margin-top:0;">
     <div class="dashboard-container">
-      <h3 class="text-center mb-4">Blood Inventory Dashboard</h3>
+      <h3 class="text-center mb-4">BLOODLINEPRO</h3>
       <div class="row mb-4">
 
         <div class="row">
@@ -395,7 +393,7 @@
                 if (elements.length > 0) {
                   const index = elements[0].index;
                   const hospitalName = this.data.labels[index];
-                  
+
                 }
               }
             }
