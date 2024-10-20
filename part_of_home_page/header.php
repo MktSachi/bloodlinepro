@@ -18,12 +18,14 @@
             font-family: 'Poppins', sans-serif;
             color: var(--text-color);
             background-color: var(--bg-color);
+            padding-top: 70px; 
         }
 
         .navbar {
             background-color: var(--white-color);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
             padding: 0.5rem 2rem;
+            z-index: 1000; 
         }
 
         .navbar-brand {
@@ -76,11 +78,6 @@
             transform: scaleX(1);
         }
 
-        .navbar-dark .navbar-nav .nav-link.active,
-        .navbar-dark .navbar-nav .nav-link.dropdown-toggle {
-            color: var(--primary-color) !important;
-        }
-
         .dropdown-menu {
             background-color: var(--white-color);
             border: none;
@@ -99,83 +96,78 @@
 
         .navbar-toggler {
             border: none;
-            background-color: var(--primary-color); /* Red color */
+            background-color: var(--primary-color);
         }
 
         .navbar-toggler-icon {
             background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 30 30' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255,1)' stroke-width='2' linecap='round' linejoin='round' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
         }
 
-        /* Responsive Code */
+        
         @media (max-width: 768px) {
             .navbar {
-                padding: 0.5rem 1rem;
+                padding: 0.5rem 1rem; 
             }
 
             .navbar-brand {
-                font-size: 1.2rem;
+                font-size: 1.2rem; 
             }
 
-            .navbar-brand img {
-                max-width: 150px;
+            .navbar-nav {
+                margin-left: 0;
             }
 
             .nav-link {
-                font-size: 0.9rem;
-            }
-
-            .dropdown-menu {
-                font-size: 0.9rem;
-            }
-
-            .navbar-toggler {
-                padding: 0.25rem 0.5rem;
+                font-size: 0.9rem; 
+                padding: 0.5rem 0; 
             }
         }
 
         @media (max-width: 576px) {
             .navbar {
-                padding: 0.25rem 0.5rem;
+                padding: 0.25rem 0.5rem; 
             }
 
             .navbar-brand {
-                font-size: 1rem;
+                font-size: 1rem; 
             }
 
             .navbar-brand img {
-                max-width: 120px;
+                max-width: 100px; 
             }
 
             .nav-link {
-                font-size: 0.8rem;
+                font-size: 0.8rem; 
             }
 
             .dropdown-menu {
-                font-size: 0.8rem;
+                font-size: 0.8rem; 
             }
 
             .navbar-toggler {
-                padding: 0.2rem 0.4rem;
+                padding: 0.2rem 0.4rem; 
+                color: white;
+                background-color: #6B031A !important; 
             }
         }
     </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top">
+    <nav class="navbar navbar-expand-md navbar-light fixed-top">
         <div class="container-fluid">
             <a href="#" class="navbar-brand navimg">
                 <img src="part_of_home_page/Image/1212.png" alt="Logo" class="img-fluid">
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" style="color: #f8f9fa;">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-md-0">
                     <li class="nav-item">
-                        <a class="nav-link active" href=""><i class="fas fa-home"></i></a>
+                        <a class="nav-link active" href="#"><i class="fas fa-home"></i></a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Donate
                         </a>
                         <ul class="dropdown-menu">
@@ -186,7 +178,7 @@
                         </ul>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             WBDD
                         </a>
                         <ul class="dropdown-menu">
@@ -200,7 +192,7 @@
                         <a class="nav-link active" href="#">Contact</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             About
                         </a>
                         <ul class="dropdown-menu">
@@ -221,7 +213,7 @@
     </nav>
 
     <footer>
-        <!-- Footer content goes here -->
+        
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
