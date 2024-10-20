@@ -3,7 +3,6 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Bootstrap 5 CSS  -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
@@ -131,9 +130,9 @@
 <body>
     <?php include 'sidebar.php'; ?>
 
-    <!-- PAGE CONTENT -->
+    
     <div class="w3-main">
-        <!-- Content Loader -->
+       
         <div id="content-loader">
             <div class="spinner"></div>
         </div>
@@ -176,8 +175,8 @@
             setTimeout(function() {
                 document.getElementById('content-loader').style.display = 'none';
                 document.querySelector('.main-content').style.display = 'block';
-                document.getElementById('welcomeMessage').style.display = 'block'; // Show welcome message after loading
-            }, 1500); // 1500 milliseconds = 1.5 seconds
+                document.getElementById('welcomeMessage').style.display = 'block'; 
+            }, 1500); // 1500ms = 1s
         });
 
         function showContent(url, button) {
@@ -185,20 +184,20 @@
             const welcomeMessage = document.getElementById('welcomeMessage');
             const backButton = document.getElementById('backButton');
 
-            // Hide welcome message and show iframe
+           
             welcomeMessage.style.display = 'none';
             contentFrame.style.display = 'block';
             contentFrame.src = url;
 
-            // Hide all other buttons except the clicked one
+            
             const buttons = document.querySelectorAll('.operation-links .btn');
             buttons.forEach(btn => {
                 if (btn !== button && btn !== backButton) {
-                    btn.style.display = 'none'; // Hide other buttons
+                    btn.style.display = 'none'; 
                 }
             });
 
-            // Show back button
+            
             backButton.style.display = 'inline-flex';
         }
 
@@ -207,18 +206,18 @@
             const welcomeMessage = document.getElementById('welcomeMessage');
             const backButton = document.getElementById('backButton');
 
-            // Reset iframe and show welcome message
+            
             contentFrame.src = 'about:blank';
             contentFrame.style.display = 'none';
             welcomeMessage.style.display = 'block';
 
-            // Show all main buttons again
+            
             const buttons = document.querySelectorAll('.operation-links .btn');
             buttons.forEach(btn => {
-                btn.style.display = 'inline-flex'; // Show all buttons
+                btn.style.display = 'inline-flex'; 
             });
 
-            // Hide back button
+            
             backButton.style.display = 'none';
         }
     </script>

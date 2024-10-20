@@ -1,7 +1,7 @@
 <?php
 include_once '../Classes/Admin.php';
 
-// Handle form submission
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $admin = new Admin();
     $currentPassword = $_POST['currentPassword'];
@@ -126,7 +126,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div id="errorMessage" class="alert alert-danger mt-3" role="alert" style="display:none;">
         An error occurred. Please try again.
     </div>
-
+    <div class="footer">
+    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('profileForm').addEventListener('submit', function (event) {

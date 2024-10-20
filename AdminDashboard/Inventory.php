@@ -33,73 +33,116 @@ $db->close();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        body {
-            background-color: #f8f9fa;
+    body {
+        background-color: #f8f9fa;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .w3-main {
+        margin-left: 230px;
+        margin-top: 0;
+        padding: 20px;
+    }
+    
+    .dashboard-container {
+        margin: 30px 20px 80px 20px; /* Top Right Bottom Left */
+    }
+    
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        margin-bottom: 30px;
+    }
+    
+    .card-header {
+        background-color: #007bff;
+        color: white;
+        border-radius: 15px 15px 0 0;
+        padding: 20px;
+    }
+    
+    .card-body {
+        padding: 30px;
+    }
+    
+    .btn-primary {
+        background-color: #007bff;
+        border: none;
+    }
+    
+    .btn-primary:hover {
+        background-color: #0056b3;
+    }
+    
+    .btn-success {
+        background-color: #28a745;
+        border: none;
+    }
+    
+    .btn-success:hover {
+        background-color: #218838;
+    }
+    
+    .table {
+        margin-top: 20px;
+    }
+    
+    .table thead th {
+        background-color: #f8f9fa;
+        border-bottom: 2px solid #dee2e6;
+    }
+    
+    /* Loader styles */
+    #content-loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.8);
+        display: none;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+    
+    .spinner {
+        width: 50px;
+        height: 50px;
+        border: 5px solid #f3f3f3;
+        border-top: 5px solid #007bff;
+        border-radius: 50%;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+    
+    .footer {
+        background-color: #007bff;
+        color: white;
+        text-align: center;
+        padding: 15px 0;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+        left: 0;
+    }
+
+    @media (max-width: 768px) {
+        .w3-main {
+            margin-left: 0;
         }
+        
         .dashboard-container {
-            margin-top: 50px;
+            margin: 20px 10px 60px 10px;
         }
-        .card {
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-        .card-header {
-            background-color: #007bff;
-            color: white;
-            border-radius: 15px 15px 0 0;
-            padding: 20px;
-        }
-        .card-body {
-            padding: 30px;
-        }
-        .btn-primary {
-            background-color: #007bff;
-            border: none;
-        }
-        .btn-primary:hover {
-            background-color: #0056b3;
-        }
-        .btn-success {
-            background-color: #28a745;
-            border: none;
-        }
-        .btn-success:hover {
-            background-color: #218838;
-        }
-        .table {
-            margin-top: 20px;
-        }
-        .table thead th {
-            background-color: #f8f9fa;
-            border-bottom: 2px solid #dee2e6;
-        }
-        /* Loader styles */
-        #content-loader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(255, 255, 255, 0.8);
-            display: none;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid #007bff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
     <!-- Content Loader -->
@@ -108,7 +151,7 @@ $db->close();
     </div>
     <?php include 'sidebar.php'; ?>
 
-<!-- PAGE CONTENT -->
+
 <div class="w3-main" style="margin-left:230px;margin-top:0px;">
     <div class="dashboard-container container">
         <div class="row">
@@ -186,10 +229,12 @@ $db->close();
         </div>
         <?php endif; ?>
     </div>
-
+    <div class="footer">
+    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+</div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Show loader when form is submitted
+        
         document.getElementById('hospital-form').addEventListener('submit', function() {
             document.getElementById('content-loader').style.display = 'flex';
         });

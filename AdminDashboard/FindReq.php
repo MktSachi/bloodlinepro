@@ -186,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         setTimeout(function() {
             document.getElementById('content-loader').style.display = 'none';
             e.target.submit(); // Submit the form after the loader disappears
-        }, 1500); // 1500 milliseconds = 1.5 seconds
+        }, 1000); // 1100ms = 1.5s
     });
 </script>
 
