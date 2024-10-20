@@ -224,7 +224,7 @@ $resultTotalBlood->free();
           <div class="card h-100">
             <div class="card-body d-flex justify-content-between align-items-center">
               <div>
-                <h5 class="card-title">Notify</h5>
+                <h5 class="card-title">Reminder</h5>
                 <p class="card-text">10</p> <!-- Replace with dynamic notification count if available -->
               </div>
               <i class="fas fa-bell icon text-info"></i>

@@ -12,7 +12,7 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f8f9fa;
+            background-color: white;
         }
         .dashboard-container {
             margin-top: 50px;

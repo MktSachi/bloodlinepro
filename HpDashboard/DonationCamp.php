@@ -62,7 +62,7 @@ $db->close();
             --secondary-color: #007bff;
         }
         body {
-            background-color: #f8f9fa;
+            background-color: white;
             font-family: 'Arial', sans-serif;
         }
         .sidebar {

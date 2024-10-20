@@ -326,7 +326,28 @@ class BloodRequest {
         }
     }
     
-
+    public function retrieveSentBloodRequestsForDateRange($hospitalID, $startDate, $endDate) {
+        $query = "SELECT h.hospitalName as receivingHospitalName, r.bloodType, r.requestedQuantity as bloodQuantity, r.requestDate, r.status 
+                  FROM blood_requests r 
+                  JOIN hospitals h ON r.DonatingHospitalID = h.hospitalID 
+                  WHERE r.RequestingHospitalID = ? 
+                  AND r.requestDate BETWEEN ? AND ?
+                  ORDER BY r.requestDate DESC";
+        
+        if ($stmt = $this->conn->prepare($query)) {
+            $stmt->bind_param('iss', $hospitalID, $startDate, $endDate);
+            $stmt->execute();
+            $result = $stmt->get_result();
+            $requests = [];
+            while ($row = $result->fetch_assoc()) {
+                $requests[] = $row;
+            }
+            $stmt->close();
+            return $requests;
+        } else {
+            die("Error preparing query: " . $this->conn->error);
+        }
+    }
 
 }
 ?>

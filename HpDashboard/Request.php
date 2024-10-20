@@ -19,80 +19,79 @@ if (!empty($_SESSION['error_msg'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet"> <!-- Change font -->
     <link rel="stylesheet" href="../Assets/css/header.css">
     <link rel="stylesheet" href="../Assets/css/footer.css">
     <title>Blood Bank Management System</title>
     <style>
         body {
-            background-color: #f8f9fa;
-            font-family: 'Arial', sans-serif;
+            background-color: #e9ecef;
+            font-family: 'Roboto', sans-serif; /* Updated font */
         }
 
         .container {
-            max-width: 800px;
+            max-width: 750px;
             margin: 50px auto;
             background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Enhanced shadow */
+            padding: 30px;
         }
 
         .page-title {
-            font-size: 28px;
-            color: #2c3e50;
-            margin-bottom: 30px;
+            font-size: 32px; /* Larger font */
+            color: #1e2a38;
+            margin-bottom: 25px;
             text-align: center;
-            font-weight: bold;
+            font-weight: 700; /* Heavier font weight */
         }
 
         .form-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         label {
-            font-weight: 600;
-            color: #34495e;
-            margin-bottom: 8px;
+            font-weight: 500; /* Lighter than previous */
+            color: #333;
+            margin-bottom: 6px;
             display: block;
         }
 
         .form-control {
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            padding: 10px 15px;
-            font-size: 16px;
-            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            border: 1px solid #ccc;
+            border-radius: 6px; /* Rounded corners */
+            padding: 12px;
+            font-size: 15px;
+            transition: border-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
         }
 
         .form-control:focus {
-            border-color: #4a90e2;
-            box-shadow: 0 0 0 0.2rem rgba(74, 144, 226, 0.25);
+            border-color: #198754; /* New focus color */
+            box-shadow: 0 0 0 0.2rem rgba(25, 135, 84, 0.25); /* Adjusted shadow */
         }
 
         select.form-control {
             height: auto;
-            padding: 10px 15px;
+            padding: 12px;
         }
 
         .btn-primary {
-            background-color: #4a90e2;
-            border-color: #4a90e2;
-            padding: 12px 20px;
+            background-color: #198754; /* Updated button color */
+            border-color: #198754;
+            padding: 14px;
             font-size: 18px;
             font-weight: 600;
-            letter-spacing: 0.5px;
-            transition: background-color 0.15s ease-in-out;
+            transition: background-color 0.3s ease-in-out;
         }
 
         .btn-primary:hover {
-            background-color: #3a7bc8;
-            border-color: #3a7bc8;
+            background-color: #146c43;
+            border-color: #146c43;
         }
 
         .alert {
-            border-radius: 4px;
-            margin-bottom: 30px;
+            border-radius: 6px;
+            margin-bottom: 25px;
         }
 
         .alert-danger {
@@ -176,9 +175,6 @@ if (!empty($_SESSION['error_msg'])) {
                 }
             });
         });
-
-        
     </script>
-
 </body>
 </html>
