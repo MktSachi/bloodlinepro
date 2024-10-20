@@ -128,7 +128,7 @@ $db->close();
     <?php include 'sidebar.php'; ?>
 
     <!-- PAGE CONTENT -->
-    <div class="w3-main" style="margin-left:230px;margin-top:0px;">
+    <div class="w3-main" style="margin-left:250px;margin-top:0px;">
         <div class="dashboard-container container">
             <div class="row">
                 <div class="col-lg-12 mb-4">
