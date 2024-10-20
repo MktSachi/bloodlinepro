@@ -92,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     <div class="main-content">
         <div class="container">
-            <h3 class="text-center mb-4">Admin Profile Details</h3>
+            <h3 class="text-center mb-4">Admin Profile</h3>
             <div class="row justify-content-center">
                 <div class="col-md-8">
                     <div class="card">
@@ -121,8 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                     <input type="password" class="form-control" id="confirmNewPassword" required>
                                 </div>
                                 <div class="text-center mt-4">
-                                    <button type="submit" class="btn btn-save"><i class="fas fa-save me-2"></i>Save
-                                        Changes</button>
+                                    <button type="submit" class="btn btn-save"><i class="fas fa-save me-2"></i>Save Changes</button>
                                 </div>
                             </form>
                         </div>
@@ -140,8 +139,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         An error occurred. Please try again.
     </div>
     <div class="footer">
-    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
-</div>
+        @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.getElementById('profileForm').addEventListener('submit', function (event) {
