@@ -64,7 +64,7 @@ $db->close();
 
   <div class="w3-main">
     <div class="dashboard-container">
-      <h3 class="text-center mb-4">Admin</h3>
+      <h3 class="text-center mb-4">Admin Dashboard</h3>
 
       <div class="row">
         <div class="col-md-3 col-sm-6 mb-4">
