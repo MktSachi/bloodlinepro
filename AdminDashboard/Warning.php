@@ -23,7 +23,7 @@ $resultBloodType->free();
 // Calculate low stock blood types (quantities < 100)
 $lowStockBloodTypes = [];
 foreach ($bloodTypeData as $bloodType => $quantity) {
-    if ($quantity < 100) {
+    if ($quantity < 10000) {
         $lowStockBloodTypes[] = [
             'bloodType' => $bloodType,
             'quantity' => $quantity
@@ -210,7 +210,9 @@ $conn->close();
             </div>
         <?php endif; ?>
     </div>
-
+    <div class="footer">
+    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+  </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function () {

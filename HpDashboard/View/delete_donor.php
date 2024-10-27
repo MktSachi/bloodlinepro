@@ -116,7 +116,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <h5 class="card-title">Error!</h5>
                         <p class="card-text">Failed to delete donor.</p>
                     <?php endif; ?>
-                    <a href="/donor_management.php" class="btn btn-primary">
+                    <a href="/HpDashboard/DonorAccountHandle.php" class="btn btn-primary">
                         <i class="fas fa-arrow-left"></i> Back to Donor Management
                     </a>
                 </div>

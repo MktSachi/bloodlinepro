@@ -7,10 +7,12 @@
     <title>Add Hospital</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+            background-color: white;
         }
 
         .container {
@@ -105,7 +107,9 @@
             </div>
         </div>
     </div>
-
+    <div class="footer">
+    @2024 - Developed by Bloodlinepro BLOOD BANK MANAGEMENT SYSTEM
+  </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>

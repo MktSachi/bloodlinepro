@@ -53,7 +53,7 @@ class Badge {
         return [
             new Badge('Silver', 2, 'Image/Silver.png', 'Image/Animation - 1720863479825.gif', 'linear-gradient(135deg, #B7B7B7, #E8E8E8)'),
             new Badge('Gold', 5, 'Image/Gold.png', 'Image/Animation - 1720863479825.gif', 'linear-gradient(135deg, #FFD700, #FFA500)'),
-            new Badge('Platinum', 10, 'Image/Platinum.png', 'Image/Animation - 1720863479825.gif', 'linear-gradient(135deg, #E5E4E2, #A9A9A9)')
+            new Badge('Platinum', 15, 'Image/Platinum.png', 'Image/Animation - 1720863479825.gif', 'linear-gradient(135deg, #E5E4E2, #A9A9A9)')
         ];
     }
 }

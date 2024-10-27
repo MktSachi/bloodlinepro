@@ -121,11 +121,10 @@
                 <a href="BloodInventory/BloodDonationReport.php" target="contentFrame" class="btn btn-info" id="donationBtn" onclick="showButton('donation', 'BloodInventory/BloodDonationReport.php')">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>Show Details Donation
                 </a>
-
                 <a href="BloodInventory/BloodUsageReport.php" target="contentFrame" class="btn btn-primary" id="usageBtn" onclick="showButton('usage', 'BloodInventory/BloodUsageReport.php')">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>Blood Usage
                 </a>
-
+                
                 <a href="BloodInventory/PatientBloodUsage.php" target="contentFrame" class="btn btn-info" id="PatientBtn" onclick="showButton('Patient', 'BloodInventory/PatientBloodUsage.php')">
                     <i class="fa fa-eye" style="margin-right: 5px;"></i>Patient Blood Usage
                 </a>

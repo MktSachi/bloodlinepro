@@ -146,8 +146,8 @@
                 <?php } ?>
                 <form action="login.php" method="post">
                     <div class="form-group">
-                        <label for="username">Email</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your email" required>
+                        <label for="username">Username</label>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="Enter your username" required>
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>

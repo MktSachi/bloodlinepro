@@ -144,8 +144,21 @@ if ($result->num_rows > 0) {
             width: 450px;  
             height: 450px; 
             object-fit: cover;
-            border: 5px solid #cc0000; 
+             
             border-radius: 10px;
+        }
+
+        .id-picture {
+            width: 200px;  
+            height: 200px; 
+            object-fit: cover;
+            border-radius: 10px;
+            
+        }
+
+        .id-section {
+            flex: 0 0 200px;
+            padding-top: 70px;
         }
 
         .info-section {
@@ -280,8 +293,8 @@ if ($result->num_rows > 0) {
                 </div>
 
                 <div class="card-body">
-                    <div class="profile-section">
-                        <img src="<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" class="profile-picture">
+                    <div class="id-section">
+                        <img src="<?php echo htmlspecialchars($profilePicture); ?>" alt="Profile Picture" class="id-picture">
                     </div>
                     <div class="info-section">
                         <div class="card-title">DONOR INFORMATION</div>
@@ -300,7 +313,7 @@ if ($result->num_rows > 0) {
                             </div>
                             <div class="info-row">
                                 <div class="info-label">Birthday</div>
-                                <div class="info-value"><?php echo htmlspecialchars($birthday); ?></div>
+                                <div class="info-value">2001/01/17</div>
                             </div>
                             <div class="info-row">
                                 <div class="info-label">Address</div>

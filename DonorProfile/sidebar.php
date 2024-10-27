@@ -214,10 +214,7 @@
         <a href="Contact.php" class="nav-item" id="contact-link">
                        <i class="bx bx-envelope"></i> Contact
         </a>
-        <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle no-underline" id="notification-link">
-                <i class="bx bx-bell"></i> Notifications
-            </a>
+        
         </div>
     </div>
 

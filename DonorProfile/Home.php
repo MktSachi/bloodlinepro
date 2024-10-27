@@ -273,10 +273,17 @@
     <?php include 'sidebar.php'; ?>
     
    
-    <div class="main-content"style="margin-left:230px;margin-top:0px;" >
+    <div class="main-content"style="margin-left:320px;margin-top:0px;" >
         <header>
             <h1>Welcome, <?php echo htmlspecialchars($lastName); ?>!</h1>
-            <p>Your next donation date: <strong>15th August 2024</strong></p>
+            <?php
+$donationDate = new DateTime('2024-10-21');
+$donationDate->modify('+3 months');
+$formattedDate = $donationDate->format('Y-m-d');
+?>
+
+<p>Your next donation date: <strong><?php echo htmlspecialchars($formattedDate); ?></strong></p>
+
         </header>
 
         <div class="dashboard-grid">

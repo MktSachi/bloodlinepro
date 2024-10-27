@@ -31,10 +31,12 @@ $db->close();
     <title>Donor Management</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
     <style>
         body {
-            background-color: #f4f4f4;
-            font-family: Arial, sans-serif;
+            font-family: 'Poppins', sans-serif;
+            background-color: white;;
         }
         .container {
             max-width: 1200px;
@@ -136,13 +138,7 @@ $db->close();
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-3 text-center">
-                            <?php if (!empty($donorDetails['profile_picture'])): ?>
-                                <img src="<?= htmlspecialchars($donorDetails['profile_picture']) ?>" alt="Profile Picture" class="profile-picture img-fluid">
-                            <?php else: ?>
-                                <img src="picture.jpg" alt="Profile Picture" class="profile-picture img-fluid">
-                            <?php endif; ?>
-                        </div>
+                        
                         <div class="col-md-9">
                             <div class="row">
                                 <div class="col-md-6">
@@ -188,13 +184,14 @@ $db->close();
                             </button>
                         </div>
                         <div class="col-md-6 text-right">
-                            <form id="delete-donor-form" method="post" action="delete_donor.php" class="d-inline">
-                                <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorNIC) ?>">
-                                <button id="update-donor" class="btn btn-secondary" data-toggle="modal" data-target="#updateDonorModal">
-            <i class="fas fa-edit mr-1"></i> Update
+    <form id="delete-donor-form" method="post" action="delete_donor.php" class="d-inline">
+        <input type="hidden" name="donorNIC" value="<?= htmlspecialchars($donorNIC) ?>">
+        <button id="update-donor" class="btn" style="background-color: #d43333; color: white;" data-toggle="modal" data-target="#updateDonorModal">
+            <i class="fas fa-trash-alt mr-1"></i> Delete
         </button>
-                            </form>
-                        </div>
+    </form>
+</div>
+
                     </div>
                 </div>
             </div>
